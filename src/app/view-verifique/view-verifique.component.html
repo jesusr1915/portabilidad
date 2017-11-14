@@ -1,0 +1,22 @@
+<p class="question">
+  {{copiesVer.titleInit}} <strong>{{copiesVer.titleStrong}}</strong> {{copiesVer.titleEnd}}
+</p>
+<app-cards></app-cards>
+<div class="divider">
+</div>
+<p class="question">
+  {{copiesVer.instLbl}}
+</p>
+<ul class = "bank_Data_contain">
+  <li>{{copiesVer.infoCount}}<span>{{valueInfo}}</span></li>
+  <li>{{copiesVer.infoBank}}<span>{{valueBank}}</span></li>
+  <li>{{copiesVer.infoBirthdate}}<span>{{valueBirthdate}}</span></li>
+</ul>
+<p class="question center">
+  {{copiesVer.inst2LblInit}} <strong class="black">{{copiesVer.inst2LblStrong}}</strong>
+  <br/>{{copiesVer.inst3LblInit}} <strong>{{copiesVer.inst3LblStrong}}</strong>
+</p>
+<div class="btnCont">
+  <button [routerLink]=" ['']" class = "first" type="button" >{{copiesVer.btnBack}}</button>
+  <button  type="button" >{{copiesVer.btnCont}}</button>
+</div>

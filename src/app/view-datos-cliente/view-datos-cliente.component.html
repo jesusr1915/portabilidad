@@ -1,0 +1,41 @@
+
+<app-cards></app-cards>
+<p class = "question">{{copies.title}}</p>
+<p class = "labelInst">{{copies.textInst1}}</p>
+<div class = "contentRadioBtns">
+<label class = "labelRadioBtn">
+  <input type="radio"  name="inputSelected" checked =true
+  (change) = "onSelectionChange(1)">
+  <p>{{copies.radioText1}}</p>
+</label>
+<label class = "labelRadioBtn right">
+  <input type="radio"  name="inputSelected"
+  (change) = "onSelectionChange(2)">
+  <p>{{copies.radioText2}}</p>
+</label>
+</div>
+<p class = "labelInst min">{{value_label_CLABE}}</p>
+<div class="controls minTop">
+      <input type="text" name="name" (keyup)="onKey($event)" [attr.maxlength]="maxLength" [(ngModel)]="tarjetValue">
+      <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label>
+</div>
+<p class = "labelInst">
+  {{copies.textInstBanco}}
+</p>
+<div class="contentSelect minTop">
+  <p [className] = "classSelBank">{{selectedBank}}</p>
+</div>
+<div class="divider"></div>
+<p class = "question">{{copies.textInstDatos}}</p>
+<app-personal-card class="minTop"></app-personal-card>
+<p class="labelInst min textCenter"> {{copies.textNote}}</p>
+<div class="contentSwich">
+   <input type="checkbox" id="unchecked" class="cbx hidden"/>
+   <label for="unchecked" class="lbl"></label>
+   <p>Acepto <a (click)="modal1.show(terminosText)">términos y condiciones</a></p>
+ </div>
+ <div class="btnCont">
+   <button  type="button" [routerLink]=" ['/verifica']" >Continuar</button>
+ </div>
+ <app-terms  #modal1></app-terms>
+ <app-message-alert></app-message-alert>

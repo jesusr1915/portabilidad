@@ -1,0 +1,17 @@
+
+<<div class="modal" [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+
+      <div class="modal body">
+        <div class = "header">
+          <img src="assets/imgs/ico-warnning.svg"
+		      class="logo-santander-03">
+          </div>
+          <h1>{{title}}</h1>
+        <p class = "textFix">{{message}}</p>
+        <div class = "footer" (click)="hide()">
+          <div class ="divider"></div>
+          <p>Aceptar</p>
+        </div>
+      </div>
+    </div>
+<div class="modal-background"></div>

@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+$font-stack: 'Open Sans';
+$margin-top: 25px;
+$width-med: 91%;
+$color-main-font: #2d2d2d;
+$red-color: #e80004;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: $font-stack;
+  h1, button { font-weight:normal; }
+  strong{
+    color:$red-color;
+  }
+  ul, li{
+    list-style:none;
+  }
+}
+.question, .labelInst, .contentRadioBtns, .controls,.contentSelect, .divider, app-personal-card, .contentSwich, .btnCont{
+  font-family: $font-stack;
+	font-weight: 300;
+	color: $color-main-font;
+  margin-top: $margin-top;
+  margin-left: auto;
+  margin-right: auto;
+  width: $width-med;
+  &.minTop{
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+}
+.question {
+	font-size: 18px;
+	letter-spacing: -0.3px;
+
+}
+
+.labelInst {
+	height: auto;
+	font-size: 16px;
+
+  &.min{
+    font-size: 14px;
+  }
+}
+
+
+//radioBtns
+$custom-radio-size:                 24px;
+$custom-radio-border-width:         1px;
+$custom-radio-transition-speed:     100ms;
+$custom-radio-inset-shadow:         inset 0 .1em 1px -.1em rgba(0,0,0,.3);
+
+$custom-radio-pip-color:            red;
+$custom-radio-pip-size:             round($custom-radio-size * .4);
+
+// States
+$custom-radio-unchecked-bg:         white;
+$custom-radio-unchecked-border:     transparentize(gray, .6);
+
+$custom-radio-checked-bg:           white;
+$custom-radio-checked-border:        #cdcdcd;
+
+$custom-radio-active-inset-shadow:  inset 0 0 2px 3px rgba(0,0,0,.1);
+
+$custom-radio-focus-shadow:         0 0 0 2px transparentize(dodgerblue, .5);
+
+$custom-radio-disabled-bg:          lighten(black, 91.8%);
+$custom-radio-disabled-pip-color:   lighten(black, 80%);
+
+
+// Check variable values
+@if ($custom-radio-size % 2 == 1) { @error '$custom-radio-size must be even'; }
+// round to nearest even number
+@if ($custom-radio-pip-size % 2 == 1) { $custom-radio-pip-size: $custom-radio-pip-size - 1; }
+
+
+input[type="radio"] {
+  position: relative;
+  display: inline-block;
+
+  width:  $custom-radio-size - 2;
+  height: $custom-radio-size - 2;
+
+  border-radius: 100%;
+  outline: none !important;
+  -webkit-appearance: none;
+
+  // Radio
+  // -----
+  &:hover {cursor: pointer;}
+  &::before {
+    position: relative;
+    top:  -$custom-radio-border-width;
+    left: -$custom-radio-border-width;
+    display: block;
+    content: '';
+
+
+    background: $custom-radio-unchecked-bg;
+    border: $custom-radio-border-width solid $custom-radio-unchecked-border;
+    border-radius: 100%;
+    box-shadow: $custom-radio-inset-shadow;
+
+    width:  $custom-radio-size;
+    height: $custom-radio-size;
+  }
+
+  &:active::before {
+    box-shadow: $custom-radio-inset-shadow,
+                $custom-radio-active-inset-shadow;
+  }
+
+  &:focus::before {
+    box-shadow: $custom-radio-inset-shadow,
+                $custom-radio-focus-shadow;
+  }
+
+  &:checked::before {
+    background: $custom-radio-checked-bg;
+    border-color: $custom-radio-checked-border;
+  }
+
+  &:disabled::before {
+    cursor: not-allowed;
+    background-color: $custom-radio-disabled-bg;
+    border-color: transparentize($custom-radio-unchecked-border, .2);
+  }
+
+
+
+  // Radio Pip
+  // ---
+
+  &::after {
+    position: relative;
+    top: -($custom-radio-size / 2) - $custom-radio-border-width;
+    left: ($custom-radio-size / 2) - $custom-radio-border-width;
+
+
+    display: block;
+    content: '';
+
+    background: $custom-radio-pip-color;
+    border-radius: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+
+    width:  0;
+    height: 0;
+  }
+
+  &:checked::after {
+    transition: all ease-in-out $custom-radio-transition-speed 0;
+
+    top:  floor(
+            - ($custom-radio-size / 2)
+            - ($custom-radio-pip-size / 2)
+            - $custom-radio-border-width
+            - .5
+          );
+
+    left: floor(
+            + ($custom-radio-size / 2)
+            - ($custom-radio-pip-size / 2)
+            - $custom-radio-border-width
+            + 1
+          );
+
+    width:  $custom-radio-pip-size;
+    height: $custom-radio-pip-size;
+  }
+
+  &:disabled::after {
+    background: $custom-radio-disabled-pip-color;
+  }
+}
+.contentRadioBtns {
+  height: 23px;
+}
+
+.labelRadioBtn {
+	width: 54%;
+	height: 23px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1.77;
+	color: #333333;
+  display: inline-block;
+  float: left;
+  &.right{
+    width: 46%;
+  }
+  p{
+    display: inline-block;
+    position: relative;
+    left: 10px;
+    top: -5px;
+  }
+
+}
+
+//TextArea
+
+$border: 		 #cccccc;
+$border-focus: #9FB1C1;
+$brand-color:  #1b3d4d;
+$booking-green: #b7b7b7;
+$asphalt: 		#506982;
+
+.controls{
+	text-align: left;
+	position: relative;
+	input[type="text"],
+	input[type="email"],
+  input[type="number"],
+  input[type="date"],
+	input[type="tel"],
+	textarea,
+	select{
+		padding: 14px;
+    padding-right: 0;
+    padding-left: 3%;
+		font-size: 14px;
+		border: 1px solid $border;
+    display: block;
+    width: 97%;
+		font-size: 16px;
+		font-weight: 300;
+
+		&:focus, &:hover{
+			outline: none;
+			border-color: $border-focus;
+			+ label{
+				color: $booking-green;
+          cursor: text;
+			}
+		}
+	}
+	select{
+		cursor: pointer;
+	}
+	label{
+		position: absolute;
+		left: 8px;
+		top: 10px;
+     width: auto;
+     color: #b7b7b7;
+		font-size: 16px;
+		display: inline-block;
+		padding: 4px 10px;
+		font-weight: 400;
+		background-color: rgba(255,255,255,0);
+    background-color: rgba(255,255,255,1);
+
+    &.active{
+			top: -11px;
+			color: #555;
+      background-color: rgba(255,255,255,1);
+      width: auto;
+		}
+	}
+	textarea{
+		resize:none;
+		height: 200px;
+	}
+}
+
+//Select
+
+$background: #e74c3c;
+$select-color: $red-color;
+$select-background: white;
+$select-width: $width-med;
+$select-height: 50px;
+
+.select-hidden {
+  display: none;
+  visibility: hidden;
+  padding-right: 10px;
+}
+.contentSelect {
+  border: 1px solid $border;
+  cursor: pointer;
+  position: relative;
+  font-size: 16px;
+  color: $select-color;
+  width: $select-width;
+  height: $select-height;
+}
+.select-styled {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $select-background;
+  font-family: $font-stack;
+  padding: 15px 15px;
+  &:after {
+    content:"";
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-color: $select-color transparent transparent transparent;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+  }
+  &.disabled {
+    background-color: #f0f0f0;
+    color: #2d2d2d;;
+    &:after{
+      display: none;
+    }
+  }
+  //&:hover {
+    //background-color: darken($select-background, 2);
+  //}
+  //&:active, &.active {
+    //background-color: darken($select-background, 5);
+    //&:after {
+      //top: 9px;
+      //border-color: transparent transparent $select-color transparent;
+  //  }
+  //}
+}
+
+.divider {
+	height: 0px;
+	border: solid 0.5px #cccccc;
+}
+app-personal-card{
+  display: block;
+	background-color: #f0f0f0;
+	border: solid 1px #cccccc;
+}
+.textCenter{
+  text-align: center;
+}
+
+.showLabel{
+  display: inline-block !important;
+}
+.hideLabel{
+  display: none !important;
+}
+
+//swich toggle
+.lbl{
+  position: relative;
+  display: inline-block;
+  height: 10px;
+  width: 34px;
+  background: #cdcdcd;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all .3s ease;
+  &:after{
+    position: absolute;
+    left: -2px;
+    top: -3px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 100px;
+    background-color: #9d9d9d;
+    box-shadow: 0px 3px 3px rgba(#000,.05);
+    content: '';
+    transition: all .3s ease;
+  }
+  &:active{
+    &:after{
+      transform: scale(1.15, .85);
+    }
+  }
+}
+.cbx:checked ~ label{
+  background: #cdcdcd;
+  &:after{
+    left: 20px;
+    background: $red-color;
+  }
+}
+.cbx:disabled ~ label{
+  background: #D5D5D5;
+  pointer-events: none;
+  &:after{
+    background: #BCBDBC;
+  }
+}
+.hidden {
+  display: none;
+}
+.contentSwich {
+  text-align: center;
+  p{
+    display: inline-block;
+    margin-left: 2%;
+    font-size: 16px;
+    a{
+      text-decoration: underline;
+      color: $red-color;
+      }
+    a:hover{
+      cursor:pointer;
+    }
+   }
+  }
+  .btnCont{
+    text-align: center;
+    margin-bottom: $margin-top;
+    button{
+      width: 336px;
+  	  height: 50px;
+  	  border-radius: 25px;
+  	  background-color: $red-color;
+      font-size: 17px;
+  	  font-weight: bold;
+  	  text-align: center;
+  	  color: #ffffff;
+      border: 2px solid $red-color;
+      &:focus {outline:0;}
+      &:hover {cursor: pointer;}
+    }
+
+  }
