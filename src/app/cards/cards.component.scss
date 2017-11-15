@@ -1,0 +1,17 @@
+
+.contentCarr {
+	width: auto;
+	height: 161px;
+	background-color: #e6e6e6;
+  display: flex;
+  overflow-x: scroll;
+  app-card-info{
+		&.multi{
+    	margin-left: 10%;
+    	margin-top: auto;
+    	margin-bottom: auto;
+		}&.one{
+			margin: auto;
+		}
+  }
+}

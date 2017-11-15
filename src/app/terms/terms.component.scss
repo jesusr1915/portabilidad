@@ -1,0 +1,70 @@
+
+.modal{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: auto;
+  background-color:rgba(0,0,0,0.6);
+  .body{
+    width: 85%;
+    height: 599px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin: 32px 3%;
+    padding: 10px 3%;
+  }
+}
+
+.header {
+  height: 29px;
+  h1, .logo-santander-03{
+    float: left;
+  }
+  h1{
+    width: auto;
+    font-size: 16px;
+    text-align: left;
+    color: #333333;
+    margin-top: 5px;
+    margin-left: 4%;
+
+  }
+  .logo-santander-03 {
+    width: 31px;
+    height: 29px;
+    object-fit: contain;
+  }
+  .btn-close {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    margin-top: 8px;
+    float: right;
+    &:hover{
+      cursor:pointer;
+    }
+  }
+}
+.divider {
+  margin: 10px 0;
+  display: block;
+	width: 100%;
+	background-color:#b1b4b3;
+}
+.textFix {
+  width: 94%;
+	height: 475px;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.43;
+	text-align:left;
+	color: #333333;
+  margin: 0 3%;
+  white-space: pre-line;
+}
+.btnCont{
+  margin-top: 10px;
+}

@@ -1,0 +1,42 @@
+{
+  "estatus": 0,
+  "descripcion": "ok",
+  "datos": {
+    "seleccion_cuenta": {
+      "title": "¿Dónde recibe actualmente su nómina? ",
+      "textInst1": "Ingrese los datos solicitados.",
+      "textInst2": "Ingrese los datos solicitados.",
+      "radioText1": "CLABE Interbancaria",
+      "radioText2": "Tarjeta de débito",
+      "textInstClabe": "Ingrese los 18 dígitos de su CLABE",
+      "textPlaceHolderClabe": "18 dígitos",
+      "textInstDebito": "Ingrese los 16 dígitos de su Tarjeta de débito",
+      "textPlaceHolderDebito": "16 dígitos",
+      "textInstBanco": "Banco",
+      "textInstDatos": "Verifique que sus datos son correctos",
+      "textNote": "En caso de ser incorrecta su fecha de nacimiento, por favor acuda a cualquier sucursal para realizar la corrección."
+    },
+    "titular": {
+      "textTitular": "Titular de la cuenta",
+      "textFechaNac": "Fecha de nacimineto"
+    },
+    "terminos": {
+      "texto": "Su privacidad y confianza son muy importantes para nosotros. Por ello, queremos asegurarnos de que  conozca como salvaguardamos la integridad, privacidad y protección de sus Datos Personales. \n\n Consideramos  que por ser una empresa socialmente responsable tenemos la obligación legal y social de cumplir con  las medidas legales y de seguridad suficientes para proteger aquellos Datos Personales que se hayan  recabado para las finalidades que se describen en el presente aviso de privacidad.  \n\n Se da a conocer  el presente aviso de privacidad en estricto acatamiento a los artículos tercero transitorio, 16 y 17  de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, publicada en el  Diario Oficial de la Federación el día 5 de julio del año 2010, ordenamiento legal que tiene por objeto  la protección de los datos personales en posesión de los particulares, con la finalidad de regular"
+    },
+    "verifique": {
+      "titleInit": "Cuenta ",
+      "titleStrong":"Santander ",
+      "titleEnd":"donde va a recibir su nómina.",
+      "instLbl": "Datos de la cuenta o tarjeta de débito donde actualmente recibe su nómina.",
+      "infoCount":"CLABE Interbancaria",
+      "infoBank":"BANCO",
+      "infoBirthdate":"FECHA DE NACIMIENTO",
+      "inst2LblInit": "Esta operación requiere ",
+      "inst2LblStrong": "NIP dinámico.",
+      "inst3LblInit":"Para generarlo de clic en ",
+      "inst3LblStrong":"Confirmar.",
+      "btnBack":"Regresar",
+      "btnCont":"Confirmar"
+    }
+  }
+}

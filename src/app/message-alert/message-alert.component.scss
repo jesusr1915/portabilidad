@@ -1,0 +1,56 @@
+$margin-med: 33px;
+.header{
+
+    height: auto;
+
+    text-align: center;
+
+      margin-top: $margin-med;
+  .logo-santander-03{
+    float: none;
+    width: 53px;
+    height: 53px;
+  }
+}
+
+.modal{
+  .body{
+    left: 13%;
+    top: 25%;
+    width: 279px;
+	  height: 281px;
+	  border-radius: 5px;
+	  background-color: #ffffff;
+  }
+  h1{
+    text-align: center;
+    font-size: 18px;
+  	font-weight: 700;
+  }
+  .textFix {
+    margin-top: $margin-med;
+    height: auto;
+    width: 94%;
+  	font-size: 16px;
+  	font-weight: 300;
+  	text-align:center;
+  	color: #424242;
+    white-space: normal;
+  }
+}
+.footer{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  p{
+      margin: 10px 0;
+      color: #e80004;
+      font-size: 15px;
+      font-weight: 700;
+  }
+  :hover{
+    cursor: pointer;
+  }
+}

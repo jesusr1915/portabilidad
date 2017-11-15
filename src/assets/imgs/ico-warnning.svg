@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="52" viewBox="0 0 55 52">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#FFF" stroke="#E80004" stroke-width="3" d="M28.38 2.626l24.822 45.898a1 1 0 0 1-.88 1.476H2.678a1 1 0 0 1-.88-1.476L26.62 2.626a1 1 0 0 1 1.76 0z"/>
+        <text fill="#E80004" font-family="Avenir-Book, Avenir" font-size="33" transform="translate(1 1)">
+            <tspan x="22.413" y="41">!</tspan>
+        </text>
+    </g>
+</svg>
