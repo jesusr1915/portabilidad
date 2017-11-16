@@ -1,4 +1,33 @@
 
+:host {
+    margin: 0;
+    padding: 0;
+  
+    .frame {
+        background-color: #e6e6e6;
+        border: 0;
+        overflow: hidden;
+        margin: 0;
+
+    }
+  .contentCarr {
+      width: auto;
+      height: 161px;
+      background-color: #e6e6e6;
+    display: flex;
+    /* overflow-x: scroll; */
+    app-card-info{
+      &.multi{
+		margin-left: 10%;
+		margin-top: auto;
+		margin-bottom: auto;
+		}&.one{
+			margin: auto;
+		}
+    }
+  }
+}
+/*
 .contentCarr {
 	width: auto;
 	height: 161px;
@@ -15,3 +44,4 @@
 		}
   }
 }
+*/

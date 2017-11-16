@@ -1,11 +1,13 @@
-<div class="contentCarr" >
-    <app-card-info
-      *ngFor="let card of cards"
-      [className]="classLabel"
-      [value_alias]="card.alias"
-      [value_disponible] = "card.disponible"
-      [value_divisa] = "card.divisa"
-      [value_numCuenta] = "card.numeroCuenta"
-      [value_cuentaMovil] = "card.cuentaMovil">
-    </app-card-info>
+<div id="frame" class="frame">
+	<div class="contentCarr" >
+	    <app-card-info
+	      *ngFor="let card of cards"
+	      [className]="classLabel"
+	      [value_alias]="card.alias"
+	      [value_disponible] = "card.disponible"
+	      [value_divisa] = "card.divisa"
+	      [value_numCuenta] = "card.numeroCuenta"
+	      [value_cuentaMovil] = "card.cuentaMovil">
+	    </app-card-info>
+	</div>
 </div>

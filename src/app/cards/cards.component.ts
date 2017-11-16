@@ -3,6 +3,10 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { MessageMan } from '../cards/messageMan';
 
+declare var jQuery:any;
+declare var $:any;
+declare var Sly:any;
+
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
@@ -55,11 +59,46 @@ export class CardsComponent implements OnInit, OnDestroy {
           this.cards.push(value);
       }
     }
+    this.setSly();
   }
   setOneValue(value:any){
     this.classLabel = this.classOne;
     this.cards = [];
     this.cards.push(value);
+  }
+
+
+  private setSly():void {
+    let frame:any;
+    let local = this;
+    setTimeout(()=> {
+      let options = {
+        horizontal: 1,
+        itemNav: 'forceCentered',
+        smart: 1,
+        activateMiddle: 1,
+        activateOn: 'click',
+        mouseDragging: 1,
+        touchDragging: 1,
+        releaseSwing: 1,
+        startAt: 0,
+        scrollBy: 1,
+        speed: 300,
+        elasticBounds: 1,
+        dragHandle: 1,
+        dynamicHandle: 1,
+        clickBar: 1
+      };
+      frame = new Sly(document.getElementById("frame"), options).init();
+      frame.on('active', function (eventName, itemIndex ) {        
+        console.log('Current', local.cards[itemIndex]);
+      });
+      $(window).resize();
+      $(window).resize();
+    }, 1000);
+    $(window).resize(function(e) {
+      frame.reload();
+    });
   }
 
 }

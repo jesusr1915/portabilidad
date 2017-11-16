@@ -1,0 +1,24 @@
+{
+  "name": "sp-fron-web",
+  "description": "App Santander Plus",
+  "main": "",
+  "authors": [
+    "isra <isra.iiss@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "app",
+    "santander-plus"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sly": "^1.6.1"
+  }
+}
