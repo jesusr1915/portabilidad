@@ -31,7 +31,6 @@ export class ViewDatosClienteComponent implements OnInit {
   classDisBank = "select-styled disabled"
   classSelBank = "";
 
-  token = "";
 
   @Input() value_label_CLABE;
   @Input() value_placeholder_CLABE;
@@ -60,12 +59,29 @@ export class ViewDatosClienteComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
-        this.token = res.access_token
-        this.loginServices.getconsultaRFC(this.token)
+        this.loginServices.postBancos()
+        .subscribe(
+          res => {
+            let bancosName = [];
+            let bancosId = [];
+            for(let arrayVal of res.dto){
+              bancosName.push(arrayVal.nombreCorto);
+              bancosId.push(arrayVal.id);
+            }
+            console.log(bancosName);
+
+
+
+          },
+          err => {
+            this.errorService();
+          }
+        );
+        this.loginServices.getconsultaRFC()
         .subscribe(
           res => {
             this.infoCardMng.sendMessage(res.dto);
-            this.loginServices.getSaldos(this.token)
+            this.loginServices.getSaldos()
             .subscribe(
               res => {
                 this.messageMan.sendMessage(res);
@@ -83,28 +99,6 @@ export class ViewDatosClienteComponent implements OnInit {
         console.log('Something went wrong!' + err.message);
       }
     )
-
-
-
-/*
-
-    this.loginServices.getSaldos()
-    .subscribe(
-      res => {
-        this.messageMan.sendMessage(res);
-      }
-    )
-
-
-
-    var message = new messageAlert("Atención","Ya existe una solicitud activa oen proceso ligada a su cuenta Santander");
-
-    this.loginServices.getconsultaRFC(this.token)
-    .subscribe(
-      res => {
-        console.log("aquie merengues" +res);
-      }
-    )*/
   }
 
   errorService(){
@@ -114,6 +108,7 @@ export class ViewDatosClienteComponent implements OnInit {
 
   onSelectionChange(entry){ // radio buttons controll
     this.tarjetValue = "";
+    this.selectedBank = "";
     this.classLabel = 'showLabel';
     if(entry == 1){
       this.value_label_CLABE = this.copies.textInstClabe;
@@ -134,7 +129,17 @@ export class ViewDatosClienteComponent implements OnInit {
       if(this.tarjetValue.length != 0){
         this.classLabel = 'hideLabel';
           if(this.tarjetValue.length == 18){
-            console.log("aqui va el servicio");
+            //service get Banks
+            this.loginServices.postBancosClabe(this.tarjetValue)
+            .subscribe(
+              res=> {
+                this.selectedBank = res.dto.bancoCuenta
+              },
+              err => {
+                this.errorService();
+                console.log('Something went wrong!' + err.message);
+              }
+            )
           }else{
 
           }

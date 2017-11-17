@@ -24,7 +24,6 @@ export class PersonalCardComponent implements OnInit {
   }
 
   formatDate(date:string){
-    console.log(date);
     let values = date.split("-", 3);
     let index = parseInt(values[1])-1;
     let month = ["Enero",
