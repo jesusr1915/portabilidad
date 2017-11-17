@@ -7,66 +7,58 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Injectable()
 export class LoginService{
-  private serviceUrlAnalyse = 'https://qai.supermovil.mx:2443/SuperMovil/loginAnalyzeS2U.go';
-  private serviceUrlSegment = 'https://qai.supermovil.mx:2443/SuperMovil/loginSegmentacion.go';
-
   private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-dev.appls.cto1.paas.gsnetcloud.corp';
 
   private serviceOAuth = this.urlBase + '/token';
   private serviceUrlSaldos = this.urlBase + '/cuentas/saldosCuentasCheques';
   private serviceUrlRFC = this.urlBase + '/clientes/consultaRFCPN';
+  private serviceUrlClabeBancos = this.urlBase + '/bancos/bancoCuenta';
+  private serviceUrlBancos = this.urlBase + '/bancos/consultaBancos';
+
   private body = '';
   private headers = new Headers();
+  private options;
   data: any = {};
 
+  token = "";
+
   constructor(public http:Http, public spinnerMng : SpinnerMan) {
-    this.configHeader();
   }
 
   postOAuthToken(){
-    let options = new RequestOptions({ headers: this.headers, withCredentials: true });
+    this.configHeader(false);
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append ('client_id','b63dae8e-3dc5-4652-a1c1-cb3f3c2b4a29');
     urlSearchParams.append ('clientSecret','6pW&z3A4lVbzF?$,?GFtEI)Q/j=J/d');
     let body = urlSearchParams.toString();
-    this.spinnerMng.showSpinner(true);
-    return this.http.post(this.serviceOAuth,body,options)
-    .map((response) => {
-      this.spinnerMng.showSpinner(false);
-      return response.json()
-      })
-      .catch((e) => {
-        this.spinnerMng.showSpinner(false);
-        return Observable.throw(
-          new Error(`${ e.status } ${ e.statusText }`)
-        );
-      });
+    return this.postRequest(this.serviceOAuth,body,this.options);
   }
 
-  getconsultaRFC(token : string){
-    this.configHeader();
-    let tokentemp = 'Bearer '+token;
-    this.headers.append('Authorization', tokentemp);
-    let options = new RequestOptions({ headers: this.headers, withCredentials: true });
-    return this.http.get(this.serviceUrlRFC,options)
-    .map((response) => {
-      this.spinnerMng.showSpinner(false);
-      return response.json()
-      })
-      .catch((e) => {
-        this.spinnerMng.showSpinner(false);
-        return Observable.throw(
-          new Error(`${ e.status } ${ e.statusText }`)
-        );
-      });
+  getconsultaRFC(){
+    this.configHeader(false);
+    return this.getRequest(this.serviceUrlRFC,this.options);
+
   }
-  getSaldos(token : string){
-    this.configHeader();
-    let tokentemp = 'Bearer '+token;
-    this.headers.append('Authorization', tokentemp);
-    let options = new RequestOptions({ headers: this.headers, withCredentials: true });
-    return this.http.get(this.serviceUrlSaldos,options)
+  getSaldos(){
+    this.configHeader(false);
+    return this.getRequest(this.serviceUrlSaldos,this.options)
     //return this.http.get('api/cuentaCheques.json')
+  }
+  postBancosClabe(cuenta : string){
+    this.configHeader(true);
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append ('cuenta',cuenta);
+    let body = urlSearchParams.toString();
+    return this.postRequest(this.serviceUrlClabeBancos,body,this.options)
+  }
+  postBancos(){
+    this.configHeader(true);
+    return this.postRequest(this.serviceUrlBancos,"",this.options);
+
+  }
+  getRequest(url:string, xtras:string){
+    this.spinnerMng.showSpinner(true);
+    return this.http.get(url,xtras)
     .map((response) => {
       this.spinnerMng.showSpinner(false);
       return response.json()
@@ -78,34 +70,35 @@ export class LoginService{
         );
       });
   }
+  postRequest(url:string, body:string, xtras:string){
+    this.spinnerMng.showSpinner(true);
+    return this.http.post(url,body,xtras)
+    .map((response) => {
+      this.spinnerMng.showSpinner(false);
+      if(url == this.serviceOAuth){
+        this.token = response.json().access_token;
+      }
+      return response.json()
+      })
+      .catch((e) => {
+        this.spinnerMng.showSpinner(false);
+        return Observable.throw(
+          new Error(`${ e.status } ${ e.statusText }`)
+        );
+      });
+  }
 
-  configHeader(){
+  configHeader(json:boolean){
     this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    if(json){
+      this.headers.append("Content-Type", 'application/json');
+    }else{
+      this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    }
     this.headers.append('Cookie1', 'JSESSIONID=0001mpNoV1PyUsLjHh_co0JpGUj:16na4i7kv; HTTPOnly; Path=/; Secure');
+    let tokentemp = 'Bearer '+this.token;
+    this.headers.append('Authorization', tokentemp);
+    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
+
   }
-
-  postLoginAnalyzeS2U() {
-   this.body = '{"claveCliente":"00015486","collectData":{"HardwareID":"000000000000000","SDK_VERSION":"3.5.0","TIMESTAMP":"20160907221129"},"devicePrint":""}';
-
-  this.headers = new Headers();
-  this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-  let options = new RequestOptions({ headers: this.headers, withCredentials: true });
-  let urlSearchParams = new URLSearchParams();
-  urlSearchParams.append('json', this.body);
-  return this.http.post(this.serviceUrlAnalyse,urlSearchParams)
-      .map(res => res.json())
-  }
-
-  postLoginSegment(){
-    this.body = '{"collectData":{"HardwareID":"000000000000000","SDK_VERSION":"3.5.0","TIMESTAMP":"20160907221129"},"devicePrint":"","nip":"prueba12"}';
-    let options = new RequestOptions({ headers: this.headers, withCredentials: true });
-
-    let urlSearchParams = new URLSearchParams();
-    urlSearchParams.append('json', this.body);
-    return this.http.post(this.serviceUrlSegment,urlSearchParams,options)
-    .map(res => res.json())
-  }
-
-
 }
