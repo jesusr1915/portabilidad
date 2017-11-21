@@ -18,12 +18,15 @@ export class PersonalCardComponent implements OnInit {
     .subscribe(
       message => {
         this.infoValues = message.value;
-        this.formatDate(this.infoValues.fechaNacimiento);
+        if (localStorage.getItem('birthday') === null) {
+          this.infoValues.fechaNacimiento = this.formatDate(message.value.fechaNacimiento);
+          localStorage.setItem('birthday',this.infoValues.fechaNacimiento);
+        }
       }
     )
   }
 
-  formatDate(date:string){
+  formatDate(date:string):string{
     let values = date.split("-", 3);
     let index = parseInt(values[1])-1;
     let month = ["Enero",
@@ -38,7 +41,7 @@ export class PersonalCardComponent implements OnInit {
             "Octubre",
             "Noviembre",
             "Diciembre"];
-    this.infoValues.fechaNacimiento = values[2]+" "+month[index]+" "+values[0];
+    return (values[2]+" "+month[index]+" "+values[0]);
   }
 
 

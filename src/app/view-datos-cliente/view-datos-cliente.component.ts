@@ -3,12 +3,15 @@ import { LoginService } from '../services/loginServices'
 import { CopiesService } from '../services/copiesService';
 import { seleccion_cuenta_class, terminos_class } from 'interfaces/copiesInterface';
 import { NgModel } from '@angular/forms';
+import { Router, RouterModule, Routes } from '@angular/router';
 
 import { MessageMan } from '../cards/messageMan';
 import { StepMan } from '../stepper/stepMan';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { InfoCardMan } from '../personal-card/infoCardMng';
 
+import { Subscription } from 'rxjs/Subscription';
+import {TermMan} from '../terms/termMng';
 @Component({
   selector: 'app-view-datos-cliente',
   templateUrl: './view-datos-cliente.component.html',
@@ -26,26 +29,54 @@ export class ViewDatosClienteComponent implements OnInit {
   selectedRadio = "";
   maxLength = "";
   tarjetValue = "";
-  selectedBank = "SANTANDER";
-  classEnaBank = "select-styled"
-  classDisBank = "select-styled disabled"
+  selectedBank = "";
+  classEnaBank = "contentSelect minTop select-styled"
+  classDisBank = "contentSelect minTop select-styled disabled"
   classSelBank = "";
+  bankDisable = true;
+  sendService = true;
 
+  subscription: Subscription;
+
+  //valid forms
+  validClabe = false;
+  validBank = true;
+  validTerms = false;
+
+    lUsers: any[] = [
+    ];
+    lBanks: any[] = [
+      { id: "0", Name: "Selecciona un banco" },
+      //quitar con la red
+      /*{ id: 1, Name: 'Bancomer' },
+      { id: 2, Name: 'Santander'}*/
+    ];
+
+    curUser: any = this.lUsers[0];
 
   @Input() value_label_CLABE;
   @Input() value_placeholder_CLABE;
 
   constructor(
-    public loginServices: LoginService,
-    public messageMan: MessageMan,
-    public stepMan: StepMan,
-    public copiesServ: CopiesService,
-    public alertMan: AlertMan,
-    public infoCardMng: InfoCardMan
-  ){}
+    private loginServices: LoginService,
+    private messageMan: MessageMan,
+    private stepMan: StepMan,
+    private copiesServ: CopiesService,
+    private alertMan: AlertMan,
+    private infoCardMng: InfoCardMan,
+    private router: Router,
+    private termsMng: TermMan
+  ){
+    this.subscription = this.termsMng.getMessage()
+    .subscribe(
+      message => {
+        this.onSaveTermChanged(true);
+      }
+    )
+  }
 
   ngOnInit(){
-
+    localStorage.clear();
     this.copiesServ.postCopies()
     .subscribe(
       res => {
@@ -62,16 +93,10 @@ export class ViewDatosClienteComponent implements OnInit {
         this.loginServices.postBancos()
         .subscribe(
           res => {
-            let bancosName = [];
-            let bancosId = [];
             for(let arrayVal of res.dto){
-              bancosName.push(arrayVal.nombreCorto);
-              bancosId.push(arrayVal.id);
+              let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
+              this.lBanks.push(temp);
             }
-            console.log(bancosName);
-
-
-
           },
           err => {
             this.errorService();
@@ -99,29 +124,56 @@ export class ViewDatosClienteComponent implements OnInit {
         console.log('Something went wrong!' + err.message);
       }
     )
+
+  }
+  private setNewUser(id: any): void {
+    this.curUser = this.lUsers.filter(value => value.id === parseInt(id));
+    if(this.selectedRadio == "debito"){
+      if (id != 0){
+        this.validBank = true;
+      }else{
+        this.validBank = false;
+      }
+    }
   }
 
-  errorService(){
+  keyPress(event: any) {
+    const pattern = /[0-9]+/;
+    let inputChar = event.key;
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  private onSaveTermChanged(value:boolean){
+    this.validTerms = value;
+  }
+
+  private errorService(){
     var message = new messageAlert("Error","Por el momento el servicio no esta disponible");
     this.alertMan.sendMessage(message);
   }
 
-  onSelectionChange(entry){ // radio buttons controll
+  private onSelectionChange(entry){ // radio buttons controll
     this.tarjetValue = "";
     this.selectedBank = "";
     this.classLabel = 'showLabel';
+    this.validBank = false;
     if(entry == 1){
       this.value_label_CLABE = this.copies.textInstClabe;
       this.value_placeholder_CLABE = this.copies.textPlaceHolderClabe;
       this.maxLength = '18';
       this.selectedRadio = 'clabe';
       this.classSelBank = this.classDisBank;
+      this.bankDisable = true;
+      this.lUsers = [];
     }else{
       this.value_label_CLABE = this.copies.textInstDebito;
       this.value_placeholder_CLABE = this.copies.textPlaceHolderDebito;
       this.maxLength = '16';
       this.selectedRadio = "debito";
       this.classSelBank = this.classEnaBank;
+      this.bankDisable = false;
+      this.lUsers = this.lBanks;
     }
   }
 
@@ -130,21 +182,52 @@ export class ViewDatosClienteComponent implements OnInit {
         this.classLabel = 'hideLabel';
           if(this.tarjetValue.length == 18){
             //service get Banks
+            //mover para demo
+            if(this.sendService){
             this.loginServices.postBancosClabe(this.tarjetValue)
             .subscribe(
               res=> {
-                this.selectedBank = res.dto.bancoCuenta
+                let temp = { id: 1, Name: res.dto.bancoCuenta };
+                this.lUsers.push(temp);
+                this.setNewUser(1);
+                this.validClabe = true;
+                this.validBank = true;
+                this.sendService = false;
               },
               err => {
+                this.validClabe = false;
+                this.validBank = false;
+                /*let temp = { id: 1, Name: "Santander" };
+                this.lUsers.push(temp);
+                this.setNewUser(1);*/
                 this.errorService();
                 console.log('Something went wrong!' + err.message);
               }
-            )
+            )}
           }else{
-
+            this.validClabe = false;
+            this.sendService = true;
+            if(this.selectedRadio == "debito"){
+                if(this.tarjetValue.length == 16){
+                  this.validClabe = true;
+                }
+            }
           }
       }else{
         this.classLabel = 'showLabel';
       }
+      this.isInvalid();
+    }
+
+    isInvalid(){
+      if (this.validClabe && this.validBank && this.validTerms){
+        return false;
+      }
+      return true;
+    }
+    onBtnActionClickedV() {
+      localStorage.setItem('tarjet',this.tarjetValue);
+      localStorage.setItem('banco',this.curUser[0].Name);
+      this.router.navigate(['/verifica']);
     }
 }

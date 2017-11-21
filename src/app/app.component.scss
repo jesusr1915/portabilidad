@@ -281,18 +281,13 @@ $select-height: 50px;
 .contentSelect {
   border: 1px solid $border;
   cursor: pointer;
-  position: relative;
   font-size: 16px;
   color: $select-color;
   width: $select-width;
   height: $select-height;
+  margin-left: 5%;
 }
 .select-styled {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   background-color: $select-background;
   font-family: $font-stack;
   padding: 15px 15px;
@@ -307,6 +302,8 @@ $select-height: 50px;
     right: 10px;
   }
   &.disabled {
+    appearance:none;
+    padding: 0px 8px;
     background-color: #f0f0f0;
     color: #2d2d2d;;
     &:after{
@@ -421,6 +418,12 @@ app-personal-card{
       border: 2px solid $red-color;
       &:focus {outline:0;}
       &:hover {cursor: pointer;}
+      &:disabled,
+      button[disabled]{
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+        cursor:default;
+      }
     }
-
   }

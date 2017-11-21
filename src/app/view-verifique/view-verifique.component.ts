@@ -15,17 +15,17 @@ import { MessageMan } from '../cards/messageMan';
 export class ViewVerifiqueComponent implements OnInit {
 
   copiesVer : verifique_class = new verifique_class();
-  @Input() valueInfo = "8263130046528839";
-  @Input() valueBank = "BANORTE";
-  @Input() valueBirthdate = "28/NOVIEMBRE/1979";
+  @Input() valueInfo = localStorage.getItem('tarjet');
+  @Input() valueBank = localStorage.getItem('banco');
+  @Input() valueBirthdate = localStorage.getItem('birthday');
 
   demo : Demo = new Demo(
-    "popis",
+    localStorage.getItem("cardAlias"),
     "SantanderSelect",
-    "12341242412441",
-    "30.00",
-    "MXN",
-    "5555040522"
+    localStorage.getItem("cardNumeroCuenta"),
+    localStorage.getItem("cardDisponible"),
+    localStorage.getItem("cardDivisa"),
+    localStorage.getItem("cardCuentaMovil")
   );
 
   constructor(

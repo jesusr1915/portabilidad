@@ -16,26 +16,38 @@
 </div>
 <p class = "labelInst min">{{value_label_CLABE}}</p>
 <div class="controls minTop">
-      <input type="text" name="name" (keyup)="onKey($event)" [attr.maxlength]="maxLength" [(ngModel)]="tarjetValue">
+      <input type="text" name="name" (keyup)="onKey($event)" (keydown)="keyPress($event)" [attr.maxlength]="maxLength" [(ngModel)]="tarjetValue">
       <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label>
 </div>
 <p class = "labelInst">
   {{copies.textInstBanco}}
 </p>
-<div class="contentSelect minTop">
+
+<select [className] = "classSelBank"  [disabled]="bankDisable" #selectElem (change)="setNewUser(selectElem.value)">
+        <option  *ngFor="let user of lUsers" [value]="user.id">
+            {{user.Name}}
+        </option>
+</select>
+
+<!-- <div class="contentSelect minTop">
   <p [className] = "classSelBank">{{selectedBank}}</p>
-</div>
+</div> -->
 <div class="divider"></div>
 <p class = "question">{{copies.textInstDatos}}</p>
 <app-personal-card class="minTop"></app-personal-card>
 <p class="labelInst min textCenter"> {{copies.textNote}}</p>
 <div class="contentSwich">
-   <input type="checkbox" id="unchecked" class="cbx hidden"/>
-   <label for="unchecked" class="lbl"></label>
+   <input #saveTermCheckBox
+    id="saveTermCheckBox"
+    type="checkbox"
+    [checked]="validTerms"
+    (change)="validTerms = !validTerms"
+    class="cbx hidden"/>
+   <label for="saveTermCheckBox" class="lbl"></label>
    <p>Acepto <a (click)="modal1.show(terminosText)">términos y condiciones</a></p>
  </div>
  <div class="btnCont">
-   <button  type="button" [routerLink]=" ['/verifica']" >Continuar</button>
+   <button [disabled]="isInvalid()" type="button" (click)="onBtnActionClickedV()">Continuar</button>
  </div>
  <app-terms  #modal1></app-terms>
  <app-message-alert></app-message-alert>

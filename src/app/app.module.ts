@@ -23,6 +23,7 @@ import { StepMan } from './stepper/stepMan';
 import { AlertMan } from './message-alert/alertMan';
 import { InfoCardMan } from './personal-card/infoCardMng';
 import { SpinnerMan } from './spinner-component/spinnerMng';
+import { TermMan } from './terms/termMng';
 
 //Routing
 import { routing } from './app.routes';
@@ -56,7 +57,8 @@ import { SpinnerComponentComponent } from './spinner-component/spinner-component
     StepMan,
     AlertMan,
     InfoCardMan,
-    SpinnerMan
+    SpinnerMan,
+    TermMan
   ],
   bootstrap: [AppComponent]
 })

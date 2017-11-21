@@ -66,6 +66,13 @@ export class CardsComponent implements OnInit, OnDestroy {
     this.cards = [];
     this.cards.push(value);
   }
+  setCurrentLocalCard(cards:any){
+    localStorage.setItem("cardAlias",cards.alias);
+    localStorage.setItem("cardDisponible",cards.disponible);
+    localStorage.setItem("cardDivisa",cards.divisa);
+    localStorage.setItem("cardNumeroCuenta",cards.numeroCuenta);
+    localStorage.setItem("cardCuentaMovil",cards.cuentaMovil);
+  }
 
 
   private setSly():void {
@@ -90,8 +97,10 @@ export class CardsComponent implements OnInit, OnDestroy {
         clickBar: 1
       };
       frame = new Sly(document.getElementById("frame"), options).init();
-      frame.on('active', function (eventName, itemIndex ) {        
-        console.log('Current', local.cards[itemIndex]);
+      local.setCurrentLocalCard(local.cards[0]);
+      frame.on('active', function (eventName, itemIndex ) {
+        //console.log('Current', local.cards[itemIndex]);
+        local.setCurrentLocalCard(local.cards[itemIndex]);
       });
       $(window).resize();
       $(window).resize();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { terminos_class} from 'interfaces/copiesInterface';
+import { TermMan } from '../terms/termMng';
 
 @Component({
   selector: 'app-terms',
@@ -11,7 +12,9 @@ export class TermsComponent implements OnInit {
   private visibleAnimate = false;
   terminosText : terminos_class = new terminos_class();
 
-  constructor() { }
+  constructor(
+    private termsMng: TermMan
+  ) { }
 
   ngOnInit() {
     this.hide();
@@ -20,6 +23,11 @@ export class TermsComponent implements OnInit {
     this.terminosText = message;
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
+  }
+
+  public returnSubmit(){
+    this.termsMng.sendMessage(true);
+    this.hide();
   }
 
   public hide(): void {
