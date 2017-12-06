@@ -10,10 +10,11 @@ export class LoginService{
   private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-dev.appls.cto1.paas.gsnetcloud.corp';
 
   private serviceOAuth = this.urlBase + '/token';
-  private serviceUrlSaldos = this.urlBase + '/cuentas/saldosCuentasCheques';
+  private serviceUrlSaldos = this.urlBase + '/clientes/saldosCuentasCheques';
   private serviceUrlRFC = this.urlBase + '/clientes/consultaRFCPN';
   private serviceUrlClabeBancos = this.urlBase + '/bancos/bancoCuenta';
   private serviceUrlBancos = this.urlBase + '/bancos/consultaBancos';
+  private serviceUrlAlta = this.urlBase + '/portabilidad/altaRecepcionPN';
 
   private body = '';
   private headers = new Headers();
@@ -56,6 +57,14 @@ export class LoginService{
     return this.postRequest(this.serviceUrlBancos,"",this.options);
 
   }
+  postAlta(datosEntrada : string){
+    this.configHeader(true);
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append ('datosEntrada',datosEntrada);
+    let body = urlSearchParams.toString();
+    return this.postRequest(this.serviceUrlAlta,body,this.options)
+    //return this.http.get('api/alta.json')
+  }
   getRequest(url:string, xtras:string){
     this.spinnerMng.showSpinner(true);
     return this.http.get(url,xtras)
@@ -95,7 +104,7 @@ export class LoginService{
     }else{
       this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     }
-    this.headers.append('Cookie1', 'JSESSIONID=0001mpNoV1PyUsLjHh_co0JpGUj:16na4i7kv; HTTPOnly; Path=/; Secure');
+    this.headers.append('Cookie1', 'JSESSIONID=0001xuitWoMW1OwetAf6N0RfJ2f:16na4i7kv; HTTPOnly; Path=/; Secure');
     let tokentemp = 'Bearer '+this.token;
     this.headers.append('Authorization', tokentemp);
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });

@@ -1,0 +1,58 @@
+$margin-top : 15px;
+.header{
+    height: auto;
+    text-align: center;
+    margin-top: $margin-top;
+  }
+.modal {
+  z-index: 1000;
+  .body{
+	  height: 299px;
+    width: 321px;
+  }
+  h1{
+  font-size: 14px;
+  font-weight: 300;
+  margin: 8px 8px;
+  color: #424242;
+  }
+  .textFix{
+    font-weight: 400;
+    font-size: 14px;
+    text-align: left;
+    margin: $margin-top + 13px 14px 0 14px;
+
+  }
+  .controls {
+    input[type="password"]{
+    padding: 10px 14px;
+    width: 88%;
+    margin: 0;
+    color: #e80004;
+    }
+    label{
+      left: 4px;
+      top: 5px;
+    }
+  }
+  .footer{
+    p{
+      float: left;
+      width: 50%;
+
+    }
+    .disableBtn{
+      color: #b7b7b7;
+    }
+    .enableBtn{
+      color: #e80004;
+    }
+    .divVert{
+      width: 1px;
+      background: #cccccc;
+      height: 44px;
+      position: absolute;
+      left: 50%;
+    }
+  }
+}

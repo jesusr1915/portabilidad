@@ -24,11 +24,15 @@ import { AlertMan } from './message-alert/alertMan';
 import { InfoCardMan } from './personal-card/infoCardMng';
 import { SpinnerMan } from './spinner-component/spinnerMng';
 import { TermMan } from './terms/termMng';
+import { TokenMng } from './token/tokenMng';
 
 //Routing
 import { routing } from './app.routes';
 import { ViewVerifiqueComponent } from './view-verifique/view-verifique.component';
 import { SpinnerComponentComponent } from './spinner-component/spinner-component.component';
+import { TokenComponent } from './token/token.component';
+import { ViewStatusComponent } from './view-status/view-status.component';
+import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 
 
 @NgModule({
@@ -42,7 +46,10 @@ import { SpinnerComponentComponent } from './spinner-component/spinner-component
     ViewDatosClienteComponent,
     ViewVerifiqueComponent,
     MessageAlertComponent,
-    SpinnerComponentComponent
+    SpinnerComponentComponent,
+    TokenComponent,
+    ViewStatusComponent,
+    ViewConsultaComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,8 @@ import { SpinnerComponentComponent } from './spinner-component/spinner-component
     AlertMan,
     InfoCardMan,
     SpinnerMan,
-    TermMan
+    TermMan,
+    TokenMng
   ],
   bootstrap: [AppComponent]
 })

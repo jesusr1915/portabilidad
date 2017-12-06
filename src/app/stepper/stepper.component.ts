@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { StepMan } from './stepMan';
 
@@ -10,7 +10,8 @@ import { StepMan } from './stepMan';
               ]
 })
 export class StepperComponent implements OnInit {
-
+  visible = false;
+  @Input() value_header = "";
   message: number;
   subscription: Subscription;
 
@@ -28,7 +29,8 @@ export class StepperComponent implements OnInit {
       this.subscription = this.stepMan.getMessage()
       .subscribe(
         message => {
-          this.setStep(message.response);
+          this.value_header = message.response.title;
+          this.setStep(message.response.number);
         }
       )
   }
@@ -38,9 +40,16 @@ export class StepperComponent implements OnInit {
   }
 
   setStep(step: number){
-    this.value_step = step;
-    this.value_label_step = this.instructions[step-1];
-    this.widthbar = 100*(step/this.max_step);
+    if(step!=0)
+    {
+      this.visible = true;
+      this.value_step = step;
+      this.value_label_step = this.instructions[step-1];
+      this.widthbar = 100*(step/this.max_step);
+    }else{
+      this.visible = false;
+    }
+
   }
 
 }

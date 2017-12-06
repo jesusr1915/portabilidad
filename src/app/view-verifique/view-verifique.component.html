@@ -17,6 +17,8 @@
   <br/>{{copiesVer.inst3LblInit}} <strong>{{copiesVer.inst3LblStrong}}</strong>
 </p>
 <div class="btnCont">
-  <button [routerLink]=" ['']" class = "first" type="button" >{{copiesVer.btnBack}}</button>
-  <button  type="button" >{{copiesVer.btnCont}}</button>
+  <button [routerLink]="['']" class = "first" type="button" >{{copiesVer.btnBack}}</button>
+  <button  type="button" (click)="showToken()" >{{copiesVer.btnCont}}</button>
 </div>
+<app-token></app-token>
+<app-message-alert></app-message-alert>

@@ -16,7 +16,7 @@
 </div>
 <p class = "labelInst min">{{value_label_CLABE}}</p>
 <div class="controls minTop">
-      <input type="text" name="name" (keyup)="onKey($event)" (keydown)="keyPress($event)" [attr.maxlength]="maxLength" [(ngModel)]="tarjetValue">
+      <input type="text" name="name" (keyup)="onKey($event)" [attr.maxlength]="maxLength" [(ngModel)]="tarjetValue">
       <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label>
 </div>
 <p class = "labelInst">

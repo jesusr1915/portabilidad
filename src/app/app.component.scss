@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
 $font-stack: 'Open Sans';
 $margin-top: 25px;
 $width-med: 91%;
@@ -215,8 +215,10 @@ $asphalt: 		#506982;
   input[type="number"],
   input[type="date"],
 	input[type="tel"],
+  input[type="password"],
 	textarea,
 	select{
+    border-radius: 3px;
 		padding: 14px;
     padding-right: 0;
     padding-left: 3%;
@@ -248,7 +250,7 @@ $asphalt: 		#506982;
 		font-size: 16px;
 		display: inline-block;
 		padding: 4px 10px;
-		font-weight: 400;
+		font-weight: 300;
 		background-color: rgba(255,255,255,0);
     background-color: rgba(255,255,255,1);
 

@@ -6,7 +6,6 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class CopiesService{
-  private serviceUrl = 'https://qai.supermovil.mx:2443/SuperMovil/loginAnalyzeS2U.go';
   private body = '';
   private headers = new Headers();
   data: any = {};

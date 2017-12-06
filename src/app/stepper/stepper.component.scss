@@ -1,10 +1,27 @@
-
+.header{
+	width: 100%;
+	height: 43px;
+	background-color: #be0006;
+	position: relative;
+	p{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		height: 19px;
+		font-size: 16px;
+		text-align: center;
+		color: #ffffff;
+		margin: auto;
+		font-weight: 300;
+	}
+}
 .contentMain {
 	width: 100%;
-	height: 53px;
+	height: 42px;
   position: relative;
-  margin: 0 2%;
   display: block;
+	padding-top: 11px;
 
   p{
     position: relative;
@@ -16,21 +33,22 @@
 }
 .step {
   border-radius: 50%;
-	width: 30px;
-	height: 30px;
+	width: 26px;
+	height: 26px;
 	background-color: #ffffff;
 	border: solid 2px #e80004;
   span{
     position: absolute;
-    width: 15px;
-    height: 19px;
-    left: 25%;
-    top:17%;
+		width: 8px;
+		height: 19px;
+		top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   	font-family: 'Open Sans';
     font-size: 14px;
-    letter-spacing: 0;
-    text-align: center;
     color: #505050;
+		margin: auto;
   }
 }
 .labelStep {
@@ -48,13 +66,13 @@
   }
 }
 .progessBar {
+	margin-top: 11px;
   position: relative;
   display: block;
-	width: 96%;
+	width: 100%;
 	height: 4px;
 	background-color: #d8d8d8;
   float: left;
-  margin-top: 8px;
   span{
     position: absolute;
     width: 33%;

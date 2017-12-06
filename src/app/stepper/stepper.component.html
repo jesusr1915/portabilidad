@@ -1,4 +1,7 @@
-<div class = "contentMain">
+<div class = "header">
+  <p>{{value_header}}</p>
+</div>
+<div class = "contentMain" [ngStyle]="{'display': visible ? 'block' : 'none'}">
   <p class = "step">
     <span>{{value_step}}</span>
   </p>

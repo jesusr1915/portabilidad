@@ -1,0 +1,23 @@
+
+<div class="modal" [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+
+      <div class="modal body">
+        <div class = "header">
+          <img src="assets/imgs/ico-token.svg"
+		      class="logo-santander-03">
+          </div>
+          <h1>{{title}}</h1>
+        <p class = "textFix">{{message}}</p>
+        <div class="controls minTop">
+              <input type="password" name="name" (keyup)="onKey($event)" [attr.maxlength]="maxLength" [(ngModel)]="tokenMask">
+              <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label>
+        </div>
+        <div class = "footer" >
+          <div class ="divider" ></div>
+          <p (click)="hide()">Cancelar</p>
+          <div class ="divVert"></div>
+          <p [className]="btnState" (click)="isValid()">Aceptar</p>
+        </div>
+      </div>
+    </div>
+<div class="modal-background"></div>

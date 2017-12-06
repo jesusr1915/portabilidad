@@ -3,14 +3,10 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class StepMan{
+export class TokenMng{
   private subject = new Subject<any>();
 
-  sendMessage(number: number,title?: string){
-    let message = {
-      "number" : number,
-      "title" : title
-    }
+  sendMessage(message: string){
     this.subject.next({response:message});
   }
   clearMessage() {

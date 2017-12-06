@@ -29,6 +29,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     this.subscription = this.messageMan.getMessage()
     .subscribe(
       message => {
+
         if(message.response["dto"]){
           this.setValues(this.keys,message);
         }else if(message.response["alias"]){

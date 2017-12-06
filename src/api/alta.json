@@ -1,0 +1,31 @@
+{
+  "dto": {
+    "horaEnvio": "17:48",
+    "referenciaOperacion": "651710",
+    "fechaOperacion": "22/02/2017",
+    "cuentaCliente": 1122334455,
+    "nombreCliente": "Ivan Acosta",
+    "fechaNacimiento": "12/Sep/87",
+    "rfcCliente": "XCO071023LRA",
+    "cuentaBanco": 1234567890,
+    "tipoSolicitud": "R",
+    "folio": 123109283019823090,
+    "estatus": "R",
+    "fechaEnvio": "22/02/2017",
+    "fechaRechazo": "30/Sep/2017",
+    "motivoRechazo": "Motivo Rechazo",
+    "banco": {
+      "descripcion": "Descripcion",
+      "nombreCorto": "Banco Corto Afore",
+      "id": 12
+    }
+  },
+  "securityContext": null,
+  "error": {
+    "severity": "3",
+    "codigo": 0,
+    "message": "",
+    "clave": "OK",
+    "tipo": ""
+  }
+}

@@ -3,6 +3,7 @@ import { CopiesService } from '../services/copiesService';
 import { StepMan } from '../stepper/stepMan';
 import { verifique_class } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
+import { TokenMng } from '../token/tokenMng';
 
 
 @Component({
@@ -29,9 +30,10 @@ export class ViewVerifiqueComponent implements OnInit {
   );
 
   constructor(
-    public copiesServ: CopiesService,
-    public stepMan: StepMan,
-    public messageMan: MessageMan
+    private copiesServ: CopiesService,
+    private stepMan: StepMan,
+    private messageMan: MessageMan,
+    private tokenMng: TokenMng
   ) { }
 
   ngOnInit(){
@@ -39,13 +41,18 @@ export class ViewVerifiqueComponent implements OnInit {
     .subscribe(
       res => {
         this.copiesVer = res.datos.verifique;
+        console.log(res);
 
-        this.stepMan.sendMessage(2);
+        this.stepMan.sendMessage(2,"Portabilidad de Nómina");
 
         this.messageMan.sendMessage(this.demo);
       }
     )
   }
+  showToken(){
+    this.tokenMng.sendMessage("true");
+  }
+
 }
 export class Demo {
   alias : string;

@@ -83,7 +83,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.copies = res.datos.seleccion_cuenta;
         this.terminosText = res.datos.terminos;
         this.onSelectionChange(1);
-        this.stepMan.sendMessage(1);
+        this.stepMan.sendMessage(1,"Portabilidad de Nómina");
       }
     )
 
@@ -178,6 +178,7 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
     onKey(event: any) { // inputs de tarjeta
+       this.tarjetValue = this.tarjetValue.replace(/[^0-9]/g, '');
       if(this.tarjetValue.length != 0){
         this.classLabel = 'hideLabel';
           if(this.tarjetValue.length == 18){
@@ -187,6 +188,7 @@ export class ViewDatosClienteComponent implements OnInit {
             this.loginServices.postBancosClabe(this.tarjetValue)
             .subscribe(
               res=> {
+                console.log(res.dto.bancoCuenta);
                 let temp = { id: 1, Name: res.dto.bancoCuenta };
                 this.lUsers.push(temp);
                 this.setNewUser(1);
@@ -207,10 +209,13 @@ export class ViewDatosClienteComponent implements OnInit {
           }else{
             this.validClabe = false;
             this.sendService = true;
+
             if(this.selectedRadio == "debito"){
                 if(this.tarjetValue.length == 16){
                   this.validClabe = true;
                 }
+            }else{
+              this.lUsers = [];
             }
           }
       }else{
@@ -218,6 +223,7 @@ export class ViewDatosClienteComponent implements OnInit {
       }
       this.isInvalid();
     }
+
 
     isInvalid(){
       if (this.validClabe && this.validBank && this.validTerms){
