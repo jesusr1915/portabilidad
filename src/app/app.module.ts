@@ -25,6 +25,7 @@ import { InfoCardMan } from './personal-card/infoCardMng';
 import { SpinnerMan } from './spinner-component/spinnerMng';
 import { TermMan } from './terms/termMng';
 import { TokenMng } from './token/tokenMng';
+import { MenuMsg } from './menu/menuMsg';
 
 //Routing
 import { routing } from './app.routes';
@@ -33,6 +34,7 @@ import { SpinnerComponentComponent } from './spinner-component/spinner-component
 import { TokenComponent } from './token/token.component';
 import { ViewStatusComponent } from './view-status/view-status.component';
 import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
     SpinnerComponentComponent,
     TokenComponent,
     ViewStatusComponent,
-    ViewConsultaComponent
+    ViewConsultaComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
     InfoCardMan,
     SpinnerMan,
     TermMan,
-    TokenMng
+    TokenMng,
+    MenuMsg
   ],
   bootstrap: [AppComponent]
 })

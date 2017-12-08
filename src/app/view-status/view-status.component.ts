@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { StepMan } from '../stepper/stepMan';
 import { FormatValue } from '../tools/formatValues';
 
-
 @Component({
   selector: 'app-view-status',
   templateUrl: './view-status.component.html',
@@ -18,7 +17,7 @@ export class ViewStatusComponent implements OnInit {
   @Input() referenceSheet =  localStorage.getItem('folio');
   @Input() dateOperation;
   @Input() referenceOperation = localStorage.getItem('referenciaOperacion');
-  @Input() hoursOperation = localStorage.getItem('horaEnvio'); 
+  @Input() hoursOperation = localStorage.getItem('horaEnvio');
 
   constructor(
     private _stepMan : StepMan,
