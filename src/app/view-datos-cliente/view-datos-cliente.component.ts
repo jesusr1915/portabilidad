@@ -199,6 +199,7 @@ export class ViewDatosClienteComponent implements OnInit {
               err => {
                 this.validClabe = false;
                 this.validBank = false;
+                this.sendService = false;
                 /*let temp = { id: 1, Name: "Santander" };
                 this.lUsers.push(temp);
                 this.setNewUser(1);*/
@@ -208,7 +209,8 @@ export class ViewDatosClienteComponent implements OnInit {
             )}
           }else{
             this.validClabe = false;
-            this.sendService = true;
+
+                this.sendService = true;
 
             if(this.selectedRadio == "debito"){
                 if(this.tarjetValue.length == 16){

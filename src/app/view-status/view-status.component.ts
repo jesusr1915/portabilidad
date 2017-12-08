@@ -23,7 +23,7 @@ export class ViewStatusComponent implements OnInit {
     private _stepMan : StepMan,
     private _utils : FormatValue
   ) {
-    this.dateOperation = this._utils.formatDate(localStorage.getItem('fechaOperacion'),"/","ddmmaa");
+    this.dateOperation = this._utils.formatDate(localStorage.getItem('fechaOperacion'),"-","aammdd");
   }
 
   ngOnInit() {

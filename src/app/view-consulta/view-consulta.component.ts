@@ -32,7 +32,7 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.clear();
+  //  localStorage.clear();
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
     this.loginServices.postOAuthToken()
     .subscribe(

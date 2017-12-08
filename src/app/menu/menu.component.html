@@ -1,5 +1,5 @@
 <ul class = "contentFilter" >
-  <li #allBtn ><a (click)='onClick(allBtn)' >Todas</a><div class ="divider"></div></li>
-  <li #recBtn ><a (click)='onClick(recBtn)'>Recepción</a><div class ="divider"></div></li>
-  <li #sendBtn ><a (click)='onClick(sendBtn)'>Envio</a></li>
+  <li [ngClass]="{active: estadoActivo1, desactive: !estadoActivo1}" ><a (click)='onClick(1)' >Todas</a><div class ="divider"></div></li>
+  <li [ngClass]="{active: estadoActivo2, desactive: !estadoActivo2}" ><a (click)='onClick(2)'>Recepción</a><div class ="divider"></div></li>
+  <li [ngClass]="{active: estadoActivo3, desactive: !estadoActivo3}" ><a (click)='onClick(3)'>Envio</a></li>
 </ul>

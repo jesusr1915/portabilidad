@@ -63,7 +63,7 @@ export class TokenComponent implements OnInit {
         res => {
           console.log(res.dto);
           localStorage.setItem('folio',res.dto.folio);
-          localStorage.setItem('fechaOperacion',res.dto.fechaOperacion);
+          localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);
           localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
           this.router.navigate(['/status']);

@@ -8,9 +8,9 @@ import { MenuMsg } from '../menu/menuMsg';
 })
 export class MenuComponent implements OnInit {
 
-  classStatus = "desactive";
-  classActive = "active";
-  classDesactive = "desactive";
+  estadoActivo1 = false;
+  estadoActivo2 = false;
+  estadoActivo3 = false;
   constructor(
     private _menuMan : MenuMsg
   ) {
@@ -19,9 +19,17 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
 
   }
-  onClick(reference : ElementRef){
-    console.log(reference);
-    this._menuMan.sendMessage(1);
+  onClick(reference : number){
+    this.estadoActivo1 = false;
+    this.estadoActivo2 = false;
+    this.estadoActivo3 = false;
+    if(reference == 1){
+      this.estadoActivo1 = true;
+    }else if(reference == 2){
+      this.estadoActivo2 = true;
+    }else if(reference == 3){
+      this.estadoActivo3 = true;
+    }
   }
 
 }

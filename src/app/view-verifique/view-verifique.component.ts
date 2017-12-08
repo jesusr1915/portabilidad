@@ -41,13 +41,19 @@ export class ViewVerifiqueComponent implements OnInit {
     .subscribe(
       res => {
         this.copiesVer = res.datos.verifique;
-        console.log(res);
 
         this.stepMan.sendMessage(2,"Portabilidad de Nómina");
 
         this.messageMan.sendMessage(this.demo);
+        if(this.valueInfo.length == 18){
+          this.copiesVer.infoCount = "CLABE Interbancaria";
+        }else{
+          this.copiesVer.infoCount = "Tarjeta de débito";
+        }
       }
     )
+
+
   }
   showToken(){
     this.tokenMng.sendMessage("true");

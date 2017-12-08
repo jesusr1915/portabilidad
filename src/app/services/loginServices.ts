@@ -47,9 +47,10 @@ export class LoginService{
   }
   postBancosClabe(cuenta : string){
     this.configHeader(true);
-    let urlSearchParams = new URLSearchParams();
-    urlSearchParams.append ('cuenta',cuenta);
-    let body = urlSearchParams.toString();
+    let urlSearchParams = {
+      'cuenta': cuenta
+    }
+    let body = JSON.stringify(urlSearchParams);
     return this.postRequest(this.serviceUrlClabeBancos,body,this.options)
   }
   postBancos(){
