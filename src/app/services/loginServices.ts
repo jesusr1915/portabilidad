@@ -105,7 +105,8 @@ export class LoginService{
     }else{
       this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     }
-    this.headers.append('Cookie1', 'JSESSIONID=0001g_iqUujLru8gAi1Sfc80nje:16na4ib3d; HTTPOnly; Path=/; Secure');
+    let sessionID = 'JSESSIONID='+ localStorage.getItem('sessionID') + ";";
+    this.headers.append('Cookie1', sessionID + ' HTTPOnly; Path=/; Secure');
     let tokentemp = 'Bearer '+this.token;
     this.headers.append('Authorization', tokentemp);
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });

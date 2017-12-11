@@ -1,5 +1,15 @@
 <app-cards></app-cards>
 <app-menu></app-menu>
-<p>
-  view-consulta works!
-</p>
+<div
+  *ngFor="let moves of totalMov">
+  <div class="bullet"><div ><span></span></div><p>{{moves.date}}</p></div>
+  <app-moves
+  *ngFor="let bill of moves.bills"
+    [valueOrigin]="bill.origin"
+    [valueDestination]="bill.destination"
+    [valueStatus]="bill.status"
+    [valueDelivery]="bill.delivery"
+    >
+  </app-moves>
+
+</div>

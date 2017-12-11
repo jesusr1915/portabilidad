@@ -76,7 +76,7 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   ngOnInit(){
-    localStorage.clear();
+    //localStorage.clear();
     this.copiesServ.postCopies()
     .subscribe(
       res => {

@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.onClick(1);
   }
   onClick(reference : number){
     this.estadoActivo1 = false;
@@ -30,6 +30,7 @@ export class MenuComponent implements OnInit {
     }else if(reference == 3){
       this.estadoActivo3 = true;
     }
+    this._menuMan.sendMessage(reference);
   }
 
 }

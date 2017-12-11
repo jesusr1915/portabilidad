@@ -7,8 +7,12 @@ ul.contentFilter {
   list-style: none;
   li{
     float: left;
-    width: 33.3%;
+    width: 33.1%;
     height: 29px;
+    &:nth-child(2){
+      border-left: solid 1px #e80004;
+      border-right: solid 1px #e80004;
+    }
     &.active{
       background-color: #e80004;
       a{
@@ -28,14 +32,6 @@ ul.contentFilter {
       font-size: 13px;
       margin-top: 5px;
       width: 99%;
-    }
-    .divider {
-      float: right;
-      margin: 0;
-      height: 30px;
-      width: 1px;
-      border: none;
-      background: red;
     }
   }
 }

@@ -1,0 +1,27 @@
+.contentTop{
+  flex-direction: row;
+  justify-content:center;
+  height: 118px;
+  img{
+    width: 35px;
+    height: 35px;
+    display : block;
+    margin: 0 14px 0 0;
+  }
+  p{
+    width: auto;
+    height: auto;
+    margin: 0;
+  }
+}
+
+span{
+  display: block;
+  width: 100%;
+  font-size: 18px;
+	font-weight: 600;
+	text-align: center;
+	color: #424242;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}

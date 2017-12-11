@@ -35,6 +35,9 @@ import { TokenComponent } from './token/token.component';
 import { ViewStatusComponent } from './view-status/view-status.component';
 import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 import { MenuComponent } from './menu/menu.component';
+import { MovesComponent } from './moves/moves.component';
+import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component';
+import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component';
 
 
 @NgModule({
@@ -52,7 +55,10 @@ import { MenuComponent } from './menu/menu.component';
     TokenComponent,
     ViewStatusComponent,
     ViewConsultaComponent,
-    MenuComponent
+    MenuComponent,
+    MovesComponent,
+    ViewDetalleSolicitudComponent,
+    ViewTempIndexComponent
   ],
   imports: [
     BrowserModule,
