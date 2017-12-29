@@ -235,6 +235,7 @@ export class ViewDatosClienteComponent implements OnInit {
     }
     onBtnActionClickedV() {
       localStorage.setItem('tarjet',this.tarjetValue);
+      localStorage.setItem('idBanco',this.curUser[0].id);
       localStorage.setItem('banco',this.curUser[0].Name);
       this.router.navigate(['/verifica']);
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-
+import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
 
 declare var jQuery:any;
@@ -24,8 +24,9 @@ export class CardsComponent implements OnInit, OnDestroy {
   classMulti = "multi";
   classOne = "one";
   classLabel = this.classMulti;
+  valores = "";
 
-  constructor(private messageMan: MessageMan) {
+  constructor(private messageMan: MessageMan, private alertMan: AlertMan) {
     this.subscription = this.messageMan.getMessage()
     .subscribe(
       message => {
@@ -56,11 +57,14 @@ export class CardsComponent implements OnInit, OnDestroy {
             value.alias = value.tipoProducto;
           }
           let accountLenght = value.numeroCuenta.length;
+          value.unmaskCuenta = value.numeroCuenta;
           value.numeroCuenta = value.numeroCuenta.substr(0,2) + "**" + value.numeroCuenta.substr(accountLenght-4,accountLenght);
           this.cards.push(value);
+          this.valores += value.unmaskCuenta + '-';
       }
     }
     this.setSly();
+    localStorage.setItem("valores", this.valores.slice(0, -1));
   }
   setOneValue(value:any){
     this.classLabel = this.classOne;
@@ -73,6 +77,12 @@ export class CardsComponent implements OnInit, OnDestroy {
     localStorage.setItem("cardDivisa",cards.divisa);
     localStorage.setItem("cardNumeroCuenta",cards.numeroCuenta);
     localStorage.setItem("cardCuentaMovil",cards.cuentaMovil);
+    localStorage.setItem("numeroCuenta",cards.unmaskCuenta);
+    localStorage.setItem("numeroCuenta",cards.numeroSubProducto);
+    if(cards.numeroSubProducto == "0025"){
+      var message = new messageAlert("Atención","Este tipo de cuentas sólo puede recibir depósitos de hasta $17, 000 mesuales. Si cree que rebasará el límite seleccione otra cuenta.","Entendido");
+      this.alertMan.sendMessage(message);
+    }
   }
 
 

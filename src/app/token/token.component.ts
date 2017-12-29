@@ -55,10 +55,32 @@ export class TokenComponent implements OnInit {
   }
   public isValid(){
     if(this.tokenMask.length == 4){
+      // let body = {
+      //   banco:"banamex"
+      // }
+
+
       let body = {
-        banco:"banamex"
+        "datosEntrada" : {
+          "banco" : {
+            "descripcion" : "",
+            "id" : localStorage.getItem('idBanco'),
+            "nombreCorto" : localStorage.getItem('banco')
+          },
+          "cuentaBanco" : localStorage.getItem('tarjet'),
+          "cuentaCliente" : localStorage.getItem("numeroCuenta"),
+          "fechaNacimiento" : localStorage.getItem('rawBirthday'),
+          "nombreCliente" : localStorage.getItem('name'),
+          "rfcCliente" : localStorage.getItem('rfc'),
+          "tipoSolicitud" : "R"
+        },
+        "fechaHora" : "",
+        "operacion" : "PNAR",
+        "tipoOTP" : "",
+        "token" : "00000000"
       }
-      this.serviceManager.postAlta(body.toString())
+
+      this.serviceManager.postAlta(body)
       .subscribe(
         res => {
           console.log(res.dto);

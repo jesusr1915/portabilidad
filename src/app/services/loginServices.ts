@@ -15,6 +15,7 @@ export class LoginService{
   private serviceUrlClabeBancos = this.urlBase + '/bancos/bancoCuenta';
   private serviceUrlBancos = this.urlBase + '/bancos/consultaBancos';
   private serviceUrlAlta = this.urlBase + '/portabilidad/altaRecepcionPN';
+  private serviceUrlDetalleConsulta = this.urlBase + '/portabilidad/consultaPN';
 
   private body = '';
   private headers = new Headers();
@@ -42,7 +43,7 @@ export class LoginService{
   }
   getSaldos(){
     this.configHeader(false);
-    return this.getRequest(this.serviceUrlSaldos,this.options)
+    return this.getRequest(this.serviceUrlSaldos,this.options);
     //return this.http.get('api/cuentaCheques.json')
   }
   postBancosClabe(cuenta : string){
@@ -58,19 +59,26 @@ export class LoginService{
     return this.postRequest(this.serviceUrlBancos,"",this.options);
 
   }
-  postAlta(datosEntrada : string){
+  postAlta(datosEntrada : any){
     this.configHeader(true);
-    let urlSearchParams = new URLSearchParams();
-    urlSearchParams.append ('datosEntrada',datosEntrada);
-    let body = urlSearchParams.toString();
+    // let urlSearchParams = new URLSearchParams();
+    // urlSearchParams.append ('datosEntrada',datosEntrada);
+    // urlSearchParams.toString();
+    let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlAlta,body,this.options)
     //return this.http.get('api/alta.json')
+  }
+  postDetalleConsulta(datosEntrada: any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.serviceUrlDetalleConsulta,body,this.options);
   }
   getRequest(url:string, xtras:string){
     this.spinnerMng.showSpinner(true);
     return this.http.get(url,xtras)
     .map((response) => {
       this.spinnerMng.showSpinner(false);
+      console.log(response.json());
       return response.json()
       })
       .catch((e) => {

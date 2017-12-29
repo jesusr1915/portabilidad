@@ -21,8 +21,10 @@ export class InfoCardMan{
 export class messageInfoCard {
   nombreCliente : string;
   fechaNacimiento : string;
+  rfcCliente: string;
   constructor(){
     this.nombreCliente = "";
     this.fechaNacimiento = "";
+    this.rfcCliente = "";
   }
 }

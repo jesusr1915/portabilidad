@@ -2,13 +2,22 @@
 <app-menu></app-menu>
 <div
   *ngFor="let moves of totalMov">
-  <div class="bullet"><div ><span></span></div><p>{{moves.date}}</p></div>
+  <div class="bullet"><div ><span></span></div><p>{{moves.fechaEnvio}}</p></div>
   <app-moves
-  *ngFor="let bill of moves.bills"
-    [valueOrigin]="bill.origin"
-    [valueDestination]="bill.destination"
-    [valueStatus]="bill.status"
-    [valueDelivery]="bill.delivery"
+    [valueCuentaBanco]="moves.cuentaBanco"
+    [valueCuentaCliente]="moves.cuentaCliente"
+    [valueEstatus]="moves.estatus"
+    [valueTipoSolicitud]="moves.tipoSolicitud"
+    [accountWhereWishReceive] = "moves.cuentaBanco"
+    [bankWhereWishReceive] = "SANTANDER"
+    [accountWhereReceive] = "moves.cuentaCliente"
+    [bankWhereReceive] = "moves.banco.nombreCorto"
+    [referenceSheet] = "moves.folio"
+    [dateOperation] = "moves.fechaEnvio"
+    [hoursOperation] = "moves.horaEnvio"
+    [referenceOperation] = "moves.referenciaOperacion"
+    [dateAcceptance] = "moves.fechaEnvio"
+    [rejectionMotive] = "moves.rejectionMotive"
     >
   </app-moves>
 

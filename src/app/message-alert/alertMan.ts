@@ -19,13 +19,19 @@ export class AlertMan{
 
 
 export class messageAlert {
-  title : string;
-  body : string;
+  title: string;
+  body: string;
+  button: string;
   constructor(
-    title:string,
-    body:string
+    title: string,
+    body: string,
+    button?: string
   ){
     this.title = title;
     this.body = body;
+    if(button)
+      this.button = button;
+    else
+      this.button = "Aceptar";
   }
 }

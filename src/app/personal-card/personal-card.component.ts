@@ -19,8 +19,11 @@ export class PersonalCardComponent implements OnInit {
       message => {
         this.infoValues = message.value;
         if (localStorage.getItem('birthday') === null) {
+          localStorage.setItem('rawBirthday',message.value.fechaNacimiento);
           this.infoValues.fechaNacimiento = this.formatDate(message.value.fechaNacimiento);
           localStorage.setItem('birthday',this.infoValues.fechaNacimiento);
+          localStorage.setItem('name',this.infoValues.nombreCliente);
+          localStorage.setItem('rfc',this.infoValues.rfcCliente);
         }
       }
     )
