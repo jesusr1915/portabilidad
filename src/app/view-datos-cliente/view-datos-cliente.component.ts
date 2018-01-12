@@ -3,7 +3,7 @@ import { LoginService } from '../services/loginServices'
 import { CopiesService } from '../services/copiesService';
 import { seleccion_cuenta_class, terminos_class } from 'interfaces/copiesInterface';
 import { NgModel } from '@angular/forms';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 
 import { MessageMan } from '../cards/messageMan';
 import { StepMan } from '../stepper/stepMan';
@@ -53,6 +53,7 @@ export class ViewDatosClienteComponent implements OnInit {
     ];
 
     curUser: any = this.lUsers[0];
+    tokenUrl = "";
 
   @Input() value_label_CLABE;
   @Input() value_placeholder_CLABE;
@@ -65,8 +66,16 @@ export class ViewDatosClienteComponent implements OnInit {
     private alertMan: AlertMan,
     private infoCardMng: InfoCardMan,
     private router: Router,
-    private termsMng: TermMan
+    private termsMng: TermMan,
+    private route: ActivatedRoute
   ){
+    // RECIBE PARAMETROS POR URL
+    this.route.params.subscribe(params => {
+      this.tokenUrl = params['token'];
+      console.log(params['token']);
+      console.log(params['ttkn']);
+    });
+
     this.subscription = this.termsMng.getMessage()
     .subscribe(
       message => {
@@ -76,6 +85,7 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   ngOnInit(){
+  
     //localStorage.clear();
     this.copiesServ.postCopies()
     .subscribe(
@@ -90,38 +100,72 @@ export class ViewDatosClienteComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
-        this.loginServices.postBancos()
+
+        // SERVICIO DE VALIDADOR DE TOKEN
+        this.loginServices.postValidator(this.tokenUrl)
         .subscribe(
           res => {
-            for(let arrayVal of res.dto){
-              let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
-              this.lBanks.push(temp);
+
+
+            // VALIDADOR DE RESPUESTA DE TOKEN
+            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
+
+              // SE GUARDA EL SESSION ID DE LA RESPUESTA
+              localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
+
+              // SERVICIO DE CONSULTA DE BANCOS
+              this.loginServices.postBancos()
+              .subscribe(
+                res => {
+                  for(let arrayVal of res.dto){
+                    let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
+                    this.lBanks.push(temp);
+                  }
+                },
+                err => {
+                  this.errorService();
+                }
+              );
+
+              // SERVICIO DE SALDOS
+              this.loginServices.getSaldos()
+              .subscribe(
+                res => {
+                  this.messageMan.sendMessage(res);
+                },
+                err => {
+                  this.errorService();
+                }
+              )
+
+              // SERVICIO DE CONSULTA DE RFC
+              this.loginServices.getConsultaRFC()
+              .subscribe(
+                res => {
+                  this.infoCardMng.sendMessage(res.dto);
+                },
+                err => {
+                  this.errorService();
+                }
+              )
+
+            } else {
+              var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
+              this.alertMan.sendMessage(message);
             }
+            // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
+
+
           },
           err => {
             this.errorService();
           }
         );
-        this.loginServices.getconsultaRFC()
-        .subscribe(
-          res => {
-            this.infoCardMng.sendMessage(res.dto);
-            this.loginServices.getSaldos()
-            .subscribe(
-              res => {
-                this.messageMan.sendMessage(res);
-              },
-              err => {
-                this.errorService();
-                console.log('Something went wrong!' + err.message);
-              }
-            )
-          }
-        )
+
+
       },
       err => {
         this.errorService();
-        console.log('Something went wrong!' + err.message);
       }
     )
 
@@ -148,8 +192,15 @@ export class ViewDatosClienteComponent implements OnInit {
     this.validTerms = value;
   }
 
-  private errorService(){
-    var message = new messageAlert("Error","Por el momento el servicio no esta disponible");
+  // PARA EL MENSAJE DE ERROR
+  private errorService(mensaje?: string){
+    var strMensaje = "";
+    console.log(mensaje);
+    if(mensaje)
+      strMensaje = mensaje;
+    else
+      strMensaje = "Por el momento el servicio no esta disponible";
+    var message = new messageAlert("Error",strMensaje);
     this.alertMan.sendMessage(message);
   }
 

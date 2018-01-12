@@ -7,9 +7,12 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Injectable()
 export class LoginService{
-  private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-dev.appls.cto1.paas.gsnetcloud.corp';
+  private ENV = "dev";
+  private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.ENV +'.appls.cto1.paas.gsnetcloud.corp';
 
+  private serviceConfig = '/config.json';
   private serviceOAuth = this.urlBase + '/token';
+  private serviceValidator = this.urlBase + '/tokenmanager/tokenValidatorWS'
   private serviceUrlSaldos = this.urlBase + '/clientes/saldosCuentasCheques';
   private serviceUrlRFC = this.urlBase + '/clientes/consultaRFCPN';
   private serviceUrlClabeBancos = this.urlBase + '/bancos/bancoCuenta';
@@ -25,6 +28,17 @@ export class LoginService{
   token = "";
 
   constructor(public http:Http, public spinnerMng : SpinnerMan) {
+    this.getConfig()
+    .subscribe(
+      res => {
+        console.log(res);
+      }
+    )
+  }
+
+  getConfig(){
+    this.configHeader(false);
+    return this.getRequest(this.serviceConfig,this.options);
   }
 
   postOAuthToken(){
@@ -36,11 +50,20 @@ export class LoginService{
     return this.postRequest(this.serviceOAuth,body,this.options);
   }
 
-  getconsultaRFC(){
+  postValidator(tokenUrl){
+    this.configHeader(true);
+    let urlSearchParams = {
+      'token': tokenUrl
+    }
+    let body = JSON.stringify(urlSearchParams);
+    return this.postRequest(this.serviceValidator,body,this.options)
+  }
+
+  getConsultaRFC(){
     this.configHeader(false);
     return this.getRequest(this.serviceUrlRFC,this.options);
-
   }
+
   getSaldos(){
     this.configHeader(false);
     return this.getRequest(this.serviceUrlSaldos,this.options);

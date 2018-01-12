@@ -5,6 +5,7 @@ import { MenuMsg } from '../menu/menuMsg';
 import { LoginService } from '../services/loginServices'
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
+import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-consulta',
@@ -15,6 +16,7 @@ export class ViewConsultaComponent implements OnInit {
 
   totalMov =[];
   allMov = [];
+  tokenUrl = "";
 
   // allMov = [
   //   {
@@ -139,9 +141,17 @@ export class ViewConsultaComponent implements OnInit {
     private loginServices: LoginService,
     private _menuMan : MenuMsg,
     private alertMan: AlertMan,
-    private messageMan: MessageMan
+    private messageMan: MessageMan,
+    private route: ActivatedRoute
 
   ) {
+    // RECIBE PARAMETROS POR URL
+    this.route.params.subscribe(params => {
+      this.tokenUrl = params['token'];
+      console.log(params['token']);
+      console.log(params['ttkn']);
+    });
+
     // this.subscription = this._menuMan.getMessage()
     // .subscribe(
     //   message => {
@@ -158,46 +168,77 @@ export class ViewConsultaComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
-        // SE OBTIENEN LAS CUENTAS
-        this.loginServices.getSaldos()
+
+        // SERVICIO DE VALIDADOR DE TOKEN
+        this.loginServices.postValidator(this.tokenUrl)
         .subscribe(
           res => {
-            this.messageMan.sendMessage(res);
-            /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
-            // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
-            let datos = {"valores": localStorage.getItem('valores')}
-            // SE OBTIENEN LAS CUENTAS CON PORTABILIDAD
-            this.loginServices.postDetalleConsulta(datos)
-            .subscribe(
-              res=> {
-                // SE ASIGNA EL VALOR DEL ARREGLO DEVUELTO
-                this.allMov = res.dto;
-                this.filterMoves(1);
-              },
-              err => {
-                  this.errorService();
-                  console.log('Something went wrong!' + err.message);
-              }
-            );
-            /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+
+            // IF DE VALIDADOR DE RESPUESTA DE TOKEN
+            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
+
+                // SE GUARDA EL SESSION ID DE LA RESPUESTA
+                localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
+
+                // SE OBTIENEN LAS CUENTAS
+                this.loginServices.getSaldos()
+                .subscribe(
+                  res => {
+                    this.messageMan.sendMessage(res);
+                    /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+                    // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
+                    let datos = {"valores": localStorage.getItem('valores')}
+                    // SE OBTIENEN LAS CUENTAS CON PORTABILIDAD
+                    this.loginServices.postDetalleConsulta(datos)
+                    .subscribe(
+                      res=> {
+                        // SE ASIGNA EL VALOR DEL ARREGLO DEVUELTO
+                        this.allMov = res.dto;
+                        this.filterMoves(1);
+                      },
+                      err => {
+                          this.errorService();
+                      }
+                    );
+                    /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+                  },
+                  err => {
+                    this.errorService();
+                  }
+                );
+
+            } else {
+              var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
+              this.alertMan.sendMessage(message);
+            }
+            // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
+
+
           },
           err => {
             this.errorService();
-            console.log('Something went wrong!' + err.message);
           }
         );
       },
       err => {
           this.errorService();
-          console.log('Something went wrong!' + err.message);
       }
     );
     /* SE DESCOMENTA ESTE BLOQUE */
   }
-  private errorService(){
-    var message = new messageAlert("Error","Por el momento el servicio no esta disponible");
+
+  // PARA EL MENSAJE DE ERROR
+  private errorService(mensaje?: string){
+    var strMensaje = "";
+    if(mensaje)
+      strMensaje = mensaje;
+    else
+      strMensaje = "Por el momento el servicio no esta disponible";
+    var message = new messageAlert("Error",strMensaje);
     this.alertMan.sendMessage(message);
   }
+
+  // PARA FILTRAR MOVIMIENTOS
   private filterMoves(idBtn:number){
     console.log("LLENANDO...")
     this.totalMov = [];

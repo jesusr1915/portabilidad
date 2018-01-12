@@ -22,16 +22,18 @@ export class messageAlert {
   title: string;
   body: string;
   button: string;
+  type: string;
   constructor(
     title: string,
     body: string,
-    button?: string
+    button?: string,
+    type?: string
   ){
     this.title = title;
     this.body = body;
-    if(button)
+    if(body)
       this.button = button;
-    else
-      this.button = "Aceptar";
+    if(type)
+      this.type = type;
   }
 }

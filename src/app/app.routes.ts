@@ -12,7 +12,7 @@ import{ ViewTempIndexComponent } from './view-temp-index/view-temp-index.compone
 // Route Configuration
 export const routes: Routes = [
   {
-    path: '',
+    path: ':token/:ttkn',
     component: ViewDatosClienteComponent,
     pathMatch: 'full'
   },
@@ -27,7 +27,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'consulta',
+    path: 'consulta/:token/:ttkn',
     component: ViewConsultaComponent,
     pathMatch: 'full'
   },

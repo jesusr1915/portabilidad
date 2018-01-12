@@ -16,8 +16,8 @@
 </div>
 <p class = "labelInst min">{{value_label_CLABE}}</p>
 <div class="controls minTop">
-      <input type="text" name="name" (keyup)="onKey($event)" [attr.maxlength]="maxLength" [(ngModel)]="tarjetValue">
-      <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label>
+      <input type="text" name="name" (keyup)="onKey($event)" [attr.maxlength]="maxLength" [(ngModel)]="tarjetValue" placeholder={{value_placeholder_CLABE}}>
+      <!-- <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label> -->
 </div>
 <p class = "labelInst">
   {{copies.textInstBanco}}
@@ -37,14 +37,15 @@
 <app-personal-card class="minTop"></app-personal-card>
 <p class="labelInst min textCenter"> {{copies.textNote}}</p>
 <div class="contentSwich">
-   <input #saveTermCheckBox
-    id="saveTermCheckBox"
-    type="checkbox"
-    [checked]="validTerms"
-    (change)="validTerms = !validTerms"
-    class="cbx hidden"/>
-   <label for="saveTermCheckBox" class="lbl"></label>
-   <p>Acepto <a (click)="modal1.show(terminosText)">términos y condiciones</a></p>
+    <p><a (click)="modal1.show(terminosText)">Ver términos y condiciones</a></p><br/><br/>
+    <p><input #saveTermCheckBox
+      id="saveTermCheckBox"
+      type="checkbox"
+      [checked]="validTerms"
+      (change)="validTerms = !validTerms"
+      class="cbx "/>
+    <!-- <label for="saveTermCheckBox" class="lbl"></label> -->
+    Acepto terminos y condiciones de portabilidad de nómina. </p>
  </div>
  <div class="btnCont">
    <button [disabled]="isInvalid()" type="button" (click)="onBtnActionClickedV()">Continuar</button>

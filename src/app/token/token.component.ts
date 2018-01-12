@@ -20,10 +20,12 @@ export class TokenComponent implements OnInit {
   maxLength = 4;
   tokenValue = "";
   btnState = 'disableBtn';
+  tokenType = "";
+  tokenLength = 0;
 
-  title = "Esta operación requiere de autorización de SuperToken. Ingrese la clave SuperToken que usted definió.";
-  message = "Clave SuperToken";
-  value_placeholder_CLABE = "Número de 4 dígitos"
+  title = "";
+  message = "";
+  value_placeholder_CLABE = "";
 
   subscription: Subscription;
 
@@ -33,6 +35,25 @@ export class TokenComponent implements OnInit {
     private alertMan: AlertMan,
     private router: Router
   ) {
+
+    if(this.tokenType == "soft"){
+      this.title = "Esta operación requiere de autorización de SuperToken. Ingrese la clave SuperToken que usted definió.";
+      this.message = "Clave SuperToken";
+      this.value_placeholder_CLABE = "Número de 4 dígitos";
+      this.tokenLength = 4;
+    } else if(this.tokenType == "soft2"){
+      this.title = "Esta operación requiere autorización de SuperToken. Usted está utilizando un dispositivo diferente al que instaló en SuperToken. Ingrese el código generado.";
+      this.message = "NIP dinámico de SuperToken";
+      this.value_placeholder_CLABE = "Número de 8 dígitos";
+      this.tokenLength = 8;
+    } else {
+      this.title = "Esta operación requiere de autorización de Token físico. Ingrese el NIP dinámico generado por su dispositivo Token.";
+      this.message = "NIP dinámico Token";
+      this.value_placeholder_CLABE = "Número de 8 dígitos";
+      this.tokenLength = 8;
+    }
+
+
     this.subscription = this.tokenMng.getMessage()
     .subscribe(
       message => {
@@ -54,7 +75,7 @@ export class TokenComponent implements OnInit {
     setTimeout(() => this.visible = false, 300);
   }
   public isValid(){
-    if(this.tokenMask.length == 4){
+    if(this.tokenMask.length == this.tokenLength){
       // let body = {
       //   banco:"banamex"
       // }
@@ -100,7 +121,7 @@ export class TokenComponent implements OnInit {
     }
   }
   private errorService(){
-    var message = new messageAlert("Error","Por el momento el servicio no esta disponible");
+    var message = new messageAlert("Error","Por el momento el servicio no esta disponible", "Aceptar");
     this.alertMan.sendMessage(message);
   }
   onKey(event: any) { // inputs de tarjeta

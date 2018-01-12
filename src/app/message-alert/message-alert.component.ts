@@ -12,7 +12,9 @@ export class MessageAlertComponent implements OnInit {
   private visibleAnimate = false;
   private title="";
   private message="";
+  private button="Aceptar";
   private subscription: Subscription;
+  private icon = "";
 
   constructor(private messageMan: AlertMan) {
     this.subscription = this.messageMan.getMessage()
@@ -29,6 +31,13 @@ export class MessageAlertComponent implements OnInit {
   public shower(title: any): void {
     this.title = title.title;
     this.message = title.body;
+    this.button = title.button;
+    if(title.icon == "info")
+      this.icon = "assets/imgs/ico-info.svg";
+    else if(title.icon == "error")
+      this.icon = "assets/imgs/ico-warnning.svg";
+    else
+      this.icon = "assets/imgs/ico-warnning.svg";
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
   }
