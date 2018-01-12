@@ -72,16 +72,21 @@ export class CardsComponent implements OnInit, OnDestroy {
     this.cards.push(value);
   }
   setCurrentLocalCard(cards:any){
-    localStorage.setItem("cardAlias",cards.alias);
-    localStorage.setItem("cardDisponible",cards.disponible);
-    localStorage.setItem("cardDivisa",cards.divisa);
-    localStorage.setItem("cardNumeroCuenta",cards.numeroCuenta);
-    localStorage.setItem("cardCuentaMovil",cards.cuentaMovil);
-    localStorage.setItem("numeroCuenta",cards.unmaskCuenta);
-    localStorage.setItem("numeroCuenta",cards.numeroSubProducto);
-    if(cards.numeroSubProducto == "0025"){
-      var message = new messageAlert("Atención","Este tipo de cuentas sólo puede recibir depósitos de hasta $17, 000 mesuales. Si cree que rebasará el límite seleccione otra cuenta.","Entendido");
+    if(cards.indicadorBloqueo == "S"){
+      var message = new messageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info");
       this.alertMan.sendMessage(message);
+    } else {
+      localStorage.setItem("cardAlias",cards.alias);
+      localStorage.setItem("cardDisponible",cards.disponible);
+      localStorage.setItem("cardDivisa",cards.divisa);
+      localStorage.setItem("cardNumeroCuenta",cards.numeroCuenta);
+      localStorage.setItem("cardCuentaMovil",cards.cuentaMovil);
+      localStorage.setItem("numeroCuenta",cards.unmaskCuenta);
+      localStorage.setItem("numeroCuenta",cards.numeroSubProducto);
+      if(cards.numeroSubProducto == "0025"){
+        var message = new messageAlert("Límite dépositos en cuenta","Este tipo de cuenta sólo puede recibir depósitos hasta $17, 000 mesuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info");
+        this.alertMan.sendMessage(message);
+      }
     }
   }
 

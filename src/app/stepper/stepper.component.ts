@@ -16,8 +16,8 @@ export class StepperComponent implements OnInit {
   subscription: Subscription;
 
   instructions = [
-                  "Seleccione una cuenta",
-                  "Verifique su información",
+                  "Ingrese los datos de su nómina",
+                  "Verifique los datos de su cuenta o tarjeta",
                   "Felicidades has completado"
                 ];
 

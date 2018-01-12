@@ -85,7 +85,7 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   ngOnInit(){
-  
+
     //localStorage.clear();
     this.copiesServ.postCopies()
     .subscribe(
@@ -113,41 +113,47 @@ export class ViewDatosClienteComponent implements OnInit {
               // SE GUARDA EL SESSION ID DE LA RESPUESTA
               localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
 
-              // SERVICIO DE CONSULTA DE BANCOS
-              this.loginServices.postBancos()
-              .subscribe(
-                res => {
-                  for(let arrayVal of res.dto){
-                    let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
-                    this.lBanks.push(temp);
-                  }
-                },
-                err => {
-                  this.errorService();
-                }
-              );
+
 
               // SERVICIO DE SALDOS
               this.loginServices.getSaldos()
               .subscribe(
                 res => {
                   this.messageMan.sendMessage(res);
+
+                  // SERVICIO DE CONSULTA DE RFC
+                  this.loginServices.getConsultaRFC()
+                  .subscribe(
+                    res => {
+                      this.infoCardMng.sendMessage(res.dto);
+
+                      // SERVICIO DE CONSULTA DE BANCOS
+                      this.loginServices.postBancos()
+                      .subscribe(
+                        res => {
+                          for(let arrayVal of res.dto){
+                            let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
+                            this.lBanks.push(temp);
+                          }
+                        },
+                        err => {
+                          this.errorService();
+                        }
+                      );
+
+                    },
+                    err => {
+                      this.errorService();
+                    }
+                  )
+
                 },
                 err => {
                   this.errorService();
                 }
               )
 
-              // SERVICIO DE CONSULTA DE RFC
-              this.loginServices.getConsultaRFC()
-              .subscribe(
-                res => {
-                  this.infoCardMng.sendMessage(res.dto);
-                },
-                err => {
-                  this.errorService();
-                }
-              )
+
 
             } else {
               var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);

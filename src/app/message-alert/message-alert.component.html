@@ -7,7 +7,7 @@
 		      class="logo-santander-03">
           </div>
           <h1>{{title}}</h1>
-        <p class = "textFix">{{message}}</p>
+        <p class = "textFix" [innerHTML]="message"></p>
         <div class = "footer" (click)="hide()">
           <div class ="divider"></div>
           <p>Aceptar</p>

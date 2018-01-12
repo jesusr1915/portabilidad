@@ -22,18 +22,18 @@ export class messageAlert {
   title: string;
   body: string;
   button: string;
-  type: string;
+  icon: string;
   constructor(
     title: string,
     body: string,
     button?: string,
-    type?: string
+    icon?: string
   ){
     this.title = title;
     this.body = body;
     if(body)
       this.button = button;
-    if(type)
-      this.type = type;
+    if(icon)
+      this.icon = icon;
   }
 }

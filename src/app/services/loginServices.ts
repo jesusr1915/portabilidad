@@ -34,6 +34,10 @@ export class LoginService{
         this.ENV = res.ENV_VAR;
         localStorage.setItem('ENV',this.ENV);
         console.log(res);
+      },
+      err => {
+        this.ENV = "dev";
+        localStorage.setItem('ENV',this.ENV);
       }
     )
   }
