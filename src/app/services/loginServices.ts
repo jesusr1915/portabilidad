@@ -31,6 +31,8 @@ export class LoginService{
     this.getConfig()
     .subscribe(
       res => {
+        this.ENV = res.ENV_VAR;
+        localStorage.setItem('ENV',this.ENV);
         console.log(res);
       }
     )
