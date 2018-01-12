@@ -54,7 +54,7 @@ export class LoginService{
     // urlSearchParams.append ('clientSecret','6pW&z3A4lVbzF?$,?GFtEI)Q/j=J/d');
 
     urlSearchParams.append ('client_id','cff38f0b-967c-4cc1-ba80-5cfee626d3ea');
-    urlSearchParams.append ('2z2Bo9p!4{$ryY1lDw?>KW&a.j#OZw');
+    urlSearchParams.append ('clientSecret','2z2Bo9p!4{$ryY1lDw?>KW&a.j#OZw');
 
     let body = urlSearchParams.toString();
     return this.postRequest(this.serviceOAuth,body,this.options);
