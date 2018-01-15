@@ -33,7 +33,6 @@ export class LoginService{
       res => {
         this.ENV = res.ENV_VAR;
         localStorage.setItem('ENV',this.ENV);
-        console.log(res);
       },
       err => {
         this.ENV = "pre";
@@ -50,12 +49,14 @@ export class LoginService{
   postOAuthToken(){
     this.configHeader(false);
     let urlSearchParams = new URLSearchParams();
-    // urlSearchParams.append ('client_id','b63dae8e-3dc5-4652-a1c1-cb3f3c2b4a29');
-    // urlSearchParams.append ('clientSecret','6pW&z3A4lVbzF?$,?GFtEI)Q/j=J/d');
-
-    urlSearchParams.append ('client_id','cff38f0b-967c-4cc1-ba80-5cfee626d3ea');
-    urlSearchParams.append ('clientSecret','2z2Bo9p!4{$ryY1lDw?>KW&a.j#OZw');
-
+    if(this.ENV == "dev"){
+      urlSearchParams.append ('client_id','b63dae8e-3dc5-4652-a1c1-cb3f3c2b4a29');
+      urlSearchParams.append ('clientSecret','6pW&z3A4lVbzF?$,?GFtEI)Q/j=J/d');
+    } else {
+      urlSearchParams.append ('client_id','cff38f0b-967c-4cc1-ba80-5cfee626d3ea');
+      urlSearchParams.append ('clientSecret','2z2Bo9p!4{$ryY1lDw?>KW&a.j#OZw');
+    }
+    // AQUI VA EL CLIENT ID PARA EL AMBIENTE ADECUADO
     let body = urlSearchParams.toString();
     return this.postRequest(this.serviceOAuth,body,this.options);
   }

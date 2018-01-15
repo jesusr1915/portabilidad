@@ -16,7 +16,7 @@ export class ViewTempIndexComponent implements OnInit {
   }
   onBtnActionClickedV(){
     localStorage.setItem('sessionID',this.sessionValue);
-    this.router.navigate(['']);
+    this.router.navigate(['TOKEN/1']);
   }
 
 }

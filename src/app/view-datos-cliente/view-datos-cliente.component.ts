@@ -54,6 +54,7 @@ export class ViewDatosClienteComponent implements OnInit {
 
     curUser: any = this.lUsers[0];
     tokenUrl = "";
+    tokenType = "";
 
   @Input() value_label_CLABE;
   @Input() value_placeholder_CLABE;
@@ -72,8 +73,7 @@ export class ViewDatosClienteComponent implements OnInit {
     // RECIBE PARAMETROS POR URL
     this.route.params.subscribe(params => {
       this.tokenUrl = params['token'];
-      console.log(params['token']);
-      console.log(params['ttkn']);
+      this.tokenType = params['ttkn'];
     });
 
     this.subscription = this.termsMng.getMessage()
@@ -111,8 +111,14 @@ export class ViewDatosClienteComponent implements OnInit {
             if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
 
               // SE GUARDA EL SESSION ID DE LA RESPUESTA
-              localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
-
+              if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
+                if(localStorage.getItem('sessionID') == ""){
+                  localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
+                }
+              }
+              if(this.tokenType !== "" && this.tokenType !== undefined){
+                  localStorage.setItem('ttkn',this.tokenType);
+              }
 
 
               // SERVICIO DE SALDOS
@@ -201,7 +207,7 @@ export class ViewDatosClienteComponent implements OnInit {
   // PARA EL MENSAJE DE ERROR
   private errorService(mensaje?: string){
     var strMensaje = "";
-    console.log(mensaje);
+
     if(mensaje)
       strMensaje = mensaje;
     else
