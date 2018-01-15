@@ -108,6 +108,7 @@ export class ViewDatosClienteComponent implements OnInit {
 
 
             // VALIDADOR DE RESPUESTA DE TOKEN
+            console.log(res.stokenValidatorResponse.codigoMensaje);
             if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
 
               // SE GUARDA EL SESSION ID DE LA RESPUESTA
