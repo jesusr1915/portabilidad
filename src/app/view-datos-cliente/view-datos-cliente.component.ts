@@ -74,6 +74,11 @@ export class ViewDatosClienteComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.tokenUrl = params['token'];
       this.tokenType = params['ttkn'];
+
+      // SE GUARDA EN EL LOCALSTORAGE EL VALOR DEL TIPO DE TOKEN
+      if(this.tokenType !== "" && this.tokenType !== undefined){
+          localStorage.setItem('ttkn',this.tokenType);
+      }
     });
 
     this.subscription = this.termsMng.getMessage()
@@ -116,9 +121,6 @@ export class ViewDatosClienteComponent implements OnInit {
                 if(localStorage.getItem('sessionID') == ""){
                   localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
                 }
-              }
-              if(this.tokenType !== "" && this.tokenType !== undefined){
-                  localStorage.setItem('ttkn',this.tokenType);
               }
 
 

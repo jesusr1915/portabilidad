@@ -88,7 +88,7 @@ export class TokenComponent implements OnInit {
         "fechaHora" : "",
         "operacion" : "PNAR",
         "tipoOTP" : "",
-        "token" : "00000000"
+        "token" : this.tokenMask
       }
 
       this.serviceManager.postAlta(body)
