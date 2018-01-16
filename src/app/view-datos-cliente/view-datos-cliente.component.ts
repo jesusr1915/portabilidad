@@ -75,6 +75,8 @@ export class ViewDatosClienteComponent implements OnInit {
       this.tokenUrl = params['token'];
       this.tokenType = params['ttkn'];
 
+      console.log("WELCOME");
+
       // SE GUARDA EL SESSION ID DE LA RESPUESTA
       if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
         if(localStorage.getItem('sessionID') == ""){
