@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StepMan } from '../stepper/stepMan';
 import { FormatValue } from '../tools/formatValues';
+import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-status',
@@ -21,7 +22,8 @@ export class ViewStatusComponent implements OnInit {
 
   constructor(
     private _stepMan : StepMan,
-    private _utils : FormatValue
+    private _utils : FormatValue,
+    private router: Router
   ) {
     //this.dateOperation = this._utils.formatDate(localStorage.getItem('fechaOperacion'),"-","aammdd");
     this.dateOperation = localStorage.getItem('fechaOperacion');
@@ -29,6 +31,11 @@ export class ViewStatusComponent implements OnInit {
 
   ngOnInit() {
     this._stepMan.sendMessage(0,"Portabilidad de Nómina");
+  }
+
+  onBtnActionClickedV(){
+    let homePage = localStorage.getItem('tokenUrl') + '/' + localStorage.getItem('ttkn');
+    this.router.navigate([homePage]);
   }
 
 }

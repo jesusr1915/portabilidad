@@ -94,7 +94,7 @@ export class TokenComponent implements OnInit {
       this.serviceManager.postAlta(body)
       .subscribe(
         res => {
-          console.log(res.dto);
+          console.log("RESPUESTA ALTA " +res.dto);
           localStorage.setItem('folio',res.dto.folio);
           localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);
@@ -102,7 +102,6 @@ export class TokenComponent implements OnInit {
           this.router.navigate(['/status']);
         },
         err => {
-
           this.errorService();
         }
       )

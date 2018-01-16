@@ -30,12 +30,10 @@ export class LoginService{
     this.getConfig()
     .subscribe(
       res => {
-        console.log("CORRECTO");
         this.ENV = res.ENV_VAR;
         localStorage.setItem('ENV', this.ENV);
       },
       err => {
-        console.log("INCORRECTO");
         this.ENV = "dev";
         localStorage.setItem('ENV', this.ENV);
       }
@@ -77,7 +75,6 @@ export class LoginService{
     }
     // AQUI VA EL CLIENT ID PARA EL AMBIENTE ADECUADO
     let body = urlSearchParams.toString();
-    console.log("--" + this.serviceOAuth);
     return this.postRequest(this.serviceOAuth,body,this.options);
   }
 

@@ -42,6 +42,7 @@ export class ViewDatosClienteComponent implements OnInit {
   validClabe = false;
   validBank = true;
   validTerms = false;
+  validAccount = true;
 
     lUsers: any[] = [
     ];
@@ -79,6 +80,9 @@ export class ViewDatosClienteComponent implements OnInit {
       if(this.tokenType !== "" && this.tokenType !== undefined){
           localStorage.setItem('ttkn',this.tokenType);
       }
+      if(this.tokenUrl != ""){
+        localStorage.setItem('tokenUrl', this.tokenUrl);
+      }
     });
 
     this.subscription = this.termsMng.getMessage()
@@ -91,6 +95,18 @@ export class ViewDatosClienteComponent implements OnInit {
 
   ngOnInit(){
 
+    this.loginServices.getConfig()
+    .subscribe(
+      res => {
+        localStorage.setItem('ENV', res.ENV_VAR);
+        this.startServices();
+      },
+      err => {
+        localStorage.setItem('ENV', 'dev');
+        this.startServices();
+      }
+    )
+
     //localStorage.clear();
     this.copiesServ.postCopies()
     .subscribe(
@@ -101,7 +117,9 @@ export class ViewDatosClienteComponent implements OnInit {
         this.stepMan.sendMessage(1,"Portabilidad de Nómina");
       }
     )
+  }
 
+  private startServices(){
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
@@ -113,7 +131,6 @@ export class ViewDatosClienteComponent implements OnInit {
 
 
             // VALIDADOR DE RESPUESTA DE TOKEN
-            console.log(res.stokenValidatorResponse.codigoMensaje);
             if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
 
               // SE GUARDA EL SESSION ID DE LA RESPUESTA
@@ -183,8 +200,9 @@ export class ViewDatosClienteComponent implements OnInit {
         this.errorService();
       }
     )
-
   }
+
+
   private setNewUser(id: any): void {
     this.curUser = this.lUsers.filter(value => value.id === parseInt(id));
     if(this.selectedRadio == "debito"){
@@ -294,7 +312,8 @@ export class ViewDatosClienteComponent implements OnInit {
 
 
     isInvalid(){
-      if (this.validClabe && this.validBank && this.validTerms){
+      this.validAccount = JSON.parse(localStorage.getItem('validAccount'));
+      if (this.validClabe && this.validBank && this.validTerms && this.validAccount){
         return false;
       }
       return true;
