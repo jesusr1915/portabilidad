@@ -20,6 +20,9 @@ export class ViewVerifiqueComponent implements OnInit {
   @Input() valueBank = localStorage.getItem('banco');
   @Input() valueBirthdate = localStorage.getItem('birthday');
 
+  myExtObject: any;
+  tipoToken: string;
+
   demo : Demo = new Demo(
     localStorage.getItem("cardAlias"),
     "SantanderSelect",
@@ -41,6 +44,7 @@ export class ViewVerifiqueComponent implements OnInit {
     .subscribe(
       res => {
         this.copiesVer = res.datos.verifique;
+        this.tipoToken = localStorage.getItem("ttkn");
 
         this.stepMan.sendMessage(2,"Portabilidad de Nómina");
 
@@ -52,11 +56,23 @@ export class ViewVerifiqueComponent implements OnInit {
         }
       }
     )
-
-
   }
+
   showToken(){
-    this.tokenMng.sendMessage("true");
+
+    if(this.tipoToken == "0"){
+      this.tokenMng.sendMessage("true");
+    } else {
+      this.requestToken();
+    }
+  }
+
+  requestToken() {
+    (window as any).requestToken();
+  }
+
+  responseToken() {
+    (window as any).responseToken();
   }
 
 }

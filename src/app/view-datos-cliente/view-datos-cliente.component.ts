@@ -74,6 +74,16 @@ export class ViewDatosClienteComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.tokenUrl = params['token'];
       this.tokenType = params['ttkn'];
+
+      // SE GUARDA EL SESSION ID DE LA RESPUESTA
+      if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
+        if(localStorage.getItem('sessionID') == ""){
+          localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
+        }
+      }
+      if(this.tokenType !== "" && this.tokenType !== undefined){
+          localStorage.setItem('ttkn',this.tokenType);
+      }
     });
 
     this.subscription = this.termsMng.getMessage()
@@ -110,17 +120,6 @@ export class ViewDatosClienteComponent implements OnInit {
             // VALIDADOR DE RESPUESTA DE TOKEN
             console.log(res.stokenValidatorResponse.codigoMensaje);
             if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-
-              // SE GUARDA EL SESSION ID DE LA RESPUESTA
-              if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
-                if(localStorage.getItem('sessionID') == ""){
-                  localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
-                }
-              }
-              if(this.tokenType !== "" && this.tokenType !== undefined){
-                  localStorage.setItem('ttkn',this.tokenType);
-              }
-
 
               // SERVICIO DE SALDOS
               this.loginServices.getSaldos()

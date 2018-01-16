@@ -7,38 +7,54 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Injectable()
 export class LoginService{
-  private ENV = "pre";
+  private ENV: string;
   private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.ENV +'.appls.cto1.paas.gsnetcloud.corp';
 
   private serviceConfig = '/config.json';
-  private serviceOAuth = this.urlBase + '/token';
-  private serviceValidator = this.urlBase + '/tokenmanager/tokenValidatorWS'
-  private serviceUrlSaldos = this.urlBase + '/clientes/saldosCuentasCheques';
-  private serviceUrlRFC = this.urlBase + '/clientes/consultaRFCPN';
-  private serviceUrlClabeBancos = this.urlBase + '/bancos/bancoCuenta';
-  private serviceUrlBancos = this.urlBase + '/bancos/consultaBancos';
-  private serviceUrlAlta = this.urlBase + '/portabilidad/altaRecepcionPN';
-  private serviceUrlDetalleConsulta = this.urlBase + '/portabilidad/consultaPN';
+  private serviceOAuth: string;
+  private serviceValidator: string;
+  private serviceUrlSaldos: string;
+  private serviceUrlRFC: string;
+  private serviceUrlClabeBancos: string;
+  private serviceUrlBancos: string;
+  private serviceUrlAlta: string;
+  private serviceUrlDetalleConsulta: string;
 
   private body = '';
   private headers = new Headers();
   private options;
   data: any = {};
-
   token = "";
 
   constructor(public http:Http, public spinnerMng : SpinnerMan) {
     this.getConfig()
     .subscribe(
       res => {
+        console.log("CORRECTO");
         this.ENV = res.ENV_VAR;
-        localStorage.setItem('ENV',this.ENV);
+        localStorage.setItem('ENV', this.ENV);
       },
       err => {
-        this.ENV = "pre";
-        localStorage.setItem('ENV',this.ENV);
+        console.log("INCORRECTO");
+        this.ENV = "dev";
+        localStorage.setItem('ENV', this.ENV);
       }
     )
+  }
+
+  getUrlBase(){
+    return this.urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-' + localStorage.getItem('ENV') + '.appls.cto1.paas.gsnetcloud.corp';
+  }
+
+  getUrls(){
+    this.serviceOAuth = this.getUrlBase() + '/token';
+    this.serviceValidator = this.getUrlBase() + '/tokenmanager/tokenValidatorWS'
+    this.serviceUrlSaldos = this.getUrlBase() + '/clientes/saldosCuentasCheques';
+    this.serviceUrlRFC = this.getUrlBase() + '/clientes/consultaRFCPN';
+    this.serviceUrlClabeBancos = this.getUrlBase() + '/bancos/bancoCuenta';
+    this.serviceUrlBancos = this.getUrlBase() + '/bancos/consultaBancos';
+    this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
+    this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
   }
 
   getConfig(){
@@ -47,9 +63,12 @@ export class LoginService{
   }
 
   postOAuthToken(){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(false);
     let urlSearchParams = new URLSearchParams();
-    if(this.ENV == "dev"){
+    if(localStorage.getItem('ENV') == "dev"){
       urlSearchParams.append ('client_id','b63dae8e-3dc5-4652-a1c1-cb3f3c2b4a29');
       urlSearchParams.append ('clientSecret','6pW&z3A4lVbzF?$,?GFtEI)Q/j=J/d');
     } else {
@@ -58,10 +77,14 @@ export class LoginService{
     }
     // AQUI VA EL CLIENT ID PARA EL AMBIENTE ADECUADO
     let body = urlSearchParams.toString();
+    console.log("--" + this.serviceOAuth);
     return this.postRequest(this.serviceOAuth,body,this.options);
   }
 
   postValidator(tokenUrl){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(true);
     let urlSearchParams = {
       'token': tokenUrl
@@ -71,16 +94,25 @@ export class LoginService{
   }
 
   getConsultaRFC(){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(false);
     return this.getRequest(this.serviceUrlRFC,this.options);
   }
 
   getSaldos(){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(false);
     return this.getRequest(this.serviceUrlSaldos,this.options);
     //return this.http.get('api/cuentaCheques.json')
   }
   postBancosClabe(cuenta : string){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(true);
     let urlSearchParams = {
       'cuenta': cuenta
@@ -89,11 +121,17 @@ export class LoginService{
     return this.postRequest(this.serviceUrlClabeBancos,body,this.options)
   }
   postBancos(){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(true);
     return this.postRequest(this.serviceUrlBancos,"",this.options);
 
   }
   postAlta(datosEntrada : any){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(true);
     // let urlSearchParams = new URLSearchParams();
     // urlSearchParams.append ('datosEntrada',datosEntrada);
@@ -103,11 +141,17 @@ export class LoginService{
     //return this.http.get('api/alta.json')
   }
   postDetalleConsulta(datosEntrada: any){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlDetalleConsulta,body,this.options);
   }
   getRequest(url:string, xtras:string){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.spinnerMng.showSpinner(true);
     return this.http.get(url,xtras)
     .map((response) => {
@@ -123,6 +167,9 @@ export class LoginService{
       });
   }
   postRequest(url:string, body:string, xtras:string){
+    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
+    this.getUrls();
+
     this.spinnerMng.showSpinner(true);
     return this.http.post(url,body,xtras)
     .map((response) => {

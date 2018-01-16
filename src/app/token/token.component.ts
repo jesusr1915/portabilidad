@@ -22,6 +22,7 @@ export class TokenComponent implements OnInit {
   btnState = 'disableBtn';
   tokenType = "";
   tokenLength = 0;
+  currentToken = "";
 
   title = "";
   message = "";
@@ -36,21 +37,14 @@ export class TokenComponent implements OnInit {
     private router: Router
   ) {
 
-    if(this.tokenType == "soft"){
-      this.title = "Esta operación requiere de autorización de SuperToken. Ingrese la clave SuperToken que usted definió.";
-      this.message = "Clave SuperToken";
-      this.value_placeholder_CLABE = "Número de 4 dígitos";
-      this.tokenLength = 4;
-    } else if(this.tokenType == "soft2"){
-      this.title = "Esta operación requiere autorización de SuperToken. Usted está utilizando un dispositivo diferente al que instaló en SuperToken. Ingrese el código generado.";
-      this.message = "NIP dinámico de SuperToken";
-      this.value_placeholder_CLABE = "Número de 8 dígitos";
-      this.tokenLength = 8;
-    } else {
+    this.tokenType = localStorage.getItem("ttkn");
+
+    if(this.tokenType == "0"){
       this.title = "Esta operación requiere de autorización de Token físico. Ingrese el NIP dinámico generado por su dispositivo Token.";
       this.message = "NIP dinámico Token";
       this.value_placeholder_CLABE = "Número de 8 dígitos";
       this.tokenLength = 8;
+      this.maxLength = 8;
     }
 
 
@@ -76,10 +70,6 @@ export class TokenComponent implements OnInit {
   }
   public isValid(){
     if(this.tokenMask.length == this.tokenLength){
-      // let body = {
-      //   banco:"banamex"
-      // }
-
 
       let body = {
         "datosEntrada" : {
@@ -114,7 +104,6 @@ export class TokenComponent implements OnInit {
         err => {
 
           this.errorService();
-          console.log('Something went wrong!' + err.message);
         }
       )
 
