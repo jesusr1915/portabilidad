@@ -38,6 +38,7 @@ export class LoginService{
         localStorage.setItem('ENV', this.ENV);
       }
     )
+
   }
 
   getUrlBase(){
@@ -183,6 +184,8 @@ export class LoginService{
         );
       });
   }
+
+  question = [{},{},{},{}]
 
   configHeader(json:boolean){
     this.headers = new Headers();

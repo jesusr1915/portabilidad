@@ -148,8 +148,15 @@ export class ViewConsultaComponent implements OnInit {
     // RECIBE PARAMETROS POR URL
     this.route.params.subscribe(params => {
       this.tokenUrl = params['token'];
-      console.log(params['token']);
-      console.log(params['ttkn']);
+      this.tokenType = params['ttkn'];
+
+      // SE GUARDA EN EL LOCALSTORAGE EL VALOR DEL TIPO DE TOKEN
+      if(this.tokenType !== "" && this.tokenType !== undefined){
+          localStorage.setItem('ttkn',this.tokenType);
+      }
+      if(this.tokenUrl != ""){
+        localStorage.setItem('tokenUrl', this.tokenUrl);
+      }
     });
 
     // this.subscription = this._menuMan.getMessage()
@@ -178,7 +185,11 @@ export class ViewConsultaComponent implements OnInit {
             if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
 
                 // SE GUARDA EL SESSION ID DE LA RESPUESTA
-                localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
+                if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
+                  if(localStorage.getItem('sessionID') == ""){
+                    localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
+                  }
+                }
 
                 // SE OBTIENEN LAS CUENTAS
                 this.loginServices.getSaldos()

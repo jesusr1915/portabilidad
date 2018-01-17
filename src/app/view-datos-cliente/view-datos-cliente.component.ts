@@ -179,8 +179,6 @@ export class ViewDatosClienteComponent implements OnInit {
                 }
               )
 
-
-
             } else {
               var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
               this.alertMan.sendMessage(message);
