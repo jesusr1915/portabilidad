@@ -17,6 +17,7 @@ export class ViewConsultaComponent implements OnInit {
   totalMov =[];
   allMov = [];
   tokenUrl = "";
+  tokenType = "";
 
   // allMov = [
   //   {
