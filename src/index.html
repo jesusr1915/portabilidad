@@ -11,10 +11,11 @@
       function requestToken() {
         //Connect.requestToken();
 
+        alert('Mandando funcion')
         var promise = Connect.getToken();
 
         var successCallback = function(token){
-          window.angularComponentRef.componentFn(token);
+          responseToken(token);
           alert("éxito:"+token);
         };
         var errorCallback = function(mensaje){
@@ -34,6 +35,11 @@
       function responseToken(tokenString){
         window.angularComponentRef.componentFn(tokenString);
       }
+
+didTapBackButton()
+didTapHomeButton()
+
+
   </script>
 </head>
 <body>
