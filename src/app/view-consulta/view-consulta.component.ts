@@ -149,12 +149,8 @@ export class ViewConsultaComponent implements OnInit {
     // RECIBE PARAMETROS POR URL
     this.route.params.subscribe(params => {
       this.tokenUrl = params['token'];
-      this.tokenType = params['ttkn'];
 
-      // SE GUARDA EN EL LOCALSTORAGE EL VALOR DEL TIPO DE TOKEN
-      if(this.tokenType !== "" && this.tokenType !== undefined){
-          localStorage.setItem('ttkn',this.tokenType);
-      }
+      // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
       if(this.tokenUrl != ""){
         localStorage.setItem('tokenUrl', this.tokenUrl);
       }

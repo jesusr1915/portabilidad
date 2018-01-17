@@ -9,7 +9,26 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script type="text/javascript">
       function requestToken() {
-        Connect.requestToken();
+        //Connect.requestToken();
+
+        var promise = Connect.getToken();
+
+        var successCallback = function(token){
+          window.angularComponentRef.componentFn(token);
+          alert("éxito:"+token);
+        };
+        var errorCallback = function(mensaje){
+          alert("error:"+mensaje);
+        };
+        //alert(promise);
+        promise.then(
+          successCallback,
+          errorCallback
+        );
+
+        //promise.estoyVivo();
+        promise.run();
+
       }
 
       function responseToken(tokenString){

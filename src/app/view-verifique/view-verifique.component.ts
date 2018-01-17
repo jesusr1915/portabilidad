@@ -74,11 +74,14 @@ export class ViewVerifiqueComponent implements OnInit {
 
   showToken(){
 
-    if(this.tipoToken == "0"){
-      this.tokenMng.sendMessage("true");
-    } else {
-      this.requestToken();
-    }
+    // SE MANDA LLAMAR LA FUNCION QUE DEVUELVE EL TOKEN NATIVO
+    this.requestToken()
+
+    // if(this.tipoToken == "0"){
+    //   this.tokenMng.sendMessage("true");
+    // } else {
+    //   this.requestToken();
+    // }
   }
 
   requestToken() {
