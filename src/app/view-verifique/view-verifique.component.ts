@@ -75,7 +75,9 @@ export class ViewVerifiqueComponent implements OnInit {
   showToken(){
 
     // SE MANDA LLAMAR LA FUNCION QUE DEVUELVE EL TOKEN NATIVO
-    this.requestToken()
+    //this.requestToken()
+
+    Connect.getToken();
 
     // if(this.tipoToken == "0"){
     //   this.tokenMng.sendMessage("true");
