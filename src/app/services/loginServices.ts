@@ -27,18 +27,17 @@ export class LoginService{
   token = "";
 
   constructor(public http:Http, public spinnerMng : SpinnerMan) {
-    this.getConfig()
-    .subscribe(
-      res => {
-        this.ENV = res.ENV_VAR;
-        localStorage.setItem('ENV', this.ENV);
-      },
-      err => {
-        this.ENV = "pre";
-        localStorage.setItem('ENV', this.ENV);
-      }
-    )
-
+    // this.getConfig()
+    // .subscribe(
+    //   res => {
+    //     this.ENV = res.ENV_VAR;
+    //     localStorage.setItem('ENV', this.ENV);
+    //   },
+    //   err => {
+    //     this.ENV = "pre";
+    //     localStorage.setItem('ENV', this.ENV);
+    //   }
+    // )
   }
 
   getUrlBase(){
@@ -154,7 +153,7 @@ export class LoginService{
     return this.http.get(url,xtras)
     .map((response) => {
       this.spinnerMng.showSpinner(false);
-      console.log(response.json());
+      //console.log(response.json());
       return response.json()
       })
       .catch((e) => {

@@ -12,11 +12,6 @@ import{ ViewTempIndexComponent } from './view-temp-index/view-temp-index.compone
 // Route Configuration
 export const routes: Routes = [
   {
-    path: ':token/:ttkn',
-    component: ViewDatosClienteComponent,
-    pathMatch: 'full'
-  },
-  {
     path: 'verifica',
     component: ViewVerifiqueComponent,
     pathMatch: 'full'
@@ -27,7 +22,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'consulta/:token/:ttkn',
+    path: 'consulta/:token',
     component: ViewConsultaComponent,
     pathMatch: 'full'
   },
@@ -41,6 +36,11 @@ export const routes: Routes = [
     component: ViewTempIndexComponent,
     pathMatch: 'full'
   },
+  {
+    path: ':token',
+    component: ViewDatosClienteComponent,
+    pathMatch: 'full'
+  }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

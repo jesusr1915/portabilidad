@@ -71,6 +71,17 @@ export class ViewDatosClienteComponent implements OnInit {
     private termsMng: TermMan,
     private route: ActivatedRoute
   ){
+    // RECIBE PARAMETROS POR URL CON QUERY
+    // this.route.queryParams
+    // .subscribe(params => {
+    //   this.tokenUrl = params.token
+    //
+    //   // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+    //   if(this.tokenUrl != ""){
+    //     localStorage.setItem('tokenUrl', this.tokenUrl);
+    //   }
+    // });
+
     // RECIBE PARAMETROS POR URL
     this.route.params.subscribe(params => {
       this.tokenUrl = params['token'];
