@@ -9,7 +9,7 @@
     <h1 class= "title">
       {{value_alias}}
     </h1>
-    <p class="info">
+    <p [ngClass]="cuentaEnCeros ? 'info-zero' : 'info'">
       {{value_disponible}}
       <span class = "coins">
         {{value_divisa}}

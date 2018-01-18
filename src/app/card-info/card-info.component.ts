@@ -16,12 +16,13 @@ export class CardInfoComponent implements OnInit {
   @Input() value_cuentaMovil;
   @Input() value_bloqueo;
   cuentaBloqueada: boolean = false;
+  cuentaEnCeros: boolean = false;
   constructor(){
   }
 
   ngOnInit() {
     this.cuentaBloqueada = this.value_bloqueo == "S" ? true : false;
-    console.log(this.cuentaBloqueada);
+    this.cuentaEnCeros = this.value_disponible <= 0 ? true : false;
   }
 
 }

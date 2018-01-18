@@ -22,16 +22,21 @@ app-cards, .question, .bank_Data_contain{
   background-color: #f0f0f0;
   border: solid 1px #cccccc;
 
-  li{
-    margin: 30px 3%;
+  div{
+    // margin: 10px 3%;
     font-size: 14px;
     color: #424242;
     text-transform: uppercase;
   }
   span{
-    float:right;
+    width: 44%;
+    float:left;
     font-size: 16px;
     color: #424242;
+    margin: 7px 3%;
+    &.fright{
+      text-align: right;
+    }
   }
 }
 strong.black{
