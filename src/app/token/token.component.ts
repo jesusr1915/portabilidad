@@ -39,13 +39,13 @@ export class TokenComponent implements OnInit {
 
     this.tokenType = localStorage.getItem("ttkn");
 
-    if(this.tokenType == "0"){
+    //if(this.tokenType == "0"){
       this.title = "Esta operación requiere de autorización de Token físico. Ingrese el NIP dinámico generado por su dispositivo Token.";
       this.message = "NIP dinámico Token";
       this.value_placeholder_CLABE = "Número de 8 dígitos";
       this.tokenLength = 8;
       this.maxLength = 8;
-    }
+    //}
 
 
     this.subscription = this.tokenMng.getMessage()
@@ -94,12 +94,17 @@ export class TokenComponent implements OnInit {
       this.serviceManager.postAlta(body)
       .subscribe(
         res => {
-          console.log("RESPUESTA ALTA " +res.dto);
-          localStorage.setItem('folio',res.dto.folio);
-          localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
-          localStorage.setItem('horaEnvio',res.dto.horaEnvio);
-          localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
-          this.router.navigate(['/status']);
+          if(res.error.clave == "OK"){
+            console.log("RESPUESTA ALTA " +res.dto);
+            localStorage.setItem('folio',res.dto.folio);
+            localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
+            localStorage.setItem('horaEnvio',res.dto.horaEnvio);
+            localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+            this.router.navigate(['/status']);
+          } else {
+            var message = new messageAlert("Error",res.error.message, "Aceptar");
+            this.alertMan.sendMessage(message);
+          }
         },
         err => {
           this.errorService();

@@ -34,7 +34,7 @@ export class LoginService{
         localStorage.setItem('ENV', this.ENV);
       },
       err => {
-        this.ENV = "dev";
+        this.ENV = "pre";
         localStorage.setItem('ENV', this.ENV);
       }
     )
@@ -174,6 +174,7 @@ export class LoginService{
       this.spinnerMng.showSpinner(false);
       if(url == this.serviceOAuth){
         this.token = response.json().access_token;
+        localStorage.setItem('tokenTemp', this.token);
       }
       return response.json()
       })
@@ -195,7 +196,10 @@ export class LoginService{
       this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     }
     let sessionID = 'JSESSIONID='+ localStorage.getItem('sessionID') + ";";
+
     this.headers.append('Cookie1', sessionID + ' HTTPOnly; Path=/; Secure');
+
+    this.token = localStorage.getItem('tokenTemp')
     let tokentemp = 'Bearer '+this.token;
     this.headers.append('Authorization', tokentemp);
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });

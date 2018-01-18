@@ -91,6 +91,7 @@ export class ViewDatosClienteComponent implements OnInit {
 
   ngOnInit(){
 
+    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
     this.loginServices.getConfig()
     .subscribe(
       res => {
@@ -98,7 +99,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.startServices();
       },
       err => {
-        localStorage.setItem('ENV', 'dev');
+        localStorage.setItem('ENV', 'pre');
         this.startServices();
       }
     )

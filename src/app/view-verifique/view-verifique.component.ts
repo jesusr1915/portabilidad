@@ -47,10 +47,10 @@ export class ViewVerifiqueComponent implements OnInit {
     private router: Router
   ) {
     (window as any).angularComponentRef = {
-          zone: this.zone,
-          componentFn: (value) => this.calledFromOutside(value),
-          component: this
-        };
+      zone: this.zone,
+      componentFn: (succesTkn, errorTkn) => this.receiveTokenFromNative(succesTkn, errorTkn),
+      component: this
+    };
   }
 
   ngOnInit(){
@@ -77,29 +77,34 @@ export class ViewVerifiqueComponent implements OnInit {
     // SE MANDA LLAMAR LA FUNCION QUE DEVUELVE EL TOKEN NATIVO
     //this.requestToken()
 
-    Connect.getToken();
-
     // if(this.tipoToken == "0"){
-    //   this.tokenMng.sendMessage("true");
+       this.tokenMng.sendMessage("true");
     // } else {
     //   this.requestToken();
     // }
+    //this.sendAltaService();
   }
 
   requestToken() {
     (window as any).requestToken();
   }
 
-  responseToken(newValue) {
-    //(window as any).responseToken();
-    console.log(newValue);
+  responseToken(newValue: string) {
     this.tokenSM = newValue;
     this.sendAltaService();
   }
 
-  calledFromOutside(newValue:String) {
+  errorToken(mensaje: string){
+    var message = new messageAlert("Error",mensaje, "Aceptar");
+    this.alertMan.sendMessage(message);
+  }
+
+  receiveTokenFromNative(token: string, message: string) {
     this.zone.run(() => {
-      this.responseToken(newValue);
+      if(token !== '')
+        this.responseToken(token);
+      else
+        this.errorToken(message)
     });
   }
 
@@ -122,18 +127,24 @@ export class ViewVerifiqueComponent implements OnInit {
         "fechaHora" : "",
         "operacion" : "PNAR",
         "tipoOTP" : "",
-        "token" : this.tokenSM
+        "token" : "00000000"
       }
 
       this.loginServices.postAlta(body)
       .subscribe(
         res => {
-          console.log("RESPUESTA ALTA " +res.dto);
-          localStorage.setItem('folio',res.dto.folio);
-          localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
-          localStorage.setItem('horaEnvio',res.dto.horaEnvio);
-          localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
-          this.router.navigate(['/status']);
+
+          if(res.error.clave == "OK"){
+            console.log("RESPUESTA ALTA " +res.dto);
+            localStorage.setItem('folio',res.dto.folio);
+            localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
+            localStorage.setItem('horaEnvio',res.dto.horaEnvio);
+            localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+            this.router.navigate(['/status']);
+          } else {
+            var message = new messageAlert("Error",res.error.message, "Aceptar");
+            this.alertMan.sendMessage(message);
+          }
         },
         err => {
           this.errorService();

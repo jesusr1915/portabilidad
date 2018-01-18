@@ -120,9 +120,11 @@ export class CardsComponent implements OnInit, OnDestroy {
         //console.log('Current', local.cards[itemIndex]);
         local.setCurrentLocalCard(local.cards[itemIndex]);
       });
+
       $(window).resize();
       $(window).resize();
     }, 1000);
+
     $(window).resize(function(e) {
       frame.reload();
     });

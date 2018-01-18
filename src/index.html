@@ -9,35 +9,45 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script type="text/javascript">
       function requestToken() {
-        //Connect.requestToken();
 
-        alert('Mandando funcion')
+        // var run = Bridge.runAsync();
+        //
+        // run.then = function(callback){
+        //     var name = "callback_"+Math.floor((Math.random() * 100000));
+        //     window[name] = callback
+        //     return run.thenJS(name);
+        // }
+        //
+        // run.then(function(a){
+        //     console.log("CALLBACK in JAVASCRIPT "+JSON.stringify(a));
+        // });
+
+
         var promise = Connect.getToken();
 
         var successCallback = function(token){
           responseToken(token);
-          alert("éxito:"+token);
         };
         var errorCallback = function(mensaje){
-          alert("error:"+mensaje);
+          responseError(mensaje)
         };
         //alert(promise);
         promise.then(
-          successCallback,
-          errorCallback
+          function(token){
+            responseToken(token,'');
+          },
+          function(mensaje){
+            responseError('',mensaje);
+          }
         );
 
-        //promise.estoyVivo();
         promise.run();
 
       }
 
-      function responseToken(tokenString){
-        window.angularComponentRef.componentFn(tokenString);
+      function responseToken(tokenString,message){
+        window.angularComponentRef.componentFn(tokenString, message);
       }
-
-didTapBackButton()
-didTapHomeButton()
 
 
   </script>

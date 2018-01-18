@@ -18,13 +18,17 @@
     display: flex;
     /* overflow-x: scroll; */
     app-card-info{
+      margin-left: 10%;
+  		margin-top: auto;
+  		margin-bottom: auto;
       &.multi{
-		margin-left: 9%;
-		margin-top: auto;
-		margin-bottom: auto;
-		}&.one{
-			margin: auto;
-		}
+  		margin-left: 10%;
+  		margin-top: auto;
+  		margin-bottom: auto;
+  		}
+      &.one{
+  			margin: auto;
+  		}
     }
   }
 }
