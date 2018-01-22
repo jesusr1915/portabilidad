@@ -15,7 +15,7 @@
       width: auto;
       height: 161px;
       background-color: #e6e6e6;
-    display: flex;
+      display: flex;
     /* overflow-x: scroll; */
     app-card-info{
       margin-left: 10%;
@@ -29,9 +29,11 @@
       &.one{
   			margin: auto;
   		}
+
     }
   }
 }
+
 /*
 .contentCarr {
 	width: auto;

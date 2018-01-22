@@ -59,6 +59,7 @@ export class CardsComponent implements OnInit, OnDestroy {
           let accountLenght = value.numeroCuenta.length;
           value.unmaskCuenta = value.numeroCuenta;
           value.numeroCuenta = value.numeroCuenta.substr(0,2) + "**" + value.numeroCuenta.substr(accountLenght-4,accountLenght);
+          value.isSelected = false;
           this.cards.push(value);
           this.valores += value.unmaskCuenta + '-';
       }
@@ -72,6 +73,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     this.cards.push(value);
   }
   setCurrentLocalCard(cards:any){
+    console.log(cards);
     if(cards.indicadorBloqueo == "S"){
       localStorage.setItem('validAccount','false');
       var message = new messageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info");
@@ -86,10 +88,13 @@ export class CardsComponent implements OnInit, OnDestroy {
       localStorage.setItem("numeroCuenta",cards.unmaskCuenta);
       localStorage.setItem("numeroCuenta",cards.numeroSubProducto);
       if(cards.numeroSubProducto == "0025"){
-        var message = new messageAlert("Límite dépositos en cuenta","Este tipo de cuenta sólo puede recibir depósitos hasta $17, 000 mesuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info");
-        this.alertMan.sendMessage(message);
+        setTimeout(()=> {
+          var message = new messageAlert("Límite depósitos en cuenta","Este tipo de cuenta sólo puede recibir depósitos de hasta $17, 000 mensuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info");
+          this.alertMan.sendMessage(message);
+        }, 700);
       }
     }
+    cards.isSelected = true;
   }
 
 
@@ -121,9 +126,11 @@ export class CardsComponent implements OnInit, OnDestroy {
         local.setCurrentLocalCard(local.cards[itemIndex]);
       });
 
-      $(window).resize();
-      $(window).resize();
-    }, 1000);
+      setTimeout(()=> {
+        $(window).resize();
+        $(window).resize();
+      }, 500);
+    }, 500);
 
     $(window).resize(function(e) {
       frame.reload();
