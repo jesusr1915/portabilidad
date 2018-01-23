@@ -139,13 +139,10 @@ export class ViewDatosClienteComponent implements OnInit {
 
 
             // VALIDADOR DE RESPUESTA DE TOKEN
-            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
+            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
 
               // SE GUARDA EL SESSION ID DE LA RESPUESTA
               if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
-
-                console.log("-->", localStorage.getItem('sessionID'));
-
                 if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
                   localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
                 }
