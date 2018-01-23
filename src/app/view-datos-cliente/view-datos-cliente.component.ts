@@ -143,7 +143,10 @@ export class ViewDatosClienteComponent implements OnInit {
 
               // SE GUARDA EL SESSION ID DE LA RESPUESTA
               if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
-                if(localStorage.getItem('sessionID') == ""){
+
+                console.log("-->", localStorage.getItem('sessionID'));
+
+                if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
                   localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
                 }
               }
