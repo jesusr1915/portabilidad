@@ -22,7 +22,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'consulta/:token',
+    path: 'consulta',
     component: ViewConsultaComponent,
     pathMatch: 'full'
   },
@@ -37,7 +37,13 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: ':token',
+    // path: ':token',
+    path: '',
+    component: ViewDatosClienteComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'cliente',
     component: ViewDatosClienteComponent,
     pathMatch: 'full'
   }

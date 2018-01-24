@@ -148,25 +148,25 @@ export class ViewConsultaComponent implements OnInit {
   ) {
 
     // RECIBE PARAMETROS POR URL CON QUERY
-    // this.route.queryParams
-    // .subscribe(params => {
-    //   this.tokenUrl = params.token
-    //
-    //   // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-    //   if(this.tokenUrl != ""){
-    //     localStorage.setItem('tokenUrl', this.tokenUrl);
-    //   }
-    // });
-
-    // RECIBE PARAMETROS POR URL
-    this.route.params.subscribe(params => {
-      this.tokenUrl = params['token'];
+    this.route.queryParams
+    .subscribe(params => {
+      this.tokenUrl = params.token
 
       // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
       if(this.tokenUrl != ""){
         localStorage.setItem('tokenUrl', this.tokenUrl);
       }
     });
+
+    // RECIBE PARAMETROS POR URL
+    // this.route.params.subscribe(params => {
+    //   this.tokenUrl = params['token'];
+    //
+    //   // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+    //   if(this.tokenUrl != ""){
+    //     localStorage.setItem('tokenUrl', this.tokenUrl);
+    //   }
+    // });
 
     // this.subscription = this._menuMan.getMessage()
     // .subscribe(
@@ -190,14 +190,14 @@ export class ViewConsultaComponent implements OnInit {
         .subscribe(
           res => {
 
-            // IF DE VALIDADOR DE RESPUESTA DE TOKEN
-            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-
+            // VALIDADOR DE RESPUESTA DE TOKEN
+            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
                 // SE GUARDA EL SESSION ID DE LA RESPUESTA
                 if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
-                  if(localStorage.getItem('sessionID') == ""){
-                    localStorage.setItem('sessionID',res.stokenValidatorResponse.PAdicional.substr(11));
-                  }
+                    if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      localStorage.setItem('sessionID',mToken.sessionId.substr(11));
+                    }
                 }
 
                 // SE OBTIENEN LAS CUENTAS

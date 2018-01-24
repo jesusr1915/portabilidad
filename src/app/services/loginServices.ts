@@ -159,7 +159,8 @@ export class LoginService{
       .catch((e) => {
         this.spinnerMng.showSpinner(false);
         return Observable.throw(
-          new Error(`${ e.status } ${ e.statusText }`)
+          e.json()
+          //new Error(`${ e.status } ${ e.statusText }`)
         );
       });
   }

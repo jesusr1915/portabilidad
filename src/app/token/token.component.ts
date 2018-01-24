@@ -95,7 +95,6 @@ export class TokenComponent implements OnInit {
       .subscribe(
         res => {
           if(res.error.clave == "OK"){
-            console.log("RESPUESTA ALTA " +res.dto);
             localStorage.setItem('folio',res.dto.folio);
             localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
             localStorage.setItem('horaEnvio',res.dto.horaEnvio);
@@ -107,7 +106,6 @@ export class TokenComponent implements OnInit {
           }
         },
         err => {
-          console.log(err);
           //if(err.error.clave == "ERROR"){
             var message = new messageAlert("Error",err.error.message, "Aceptar");
             this.alertMan.sendMessage(message);
