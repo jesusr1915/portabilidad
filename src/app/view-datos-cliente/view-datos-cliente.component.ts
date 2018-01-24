@@ -165,9 +165,14 @@ export class ViewDatosClienteComponent implements OnInit {
                       this.loginServices.postBancos()
                       .subscribe(
                         res => {
-                          for(let arrayVal of res.dto){
-                            let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
-                            this.lBanks.push(temp);
+                          if(res.error.clave == "OK"){
+                            for(let arrayVal of res.dto){
+                              let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
+                              this.lBanks.push(temp);
+                            }
+                          } else {
+                            var message = new messageAlert("Error",res.error.message, "Aceptar");
+                            this.alertMan.sendMessage(message);
                           }
                         },
                         err => {
@@ -284,23 +289,40 @@ export class ViewDatosClienteComponent implements OnInit {
             this.loginServices.postBancosClabe(this.tarjetValue)
             .subscribe(
               res=> {
-                console.log(res.dto.bancoCuenta);
-                let temp = { id: 1, Name: res.dto.bancoCuenta };
-                this.lUsers.push(temp);
-                this.setNewUser(1);
-                this.validClabe = true;
-                this.validBank = true;
-                this.sendService = false;
+                if(res.error.clave == "OK"){
+                  console.log(res.dto.bancoCuenta);
+                  let temp = { id: 1, Name: res.dto.bancoCuenta };
+                  this.lUsers.push(temp);
+                  this.setNewUser(1);
+                  this.validClabe = true;
+                  this.validBank = true;
+                  this.sendService = false;
+                } else {
+                  this.validClabe = false;
+                  this.validBank = false;
+                  this.sendService = false;
+
+                  var message = new messageAlert("Error",res.error.message, "Aceptar");
+                  this.alertMan.sendMessage(message);
+                }
               },
               err => {
+                if(err.error.clave == "ERROR"){
+                  var message = new messageAlert("Error",err.error.message, "Aceptar");
+                  this.alertMan.sendMessage(message);
+                } else {
+                  this.errorService();
+                }
+
+
                 this.validClabe = false;
                 this.validBank = false;
                 this.sendService = false;
                 /*let temp = { id: 1, Name: "Santander" };
                 this.lUsers.push(temp);
                 this.setNewUser(1);*/
-                this.errorService();
-                console.log('Something went wrong!' + err.message);
+                //this.errorService();
+                //console.log('Something went wrong!' + err.message);
               }
             )}
           } else {

@@ -178,10 +178,11 @@ export class LoginService{
       }
       return response.json()
       })
-      .catch((e) => {
+      .catch((e: any) => {
         this.spinnerMng.showSpinner(false);
         return Observable.throw(
-          new Error(`${ e.status } ${ e.statusText }`)
+          e.json()
+          // new Error({"ERROR": e.json()})
         );
       });
   }

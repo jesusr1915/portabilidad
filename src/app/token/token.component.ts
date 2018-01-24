@@ -107,7 +107,13 @@ export class TokenComponent implements OnInit {
           }
         },
         err => {
-          this.errorService();
+          console.log(err);
+          //if(err.error.clave == "ERROR"){
+            var message = new messageAlert("Error",err.error.message, "Aceptar");
+            this.alertMan.sendMessage(message);
+          // } else {
+          //   this.errorService();
+          // }
         }
       )
 
