@@ -37,11 +37,11 @@ export class MessageAlertComponent implements OnInit {
       if(title.icon == "info")
         this.icon = "assets/imgs/ico-info.svg";
       else if(title.icon == "error")
-        this.icon = "assets/imgs/ico-warnning.svg";
+        this.icon = "assets/imgs/ico-info.svg"; //this.icon = "assets/imgs/ico-warnning.svg";
       else
-        this.icon = "assets/imgs/ico-warnning.svg";
+        this.icon = "assets/imgs/ico-info.svg"; //this.icon = "assets/imgs/ico-warnning.svg";
     } else
-      this.icon = "assets/imgs/ico-warnning.svg";
+        this.icon = "assets/imgs/ico-info.svg"; //this.icon = "assets/imgs/ico-warnning.svg";
 
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
