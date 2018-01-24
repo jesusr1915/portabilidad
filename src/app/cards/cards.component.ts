@@ -86,7 +86,7 @@ export class CardsComponent implements OnInit, OnDestroy {
       localStorage.setItem("cardNumeroCuenta",cards.numeroCuenta);
       localStorage.setItem("cardCuentaMovil",cards.cuentaMovil);
       localStorage.setItem("numeroCuenta",cards.unmaskCuenta);
-      localStorage.setItem("numeroCuenta",cards.numeroSubProducto);
+      localStorage.setItem("numeroSubProducto",cards.numeroSubProducto);
       if(cards.numeroSubProducto == "0025"){
         setTimeout(()=> {
           var message = new messageAlert("Límite depósitos en cuenta","Este tipo de cuenta sólo puede recibir depósitos de hasta $17, 000 mensuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info");
