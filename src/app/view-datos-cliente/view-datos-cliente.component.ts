@@ -110,7 +110,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.startServices();
       },
       err => {
-        localStorage.setItem('ENV', 'dev');
+        localStorage.setItem('ENV', 'pre');
         this.startServices();
       }
     )
