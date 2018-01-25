@@ -74,12 +74,19 @@ export class ViewDatosClienteComponent implements OnInit {
     // RECIBE PARAMETROS POR URL CON QUERY
     this.route.queryParams
     .subscribe(params => {
+      // SE LEE EL TOKEN DE LA URL
       this.tokenUrl = params.token
-      console.log(this.tokenUrl);
-      // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-      if(this.tokenUrl != ""){
-        localStorage.setItem('tokenUrl', this.tokenUrl);
+
+      if(localStorage.getItem('tokenUrl') === "" || localStorage.getItem('tokenUrl') === undefined || localStorage.getItem('tokenUrl') === null){
+
+        // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+        if(this.tokenUrl != ""){
+          localStorage.setItem('tokenUrl', this.tokenUrl);
+        }
+
       }
+
+
     });
 
     // RECIBE PARAMETROS POR URL
@@ -132,80 +139,50 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(
       res=> {
 
-        // SERVICIO DE VALIDADOR DE TOKEN
-        this.loginServices.postValidator(this.tokenUrl)
-        .subscribe(
-          res => {
 
+        if(localStorage.getItem('alive') === "true"){
+          // SI YA CUENTA CON SESSION ID
+          // SE EJECUTAN LOS SERVICIOS DE CARGA
+          this.loadInfo();
+        } else {
 
-            // VALIDADOR DE RESPUESTA DE TOKEN
-            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
-              // SE GUARDA EL SESSION ID DE LA RESPUESTA
-              if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
-                if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
-                  let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                  localStorage.setItem('sessionID',mToken.sessionId.substr(11));
-                }
-              }
-
-
-              // SERVICIO DE SALDOS
-              this.loginServices.getSaldos()
-              .subscribe(
-                res => {
-                  this.messageMan.sendMessage(res);
-
-                  // SERVICIO DE CONSULTA DE RFC
-                  this.loginServices.getConsultaRFC()
-                  .subscribe(
-                    res => {
-                      this.infoCardMng.sendMessage(res.dto);
-
-                      // SERVICIO DE CONSULTA DE BANCOS
-                      this.loginServices.postBancos()
-                      .subscribe(
-                        res => {
-                          if(res.error.clave == "OK"){
-                            for(let arrayVal of res.dto){
-                              let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
-                              this.lBanks.push(temp);
-                            }
-                          } else {
-                            var message = new messageAlert("Error",res.error.message, "Aceptar");
-                            this.alertMan.sendMessage(message);
-                          }
-                        },
-                        err => {
-                          this.errorService();
-                        }
-                      );
-
-                    },
-                    err => {
-                      this.errorService();
+          // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
+          if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+            // SERVICIO DE VALIDADOR DE TOKEN
+            this.loginServices.postValidator(this.tokenUrl)
+            .subscribe(
+              res => {
+                // VALIDADOR DE RESPUESTA DE TOKEN
+                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
+                  // SE GUARDA EL SESSION ID DE LA RESPUESTA
+                  if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
+                    if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+                      console.log("SESION", res.stokenValidatorResponse.PAdicional);
+                      let mToken = res.stokenValidatorResponse.PAdicional;
+                      //JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      localStorage.setItem('sessionID',mToken.substr(11));
+                      localStorage.setItem('alive', "true");
                     }
-                  )
+                  }
 
-                },
-                err => {
-                  var message = new messageAlert("Error",err.error.message, "Aceptar");
+                  // SE EJECUTAN LOS SERVICIOS DE CARGA
+                  this.loadInfo();
+
+                } else {
+                  var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
                   this.alertMan.sendMessage(message);
-                  //this.errorService();
                 }
-              )
-
-            } else {
-              var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
-              this.alertMan.sendMessage(message);
-            }
-            // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
-
-
-          },
-          err => {
-            this.errorService();
+                // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
+              },
+              err => {
+                this.errorService();
+              }
+            );
           }
-        );
+
+        }
+
+
 
 
       },
@@ -215,6 +192,55 @@ export class ViewDatosClienteComponent implements OnInit {
     )
   }
 
+  private loadInfo(){
+    // SERVICIO DE SALDOS
+    this.loginServices.getSaldos()
+    .subscribe(
+      res => {
+        // SE LLENAN LOS CARDS
+        this.messageMan.sendMessage(res);
+
+        // SERVICIO DE CONSULTA DE RFC
+        this.loginServices.getConsultaRFC()
+        .subscribe(
+          res => {
+            // SE LLENA LA INFO DEL CLIENTE
+            this.infoCardMng.sendMessage(res.dto);
+
+            // SERVICIO DE CONSULTA DE BANCOS
+            this.loginServices.postBancos()
+            .subscribe(
+              res => {
+                // SE LLENA EL LISTADO DE BANCOS
+                if(res.error.clave == "OK"){
+                  for(let arrayVal of res.dto){
+                    let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
+                    this.lBanks.push(temp);
+                  }
+                } else {
+                  var message = new messageAlert("Error",res.error.message, "Aceptar");
+                  this.alertMan.sendMessage(message);
+                }
+              },
+              err => {
+                this.errorService();
+              }
+            );
+
+          },
+          err => {
+            this.errorService();
+          }
+        )
+
+      },
+      err => {
+        var message = new messageAlert("Error",err.error.message, "Aceptar");
+        this.alertMan.sendMessage(message);
+        //this.errorService();
+      }
+    )
+  }
 
   private setNewUser(id: any): void {
     this.curUser = this.lUsers.filter(value => value.id === parseInt(id));
