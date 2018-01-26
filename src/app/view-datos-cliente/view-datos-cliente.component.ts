@@ -152,10 +152,11 @@ export class ViewDatosClienteComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
+                  //console.log("TOKEN VALIDO");
                   // SE GUARDA EL SESSION ID DE LA RESPUESTA
                   //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
                     //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
-                      console.log("SESION", res.stokenValidatorResponse.PAdicional);
+                      // console.log("SESION", res.stokenValidatorResponse.PAdicional);
                       let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                       localStorage.setItem('sessionID',mToken.sessionId.substring(11));
                       localStorage.setItem('alive', "true");
@@ -177,6 +178,7 @@ export class ViewDatosClienteComponent implements OnInit {
             );
           } else {
             // SE EJECUTAN LOS SERVICIOS DE CARGA
+            //console.log("TOKEN EXISTENTE");
             this.loadInfo();
           }
 
@@ -192,9 +194,11 @@ export class ViewDatosClienteComponent implements OnInit {
 
   private loadInfo(){
     // SERVICIO DE SALDOS
+    console.log("...CARGANDO SERVICIOS");
     this.loginServices.getSaldos()
     .subscribe(
       res => {
+        console.log("getSaldos", res);
         // SE LLENAN LOS CARDS
         this.messageMan.sendMessage(res);
 
@@ -202,6 +206,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.loginServices.getConsultaRFC()
         .subscribe(
           res => {
+            console.log("getConsultaRFC", res);
             // SE LLENA LA INFO DEL CLIENTE
             this.infoCardMng.sendMessage(res.dto);
 
@@ -209,6 +214,7 @@ export class ViewDatosClienteComponent implements OnInit {
             this.loginServices.postBancos()
             .subscribe(
               res => {
+                console.log("postBancos", res);
                 // SE LLENA EL LISTADO DE BANCOS
                 if(res.error.clave == "OK"){
                   for(let arrayVal of res.dto){
@@ -316,7 +322,7 @@ export class ViewDatosClienteComponent implements OnInit {
             .subscribe(
               res=> {
                 if(res.error.clave == "OK"){
-                  console.log(res.dto.bancoCuenta);
+                  //console.log(res.dto.bancoCuenta);
                   let temp = { id: 1, Name: res.dto.bancoCuenta };
                   this.lUsers.push(temp);
                   this.setNewUser(1);

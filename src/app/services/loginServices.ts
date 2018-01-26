@@ -171,7 +171,7 @@ export class LoginService{
     this.spinnerMng.showSpinner(true);
     return this.http.post(url,body,xtras)
     .map((response) => {
-      console.log("RESPONSE", response);
+      //console.log("RESPONSE", response);
       this.spinnerMng.showSpinner(false);
       if(url == this.serviceOAuth){
         this.token = response.json().access_token;
