@@ -159,14 +159,14 @@ export class ViewDatosClienteComponent implements OnInit {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
                   // SE GUARDA EL SESSION ID DE LA RESPUESTA
-                  if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
-                    if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+                  //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
+                    //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
                       console.log("SESION", res.stokenValidatorResponse.PAdicional);
                       let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                      localStorage.setItem('sessionID',mToken.substr(11));
+                      localStorage.setItem('sessionID',mToken.sessionId.substring(11));
                       localStorage.setItem('alive', "true");
-                    }
-                  }
+                    //}
+                  //}
 
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
