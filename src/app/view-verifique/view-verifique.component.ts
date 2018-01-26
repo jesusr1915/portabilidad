@@ -96,6 +96,7 @@ export class ViewVerifiqueComponent implements OnInit {
 
   responseToken(newValue: string) {
     console.log("RESPUESTA TOKEN");
+    console.log(newValue);
     this.tokenSM = newValue;
     this.sendAltaService();
   }
