@@ -16,6 +16,10 @@ $red-color: #e80004;
     list-style:none;
   }
 }
+
+body {
+  margin: 0px;
+}
 .question, .labelInst, .contentRadioBtns, .controls,.contentSelect, .divider, app-personal-card, .contentSwich, .btnCont{
   font-family: $font-stack;
 	font-weight: 300;

@@ -17,13 +17,15 @@
 	}
 }
 .contentMain {
-	width: 100%;
+	width: 96%;
 	height: 42px;
   position: relative;
   display: block;
 	padding-top: 11px;
+	padding-left: 2%;
+  padding-right: 2%;
 
-  p{
+	p{
     position: relative;
     float: left;
     &.right{
