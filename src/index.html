@@ -10,7 +10,7 @@
   <script type="text/javascript">
 
       function userDidTapBackButton(){
-        if(window.location.pathname == "/"){
+        if(window.location.pathname == "/" || window.location.pathname == "/consulta"){
           Connect.goToRoot();
         } else {
           Connect.goToBack();
