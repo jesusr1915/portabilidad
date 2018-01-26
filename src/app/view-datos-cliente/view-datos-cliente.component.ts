@@ -169,7 +169,7 @@ export class ViewDatosClienteComponent implements OnInit {
 
                       console.log("SESSIONID", localStorage.getItem('sessionID'))
 
-                      localStorage.setItem('alive', "true");
+                      // localStorage.setItem('alive', "true");
                     //}
                   //}
 
