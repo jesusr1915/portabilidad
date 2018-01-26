@@ -134,7 +134,7 @@ export class ViewVerifiqueComponent implements OnInit {
         "fechaHora" : "",
         "operacion" : "PNAR",
         "tipoOTP" : "",
-        "token" : "00000000"
+        "token" : this.tokenSM
       }
 
       this.loginServices.postAlta(body)
@@ -154,7 +154,9 @@ export class ViewVerifiqueComponent implements OnInit {
           }
         },
         err => {
-          this.errorService();
+          var message = new messageAlert("Error",err.error.message, "Aceptar");
+          this.alertMan.sendMessage(message);
+          // this.errorService();
         }
       )
 
