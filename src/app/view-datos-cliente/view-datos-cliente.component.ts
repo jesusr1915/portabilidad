@@ -167,7 +167,7 @@ export class ViewDatosClienteComponent implements OnInit {
                       let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                       localStorage.setItem('sessionID',mToken.sessionId.substring(11));
 
-                      console.log("SESSIONID", localStorage.getItem('sessionID'))
+                      console.log("SESSIONID " + localStorage.getItem('sessionID'))
 
                       // localStorage.setItem('alive', "true");
                     //}

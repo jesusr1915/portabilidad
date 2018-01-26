@@ -86,10 +86,12 @@ export class ViewVerifiqueComponent implements OnInit {
   }
 
   requestToken() {
+    console.log("SOLICITANDO TOKEN");
     (window as any).requestToken();
   }
 
   responseToken(newValue: string) {
+    console.log("RESPUESTA TOKEN");
     this.tokenSM = newValue;
     this.sendAltaService();
   }
