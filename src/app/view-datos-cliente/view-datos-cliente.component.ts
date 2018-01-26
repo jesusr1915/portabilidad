@@ -141,10 +141,6 @@ export class ViewDatosClienteComponent implements OnInit {
     )
   }
 
-  ngAfterViewChecked() {
-    window.scrollTo(0, 0);
-  }
-
   private startServices(){
     this.loginServices.postOAuthToken()
     .subscribe(

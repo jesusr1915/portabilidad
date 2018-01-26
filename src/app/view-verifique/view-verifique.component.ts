@@ -72,6 +72,10 @@ export class ViewVerifiqueComponent implements OnInit {
     )
   }
 
+  onActivate(e, outlet){
+    outlet.scrollTop = 0;
+  }
+
   showToken(){
 
     // SE MANDA LLAMAR LA FUNCION QUE DEVUELVE EL TOKEN NATIVO
@@ -87,6 +91,7 @@ export class ViewVerifiqueComponent implements OnInit {
 
   requestToken() {
     console.log("SOLICITANDO TOKEN");
+    Connect.getToken()
     (window as any).requestToken();
   }
 
