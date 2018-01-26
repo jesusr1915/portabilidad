@@ -117,7 +117,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.startServices();
       },
       err => {
-        localStorage.setItem('ENV', 'pre');
+        localStorage.setItem('ENV', 'dev');
         this.startServices();
       }
     )
@@ -132,6 +132,10 @@ export class ViewDatosClienteComponent implements OnInit {
         this.stepMan.sendMessage(1,"Portabilidad de Nómina");
       }
     )
+  }
+
+  ngAfterViewChecked() {
+    window.scrollTo(0, 0);
   }
 
   private startServices(){
@@ -158,8 +162,7 @@ export class ViewDatosClienteComponent implements OnInit {
                   if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
                     if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
                       console.log("SESION", res.stokenValidatorResponse.PAdicional);
-                      let mToken = res.stokenValidatorResponse.PAdicional;
-                      //JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                       localStorage.setItem('sessionID',mToken.substr(11));
                       localStorage.setItem('alive', "true");
                     }
