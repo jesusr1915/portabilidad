@@ -144,12 +144,6 @@ export class ViewDatosClienteComponent implements OnInit {
       res=> {
 
 
-        if(localStorage.getItem('alive') === "true"){
-          // SI YA CUENTA CON SESSION ID
-          // SE EJECUTAN LOS SERVICIOS DE CARGA
-          this.loadInfo();
-        } else {
-
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
             // SERVICIO DE VALIDADOR DE TOKEN
@@ -181,9 +175,10 @@ export class ViewDatosClienteComponent implements OnInit {
                 this.errorService();
               }
             );
+          } else {
+            // SE EJECUTAN LOS SERVICIOS DE CARGA
+            this.loadInfo();
           }
-
-        }
 
 
 
