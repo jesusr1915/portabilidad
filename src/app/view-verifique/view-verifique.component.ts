@@ -91,7 +91,6 @@ export class ViewVerifiqueComponent implements OnInit {
 
   requestToken() {
     console.log("SOLICITANDO TOKEN");
-    Connect.getToken()
     (window as any).requestToken();
   }
 
