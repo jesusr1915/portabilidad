@@ -77,14 +77,22 @@ export class ViewDatosClienteComponent implements OnInit {
       // SE LEE EL TOKEN DE LA URL
       this.tokenUrl = params.token
 
-      if(localStorage.getItem('tokenUrl') === "" || localStorage.getItem('tokenUrl') === undefined || localStorage.getItem('tokenUrl') === null){
-
-        // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-        if(this.tokenUrl != ""){
-          localStorage.setItem('tokenUrl', this.tokenUrl);
+      if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+        if(localStorage.getItem('backButton') !== "true"){
+          localStorage.clear();
+        } else {
+          localStorage.removeItem('backButton');
         }
-
+      } else {
+        localStorage.clear();
       }
+
+      // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+      if(this.tokenUrl != ""){
+        localStorage.setItem('tokenUrl', this.tokenUrl);
+      }
+
+
 
 
     });
@@ -108,7 +116,6 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   ngOnInit(){
-
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
     this.loginServices.getConfig()
     .subscribe(
@@ -159,7 +166,9 @@ export class ViewDatosClienteComponent implements OnInit {
                       // console.log("SESION", res.stokenValidatorResponse.PAdicional);
                       let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                       localStorage.setItem('sessionID',mToken.sessionId.substring(11));
-                      console.log(localStorage.getItem('sessionID'))
+
+                      console.log("SESSIONID", localStorage.getItem('sessionID'))
+
                       localStorage.setItem('alive', "true");
                     //}
                   //}
