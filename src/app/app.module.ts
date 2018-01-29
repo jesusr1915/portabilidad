@@ -38,7 +38,6 @@ import { MenuComponent } from './menu/menu.component';
 import { MovesComponent } from './moves/moves.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component';
 import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component';
-import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component';
 
 
 @NgModule({
@@ -59,8 +58,7 @@ import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander
     MenuComponent,
     MovesComponent,
     ViewDetalleSolicitudComponent,
-    ViewTempIndexComponent,
-    ViewSantanderPlusComponent
+    ViewTempIndexComponent
   ],
   imports: [
     BrowserModule,
