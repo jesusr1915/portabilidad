@@ -13,7 +13,7 @@
         if(window.location.pathname == "/" || window.location.pathname == "/consulta"){
           Connect.goToRoot();
         } else {
-          Connect.goToBack();
+          Connect.goBack();
           localStorage.setItem('backButton', "true");
         }
       }
