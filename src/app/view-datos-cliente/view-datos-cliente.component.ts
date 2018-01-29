@@ -124,7 +124,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.startServices();
       },
       err => {
-        localStorage.setItem('ENV', 'dev');
+        localStorage.setItem('ENV', 'pre');
         this.startServices();
       }
     )
@@ -145,8 +145,6 @@ export class ViewDatosClienteComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
-
-
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
             // SERVICIO DE VALIDADOR DE TOKEN
@@ -160,10 +158,11 @@ export class ViewDatosClienteComponent implements OnInit {
                   //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
                     //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
                       // console.log("SESION", res.stokenValidatorResponse.PAdicional);
-                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      //console.log("TOKEN", res);
+                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                       localStorage.setItem('sessionID',mToken.sessionId.substring(11));
 
-                      console.log("SESSIONID " + localStorage.getItem('sessionID'))
+                      // console.log("SESSIONID " + localStorage.getItem('sessionID'))
 
                       // localStorage.setItem('alive', "true");
                     //}
@@ -187,10 +186,6 @@ export class ViewDatosClienteComponent implements OnInit {
             //console.log("TOKEN EXISTENTE");
             this.loadInfo();
           }
-
-
-
-
       },
       err => {
         this.errorService();

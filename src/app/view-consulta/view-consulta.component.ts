@@ -152,6 +152,16 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
+      if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+        if(localStorage.getItem('backButton') !== "true"){
+          localStorage.clear();
+        } else {
+          localStorage.removeItem('backButton');
+        }
+      } else {
+        localStorage.clear();
+      }
+
       // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
       if(this.tokenUrl != ""){
         localStorage.setItem('tokenUrl', this.tokenUrl);
@@ -177,85 +187,102 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   ngOnInit() {
-  //  localStorage.clear();
+    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.loginServices.getConfig()
+    .subscribe(
+      res => {
+        localStorage.setItem('ENV', res.ENV_VAR);
+        this.startServices();
+      },
+      err => {
+        localStorage.setItem('ENV', 'dev');
+        this.startServices();
+      }
+    )
+
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
 
-    /* SE DESCOMENTA ESTE BLOQUE */
+
+  }
+
+  private loadInfo(){
+    // SE OBTIENEN LAS CUENTAS
+    this.loginServices.getSaldos()
+    .subscribe(
+      res => {
+        this.messageMan.sendMessage(res);
+        /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+        // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
+        let datos = {"valores": localStorage.getItem('valores')}
+        // SE OBTIENEN LAS CUENTAS CON PORTABILIDAD
+        this.loginServices.postDetalleConsulta(datos)
+        .subscribe(
+          res=> {
+            // SE ASIGNA EL VALOR DEL ARREGLO DEVUELTO
+            this.allMov = res.dto;
+            this.filterMoves(1);
+          },
+          err => {
+              this.errorService();
+          }
+        );
+        /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+      },
+      err => {
+        this.errorService();
+      }
+    );
+  }
+
+  private startServices(){
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
-
-        // SERVICIO DE VALIDADOR DE TOKEN
-        this.loginServices.postValidator(this.tokenUrl)
-        .subscribe(
-          res => {
-
-            // VALIDADOR DE RESPUESTA DE TOKEN
-            if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
-                // SE GUARDA EL SESSION ID DE LA RESPUESTA
-                if(this.tokenUrl !== "" && this.tokenUrl !== undefined){
-                    if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+          // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
+          if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+            // SERVICIO DE VALIDADOR DE TOKEN
+            this.loginServices.postValidator(this.tokenUrl)
+            .subscribe(
+              res => {
+                // VALIDADOR DE RESPUESTA DE TOKEN
+                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
+                  //console.log("TOKEN VALIDO");
+                  // SE GUARDA EL SESSION ID DE LA RESPUESTA
+                  //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
+                    //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+                      // console.log("SESION", res.stokenValidatorResponse.PAdicional);
                       let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                      localStorage.setItem('sessionID',mToken.sessionId.substr(11));
-                    }
+                      localStorage.setItem('sessionID',mToken.sessionId.substring(11));
+
+                      console.log("SESSIONID " + localStorage.getItem('sessionID'))
+
+                      // localStorage.setItem('alive', "true");
+                    //}
+                  //}
+
+                  // SE EJECUTAN LOS SERVICIOS DE CARGA
+                  this.loadInfo();
+
+                } else {
+                  var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
+                  this.alertMan.sendMessage(message);
                 }
-
-                // SE OBTIENEN LAS CUENTAS
-                this.loginServices.getSaldos()
-                .subscribe(
-                  res => {
-                    this.messageMan.sendMessage(res);
-                    /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
-                    // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
-                    let datos = {"valores": localStorage.getItem('valores')}
-                    // SE OBTIENEN LAS CUENTAS CON PORTABILIDAD
-                    this.loginServices.postDetalleConsulta(datos)
-                    .subscribe(
-                      res=> {
-                        // SE ASIGNA EL VALOR DEL ARREGLO DEVUELTO
-                        this.allMov = res.dto;
-                        this.filterMoves(1);
-                      },
-                      err => {
-                          this.errorService();
-                      }
-                    );
-                    /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
-                  },
-                  err => {
-                    this.errorService();
-                  }
-                );
-
-            } else {
-              var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
-              this.alertMan.sendMessage(message);
-            }
-            // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
-
-
-          },
-          err => {
-            this.errorService();
+                // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
+              },
+              err => {
+                this.errorService();
+              }
+            );
+          } else {
+            // SE EJECUTAN LOS SERVICIOS DE CARGA
+            //console.log("TOKEN EXISTENTE");
+            this.loadInfo();
           }
-        );
       },
       err => {
-          this.errorService();
+        this.errorService();
       }
-    );
-    /* SE DESCOMENTA ESTE BLOQUE */
-  }
-
-  // PARA EL MENSAJE DE ERROR
-  private errorService(mensaje?: string){
-    var strMensaje = "";
-    if(mensaje)
-      strMensaje = mensaje;
-    else
-      strMensaje = "Por el momento el servicio no esta disponible";
-    var message = new messageAlert("Error",strMensaje);
-    this.alertMan.sendMessage(message);
+    )
   }
 
   // PARA FILTRAR MOVIMIENTOS
@@ -301,6 +328,18 @@ export class ViewConsultaComponent implements OnInit {
     }
     console.log(this.totalMov);
     console.log("LLENO...")
+  }
+
+  // PARA EL MENSAJE DE ERROR
+  private errorService(mensaje?: string){
+    var strMensaje = "";
+
+    if(mensaje)
+      strMensaje = mensaje;
+    else
+      strMensaje = "Por el momento el servicio no esta disponible";
+    var message = new messageAlert("Error",strMensaje);
+    this.alertMan.sendMessage(message);
   }
 
 }
