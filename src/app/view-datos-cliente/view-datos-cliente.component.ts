@@ -219,7 +219,7 @@ export class ViewDatosClienteComponent implements OnInit {
                 // SE LLENA EL LISTADO DE BANCOS
                 if(res.error.clave == "OK"){
                   for(let arrayVal of res.dto){
-                    let temp = { id: parseInt(arrayVal.id), Name: arrayVal.nombreCorto };
+                    let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
                   }
                 } else {
@@ -248,9 +248,9 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   private setNewUser(id: any): void {
-    this.curUser = this.lUsers.filter(value => value.id === parseInt(id));
+    this.curUser = this.lUsers.filter(value => value.id === id);
     if(this.selectedRadio == "debito"){
-      if (id != 0){
+      if (id != "0"){
         this.validBank = true;
       }else{
         this.validBank = false;

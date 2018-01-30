@@ -6,6 +6,8 @@ import { ViewVerifiqueComponent } from './view-verifique/view-verifique.componen
 import { ViewStatusComponent } from './view-status/view-status.component';
 import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component'
+import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component'
+import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component'
 
 import{ ViewTempIndexComponent } from './view-temp-index/view-temp-index.component'
 
@@ -45,6 +47,17 @@ export const routes: Routes = [
   {
     path: 'cliente',
     component: ViewDatosClienteComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'plus',
+    component: ViewSantanderPlusComponent,
+    pathMatch: 'full'
+  }
+  ,
+  {
+    path: 'inscripcion',
+    component: ViewInscripcionComponent,
     pathMatch: 'full'
   }
 ];
