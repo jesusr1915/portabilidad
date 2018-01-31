@@ -18,7 +18,7 @@ $red-color: #e80004;
 }
 
 body {
-  margin: 0px;
+    margin: 0px !important;
 }
 .question, .labelInst, .contentRadioBtns, .controls,.contentSelect, .divider, app-personal-card, .contentSwich, .btnCont{
   font-family: $font-stack;

@@ -152,6 +152,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           localStorage.clear();
@@ -191,11 +192,11 @@ export class ViewConsultaComponent implements OnInit {
     this.loginServices.getConfig()
     .subscribe(
       res => {
-        localStorage.setItem('ENV', res.ENV_VAR);
+        localStorage.setItem('env', res.ENV_VAR);
         this.startServices();
       },
       err => {
-        localStorage.setItem('ENV', 'dev');
+        localStorage.setItem('env', 'pre');
         this.startServices();
       }
     )
@@ -223,7 +224,8 @@ export class ViewConsultaComponent implements OnInit {
             this.filterMoves(1);
           },
           err => {
-              this.errorService();
+            var message = new messageAlert("Error", err.res.message);
+            this.alertMan.sendMessage(message);
           }
         );
         /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
@@ -251,10 +253,8 @@ export class ViewConsultaComponent implements OnInit {
                   //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
                     //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
                       // console.log("SESION", res.stokenValidatorResponse.PAdicional);
-                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                       localStorage.setItem('sessionID',mToken.sessionId.substring(11));
-
-                      console.log("SESSIONID " + localStorage.getItem('sessionID'))
 
                       // localStorage.setItem('alive', "true");
                     //}
@@ -287,7 +287,6 @@ export class ViewConsultaComponent implements OnInit {
 
   // PARA FILTRAR MOVIMIENTOS
   private filterMoves(idBtn:number){
-    console.log("LLENANDO...")
     this.totalMov = [];
     let tipoSolicitud = ""
     switch (idBtn){
@@ -326,8 +325,12 @@ export class ViewConsultaComponent implements OnInit {
         this.totalMov.push(newMove);
       }
     }
-    console.log(this.totalMov);
-    console.log("LLENO...")
+    // console.log(this.totalMov + " " + this.totalMov.length);
+    if(this.totalMov.length == 0){
+      console.log("VACIO");
+      var message = new messageAlert("Error", "Usted no cuenta con una solicitud de portabilidad de nómina.\n La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo.\n Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.");
+      this.alertMan.sendMessage(message);
+    }
   }
 
   // PARA EL MENSAJE DE ERROR

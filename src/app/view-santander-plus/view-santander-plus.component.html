@@ -1,1 +1,14 @@
 <app-cards></app-cards>
+<p>En esta opción podrá realizar la inscripción a Santader Plus seleccionando la cuenta que recibirá los beneficios.</p>
+<p class="labelInst min textCenter"> {{copies.textNote}}</p>
+<div class="contentSwich">
+  <p><a (click)="modal1.show(terminosText)">Ver términos y condiciones</a></p><br/><br/>
+  <p><input #saveTermCheckBox
+    id="saveTermCheckBox"
+    type="checkbox"
+    [checked]="validTerms"
+    (change)="validTerms = !validTerms"
+    class="cbx "/>
+  <!-- <label for="saveTermCheckBox" class="lbl"></label> -->
+  Acepto terminos y condiciones de portabilidad de nómina. </p>
+</div>

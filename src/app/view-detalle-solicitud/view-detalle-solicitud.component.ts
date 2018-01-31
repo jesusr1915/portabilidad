@@ -31,7 +31,7 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     this._stepMan.sendMessage(0,"Detalle solicitud portabilidad");
 
     this.accountWhereWishReceive = localStorage.getItem('accountWhereWishReceive');
-    this.bankWhereWishReceive = localStorage.getItem('bankWhereWishReceive');
+    this.bankWhereWishReceive = "SANTANDER"; //localStorage.getItem('bankWhereWishReceive');
     this.accountWhereReceive = localStorage.getItem('accountWhereReceive');
     this.bankWhereReceive = localStorage.getItem('bankWhereReceive');
     this.referenceSheet = localStorage.getItem('referenceSheet');
@@ -39,7 +39,11 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     this.hoursOperation = localStorage.getItem('hoursOperation');
     this.referenceOperation = localStorage.getItem('referenceOperation');
     this.dateAcceptance = localStorage.getItem('dateAcceptance');
-    this.rejectionMotive = localStorage.getItem('rejectionMotive');
+    if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+      this.rejectionMotive = localStorage.getItem('rejectionMotive')
+    } else {
+      this.rejectionMotive = "";
+    }
 
   }
 

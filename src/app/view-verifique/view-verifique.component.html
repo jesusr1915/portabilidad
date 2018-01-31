@@ -8,9 +8,9 @@
   {{copiesVer.instLbl}}
 </p>
 <div class = "bank_Data_contain">
-  <div><span>{{copiesVer.infoCount}}</span><span class="fright">{{valueInfo}}</span></div>
-  <div><span>{{copiesVer.infoBank}}</span><span class="fright">{{valueBank}}</span></div>
-  <div><span>{{copiesVer.infoBirthdate}}</span><span class="fright">{{valueBirthdate}}</span></div>
+  <div class="row"><span>{{copiesVer.infoCount}}</span><span class="fright">{{valueInfo}}</span></div>
+  <div class="row"><span>{{copiesVer.infoBank}}</span><span class="fright">{{valueBank}}</span></div>
+  <div class="row last"><span>{{copiesVer.infoBirthdate}}</span><span class="fright">{{valueBirthdate}}</span></div>
 </div>
 <p class="question center">
   {{copiesVer.inst2LblInit}} <strong class="black">{{copiesVer.inst2LblStrong}}</strong>
@@ -19,7 +19,7 @@
 <div class="btnCont">
   <!-- <button [routerLink]="['']" class = "first" type="button" >{{copiesVer.btnBack}}</button> -->
   <!-- <button  type="button" (click)="showToken()" >{{copiesVer.btnCont}}</button> -->
-  <button  type="button" onclick="requestToken()" >{{copiesVer.btnCont}}</button>
+  <button  type="button" (click)="showToken()"  >{{copiesVer.btnCont}}</button>
 </div>
 <app-token></app-token>
 <app-message-alert></app-message-alert>

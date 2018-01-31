@@ -33,7 +33,7 @@
       "infoBirthdate":"FECHA DE NACIMIENTO",
       "inst2LblInit": "Esta operación requiere ",
       "inst2LblStrong": "NIP dinámico.",
-      "inst3LblInit":"Para generarlo de clic en ",
+      "inst3LblInit":"Para generarlo pulse en ",
       "inst3LblStrong":"Confirmar.",
       "btnBack":"Regresar",
       "btnCont":"Confirmar"

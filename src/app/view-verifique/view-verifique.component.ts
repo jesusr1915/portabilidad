@@ -82,9 +82,9 @@ export class ViewVerifiqueComponent implements OnInit {
     //this.requestToken()
 
     // if(this.tipoToken == "0"){
-       // this.tokenMng.sendMessage("true");
+        this.tokenMng.sendMessage("true");
     // } else {
-      this.requestToken();
+      //this.requestToken();
     // }
     //this.sendAltaService();
   }

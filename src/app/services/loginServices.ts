@@ -7,8 +7,8 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Injectable()
 export class LoginService{
-  private ENV: string;
-  private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.ENV +'.appls.cto1.paas.gsnetcloud.corp';
+  private env: string;
+  private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud.corp';
 
   private serviceConfig = '/config.json';
   private serviceOAuth: string;
@@ -41,7 +41,7 @@ export class LoginService{
   }
 
   getUrlBase(){
-    return this.urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-' + localStorage.getItem('ENV') + '.appls.cto1.paas.gsnetcloud.corp';
+    return this.urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud.corp';
   }
 
   getUrls(){
@@ -66,7 +66,7 @@ export class LoginService{
 
     this.configHeader(false);
     let urlSearchParams = new URLSearchParams();
-    if(localStorage.getItem('ENV') == "dev"){
+    if(localStorage.getItem('env') == "dev"){
       urlSearchParams.append ('client_id','b63dae8e-3dc5-4652-a1c1-cb3f3c2b4a29');
       urlSearchParams.append ('clientSecret','6pW&z3A4lVbzF?$,?GFtEI)Q/j=J/d');
     } else {
@@ -168,18 +168,19 @@ export class LoginService{
     // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
     this.getUrls();
 
-    this.spinnerMng.showSpinner(true);
+    // this.spinnerMng.showSpinner(true);
     return this.http.post(url,body,xtras)
     .map((response) => {
       //console.log("RESPONSE", response);
-      this.spinnerMng.showSpinner(false);
+      // this.spinnerMng.showSpinner(false);
       if(url == this.serviceOAuth){
         this.token = response.json().access_token;
-        localStorage.setItem('tokenTemp', this.token);
+        localStorage.setItem('bearer', this.token);
       }
       return response.json()
       })
       .catch((e: any) => {
+        // this.spinnerMng.showSpinner(false);
         this.spinnerMng.showSpinner(false);
         return Observable.throw(
           e.json()
@@ -201,9 +202,9 @@ export class LoginService{
 
     this.headers.append('Cookie1', sessionID + ' HTTPOnly; Path=/; Secure');
 
-    this.token = localStorage.getItem('tokenTemp')
-    let tokentemp = 'Bearer '+this.token;
-    this.headers.append('Authorization', tokentemp);
+    this.token = localStorage.getItem('bearer')
+    let bearer = 'Bearer '+this.token;
+    this.headers.append('Authorization', bearer);
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
 
   }

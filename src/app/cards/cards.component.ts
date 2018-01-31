@@ -15,11 +15,11 @@ declare var Sly:any;
 export class CardsComponent implements OnInit, OnDestroy {
   cards = [];
   viewTipoProducto = "";
-  keys = ["saldoDolares",
-              "saldoPesos",
-              "saldoCuentaPlazos",
-              "saldoFondos"];
-
+  // keys = ["saldoDolares",
+  //             "saldoPesos",
+  //             "saldoCuentaPlazos",
+  //             "saldoFondos"];
+  keys = ["saldoPesos"];
   subscription: Subscription;
   classMulti = "multi";
   classOne = "one";

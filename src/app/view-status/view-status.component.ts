@@ -11,7 +11,7 @@ import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 })
 export class ViewStatusComponent implements OnInit {
 
-  @Input() bankWhereWishReceive = "SANTANDER";//localStorage.getItem('banco');
+  @Input() bankWhereWishReceive; // = localStorage.getItem('banco');
   @Input() accountWhereWishReceive = localStorage.getItem("cardNumeroCuenta");
   @Input() bankWhereReceive = localStorage.getItem('banco');
   @Input() accountWhereReceive =  localStorage.getItem('tarjet');
@@ -27,6 +27,7 @@ export class ViewStatusComponent implements OnInit {
   ) {
     //this.dateOperation = this._utils.formatDate(localStorage.getItem('fechaOperacion'),"-","aammdd");
     this.dateOperation = localStorage.getItem('fechaOperacion');
+    this.bankWhereWishReceive = "SANTANDER";
   }
 
   ngOnInit() {
@@ -34,8 +35,9 @@ export class ViewStatusComponent implements OnInit {
   }
 
   onBtnActionClickedV(){
-    let homePage = localStorage.getItem('tokenUrl') + '/' + localStorage.getItem('ttkn');
-    this.router.navigate([homePage]);
+    localStorage.setItem('backButton', "true");
+    let homePage = "/?token=" + localStorage.getItem('tokenUrl')
+    this.router.navigate(["/"]);
   }
 
 }

@@ -6,7 +6,7 @@
   bottom: 0;
   left: 0;
   z-index: 1000;
-  overflow: auto;
+  // overflow: auto;
   background-color:rgba(0,0,0,0.6);
   .body{
     width: 85%;
@@ -53,6 +53,10 @@
   display: block;
 	width: 100%;
 	background-color:#b1b4b3;
+}
+.text-scroll{
+  height: 80%;
+  overflow: auto;
 }
 .textFix {
   width: 94%;

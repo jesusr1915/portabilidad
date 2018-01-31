@@ -121,11 +121,11 @@ export class ViewSantanderPlusComponent implements OnInit {
       this.loginServices.getConfig()
       .subscribe(
         res => {
-          localStorage.setItem('ENV', res.ENV_VAR);
+          localStorage.setItem('env', res.ENV_VAR);
           this.startServices();
         },
         err => {
-          localStorage.setItem('ENV', 'pre');
+          localStorage.setItem('env', 'pre');
           this.startServices();
         }
       )

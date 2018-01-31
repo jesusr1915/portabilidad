@@ -12,6 +12,8 @@ import { InfoCardMan } from '../personal-card/infoCardMng';
 
 import { Subscription } from 'rxjs/Subscription';
 import {TermMan} from '../terms/termMng';
+
+import { SpinnerMan } from '../spinner-component/spinnerMng';
 @Component({
   selector: 'app-view-datos-cliente',
   templateUrl: './view-datos-cliente.component.html',
@@ -69,7 +71,8 @@ export class ViewDatosClienteComponent implements OnInit {
     private infoCardMng: InfoCardMan,
     private router: Router,
     private termsMng: TermMan,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public spinnerMng : SpinnerMan
   ){
     // RECIBE PARAMETROS POR URL CON QUERY
     this.route.queryParams
@@ -77,10 +80,12 @@ export class ViewDatosClienteComponent implements OnInit {
       // SE LEE EL TOKEN DE LA URL
       this.tokenUrl = params.token
 
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           localStorage.clear();
         } else {
+          localStorage.setItem('fillData','true');
           localStorage.removeItem('backButton');
         }
       } else {
@@ -117,14 +122,15 @@ export class ViewDatosClienteComponent implements OnInit {
 
   ngOnInit(){
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.spinnerMng.showSpinner(true);
     this.loginServices.getConfig()
     .subscribe(
       res => {
-        localStorage.setItem('ENV', res.ENV_VAR);
+        localStorage.setItem('env', res.ENV_VAR);
         this.startServices();
       },
       err => {
-        localStorage.setItem('ENV', 'pre');
+        localStorage.setItem('env', 'pre');
         this.startServices();
       }
     )
@@ -169,6 +175,7 @@ export class ViewDatosClienteComponent implements OnInit {
                   //}
 
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
+                  this.spinnerMng.showSpinner(false);
                   this.loadInfo();
 
                 } else {
@@ -178,16 +185,19 @@ export class ViewDatosClienteComponent implements OnInit {
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
+                this.spinnerMng.showSpinner(false);
                 this.errorService();
               }
             );
           } else {
             // SE EJECUTAN LOS SERVICIOS DE CARGA
             //console.log("TOKEN EXISTENTE");
+            this.spinnerMng.showSpinner(false);
             this.loadInfo();
           }
       },
       err => {
+        this.spinnerMng.showSpinner(false);
         this.errorService();
       }
     )
@@ -222,6 +232,14 @@ export class ViewDatosClienteComponent implements OnInit {
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
                   }
+
+                  // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
+                  if(localStorage.getItem('fillData')){
+                    console.log("RECUPERA TARJETA")
+                    this.tarjetValue = localStorage.getItem('tarjet')
+
+                  }
+
                 } else {
                   var message = new messageAlert("Error",res.error.message, "Aceptar");
                   this.alertMan.sendMessage(message);
@@ -306,6 +324,10 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
     onKey(event: any) { // inputs de tarjeta
+      this.validaCampoCta()
+    }
+
+    validaCampoCta() { // inputs de tarjeta
        this.tarjetValue = this.tarjetValue.replace(/[^0-9]/g, '');
       if(this.tarjetValue.length != 0){
         this.classLabel = 'hideLabel';
@@ -324,9 +346,17 @@ export class ViewDatosClienteComponent implements OnInit {
               res=> {
                 if(res.error.clave == "OK"){
                   //console.log(res.dto.bancoCuenta);
-                  let temp = { id: 1, Name: res.dto.bancoCuenta };
+
+                  var idBank = "";
+                  for(let i=0; i < this.lBanks.length; i++){
+                    if(this.lBanks[i].Name == res.dto.bancoCuenta){
+                      idBank = this.lBanks[i].id;
+                    }
+                  }
+
+                  let temp = { id: idBank, Name: res.dto.bancoCuenta };
                   this.lUsers.push(temp);
-                  this.setNewUser(1);
+                  this.setNewUser(idBank);
                   this.validClabe = true;
                   this.validBank = true;
                   this.sendService = false;
