@@ -80,7 +80,7 @@ export class ViewDatosClienteComponent implements OnInit {
       // SE LEE EL TOKEN DE LA URL
       this.tokenUrl = params.token
 
-      localStorage.setItem('backButton', "true");
+      //localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           localStorage.clear();
