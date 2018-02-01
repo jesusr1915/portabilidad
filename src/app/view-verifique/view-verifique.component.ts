@@ -96,10 +96,12 @@ export class ViewVerifiqueComponent implements OnInit {
     (window as any).requestToken();
   }
 
-  responseToken(newValue: string) {
+  responseToken(mToken: string, mTipoOTP: string, mDate: string) {
     console.log("RESPUESTA TOKEN");
-    console.log(newValue);
-    this.tokenSM = newValue;
+    console.log(mToken);
+    this.tokenSM = mToken;
+    this.tipoOTP = mTipoOTP;
+    this.date = mDate;
     this.sendAltaService();
   }
 
@@ -111,7 +113,7 @@ export class ViewVerifiqueComponent implements OnInit {
   receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
     this.zone.run(() => {
       if(token !== '')
-        this.responseToken(token);
+        this.responseToken(token, tipoOTP, date);
       else
         this.errorToken(message)
     });
