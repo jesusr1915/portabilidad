@@ -80,7 +80,7 @@ export class ViewDatosClienteComponent implements OnInit {
       // SE LEE EL TOKEN DE LA URL
       this.tokenUrl = params.token
 
-      localStorage.setItem('backButton', "true");
+      //localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           localStorage.clear();
@@ -135,6 +135,9 @@ export class ViewDatosClienteComponent implements OnInit {
       }
     )
 
+    let res = {}
+    this.messageMan.sendMessage(res);
+
     //localStorage.clear();
     this.copiesServ.postCopies()
     .subscribe(
@@ -151,6 +154,7 @@ export class ViewDatosClienteComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
+
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
             // SERVICIO DE VALIDADOR DE TOKEN

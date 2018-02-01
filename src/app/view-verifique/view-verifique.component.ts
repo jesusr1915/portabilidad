@@ -26,6 +26,8 @@ export class ViewVerifiqueComponent implements OnInit {
   myExtObject: any;
   tipoToken: string;
   tokenSM: string;
+  tipoOTP: string;
+  date: string;
 
   demo : Demo = new Demo(
     localStorage.getItem("cardAlias"),
@@ -48,7 +50,7 @@ export class ViewVerifiqueComponent implements OnInit {
   ) {
     (window as any).angularComponentRef = {
       zone: this.zone,
-      componentFn: (succesTkn, errorTkn) => this.receiveTokenFromNative(succesTkn, errorTkn),
+      componentFn: (succesTkn, tipoOTP, date, errorTkn) => this.receiveTokenFromNative(succesTkn, tipoOTP, date, errorTkn),
       component: this
     };
   }
@@ -106,7 +108,7 @@ export class ViewVerifiqueComponent implements OnInit {
     this.alertMan.sendMessage(message);
   }
 
-  receiveTokenFromNative(token: string, message: string) {
+  receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
     this.zone.run(() => {
       if(token !== '')
         this.responseToken(token);
@@ -131,9 +133,9 @@ export class ViewVerifiqueComponent implements OnInit {
           "rfcCliente" : localStorage.getItem('rfc'),
           "tipoSolicitud" : "R"
         },
-        "fechaHora" : "",
+        "fechaHora" : this.date,
         "operacion" : "PNAR",
-        "tipoOTP" : "",
+        "tipoOTP" : this.tipoOTP,
         "token" : this.tokenSM
       }
 

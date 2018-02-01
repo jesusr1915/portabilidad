@@ -31,6 +31,75 @@ export class CardsComponent implements OnInit, OnDestroy {
     .subscribe(
       message => {
 
+        // message.response = {
+        // 	"securityContext": null,
+        // 	"error": {
+        // 		"severity": "",
+        // 		"tipo": "",
+        // 		"clave": "OK",
+        // 		"codigo": 0,
+        // 		"message": ""
+        // 	},
+        // 	"dto": {
+        // 		"saldoPesos": [{
+        // 			"capital": "85,875,645,134.05",
+        // 			"cuentaMovil": "",
+        // 			"divisa": "MXP",
+        // 			"descCompaniaCelular": "",
+        // 			"numeroSubProducto": "0060",
+        // 			"numeroCuenta": "60560002123",
+        // 			"prefijo": "",
+        // 			"participacion": "TI",
+        // 			"codigoEstatus": 0,
+        // 			"tipoProducto": "CUENTA PARA DEPOSITOS MENSUALES DE NOMINA DE TRABAJO",
+        // 			"estatus": "",
+        // 			"tdd": false,
+        // 			"santanderPlus": false,
+        // 			"mensajeEstatus": "CSCH0000 CONSULTA SALDO CUENTA EFECTUADA",
+        // 			"salvoBuenCobro": "0.00",
+        // 			"cuentaLarga": "00144857060560002852",
+        // 			"tipoAsociacion": "",
+        // 			"alias": "",
+        // 			"companiaCelular": "",
+        // 			"vista": "61560002852",
+        // 			"clabe": "014180605600028528",
+        // 			"disponible": "85,875,645,134.05"
+        // 		},{
+        // 			"capital": "85,875.05",
+        // 			"cuentaMovil": "",
+        // 			"divisa": "MXP",
+        // 			"descCompaniaCelular": "",
+        // 			"numeroSubProducto": "0060",
+        // 			"numeroCuenta": "60560002852",
+        // 			"prefijo": "",
+        // 			"participacion": "TI",
+        // 			"codigoEstatus": 0,
+        // 			"tipoProducto": "CUENTA FREE",
+        // 			"estatus": "",
+        // 			"tdd": false,
+        // 			"santanderPlus": false,
+        // 			"mensajeEstatus": "CSCH0000 CONSULTA SALDO CUENTA EFECTUADA",
+        // 			"salvoBuenCobro": "0.00",
+        // 			"cuentaLarga": "00144857060560002852",
+        // 			"tipoAsociacion": "",
+        // 			"alias": "",
+        // 			"companiaCelular": "",
+        // 			"vista": "61560002852",
+        // 			"clabe": "014180605600028528",
+        // 			"disponible": "85,875.05"
+        // 		}],
+        // 		"saldoFondos": [],
+        // 		"saldoDolares": [],
+        // 		"alias": "",
+        // 		"totalTotalDolares": "",
+        // 		"sp": "3",
+        // 		"FSOnuevo": "",
+        // 		"saldoCuentaPlazos": [],
+        // 		"totalTotalPesos": "85,875.05"
+        // 	}
+        // }
+
+
         if(message.response["dto"]){
           this.setValues(this.keys,message);
         }else if(message.response["alias"]){
@@ -39,6 +108,7 @@ export class CardsComponent implements OnInit, OnDestroy {
         else{
           console.log('Error en la respuesta');
         }
+
       })
   }
 

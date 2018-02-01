@@ -1,73 +1,44 @@
 {
-  "error": {
-    "tipo": "",
-    "clave": "WhNy1+YDjJEjux9V+/RaWg==",
-    "message": "",
-    "codigo": 0,
-    "severity": ""
-  },
-  "dto": {
-    "totalTotalDolares": "",
-    "alias": "",
-    "totalTotalPesos": "0.00",
-    "FSOnuevo": "",
-    "saldoDolares": [
-
-    ],
-    "saldoPesos": [
-      {
-        "salvoBuenCobro": "0.00",
-        "numeroCuenta": "56715974163",
-        "divisa": "MXP",
-        "capital": "0.00",
-        "santanderPlus": false,
-        "prefijo": "",
-        "vista": "63118365868",
-        "descCompaniaCelular": "",
-        "cuentaLarga": "00140309056715974163",
-        "cuentaMovil": "",
-        "alias": "",
-        "participacion": "TI",
-        "disponible": "30.00",
-        "tipoProducto": "SUPER NOMINA",
-        "tdd": false,
-        "tipoAsociacion": "",
-        "estatus": "",
-        "mensajeEstatus": "CSCH0000 CONSULTA SALDO CUENTA EFECTUADA",
-        "clabe": "014028567159741637",
-        "codigoEstatus": 0,
-        "companiaCelular": ""
-      }
-    ],
-    "saldoCuentaPlazos": [
-      {
-        "salvoBuenCobro": "0.00",
-        "numeroCuenta": "56715974163",
-        "divisa": "USD",
-        "capital": "12340.00",
-        "santanderPlus": false,
-        "prefijo": "",
-        "vista": "63118365868",
-        "descCompaniaCelular": "",
-        "cuentaLarga": "00140309056715974163",
-        "cuentaMovil": "5555050722",
-        "alias": "SUPERCHIDA",
-        "participacion": "TI",
-        "disponible": "12340.00",
-        "tipoProducto": "SUPER NOMINA2",
-        "tdd": false,
-        "tipoAsociacion": "",
-        "estatus": "",
-        "mensajeEstatus": "CSCH0000 CONSULTA SALDO CUENTA EFECTUADA",
-        "clabe": "014028567159741637",
-        "codigoEstatus": 0,
-        "companiaCelular": ""
-      }
-    ],
-    "saldoFondos": [
-
-    ],
-    "sp": "3"
-  },
-  "securityContext": null
+	"securityContext": null,
+	"error": {
+		"severity": "",
+		"tipo": "",
+		"clave": "OK",
+		"codigo": 0,
+		"message": ""
+	},
+	"dto": {
+		"saldoPesos": [{
+			"capital": "85,875.05",
+			"cuentaMovil": "",
+			"divisa": "MXP",
+			"descCompaniaCelular": "",
+			"numeroSubProducto": "0060",
+			"numeroCuenta": "60560002852",
+			"prefijo": "",
+			"participacion": "TI",
+			"codigoEstatus": 0,
+			"tipoProducto": "CUENTA FREE",
+			"estatus": "",
+			"tdd": false,
+			"santanderPlus": false,
+			"mensajeEstatus": "CSCH0000 CONSULTA SALDO CUENTA EFECTUADA",
+			"salvoBuenCobro": "0.00",
+			"cuentaLarga": "00144857060560002852",
+			"tipoAsociacion": "",
+			"alias": "",
+			"companiaCelular": "",
+			"vista": "61560002852",
+			"clabe": "014180605600028528",
+			"disponible": "85,875.05"
+		}],
+		"saldoFondos": [],
+		"saldoDolares": [],
+		"alias": "",
+		"totalTotalDolares": "",
+		"sp": "3",
+		"FSOnuevo": "",
+		"saldoCuentaPlazos": [],
+		"totalTotalPesos": "85,875.05"
+	}
 }
