@@ -247,7 +247,7 @@ export class ViewConsultaComponent implements OnInit {
             .subscribe(
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
-                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
+                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
                   //console.log("TOKEN VALIDO");
                   // SE GUARDA EL SESSION ID DE LA RESPUESTA
                   //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
