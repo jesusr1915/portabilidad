@@ -5,11 +5,11 @@
   <p class = "labelInst">{{copies.textInst1}}</p>
   <div class = "contentRadioBtns">
   <label class = "labelRadioBtn">
-    <input type="radio"  name="inputSelected" checked=true (change)="onSelectionChange(1)" >
+    <input type="radio"  name="inputSelected" [(ngModel)]="tipoCuenta" (change)="onSelectionChange(1)" [value]="true" checked=true >
     <p>{{copies.radioText1}}</p>
   </label>
   <label class = "labelRadioBtn right">
-    <input type="radio"  name="inputSelected" (change)="onSelectionChange(2)" >
+    <input type="radio"  name="inputSelected" [(ngModel)]="tipoCuenta" [value]="false" (change)="onSelectionChange(2)" >
     <p>{{copies.radioText2}}</p>
   </label>
   </div>

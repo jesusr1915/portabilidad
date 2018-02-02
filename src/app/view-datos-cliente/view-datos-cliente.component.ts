@@ -37,7 +37,8 @@ export class ViewDatosClienteComponent implements OnInit {
   classSelBank = "";
   bankDisable = true;
   sendService = true;
-  inputSelected = "clabe";
+  tipoCuenta = true;
+
 
   subscription: Subscription;
 
@@ -82,7 +83,7 @@ export class ViewDatosClienteComponent implements OnInit {
       this.tokenUrl = params.token
 
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           localStorage.clear();
@@ -155,9 +156,25 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   private startServices(){
+    // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
+
+          // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
+          if(localStorage.getItem('fillData')){
+            if(localStorage.getItem('tarjet') !== null){
+              if(localStorage.getItem('tarjet').length == 18){
+                this.tipoCuenta = true;
+                this.onSelectionChange(1)
+              } else {
+                this.tipoCuenta = false;
+                this.onSelectionChange(2)
+              }
+              this.tarjetValue = localStorage.getItem('tarjet')
+              this.validaCampoCta()
+            }
+          }
 
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
@@ -241,21 +258,7 @@ export class ViewDatosClienteComponent implements OnInit {
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
                   }
-
                   this.spinnerMng.showSpinner(false);
-                  // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
-                  if(localStorage.getItem('fillData')){
-                    console.log("RECUPERA TARJETA")
-                    if(localStorage.getItem('tarjet') !== null){
-                      if(localStorage.getItem('tarjet').length == 18){
-                        this.inputSelected = 'tarjeta';
-                      }
-
-                      this.tarjetValue = localStorage.getItem('tarjet')
-                      this.validaCampoCta()
-                    }
-                  }
-
                 } else {
                   var message = new messageAlert("Error",res.error.message, "Aceptar");
                   this.alertMan.sendMessage(message);
@@ -348,89 +351,11 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
     onKey(event: any) { // inputs de tarjeta
-      console.log(this.tarjetValue);
-      this.tarjetValue = this.tarjetValue.replace(/[^0-9]/g, '');
-      if(this.tarjetValue.length != 0){
-        this.classLabel = 'hideLabel';
-          if(this.tarjetValue.length == 18){
-
-            // VALIDACION DE clabe
-
-            this.validacionClabe(this.tarjetValue);
-
-
-            //service get Banks
-            //mover para demo
-            if(this.sendService){
-            this.loginServices.postBancosClabe(this.tarjetValue)
-            .subscribe(
-              res=> {
-                if(res.error.clave == "OK"){
-                  //console.log(res.dto.bancoCuenta);
-
-                  var idBank = "";
-                  for(let i=0; i < this.lBanks.length; i++){
-                    if(this.lBanks[i].Name == res.dto.bancoCuenta){
-                      idBank = this.lBanks[i].id;
-                    }
-                  }
-
-                  let temp = { id: idBank, Name: res.dto.bancoCuenta };
-                  this.lUsers.push(temp);
-                  this.setNewUser(idBank);
-                  this.validClabe = true;
-                  this.validBank = true;
-                  this.sendService = false;
-                } else {
-                  this.validClabe = false;
-                  this.validBank = false;
-                  this.sendService = false;
-
-                  var message = new messageAlert("Error",res.error.message, "Aceptar");
-                  this.alertMan.sendMessage(message);
-                }
-              },
-              err => {
-                if(err.error.clave == "ERROR"){
-                  var message = new messageAlert("Error",err.error.message, "Aceptar");
-                  this.alertMan.sendMessage(message);
-                } else {
-                  this.errorService();
-                }
-
-
-                this.validClabe = false;
-                this.validBank = false;
-                this.sendService = false;
-                /*let temp = { id: 1, Name: "Santander" };
-                this.lUsers.push(temp);
-                this.setNewUser(1);*/
-                //this.errorService();
-                //console.log('Something went wrong!' + err.message);
-              }
-            )}
-          } else {
-            this.validClabe = false;
-
-                this.sendService = true;
-
-            if(this.selectedRadio == "debito"){
-                if(this.tarjetValue.length == 16){
-                  this.validClabe = true;
-                }
-            }else{
-              this.lUsers = [];
-            }
-          }
-      }else{
-        this.classLabel = 'showLabel';
-      }
-      this.isInvalid();
+      this.validaCampoCta()
     }
 
     validaCampoCta() { // inputs de tarjeta
       console.log("BUSCA BANCO");
-      console.log(this.tarjetValue);
       this.tarjetValue = this.tarjetValue.replace(/[^0-9]/g, '');
       if(this.tarjetValue.length != 0){
         this.classLabel = 'hideLabel';
