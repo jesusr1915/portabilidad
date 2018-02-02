@@ -21,10 +21,17 @@
 	height: 42px;
   position: relative;
   display: block;
-	padding-top: 11px;
+	padding-top: 15px;
 	padding-left: 2%;
   padding-right: 2%;
 	margin-bottom: 10px;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: white;
+	z-index: 1000;
+
 	p{
     position: relative;
     float: left;

@@ -37,6 +37,7 @@ export class ViewDatosClienteComponent implements OnInit {
   classSelBank = "";
   bankDisable = true;
   sendService = true;
+  inputSelected = "clabe";
 
   subscription: Subscription;
 
@@ -80,7 +81,8 @@ export class ViewDatosClienteComponent implements OnInit {
       // SE LEE EL TOKEN DE LA URL
       this.tokenUrl = params.token
 
-      //localStorage.setItem('backButton', "true");
+
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           localStorage.clear();
@@ -92,10 +94,10 @@ export class ViewDatosClienteComponent implements OnInit {
         localStorage.clear();
       }
 
-      // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-      if(this.tokenUrl != ""){
-        localStorage.setItem('tokenUrl', this.tokenUrl);
-      }
+    // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+    if(this.tokenUrl !== ""){
+      localStorage.setItem('tokenUrl', this.tokenUrl);
+    }
 
 
 
@@ -130,6 +132,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.startServices();
       },
       err => {
+        this.spinnerMng.showSpinner(false);
         localStorage.setItem('env', 'pre');
         this.startServices();
       }
@@ -146,6 +149,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.terminosText = res.datos.terminos;
         this.onSelectionChange(1);
         this.stepMan.sendMessage(1,"Portabilidad de Nómina");
+        this.spinnerMng.showSpinner(false);
       }
     )
   }
@@ -155,6 +159,8 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(
       res=> {
 
+          // // SE PONE UN SESSIONID INDIVIUAL PARA PASAR EL ERRRO DE TOKEN
+          // localStorage.setItem('sessionID','0001XT4RqaZLLn7YN6BpkokfwfV:168taah2i');
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
             // SERVICIO DE VALIDADOR DE TOKEN
@@ -162,7 +168,7 @@ export class ViewDatosClienteComponent implements OnInit {
             .subscribe(
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
-                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000" || res.stokenValidatorResponse.codigoMensaje == "TVT_002"){
+                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
                   //console.log("TOKEN VALIDO");
                   // SE GUARDA EL SESSION ID DE LA RESPUESTA
                   //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
@@ -179,7 +185,7 @@ export class ViewDatosClienteComponent implements OnInit {
                   //}
 
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
-                  this.spinnerMng.showSpinner(false);
+                  //this.spinnerMng.showSpinner(false);
                   this.loadInfo();
 
                 } else {
@@ -210,6 +216,7 @@ export class ViewDatosClienteComponent implements OnInit {
   private loadInfo(){
     // SERVICIO DE SALDOS
     console.log("...CARGANDO SERVICIOS");
+    this.spinnerMng.showSpinner(true);
     this.loginServices.getSaldos()
     .subscribe(
       res => {
@@ -237,33 +244,45 @@ export class ViewDatosClienteComponent implements OnInit {
                     this.lBanks.push(temp);
                   }
 
+                  this.spinnerMng.showSpinner(false);
                   // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
                   if(localStorage.getItem('fillData')){
                     console.log("RECUPERA TARJETA")
+                    if(localStorage.getItem('tarjet').length == 18){
+                      this.inputSelected = 'tarjeta';
+                    }
                     this.tarjetValue = localStorage.getItem('tarjet')
-
+                    this.validaCampoCta()
                   }
 
                 } else {
                   var message = new messageAlert("Error",res.error.message, "Aceptar");
                   this.alertMan.sendMessage(message);
+                  this.spinnerMng.showSpinner(false);
                 }
               },
               err => {
+                this.spinnerMng.showSpinner(false);
                 this.errorService();
               }
             );
 
           },
           err => {
+            this.spinnerMng.showSpinner(false);
             this.errorService();
           }
         )
 
       },
       err => {
-        var message = new messageAlert("Error",err.error.message, "Aceptar");
-        this.alertMan.sendMessage(message);
+        if(err.error.clave == "CSCH-SCC-1"){
+          var message = new messageAlert("Error","Los depósitos por concepto de nómina o prestaciones laborales son realizados a su cuenta de cheques. \n\n Por favor acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses) para realizar la portabilidad de nómina.", "Aceptar");
+          this.alertMan.sendMessage(message);
+        } else {
+          var message = new messageAlert("Error",err.error.message, "Aceptar");
+          this.alertMan.sendMessage(message);
+        }
         //this.errorService();
       }
     )

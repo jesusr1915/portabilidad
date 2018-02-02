@@ -107,6 +107,10 @@ export class CardsComponent implements OnInit, OnDestroy {
         }
         else{
           console.log('Error en la respuesta');
+          if(localStorage.getItem('tokenUrl') === "" || localStorage.getItem('tokenUrl') === undefined || localStorage.getItem('tokenUrl') === null){
+            console.log("SESSION HARDCODEADO");
+            localStorage.setItem('sessionID','0001Od8reVwXqVvPtShsBy6tVjB:168taah2i');
+          }
         }
 
       })

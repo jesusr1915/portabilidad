@@ -18,12 +18,14 @@ export class PersonalCardComponent implements OnInit {
     .subscribe(
       message => {
         this.infoValues = message.value;
-        if (localStorage.getItem('birthday') === null) {
+        if (localStorage.getItem('birthday') === null || localStorage.getItem('birthday') === "") {
           localStorage.setItem('rawBirthday',message.value.fechaNacimiento);
           this.infoValues.fechaNacimiento = this.formatDate(message.value.fechaNacimiento);
           localStorage.setItem('birthday',this.infoValues.fechaNacimiento);
           localStorage.setItem('name',this.infoValues.nombreCliente);
           localStorage.setItem('rfc',this.infoValues.rfcCliente);
+        } else {
+          this.infoValues.fechaNacimiento = localStorage.getItem('birthday');
         }
       }
     )
