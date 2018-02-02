@@ -36,8 +36,8 @@ export class ViewStatusComponent implements OnInit {
 
   onBtnActionClickedV(){
     localStorage.setItem('backButton', "true");
-    let homePage = "/?token=" + localStorage.getItem('tokenUrl')
-    this.router.navigate(["/"]);
+    //let homePage = "/consulta")
+    this.router.navigate(["/consulta"]);
   }
 
 }

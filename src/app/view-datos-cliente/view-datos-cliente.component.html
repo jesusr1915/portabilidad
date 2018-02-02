@@ -5,7 +5,7 @@
   <p class = "labelInst">{{copies.textInst1}}</p>
   <div class = "contentRadioBtns">
   <label class = "labelRadioBtn">
-    <input type="radio"  name="inputSelected" checked=true (change)="onSelectionChange(1)" [(ngModel)]="inputSelected">
+    <input type="radio"  name="inputSelected" checked=true (change)="onSelectionChange(1)" >
     <p>{{copies.radioText1}}</p>
   </label>
   <label class = "labelRadioBtn right">
@@ -15,7 +15,7 @@
   </div>
   <p class = "labelInst min">{{value_label_CLABE}}</p>
   <div class="controls minTop">
-        <input type="text" name="name" (keyup)="onKey($event)" [attr.maxlength]="maxLength" placeholder={{value_placeholder_CLABE}}>
+        <input type="text" name="name" (keyup)="onKey($event)" [(ngModel)]="tarjetValue" [attr.maxlength]="maxLength" placeholder={{value_placeholder_CLABE}}>
         <!-- <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label> -->
   </div>
   <p class = "labelInst">
