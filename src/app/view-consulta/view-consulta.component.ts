@@ -6,6 +6,7 @@ import { LoginService } from '../services/loginServices'
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
+import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Component({
   selector: 'app-view-consulta',
@@ -143,10 +144,9 @@ export class ViewConsultaComponent implements OnInit {
     private _menuMan : MenuMsg,
     private alertMan: AlertMan,
     private messageMan: MessageMan,
-    private route: ActivatedRoute
-
+    private route: ActivatedRoute,
+    public spinnerMng : SpinnerMan
   ) {
-
     // RECIBE PARAMETROS POR URL CON QUERY
     this.route.queryParams
     .subscribe(params => {
@@ -155,36 +155,14 @@ export class ViewConsultaComponent implements OnInit {
       // localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
-          localStorage.clear();
+          this.reloadData();
         } else {
           localStorage.removeItem('backButton');
         }
       } else {
-        localStorage.clear();
-      }
-
-      // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-      if(this.tokenUrl != ""){
-        localStorage.setItem('tokenUrl', this.tokenUrl);
+        this.reloadData();
       }
     });
-
-    // RECIBE PARAMETROS POR URL
-    // this.route.params.subscribe(params => {
-    //   this.tokenUrl = params['token'];
-    //
-    //   // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-    //   if(this.tokenUrl != ""){
-    //     localStorage.setItem('tokenUrl', this.tokenUrl);
-    //   }
-    // });
-
-    // this.subscription = this._menuMan.getMessage()
-    // .subscribe(
-    //   message => {
-    //     this.filterMoves(message.response);
-    //   }
-    // )
   }
 
   ngOnInit() {
@@ -206,34 +184,13 @@ export class ViewConsultaComponent implements OnInit {
 
   }
 
-  private loadInfo(){
-    // SE OBTIENEN LAS CUENTAS
-    this.loginServices.getSaldos()
-    .subscribe(
-      res => {
-        this.messageMan.sendMessage(res);
-        /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
-        // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
-        let datos = {"valores": localStorage.getItem('valores')}
-        // SE OBTIENEN LAS CUENTAS CON PORTABILIDAD
-        this.loginServices.postDetalleConsulta(datos)
-        .subscribe(
-          res=> {
-            // SE ASIGNA EL VALOR DEL ARREGLO DEVUELTO
-            this.allMov = res.dto;
-            this.filterMoves(1);
-          },
-          err => {
-            var message = new messageAlert("Error", err.res.message);
-            this.alertMan.sendMessage(message);
-          }
-        );
-        /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
-      },
-      err => {
-        this.errorService();
-      }
-    );
+  reloadData(){
+    localStorage.clear();
+    // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+    if(this.tokenUrl !== ""){
+      console.log("OBTIENE TOKEN");
+      localStorage.setItem('tokenUrl', this.tokenUrl);
+    }
   }
 
   private startServices(){
@@ -248,7 +205,7 @@ export class ViewConsultaComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  //console.log("TOKEN VALIDO");
+                  console.log("TOKEN VALIDO");
                   // SE GUARDA EL SESSION ID DE LA RESPUESTA
                   //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
                     //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
@@ -275,7 +232,7 @@ export class ViewConsultaComponent implements OnInit {
             );
           } else {
             // SE EJECUTAN LOS SERVICIOS DE CARGA
-            //console.log("TOKEN EXISTENTE");
+            console.log("TOKEN EXISTENTE");
             this.loadInfo();
           }
       },
@@ -283,6 +240,45 @@ export class ViewConsultaComponent implements OnInit {
         this.errorService();
       }
     )
+  }
+
+  private loadInfo(){
+    // SE OBTIENEN LAS CUENTAS
+    this.spinnerMng.showSpinner(true);
+    this.loginServices.getSaldos()
+    .subscribe(
+      res => {
+        this.messageMan.sendMessage(res);
+        /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+        // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
+        let datos = {"valores": localStorage.getItem('valores')}
+        // SE OBTIENEN LAS CUENTAS CON PORTABILIDAD
+        this.loginServices.postDetalleConsulta(datos)
+        .subscribe(
+          res=> {
+            // SE ASIGNA EL VALOR DEL ARREGLO DEVUELTO
+            this.allMov = res.dto;
+            this.filterMoves(1);
+            this.spinnerMng.showSpinner(false);
+          },
+          err => {
+            this.spinnerMng.showSpinner(false);
+            if(err.res){
+              var message = new messageAlert("Error", err.res.message);
+              this.alertMan.sendMessage(message);
+            } else {
+              var message = new messageAlert("Error", "Por el momento el servicio no esta disponible");
+              this.alertMan.sendMessage(message);
+            }
+          }
+        );
+        /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+      },
+      err => {
+        this.spinnerMng.showSpinner(false);
+        this.errorService();
+      }
+    );
   }
 
   // PARA FILTRAR MOVIMIENTOS

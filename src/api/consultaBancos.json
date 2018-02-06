@@ -1,0 +1,486 @@
+{
+	"securityContext": null,
+	"error": {
+		"severity": "",
+		"tipo": "",
+		"clave": "OK",
+		"codigo": 0,
+		"message": ""
+	},
+	"dto": [{
+		"descripcion": "",
+		"id": "0138",
+		"numBanxico": "",
+		"nombreCorto": "ABC CAPITAL"
+	}, {
+		"descripcion": "",
+		"id": "0614",
+		"numBanxico": "",
+		"nombreCorto": "ACCIVAL CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0621",
+		"numBanxico": "",
+		"nombreCorto": "ACTINVER CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0622",
+		"numBanxico": "",
+		"nombreCorto": "ACTINVER LLOYD"
+	}, {
+		"descripcion": "",
+		"id": "0638",
+		"numBanxico": "",
+		"nombreCorto": "AKALA SA DE CV SOCIEDAD FINANCIERA POPUL"
+	}, {
+		"descripcion": "",
+		"id": "0103",
+		"numBanxico": "",
+		"nombreCorto": "AMERICAN EXPRES BANK"
+	}, {
+		"descripcion": "",
+		"id": "0002",
+		"numBanxico": "",
+		"nombreCorto": "BANAMEX"
+	}, {
+		"descripcion": "",
+		"id": "0133",
+		"numBanxico": "",
+		"nombreCorto": "BANCO ACTINVER SA"
+	}, {
+		"descripcion": "",
+		"id": "0062",
+		"numBanxico": "",
+		"nombreCorto": "BANCO AFIRME"
+	}, {
+		"descripcion": "",
+		"id": "0128",
+		"numBanxico": "",
+		"nombreCorto": "BANCO AUTOFIN MEXICO, S.A."
+	}, {
+		"descripcion": "",
+		"id": "0127",
+		"numBanxico": "",
+		"nombreCorto": "BANCO AZTECA"
+	}, {
+		"descripcion": "",
+		"id": "0130",
+		"numBanxico": "",
+		"nombreCorto": "BANCO COMPARTAMOS"
+	}, {
+		"descripcion": "",
+		"id": "0131",
+		"numBanxico": "",
+		"nombreCorto": "BANCO DE AHORRO FAMSA"
+	}, {
+		"descripcion": "",
+		"id": "0001",
+		"numBanxico": "",
+		"nombreCorto": "BANCO DE MEXICO"
+	}, {
+		"descripcion": "",
+		"id": "0108",
+		"numBanxico": "",
+		"nombreCorto": "BANCO DE TOKYO"
+	}, {
+		"descripcion": "",
+		"id": "0030",
+		"numBanxico": "",
+		"nombreCorto": "BANCO DEL BAJIO"
+	}, {
+		"descripcion": "",
+		"id": "0037",
+		"numBanxico": "",
+		"nombreCorto": "BANCO INTERACCIONES"
+	}, {
+		"descripcion": "",
+		"id": "0059",
+		"numBanxico": "",
+		"nombreCorto": "BANCO INVEX"
+	}, {
+		"descripcion": "",
+		"id": "0032",
+		"numBanxico": "",
+		"nombreCorto": "BANCO IXE"
+	}, {
+		"descripcion": "",
+		"id": "0042",
+		"numBanxico": "",
+		"nombreCorto": "BANCO MIFEL"
+	}, {
+		"descripcion": "",
+		"id": "0112",
+		"numBanxico": "",
+		"nombreCorto": "BANCO MONEX"
+	}, {
+		"descripcion": "",
+		"id": "0132",
+		"numBanxico": "",
+		"nombreCorto": "BANCO MULTIVA, S.A."
+	}, {
+		"descripcion": "",
+		"id": "0134",
+		"numBanxico": "",
+		"nombreCorto": "BANCO WALL MART"
+	}, {
+		"descripcion": "",
+		"id": "0006",
+		"numBanxico": "",
+		"nombreCorto": "BANCOMEXT"
+	}, {
+		"descripcion": "",
+		"id": "0137",
+		"numBanxico": "",
+		"nombreCorto": "BANCOPPEL, S.A."
+	}, {
+		"descripcion": "",
+		"id": "0019",
+		"numBanxico": "",
+		"nombreCorto": "BANJERCITO"
+	}, {
+		"descripcion": "",
+		"id": "0106",
+		"numBanxico": "",
+		"nombreCorto": "BANK OF AMERICA"
+	}, {
+		"descripcion": "",
+		"id": "0009",
+		"numBanxico": "",
+		"nombreCorto": "BANOBRAS"
+	}, {
+		"descripcion": "",
+		"id": "0072",
+		"numBanxico": "",
+		"nombreCorto": "BANORTE"
+	}, {
+		"descripcion": "",
+		"id": "0058",
+		"numBanxico": "",
+		"nombreCorto": "BANREGIO"
+	}, {
+		"descripcion": "",
+		"id": "0166",
+		"numBanxico": "",
+		"nombreCorto": "BANSEFI"
+	}, {
+		"descripcion": "",
+		"id": "0060",
+		"numBanxico": "",
+		"nombreCorto": "BANSI"
+	}, {
+		"descripcion": "",
+		"id": "0129",
+		"numBanxico": "",
+		"nombreCorto": "BARCLAYS BANK"
+	}, {
+		"descripcion": "",
+		"id": "0145",
+		"numBanxico": "",
+		"nombreCorto": "BBASE"
+	}, {
+		"descripcion": "",
+		"id": "0012",
+		"numBanxico": "",
+		"nombreCorto": "BBVA BANCOMER"
+	}, {
+		"descripcion": "",
+		"id": "0610",
+		"numBanxico": "",
+		"nombreCorto": "BEARS AND BULL CASA DE CAMBIO"
+	}, {
+		"descripcion": "",
+		"id": "0632",
+		"numBanxico": "",
+		"nombreCorto": "BULTICK CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0644",
+		"numBanxico": "",
+		"nombreCorto": "CASA DE BOLSA BANORTE S.A DE C.V."
+	}, {
+		"descripcion": "",
+		"id": "0631",
+		"numBanxico": "",
+		"nombreCorto": "CI BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0901",
+		"numBanxico": "",
+		"nombreCorto": "CLS BANK"
+	}, {
+		"descripcion": "",
+		"id": "0140",
+		"numBanxico": "",
+		"nombreCorto": "CONSUBANCO"
+	}, {
+		"descripcion": "",
+		"id": "0143",
+		"numBanxico": "",
+		"nombreCorto": "CONSULTORIA INTERNACIONAL BANCO S.A."
+	}, {
+		"descripcion": "",
+		"id": "0126",
+		"numBanxico": "",
+		"nombreCorto": "CREDIT SUISSE BANK"
+	}, {
+		"descripcion": "",
+		"id": "0626",
+		"numBanxico": "",
+		"nombreCorto": "DEUTCHE SECURITIES CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0124",
+		"numBanxico": "",
+		"nombreCorto": "DEUTSCHE BANK"
+	}, {
+		"descripcion": "",
+		"id": "0606",
+		"numBanxico": "",
+		"nombreCorto": "ESTRUCTURADORES"
+	}, {
+		"descripcion": "",
+		"id": "0648",
+		"numBanxico": "",
+		"nombreCorto": "EVERCORE"
+	}, {
+		"descripcion": "",
+		"id": "0616",
+		"numBanxico": "",
+		"nombreCorto": "FINAMEX CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0634",
+		"numBanxico": "",
+		"nombreCorto": "FINCOMUN SERVICIOS FINANCIEROS COMUNITA"
+	}, {
+		"descripcion": "",
+		"id": "0151",
+		"numBanxico": "",
+		"nombreCorto": "FUNDACION DONDE BANCO S.A."
+	}, {
+		"descripcion": "",
+		"id": "0601",
+		"numBanxico": "",
+		"nombreCorto": "GBM CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0636",
+		"numBanxico": "",
+		"nombreCorto": "HDI SEGUROS ,S.A. DE .CV."
+	}, {
+		"descripcion": "",
+		"id": "0168",
+		"numBanxico": "",
+		"nombreCorto": "HIPOTECARIA FED"
+	}, {
+		"descripcion": "",
+		"id": "0629",
+		"numBanxico": "",
+		"nombreCorto": "HIPOTECARIA SU CASITA"
+	}, {
+		"descripcion": "",
+		"id": "0021",
+		"numBanxico": "",
+		"nombreCorto": "HSBC"
+	}, {
+		"descripcion": "",
+		"id": "0036",
+		"numBanxico": "",
+		"nombreCorto": "INBURSA"
+	}, {
+		"descripcion": "",
+		"id": "0902",
+		"numBanxico": "",
+		"nombreCorto": "INDEVAL"
+	}, {
+		"descripcion": "",
+		"id": "0116",
+		"numBanxico": "",
+		"nombreCorto": "ING BANK"
+	}, {
+		"descripcion": "",
+		"id": "0136",
+		"numBanxico": "",
+		"nombreCorto": "INTER BANCO S.A."
+	}, {
+		"descripcion": "",
+		"id": "0630",
+		"numBanxico": "",
+		"nombreCorto": "INTERCAM CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0640",
+		"numBanxico": "",
+		"nombreCorto": "J.P MORGAN CASA DE BOLSA SA DE CV"
+	}, {
+		"descripcion": "",
+		"id": "0110",
+		"numBanxico": "",
+		"nombreCorto": "JP MORGAN S.A"
+	}, {
+		"descripcion": "",
+		"id": "0655",
+		"numBanxico": "",
+		"nombreCorto": "JP SOFIEXPRESS"
+	}, {
+		"descripcion": "",
+		"id": "0653",
+		"numBanxico": "",
+		"nombreCorto": "KUSPIT"
+	}, {
+		"descripcion": "",
+		"id": "0670",
+		"numBanxico": "",
+		"nombreCorto": "LIBERTAD"
+	}, {
+		"descripcion": "",
+		"id": "0619",
+		"numBanxico": "",
+		"nombreCorto": "MAPFRE TEPEYAC"
+	}, {
+		"descripcion": "",
+		"id": "0602",
+		"numBanxico": "",
+		"nombreCorto": "MASARI CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0615",
+		"numBanxico": "",
+		"nombreCorto": "MERRIL LYNCH CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0600",
+		"numBanxico": "",
+		"nombreCorto": "MONEX CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0135",
+		"numBanxico": "",
+		"nombreCorto": "NAFIN"
+	}, {
+		"descripcion": "",
+		"id": "0659",
+		"numBanxico": "",
+		"nombreCorto": "OPCIONES EMRPESARIALES DEL NORESTE, S.A."
+	}, {
+		"descripcion": "",
+		"id": "0642",
+		"numBanxico": "",
+		"nombreCorto": "OPERADORA DE RECURSOS REFORMA SA DE CV"
+	}, {
+		"descripcion": "",
+		"id": "0637",
+		"numBanxico": "",
+		"nombreCorto": "ORDER EXPRESS CASA DE CAMBIO SA DE CV"
+	}, {
+		"descripcion": "",
+		"id": "0649",
+		"numBanxico": "",
+		"nombreCorto": "OSKNDIA OPERADORA DE FONDOS SA DE CV"
+	}, {
+		"descripcion": "",
+		"id": "0620",
+		"numBanxico": "",
+		"nombreCorto": "PROFUTURO GNP AFORE"
+	}, {
+		"descripcion": "",
+		"id": "0014",
+		"numBanxico": "",
+		"nombreCorto": "SANTANDER"
+	}, {
+		"descripcion": "",
+		"id": "0044",
+		"numBanxico": "",
+		"nombreCorto": "SCOTIABANK"
+	}, {
+		"descripcion": "",
+		"id": "0651",
+		"numBanxico": "",
+		"nombreCorto": "SEGUROS MONTERREY NEW YORK LIFE SA DE CV"
+	}, {
+		"descripcion": "",
+		"id": "0646",
+		"numBanxico": "",
+		"nombreCorto": "SISTEMA DE TRANSFERENCIAS Y PAGOS SOFOM"
+	}, {
+		"descripcion": "",
+		"id": "0623",
+		"numBanxico": "",
+		"nombreCorto": "SKANDIA VIDA"
+	}, {
+		"descripcion": "",
+		"id": "0652",
+		"numBanxico": "",
+		"nombreCorto": "SOLUCION ASEA SA DE CV SOC FINA POPU"
+	}, {
+		"descripcion": "",
+		"id": "0633",
+		"numBanxico": "",
+		"nombreCorto": "STERLING CASA DE CAMBIO SA DE CV"
+	}, {
+		"descripcion": "",
+		"id": "0647",
+		"numBanxico": "",
+		"nombreCorto": "TELECOMUNICACIONES DE MEXICO"
+	}, {
+		"descripcion": "",
+		"id": "0102",
+		"numBanxico": "",
+		"nombreCorto": "THE ROYAL BANK"
+	}, {
+		"descripcion": "",
+		"id": "0607",
+		"numBanxico": "",
+		"nombreCorto": "TIBER CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0139",
+		"numBanxico": "",
+		"nombreCorto": "UBS BANK MEXICO"
+	}, {
+		"descripcion": "",
+		"id": "0656",
+		"numBanxico": "",
+		"nombreCorto": "UNAGRA"
+	}, {
+		"descripcion": "",
+		"id": "0618",
+		"numBanxico": "",
+		"nombreCorto": "UNICA CASA DE CAMBIO"
+	}, {
+		"descripcion": "",
+		"id": "0617",
+		"numBanxico": "",
+		"nombreCorto": "VALORES MEXICANOS CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0605",
+		"numBanxico": "",
+		"nombreCorto": "VALUE CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0113",
+		"numBanxico": "",
+		"nombreCorto": "VE POR MAS"
+	}, {
+		"descripcion": "",
+		"id": "0608",
+		"numBanxico": "",
+		"nombreCorto": "VECTOR CASA DE BOLSA"
+	}, {
+		"descripcion": "",
+		"id": "0141",
+		"numBanxico": "",
+		"nombreCorto": "VOLKSWAGEN BANK"
+	}, {
+		"descripcion": "",
+		"id": "0627",
+		"numBanxico": "",
+		"nombreCorto": "ZURICH COMPAÑIA DE SEGUROS"
+	}, {
+		"descripcion": "",
+		"id": "0628",
+		"numBanxico": "",
+		"nombreCorto": "ZURICH VIDA COMPAÑIA DE SEGUROS"
+	}]
+}

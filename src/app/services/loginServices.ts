@@ -148,16 +148,16 @@ export class LoginService{
   getRequest(url:string, xtras:string){
     // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
     this.getUrls();
-
-    this.spinnerMng.showSpinner(true);
+    // this.spinnerMng.showSpinner(true);
     return this.http.get(url,xtras)
     .map((response) => {
-      this.spinnerMng.showSpinner(false);
-      //console.log(response.json());
-      return response.json()
+        // this.spinnerMng.showSpinner(false);
+        // localStorage.setItem('env', response.json().ENV_VAR);
+        return response.json()
       })
       .catch((e) => {
-        this.spinnerMng.showSpinner(false);
+        // this.spinnerMng.showSpinner(false);
+        // localStorage.setItem('env', 'pre');
         return Observable.throw(
           e.json()
           //new Error(`${ e.status } ${ e.statusText }`)

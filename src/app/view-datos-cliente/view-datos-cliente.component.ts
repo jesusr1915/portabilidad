@@ -79,30 +79,18 @@ export class ViewDatosClienteComponent implements OnInit {
     // RECIBE PARAMETROS POR URL CON QUERY
     this.route.queryParams
     .subscribe(params => {
-      // SE LEE EL TOKEN DE LA URL
       this.tokenUrl = params.token
 
-
-      localStorage.setItem('backButton', "true");
+      // localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
-          localStorage.clear();
+          this.reloadData();
         } else {
-          localStorage.setItem('fillData','true');
           localStorage.removeItem('backButton');
         }
       } else {
-        localStorage.clear();
+        this.reloadData();
       }
-
-    // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-    if(this.tokenUrl !== ""){
-      localStorage.setItem('tokenUrl', this.tokenUrl);
-    }
-
-
-
-
     });
 
     // RECIBE PARAMETROS POR URL
@@ -133,7 +121,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.startServices();
       },
       err => {
-        this.spinnerMng.showSpinner(false);
+        //this.spinnerMng.showSpinner(false);
         localStorage.setItem('env', 'pre');
         this.startServices();
       }
@@ -153,6 +141,15 @@ export class ViewDatosClienteComponent implements OnInit {
         this.spinnerMng.showSpinner(false);
       }
     )
+  }
+
+  reloadData(){
+    localStorage.clear();
+    // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+    if(this.tokenUrl !== ""){
+      console.log("OBTIENE TOKEN");
+      localStorage.setItem('tokenUrl', this.tokenUrl);
+    }
   }
 
   private startServices(){
@@ -365,6 +362,8 @@ export class ViewDatosClienteComponent implements OnInit {
 
             this.validacionClabe(this.tarjetValue);
 
+// TOKEN MOCKEADO = DhmJ4hiWVTT7TthRscBW8t6%2B5iQBmzTEYU85SWKL%2BwHR2bKQBZPEciyi7YTCYaGXPN5tlfyY8fg%2F%2F4ibMYvVgipOw80QSP%2FM4dS1mkG%2FzsHPjXyoHR49dDh53t6hmaPnwiAPneDmXx8KESvU7a1Tw%2FJOF7pBdCCvueH7LQJPvQ3SpylDT20dG4R7AVqJKeai2yqgHlNUxIJqUkeeKnmDSO7%2FI6ASDRXRGCSMIa6gQS2Qh36joli7QZrK2umBlTKS45%2FBZUgQ%2BbhnkaIoTlQOn1cLknhkQJ6tUOvyAB0kGAlPUu4xpMIwFcBoi3PufvDzAYvEEGxQzNRdlTw5kh0BNw%3D%3D
+
 
             //service get Banks
             //mover para demo
@@ -375,6 +374,7 @@ export class ViewDatosClienteComponent implements OnInit {
                 if(res.error.clave == "OK"){
                   //console.log(res.dto.bancoCuenta);
 
+                  var recoveredBank = "";
                   var idBank = "";
                   for(let i=0; i < this.lBanks.length; i++){
                     if(this.lBanks[i].Name == res.dto.bancoCuenta){
