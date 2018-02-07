@@ -86,6 +86,8 @@ export class ViewDatosClienteComponent implements OnInit {
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
         } else {
+          // PARA RECUPERAR LOS DATOS DE LA PANTALLA
+          localStorage.setItem('fillData','true');
           localStorage.removeItem('backButton');
         }
       } else {
@@ -138,7 +140,6 @@ export class ViewDatosClienteComponent implements OnInit {
         this.terminosText = res.datos.terminos;
         this.onSelectionChange(1);
         this.stepMan.sendMessage(1,"Portabilidad de Nómina");
-        this.spinnerMng.showSpinner(false);
       }
     )
   }
@@ -153,6 +154,7 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   private startServices(){
+    this.spinnerMng.showSpinner(true);
     // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS
     this.loginServices.postOAuthToken()
     .subscribe(
@@ -181,45 +183,30 @@ export class ViewDatosClienteComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  //console.log("TOKEN VALIDO");
-                  // SE GUARDA EL SESSION ID DE LA RESPUESTA
-                  //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
-                    //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
-                      // console.log("SESION", res.stokenValidatorResponse.PAdicional);
-                      //console.log("TOKEN", res);
-                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
-                      localStorage.setItem('sessionID',mToken.sessionId.substring(11));
-
-                      // console.log("SESSIONID " + localStorage.getItem('sessionID'))
-
-                      // localStorage.setItem('alive', "true");
-                    //}
-                  //}
-
-                  // SE EJECUTAN LOS SERVICIOS DE CARGA
-                  //this.spinnerMng.showSpinner(false);
-                  this.loadInfo();
-
+                    let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    localStorage.setItem('sessionID',mToken.sessionId.substring(11));
+                    // SE EJECUTAN LOS SERVICIOS DE CARGA
+                    this.loadInfo();
                 } else {
+                  this.spinnerMng.showSpinner(false); // CIERRA LOADER
                   var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
                   this.alertMan.sendMessage(message);
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
-                this.spinnerMng.showSpinner(false);
+                this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 this.errorService();
               }
             );
           } else {
             // SE EJECUTAN LOS SERVICIOS DE CARGA
-            //console.log("TOKEN EXISTENTE");
-            this.spinnerMng.showSpinner(false);
+            this.spinnerMng.showSpinner(false); // CIERRA LOADER
             this.loadInfo();
           }
       },
       err => {
-        this.spinnerMng.showSpinner(false);
+        this.spinnerMng.showSpinner(false); // CIERRA LOADER
         this.errorService();
       }
     )
@@ -227,56 +214,49 @@ export class ViewDatosClienteComponent implements OnInit {
 
   private loadInfo(){
     // SERVICIO DE SALDOS
-    console.log("...CARGANDO SERVICIOS");
-    this.spinnerMng.showSpinner(true);
     this.loginServices.getSaldos()
     .subscribe(
       res => {
-        console.log("getSaldos", res);
         // SE LLENAN LOS CARDS
         this.messageMan.sendMessage(res);
-
         // SERVICIO DE CONSULTA DE RFC
         this.loginServices.getConsultaRFC()
         .subscribe(
           res => {
-            console.log("getConsultaRFC", res);
             // SE LLENA LA INFO DEL CLIENTE
             this.infoCardMng.sendMessage(res.dto);
-
             // SERVICIO DE CONSULTA DE BANCOS
             this.loginServices.postBancos()
             .subscribe(
               res => {
-                console.log("postBancos", res);
                 // SE LLENA EL LISTADO DE BANCOS
                 if(res.error.clave == "OK"){
                   for(let arrayVal of res.dto){
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
                   }
-                  this.spinnerMng.showSpinner(false);
+                  this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 } else {
+                  this.spinnerMng.showSpinner(false); // CIERRA LOADER
                   var message = new messageAlert("Error",res.error.message, "Aceptar");
                   this.alertMan.sendMessage(message);
-                  this.spinnerMng.showSpinner(false);
                 }
               },
               err => {
-                this.spinnerMng.showSpinner(false);
+                this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 this.errorService();
               }
             );
-
           },
           err => {
-            this.spinnerMng.showSpinner(false);
+            this.spinnerMng.showSpinner(false); // CIERRA LOADER
             this.errorService();
           }
         )
 
       },
       err => {
+        this.spinnerMng.showSpinner(false); // CIERRA LOADER
         if(err.error.clave == "CSCH-SCC-1"){
           var message = new messageAlert("Error","Los depósitos por concepto de nómina o prestaciones laborales son realizados a su cuenta de cheques. \n\n Por favor acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses) para realizar la portabilidad de nómina.", "Aceptar");
           this.alertMan.sendMessage(message);
@@ -284,7 +264,6 @@ export class ViewDatosClienteComponent implements OnInit {
           var message = new messageAlert("Error",err.error.message, "Aceptar");
           this.alertMan.sendMessage(message);
         }
-        //this.errorService();
       }
     )
   }
@@ -352,7 +331,6 @@ export class ViewDatosClienteComponent implements OnInit {
     }
 
     validaCampoCta() { // inputs de tarjeta
-      console.log("BUSCA BANCO");
       this.tarjetValue = this.tarjetValue.replace(/[^0-9]/g, '');
       if(this.tarjetValue.length != 0){
         this.classLabel = 'hideLabel';
