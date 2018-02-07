@@ -13,6 +13,7 @@ import { InfoCardMan } from '../personal-card/infoCardMng';
 import { Subscription } from 'rxjs/Subscription';
 import {TermMan} from '../terms/termMng';
 
+import { SpinnerMan } from '../spinner-component/spinnerMng';
 @Component({
   selector: 'app-view-santander-plus',
   templateUrl: './view-santander-plus.component.html',
@@ -36,6 +37,8 @@ export class ViewSantanderPlusComponent implements OnInit {
     classSelBank = "";
     bankDisable = true;
     sendService = true;
+    tipoCuenta = true;
+
 
     subscription: Subscription;
 

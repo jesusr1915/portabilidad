@@ -9,6 +9,7 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 export class LoginService{
   private env: string;
   private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud.corp';
+  private urlLogin = 'https://sp-login-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud.corp';
 
   private serviceConfig = '/config.json';
   private serviceOAuth: string;
@@ -20,6 +21,12 @@ export class LoginService{
   private serviceUrlAlta: string;
   private serviceUrlDetalleConsulta: string;
 
+  private serviceUrlSaldosSP: string;
+  private serviceUrlAltaSP: string;
+
+  private serviceUrlModificaSP: string;
+  private serviceUrlActualizaSP: string;
+
   private body = '';
   private headers = new Headers();
   private options;
@@ -27,24 +34,7 @@ export class LoginService{
   token = "";
 
   constructor(public http:Http, public spinnerMng : SpinnerMan) {
-    // this.getConfig()
-    // .subscribe(
-    //   res => {
-    //     this.ENV = res.ENV_VAR;
-    //     localStorage.setItem('ENV', this.ENV);
-    //   },
-    //   err => {
-    //     this.ENV = "pre";
-    //     localStorage.setItem('ENV', this.ENV);
-    //   }
-    // )
-  }
-
-  getUrlBase(){
-    return this.urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud.corp';
-  }
-
-  getUrls(){
+    // PORTABILIDAD
     this.serviceOAuth = this.getUrlBase() + '/token';
     this.serviceValidator = this.getUrlBase() + '/tokenmanager/tokenValidatorWS'
     this.serviceUrlSaldos = this.getUrlBase() + '/clientes/saldosCuentasCheques';
@@ -53,6 +43,39 @@ export class LoginService{
     this.serviceUrlBancos = this.getUrlBase() + '/bancos/consultaBancos';
     this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
     this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
+    // INSCRIPCION
+    this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
+    this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
+    // CAMBIO DE CUENTA
+    this.serviceUrlModificaSP = this.getUrlBase() + '/santanderplus/isModificarSantanderPlus';
+    this.serviceUrlActualizaSP = this.getUrlBase() + '/santanderplus/insertaActualizaCuentasSantanderPlus';
+  }
+
+  getUrlBase(){
+    return this.urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud.corp';
+  }
+
+  getUrlLogin(){
+    // return this.urlLogin = 'https://sp-login-mxsantanderplus1-'+ localStorage.getItem('env') +'.appls.cto1.paas.gsnetcloud.corp';
+    return this.urlLogin = 'https://sp-login-mxsantanderplus1-dev.appls.cto1.paas.gsnetcloud.corp/login';
+  }
+
+  getUrls(){
+    // PORTABILIDAD
+    this.serviceOAuth = this.getUrlBase() + '/token';
+    this.serviceValidator = this.getUrlBase() + '/tokenmanager/tokenValidatorWS'
+    this.serviceUrlSaldos = this.getUrlBase() + '/clientes/saldosCuentasCheques';
+    this.serviceUrlRFC = this.getUrlBase() + '/clientes/consultaRFCPN';
+    this.serviceUrlClabeBancos = this.getUrlBase() + '/bancos/bancoCuenta';
+    this.serviceUrlBancos = this.getUrlBase() + '/bancos/consultaBancos';
+    this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
+    this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
+    // INSCRIPCION
+    this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
+    this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
+    // CAMBIO DE CUENTA
+    this.serviceUrlModificaSP = this.getUrlBase() + '/santanderplus/isModificarSantanderPlus';
+    this.serviceUrlActualizaSP = this.getUrlBase() + '/santanderplus/insertaActualizaCuentasSantanderPlus';
   }
 
   getConfig(){
@@ -61,9 +84,6 @@ export class LoginService{
   }
 
   postOAuthToken(){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
-
     this.configHeader(false);
     let urlSearchParams = new URLSearchParams();
     if(localStorage.getItem('env') == "dev"){
@@ -79,9 +99,6 @@ export class LoginService{
   }
 
   postValidator(tokenUrl){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
-
     this.configHeader(true);
     let urlSearchParams = {
       'token': tokenUrl
@@ -91,25 +108,23 @@ export class LoginService{
   }
 
   getConsultaRFC(){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
-
     this.configHeader(false);
     return this.getRequest(this.serviceUrlRFC,this.options);
   }
 
   getSaldos(){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
-
     this.configHeader(false);
     return this.getRequest(this.serviceUrlSaldos,this.options);
     //return this.http.get('api/cuentaCheques.json')
   }
-  postBancosClabe(cuenta : string){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
 
+  postLogin(datosEntrada: any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.getUrlLogin(),body,this.options);
+  }
+
+  postBancosClabe(cuenta : string){
     this.configHeader(true);
     let urlSearchParams = {
       'cuenta': cuenta
@@ -117,18 +132,13 @@ export class LoginService{
     let body = JSON.stringify(urlSearchParams);
     return this.postRequest(this.serviceUrlClabeBancos,body,this.options)
   }
-  postBancos(){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
 
+  postBancos(){
     this.configHeader(true);
     return this.postRequest(this.serviceUrlBancos,"",this.options);
-
   }
-  postAlta(datosEntrada : any){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
 
+  postAlta(datosEntrada : any){
     this.configHeader(true);
     // let urlSearchParams = new URLSearchParams();
     // urlSearchParams.append ('datosEntrada',datosEntrada);
@@ -137,17 +147,38 @@ export class LoginService{
     return this.postRequest(this.serviceUrlAlta,body,this.options)
     //return this.http.get('api/alta.json')
   }
-  postDetalleConsulta(datosEntrada: any){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
 
+  postDetalleConsulta(datosEntrada: any){
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlDetalleConsulta,body,this.options);
   }
+
+  postSaldosSP(){
+    this.configHeader(true);
+    return this.postRequest(this.serviceUrlSaldosSP,"",this.options);
+  }
+
+  postAltaSP(datosEntrada: any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.serviceUrlAltaSP,body,this.options)
+  }
+
+  postModificaSP(){
+    this.configHeader(true);
+    return this.postRequest(this.serviceUrlModificaSP,"",this.options);
+  }
+
+  postActualizaSP(datosEntrada: any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.serviceUrlActualizaSP,body,this.options)
+  }
+
+
+
   getRequest(url:string, xtras:string){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
     // this.spinnerMng.showSpinner(true);
     return this.http.get(url,xtras)
     .map((response) => {
@@ -165,9 +196,6 @@ export class LoginService{
       });
   }
   postRequest(url:string, body:string, xtras:string){
-    // OBTIENE LAS URLS DE ACUERDO AL AMBIENTE
-    this.getUrls();
-
     // this.spinnerMng.showSpinner(true);
     return this.http.post(url,body,xtras)
     .map((response) => {

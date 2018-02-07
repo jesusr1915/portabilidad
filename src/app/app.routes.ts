@@ -8,11 +8,16 @@ import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component'
 import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component'
 import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component'
-
+import { LoginComponent } from './login/login.component'
 import{ ViewTempIndexComponent } from './view-temp-index/view-temp-index.component'
 
 // Route Configuration
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
   {
     path: 'verifica',
     component: ViewVerifiqueComponent,
@@ -50,14 +55,13 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'plus',
-    component: ViewSantanderPlusComponent,
-    pathMatch: 'full'
-  }
-  ,
-  {
     path: 'inscripcion',
     component: ViewInscripcionComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'cuenta',
+    component: ViewSantanderPlusComponent,
     pathMatch: 'full'
   }
 ];

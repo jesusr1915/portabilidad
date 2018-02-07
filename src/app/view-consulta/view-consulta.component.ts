@@ -17,6 +17,7 @@ export class ViewConsultaComponent implements OnInit {
 
   totalMov =[];
   allMov = [];
+  portabilidades = [];
   tokenUrl = "";
   tokenType = "";
 
@@ -152,7 +153,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -205,21 +206,11 @@ export class ViewConsultaComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  console.log("TOKEN VALIDO");
                   // SE GUARDA EL SESSION ID DE LA RESPUESTA
-                  //if(localStorage.getItem('tokenUrl') !== "" && localStorage.getItem('tokenUrl') !== undefined){
-                    //if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
-                      // console.log("SESION", res.stokenValidatorResponse.PAdicional);
-                      let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
-                      localStorage.setItem('sessionID',mToken.sessionId.substring(11));
-
-                      // localStorage.setItem('alive', "true");
-                    //}
-                  //}
-
+                  let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                  localStorage.setItem('sessionID',mToken.sessionId.substring(11));
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
-
                 } else {
                   var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
                   this.alertMan.sendMessage(message);
@@ -257,6 +248,15 @@ export class ViewConsultaComponent implements OnInit {
         .subscribe(
           res=> {
             // SE ASIGNA EL VALOR DEL ARREGLO DEVUELTO
+            //
+            // for(let portabilidad of res.dto){
+            //   this.portabilidades.push(portabilidad.cuentaCliente)
+            // }
+            //
+            // if(this.portabilidades.length > 0){
+            //   localStorage.setItem('portabilidades', this.portabilidades);
+            // }
+
             this.allMov = res.dto;
             this.filterMoves(1);
             this.spinnerMng.showSpinner(false);

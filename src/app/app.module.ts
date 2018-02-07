@@ -40,6 +40,7 @@ import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-det
 import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component';
 import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component';
 import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.co
     ViewDetalleSolicitudComponent,
     ViewTempIndexComponent,
     ViewSantanderPlusComponent,
-    ViewInscripcionComponent
+    ViewInscripcionComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

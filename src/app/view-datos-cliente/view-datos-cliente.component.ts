@@ -105,6 +105,18 @@ export class ViewDatosClienteComponent implements OnInit {
     //   }
     // });
 
+    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.spinnerMng.showSpinner(true);
+    this.loginServices.getConfig()
+    .subscribe(
+      res => {
+        localStorage.setItem('env', res.ENV_VAR);
+      },
+      err => {
+        localStorage.setItem('env', 'pre');
+      }
+    )
+
     this.subscription = this.termsMng.getMessage()
     .subscribe(
       message => {
@@ -114,20 +126,7 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   ngOnInit(){
-    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
-    this.spinnerMng.showSpinner(true);
-    this.loginServices.getConfig()
-    .subscribe(
-      res => {
-        localStorage.setItem('env', res.ENV_VAR);
-        this.startServices();
-      },
-      err => {
-        //this.spinnerMng.showSpinner(false);
-        localStorage.setItem('env', 'pre');
-        this.startServices();
-      }
-    )
+    this.startServices();
 
     let res = {}
     this.messageMan.sendMessage(res);
