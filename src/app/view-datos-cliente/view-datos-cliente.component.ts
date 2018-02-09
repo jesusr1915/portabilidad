@@ -60,6 +60,7 @@ export class ViewDatosClienteComponent implements OnInit {
     curUser: any = this.lUsers[0];
     tokenUrl = "";
     tokenType = "";
+    pruebasDante = "";
 
   @Input() value_label_CLABE;
   @Input() value_placeholder_CLABE;
@@ -81,7 +82,7 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      localStorage.setItem('backButton', "true");
+      // localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -93,6 +94,16 @@ export class ViewDatosClienteComponent implements OnInit {
       } else {
         this.reloadData();
       }
+
+      console.log("DANTE",params.tkn);
+
+      if(params.tkn !== undefined && params.tkn !== "" && params.tkn !== null){
+        localStorage.setItem('pruebasDante', "true");
+      } else {
+        localStorage.setItem('pruebasDante', "false");
+      }
+
+
     });
 
     // RECIBE PARAMETROS POR URL
@@ -238,6 +249,8 @@ export class ViewDatosClienteComponent implements OnInit {
                   if(localStorage.getItem('fillData')){
                     if(localStorage.getItem('tarjet') !== null){
                       this.selectBank = localStorage.getItem('idBanco');
+                      this.validBank = true;
+                      this.validClabe = true;
                     }
                   }
 

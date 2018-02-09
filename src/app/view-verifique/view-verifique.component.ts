@@ -28,6 +28,8 @@ export class ViewVerifiqueComponent implements OnInit {
   tokenSM: string;
   tipoOTP: string;
   date: string;
+  isDanteTest = false;
+  isRealTest = false;
 
   demo : Demo = new Demo(
     localStorage.getItem("cardAlias"),
@@ -72,6 +74,15 @@ export class ViewVerifiqueComponent implements OnInit {
         }
       }
     )
+
+    if(localStorage.getItem('pruebasDante') === "true"){
+      this.isDanteTest = true;
+      this.isRealTest = false;
+    } else {
+      this.isDanteTest = false;
+      this.isRealTest = true;
+    }
+
   }
 
   onActivate(e, outlet){
