@@ -28,6 +28,8 @@ export class ViewStatusComponent implements OnInit {
     //this.dateOperation = this._utils.formatDate(localStorage.getItem('fechaOperacion'),"-","aammdd");
     this.dateOperation = localStorage.getItem('fechaOperacion');
     this.bankWhereWishReceive = "SANTANDER";
+
+    // hideBackButton();
   }
 
   ngOnInit() {

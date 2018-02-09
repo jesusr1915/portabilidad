@@ -47,8 +47,10 @@
         };
         //alert(promise);
         promise.then(
-          function(token,tipoOTP,date){
-            responseToken(token,tipoOTP,date,'');
+          function(token){
+          // function(token,tipoOTP,date){
+            mToken = JSON.parse(token)
+            responseToken(mToken.token, mToken.tipoOTP, mToken.date,'');
           },
           function(mensaje){
             responseError('',mensaje);
