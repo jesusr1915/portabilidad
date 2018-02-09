@@ -1,0 +1,15 @@
+{
+	"error": {
+		"tipo": "",
+		"message": "",
+		"clave": "OK",
+		"codigo": 0,
+		"severity": ""
+	},
+	"securityContext": null,
+	"dto": {
+		"fechaOperacion": "27/Oct/2016",
+		"horaOperacion": "19:26",
+		"referenciaOperacion": "8659504"
+	}
+}

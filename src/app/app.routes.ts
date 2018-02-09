@@ -9,7 +9,9 @@ import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-det
 import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component'
 import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component'
 import { LoginComponent } from './login/login.component'
-import{ ViewTempIndexComponent } from './view-temp-index/view-temp-index.component'
+import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component'
+import { ViewResumenInscripcionComponent } from './view-resumen-inscripcion/view-resumen-inscripcion.component';
+import { ViewCuentaSeleccionadaComponent } from './view-cuenta-seleccionada/view-cuenta-seleccionada.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -44,12 +46,6 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    // path: ':token',
-    path: '',
-    component: ViewDatosClienteComponent,
-    pathMatch: 'full'
-  },
-  {
     path: 'cliente',
     component: ViewDatosClienteComponent,
     pathMatch: 'full'
@@ -62,6 +58,22 @@ export const routes: Routes = [
   {
     path: 'cuenta',
     component: ViewSantanderPlusComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'seleccion',
+    component: ViewCuentaSeleccionadaComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'resumen',
+    component: ViewResumenInscripcionComponent,
+    pathMatch: 'full'
+  },
+  {
+    // path: ':token',
+    path: '',
+    component: ViewDatosClienteComponent,
     pathMatch: 'full'
   }
 ];

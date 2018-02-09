@@ -9,18 +9,29 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  private bucValue;
+  private nipValue
+
   constructor(private router: Router, private loginServices: LoginService) { }
 
   ngOnInit() {
-    let datos = {"buc": "12020573", "nip": "prueba12"}
+
+  }
+
+  clicLogin(){
+    //let datos = {"buc": "12020573", "nip": "prueba12"}
+    let datos = {"buc": this.bucValue, "nip": this.nipValue};
     this.loginServices.postLogin(datos)
     .subscribe(
       res => {
-        this.router.navigate(['/?token=' + res.tokenSSO]);
+        if(res.tokenSSO !== "error")
+          this.router.navigate(["/"], { queryParams: { token: res.tokenSSO } });
+        else
+          alert("ERROR");
       },
       err => {
         console.log(err);
-      })
+      });
   }
 
 }

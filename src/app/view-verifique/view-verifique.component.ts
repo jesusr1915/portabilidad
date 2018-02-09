@@ -62,7 +62,7 @@ export class ViewVerifiqueComponent implements OnInit {
         this.copiesVer = res.datos.verifique;
         this.tipoToken = localStorage.getItem("ttkn");
 
-        this.stepMan.sendMessage(2,"Portabilidad de Nómina");
+        this.stepMan.sendMessage(2,"Verifique los datos de su cuenta o tarjeta");
 
         this.messageMan.sendMessage(this.demo);
         if(this.valueInfo.length == 18){

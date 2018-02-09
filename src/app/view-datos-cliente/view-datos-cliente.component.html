@@ -22,7 +22,7 @@
     {{copies.textInstBanco}}
   </p>
 
-  <select [className] = "classSelBank"  [disabled]="bankDisable" #selectElem (change)="setNewUser(selectElem.value)">
+  <select [className] = "classSelBank"  [disabled]="bankDisable" #selectElem (change)="setNewUser(selectElem.value)" [(ngModel)]="selectBank" >
           <option  *ngFor="let user of lUsers" [value]="user.id">
               {{user.Name}}
           </option>

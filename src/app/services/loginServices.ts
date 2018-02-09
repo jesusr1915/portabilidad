@@ -56,8 +56,7 @@ export class LoginService{
   }
 
   getUrlLogin(){
-    // return this.urlLogin = 'https://sp-login-mxsantanderplus1-'+ localStorage.getItem('env') +'.appls.cto1.paas.gsnetcloud.corp';
-    return this.urlLogin = 'https://sp-login-mxsantanderplus1-dev.appls.cto1.paas.gsnetcloud.corp/login';
+    return this.urlLogin = 'https://sp-login-mxsantanderplus1-'+ localStorage.getItem('env') +'.appls.cto1.paas.gsnetcloud.corp/login';
   }
 
   getUrls(){
@@ -84,6 +83,7 @@ export class LoginService{
   }
 
   postOAuthToken(){
+    this.getUrls();
     this.configHeader(false);
     let urlSearchParams = new URLSearchParams();
     if(localStorage.getItem('env') == "dev"){
@@ -116,6 +116,11 @@ export class LoginService{
     this.configHeader(false);
     return this.getRequest(this.serviceUrlSaldos,this.options);
     //return this.http.get('api/cuentaCheques.json')
+  }
+
+  getSaldosSP(){
+    this.configHeader(false);
+    return this.getRequest('api/saldosCuentasChequesSP.json','');
   }
 
   postLogin(datosEntrada: any){

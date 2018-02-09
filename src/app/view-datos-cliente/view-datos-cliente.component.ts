@@ -38,7 +38,7 @@ export class ViewDatosClienteComponent implements OnInit {
   bankDisable = true;
   sendService = true;
   tipoCuenta = true;
-
+  selectBank = "";
 
   subscription: Subscription;
 
@@ -81,7 +81,7 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -105,18 +105,6 @@ export class ViewDatosClienteComponent implements OnInit {
     //   }
     // });
 
-    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
-    this.spinnerMng.showSpinner(true);
-    this.loginServices.getConfig()
-    .subscribe(
-      res => {
-        localStorage.setItem('env', res.ENV_VAR);
-      },
-      err => {
-        localStorage.setItem('env', 'pre');
-      }
-    )
-
     this.subscription = this.termsMng.getMessage()
     .subscribe(
       message => {
@@ -126,10 +114,22 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.startServices();
+    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.spinnerMng.showSpinner(true);
+    this.loginServices.getConfig()
+    .subscribe(
+      res => {
+        localStorage.setItem('env', res.ENV_VAR);
+        this.startServices();
+      },
+      err => {
+        localStorage.setItem('env', 'pre');
+        this.startServices();
+      }
+    )
 
-    let res = {}
-    this.messageMan.sendMessage(res);
+    var message = new messageAlert("Portabilidad de nómina", "Usted está iniciando el proceso de portabilidad de nómina a Santander. <br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.");
+    this.alertMan.sendMessage(message);
 
     //localStorage.clear();
     this.copiesServ.postCopies()
@@ -138,7 +138,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.copies = res.datos.seleccion_cuenta;
         this.terminosText = res.datos.terminos;
         this.onSelectionChange(1);
-        this.stepMan.sendMessage(1,"Portabilidad de Nómina");
+        this.stepMan.sendMessage(1,"Ingrese los datos de su nómina");
       }
     )
   }
@@ -200,7 +200,7 @@ export class ViewDatosClienteComponent implements OnInit {
             );
           } else {
             // SE EJECUTAN LOS SERVICIOS DE CARGA
-            this.spinnerMng.showSpinner(false); // CIERRA LOADER
+            // this.spinnerMng.showSpinner(false); // CIERRA LOADER
             this.loadInfo();
           }
       },
@@ -234,6 +234,14 @@ export class ViewDatosClienteComponent implements OnInit {
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
                   }
+
+                  if(localStorage.getItem('fillData')){
+                    if(localStorage.getItem('tarjet') !== null){
+                      this.selectBank = localStorage.getItem('idBanco');
+                    }
+                  }
+
+
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
@@ -260,8 +268,13 @@ export class ViewDatosClienteComponent implements OnInit {
           var message = new messageAlert("Error","Los depósitos por concepto de nómina o prestaciones laborales son realizados a su cuenta de cheques. \n\n Por favor acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses) para realizar la portabilidad de nómina.", "Aceptar");
           this.alertMan.sendMessage(message);
         } else {
-          var message = new messageAlert("Error",err.error.message, "Aceptar");
-          this.alertMan.sendMessage(message);
+          if(err.error.message){
+            var message = new messageAlert("Error",err.error.message, "Aceptar");
+            this.alertMan.sendMessage(message);
+          } else {
+            var message = new messageAlert("Error","Por el momento el servicio no está disponible.", "Aceptar");
+            this.alertMan.sendMessage(message);
+          }
         }
       }
     )

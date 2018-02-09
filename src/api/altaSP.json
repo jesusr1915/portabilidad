@@ -1,0 +1,17 @@
+{
+	"error": {
+		"tipo": "",
+		"message": "",
+		"clave": "OK",
+		"codigo": 0,
+		"severity": ""
+	},
+	"securityContext": null,
+	"dto": {
+		"fechaOperacion": "27/Oct/2016",
+		"horaOperacion": "19:16",
+		"costoPrograma": "25000",
+		"referenciaOperacion": "4319853",
+		"necesitaPortabilidad": true
+	}
+}

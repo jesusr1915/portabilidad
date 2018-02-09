@@ -41,6 +41,8 @@ import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.compon
 import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component';
 import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component';
 import { LoginComponent } from './login/login.component';
+import { ViewResumenInscripcionComponent } from './view-resumen-inscripcion/view-resumen-inscripcion.component';
+import { ViewCuentaSeleccionadaComponent } from './view-cuenta-seleccionada/view-cuenta-seleccionada.component';
 
 
 @NgModule({
@@ -64,7 +66,9 @@ import { LoginComponent } from './login/login.component';
     ViewTempIndexComponent,
     ViewSantanderPlusComponent,
     ViewInscripcionComponent,
-    LoginComponent
+    LoginComponent,
+    ViewResumenInscripcionComponent,
+    ViewCuentaSeleccionadaComponent
   ],
   imports: [
     BrowserModule,

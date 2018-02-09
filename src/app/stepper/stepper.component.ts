@@ -18,7 +18,7 @@ export class StepperComponent implements OnInit {
   instructions = [
                   "Ingrese los datos de su nómina",
                   "Verifique los datos de su cuenta o tarjeta",
-                  "Felicidades has completado"
+                  "Felicidades has completado",
                 ];
 
   widthbar: number = 33;
@@ -29,7 +29,7 @@ export class StepperComponent implements OnInit {
       this.subscription = this.stepMan.getMessage()
       .subscribe(
         message => {
-          this.value_header = message.response.title;
+          this.value_label_step = message.response.title;
           this.setStep(message.response.number);
         }
       )
@@ -44,12 +44,18 @@ export class StepperComponent implements OnInit {
     {
       this.visible = true;
       this.value_step = step;
-      this.value_label_step = this.instructions[step-1];
+      //this.value_label_step = this.instructions[step-1];
       this.widthbar = 100*(step/this.max_step);
     }else{
       this.visible = false;
     }
 
   }
+
+  // setTitle(title: string){
+  //   if(title != ""){
+  //     this.
+  //   }
+  // }
 
 }
