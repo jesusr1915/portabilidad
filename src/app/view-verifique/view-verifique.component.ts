@@ -90,16 +90,7 @@ export class ViewVerifiqueComponent implements OnInit {
   }
 
   showToken(){
-
-    // SE MANDA LLAMAR LA FUNCION QUE DEVUELVE EL TOKEN NATIVO
-    //this.requestToken()
-
-    // if(this.tipoToken == "0"){
-        this.tokenMng.sendMessage("true");
-    // } else {
-      //this.requestToken();
-    // }
-    //this.sendAltaService();
+    this.tokenMng.sendMessage("true");
   }
 
   requestToken() {
@@ -107,20 +98,7 @@ export class ViewVerifiqueComponent implements OnInit {
     (window as any).requestToken();
   }
 
-  responseToken(mToken: string, mTipoOTP: string, mDate: string) {
-    console.log("RESPUESTA TOKEN");
-    console.log(mToken);
-    this.tokenSM = mToken;
-    this.tipoOTP = mTipoOTP;
-    this.date = mDate;
-    this.sendAltaService();
-  }
-
-  errorToken(mensaje: string){
-    var message = new messageAlert("Error",mensaje, "Aceptar");
-    this.alertMan.sendMessage(message);
-  }
-
+  // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
   receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
     this.zone.run(() => {
       if(token !== '')
@@ -129,6 +107,25 @@ export class ViewVerifiqueComponent implements OnInit {
         this.errorToken(message)
     });
   }
+
+  // FUNCION QUE REALIZA LA ASIGNACION DE VALORES DEL TOKEN
+  responseToken(mToken: string, mTipoOTP: string, mDate: string) {
+    console.log("RESPUESTA TOKEN ANGULAR");
+    console.log(mToken + ' ' + mTipoOTP + ' ' + mDate);
+    this.tokenSM = mToken;
+    this.tipoOTP = mTipoOTP;
+    this.date = mDate;
+    console.log("MANDA SERVICIO");
+    this.sendAltaService();
+  }
+
+  // FUNCION QUE MANDA MENSAJE DE ERROR
+  errorToken(mensaje: string){
+    var message = new messageAlert("Error",mensaje, "Aceptar");
+    this.alertMan.sendMessage(message);
+  }
+
+
 
   sendAltaService(){
 

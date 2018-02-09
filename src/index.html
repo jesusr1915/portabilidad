@@ -23,38 +23,19 @@
       }
 
       function requestToken() {
-
-        // var run = Bridge.runAsync();
-        //
-        // run.then = function(callback){
-        //     var name = "callback_"+Math.floor((Math.random() * 100000));
-        //     window[name] = callback
-        //     return run.thenJS(name);
-        // }
-        //
-        // run.then(function(a){
-        //     console.log("CALLBACK in JAVASCRIPT "+JSON.stringify(a));
-        // });
-
-
         var promise = TokenManager.getToken();
 
-        var successCallback = function(token){
-          responseToken(token);
-        };
-        var errorCallback = function(mensaje){
-          responseError(mensaje)
-        };
-        //alert(promise);
         promise.then(
           function(token){
           // function(token,tipoOTP,date){
             mToken = JSON.parse(token)
+            console.log("RESPUESTA TOKEN JS");
             console.log(mToken)
             responseToken(mToken.token, mToken.tipoOTP, mToken.date,'');
           },
           function(mensaje){
-            responseError('',mensaje);
+            console.log("RESPUESTA TOKEN ERROR");
+            responseToken('', '', '', mensaje);
           }
         );
 
