@@ -36,7 +36,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -203,7 +203,8 @@ export class ViewConsultaComponent implements OnInit {
         'cuentaBanco': moves.cuentaBanco,
         'cuentaCliente': moves.cuentaCliente,
         'estatus': moves.estatus,
-        'tipoSolicitud': moves.tipoSolicitud
+        'tipoSolicitud': moves.tipoSolicitud,
+        'banco': moves.banco
       };
 
       if(newMove.tipoSolicitud == tipoSolicitud){

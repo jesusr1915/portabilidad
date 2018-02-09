@@ -251,6 +251,7 @@ export class ViewDatosClienteComponent implements OnInit {
                       this.selectBank = localStorage.getItem('idBanco');
                       this.validBank = true;
                       this.validClabe = true;
+                      this.setNewUser(localStorage.getItem('idBanco'));
                     }
                   }
 
