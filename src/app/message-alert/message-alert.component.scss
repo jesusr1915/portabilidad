@@ -17,10 +17,11 @@ $margin-med: 33px;
   z-index: 2000;
   .body{
     left: 0;
-    top: 0;
+    // top: 0;
     //width: 279px;
 	  // height: 281px;
-    height: 400px;
+    // height: 400px;
+    height: fit-content;
     width: 80%;
 	  // border-radius: 5px;
 	  // background-color: #ffffff;
@@ -39,6 +40,7 @@ $margin-med: 33px;
   }
   .textFix {
     margin-top: $margin-med;
+    margin-bottom: 75px;
     height: auto;
     width: 94%;
   	font-size: 16px;

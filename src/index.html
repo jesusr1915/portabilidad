@@ -50,6 +50,7 @@
           function(token){
           // function(token,tipoOTP,date){
             mToken = JSON.parse(token)
+            console.log(mToken)
             responseToken(mToken.token, mToken.tipoOTP, mToken.date,'');
           },
           function(mensaje){
