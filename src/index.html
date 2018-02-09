@@ -31,7 +31,7 @@
             mToken = JSON.parse(token)
             console.log("RESPUESTA TOKEN JS");
             console.log("==>", JSON.stringify(mToken));
-            responseToken(mToken.token, mToken.tipoOTP, mToken.date,'');
+            responseToken(mToken.token, mToken.typeOTP, mToken.date,'');
           },
           function(mensaje){
             console.log("RESPUESTA TOKEN ERROR");
