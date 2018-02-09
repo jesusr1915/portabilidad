@@ -82,7 +82,7 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -246,12 +246,15 @@ export class ViewDatosClienteComponent implements OnInit {
                     this.lBanks.push(temp);
                   }
 
+                  // SE RECUPERA LA INFORMACION
                   if(localStorage.getItem('fillData')){
                     if(localStorage.getItem('tarjet') !== null){
-                      this.selectBank = localStorage.getItem('idBanco');
-                      this.validBank = true;
-                      this.validClabe = true;
-                      this.setNewUser(localStorage.getItem('idBanco'));
+                      if(localStorage.getItem('tarjet').length === 16){
+                        this.selectBank = localStorage.getItem('idBanco');
+                        this.validBank = true;
+                        this.validClabe = true;
+                        this.setNewUser(localStorage.getItem('idBanco'));
+                      }
                     }
                   }
 
@@ -360,18 +363,10 @@ export class ViewDatosClienteComponent implements OnInit {
       this.tarjetValue = this.tarjetValue.replace(/[^0-9]/g, '');
       if(this.tarjetValue.length != 0){
         this.classLabel = 'hideLabel';
-          if(this.tarjetValue.length == 18){
-
-            // VALIDACION DE clabe
-
-            this.validacionClabe(this.tarjetValue);
-
-// TOKEN MOCKEADO = DhmJ4hiWVTT7TthRscBW8t6%2B5iQBmzTEYU85SWKL%2BwHR2bKQBZPEciyi7YTCYaGXPN5tlfyY8fg%2F%2F4ibMYvVgipOw80QSP%2FM4dS1mkG%2FzsHPjXyoHR49dDh53t6hmaPnwiAPneDmXx8KESvU7a1Tw%2FJOF7pBdCCvueH7LQJPvQ3SpylDT20dG4R7AVqJKeai2yqgHlNUxIJqUkeeKnmDSO7%2FI6ASDRXRGCSMIa6gQS2Qh36joli7QZrK2umBlTKS45%2FBZUgQ%2BbhnkaIoTlQOn1cLknhkQJ6tUOvyAB0kGAlPUu4xpMIwFcBoi3PufvDzAYvEEGxQzNRdlTw5kh0BNw%3D%3D
-
-
-            //service get Banks
-            //mover para demo
-            if(this.sendService){
+        if(this.tarjetValue.length == 18){
+        this.validacionClabe(this.tarjetValue);
+          if(this.sendService){
+            this.spinnerMng.showSpinner(true);
             this.loginServices.postBancosClabe(this.tarjetValue)
             .subscribe(
               res=> {
@@ -389,9 +384,11 @@ export class ViewDatosClienteComponent implements OnInit {
                   let temp = { id: idBank, Name: res.dto.bancoCuenta };
                   this.lUsers.push(temp);
                   this.setNewUser(idBank);
+                  this.spinnerMng.showSpinner(false);
                   this.validClabe = true;
                   this.validBank = true;
                   this.sendService = false;
+                  this.selectBank = idBank
                 } else {
                   this.validClabe = false;
                   this.validBank = false;
