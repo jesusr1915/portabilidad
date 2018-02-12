@@ -95,7 +95,7 @@ export class ViewDatosClienteComponent implements OnInit {
         this.reloadData();
       }
 
-      console.log("DANTE",params.tkn);
+      // console.log("DANTE",params.tkn);
 
       if(params.tkn !== undefined && params.tkn !== "" && params.tkn !== null){
         localStorage.setItem('pruebasDante', "true");
@@ -153,7 +153,8 @@ export class ViewDatosClienteComponent implements OnInit {
       }
     )
 
-    this.loadInfo()
+    // SE COLOCA PARA HACER LA PRUEBA DEL RELLENO DEL CARRUSEL DE CUENTAS
+    // this.loadInfo()
   }
 
   reloadData(){
@@ -162,7 +163,7 @@ export class ViewDatosClienteComponent implements OnInit {
     if(this.tokenUrl !== ""){
       console.log("OBTIENE TOKEN");
       localStorage.setItem('tokenUrl', this.tokenUrl);
-      
+
     }
   }
 

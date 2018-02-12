@@ -82,6 +82,12 @@ export class LoginService{
     return this.getRequest(this.serviceConfig,this.options);
   }
 
+  postLogin(datosEntrada: any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.getUrlLogin(),body,this.options);
+  }
+
   postOAuthToken(){
     this.getUrls();
     this.configHeader(false);
@@ -107,6 +113,8 @@ export class LoginService{
     return this.postRequest(this.serviceValidator,body,this.options)
   }
 
+  // SERVICIOS DE PORTABILIDAD
+
   getConsultaRFC(){
     this.configHeader(false);
     return this.getRequest(this.serviceUrlRFC,this.options);
@@ -114,19 +122,8 @@ export class LoginService{
 
   getSaldos(){
     this.configHeader(false);
-    // return this.getRequest(this.serviceUrlSaldos,this.options);
-    return this.getRequest('api/saldosCuentasCheques.json','');
-  }
-
-  getSaldosSP(){
-    this.configHeader(false);
-    return this.getRequest('api/saldosCuentasChequesSP.json','');
-  }
-
-  postLogin(datosEntrada: any){
-    this.configHeader(true);
-    let body = JSON.stringify(datosEntrada);
-    return this.postRequest(this.getUrlLogin(),body,this.options);
+    return this.getRequest(this.serviceUrlSaldos,this.options);
+    // return this.getRequest('api/saldosCuentasCheques.json','');
   }
 
   postBancosClabe(cuenta : string){
@@ -145,9 +142,6 @@ export class LoginService{
 
   postAlta(datosEntrada : any){
     this.configHeader(true);
-    // let urlSearchParams = new URLSearchParams();
-    // urlSearchParams.append ('datosEntrada',datosEntrada);
-    // urlSearchParams.toString();
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlAlta,body,this.options)
     //return this.http.get('api/alta.json')
@@ -157,6 +151,13 @@ export class LoginService{
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlDetalleConsulta,body,this.options);
+  }
+
+  // SERVICIOS DE MODIFICACION DE CUENTA
+
+  getSaldosSP(){
+    this.configHeader(false);
+    return this.getRequest('api/saldosCuentasChequesSP.json','');
   }
 
   postSaldosSP(){
@@ -181,8 +182,6 @@ export class LoginService{
     return this.postRequest(this.serviceUrlActualizaSP,body,this.options)
   }
 
-
-
   getRequest(url:string, xtras:string){
     // this.spinnerMng.showSpinner(true);
     return this.http.get(url,xtras)
@@ -200,6 +199,7 @@ export class LoginService{
         );
       });
   }
+  
   postRequest(url:string, body:string, xtras:string){
     // this.spinnerMng.showSpinner(true);
     return this.http.post(url,body,xtras)

@@ -51,7 +51,7 @@ export class ViewConsultaComponent implements OnInit {
     this.subscription = this._menuMan.getMessage()
     .subscribe(
       message => {
-        console.log(message.response);
+        // console.log(message.response);
         this.filterMoves(message.response);
       }
     )
