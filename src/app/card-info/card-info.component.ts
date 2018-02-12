@@ -25,7 +25,6 @@ export class CardInfoComponent implements OnInit {
   ngOnInit() {
     this.cuentaBloqueada = this.value_bloqueo == "S" ? true : false;
     this.cuentaEnCeros = this.value_disponible <= 0 ? true : false;
-    this.cardStyle = this.value_selected == true ? "Card selected" : "Card";
   }
 
 }

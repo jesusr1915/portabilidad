@@ -104,7 +104,7 @@ export class ViewVerifiqueComponent implements OnInit {
       if(token !== '')
         this.responseToken(token, tipoOTP, date);
       else
-        this.errorToken(message)
+        this.errorToken(message);
     });
   }
 

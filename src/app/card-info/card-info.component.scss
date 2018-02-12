@@ -1,12 +1,5 @@
 .Card{
 
-	  // this will only affect wide screens
-	  @media screen and (min-width: 768px) {
-	      &.selected{
-	        border: solid 1px #d0021b;
-	    }
-	  }
-
 	width: 269px;
 	height: 120.5px;
   position: relative;
@@ -102,6 +95,15 @@
 				margin-left: 3%;
 				margin-right: 6%;
 			}
+		}
+	}
+}
+
+// this will only affect wide screens
+@media screen and (min-width: 768px) {
+	.Card{
+		&.selected{
+			border: solid 1px #d0021b;
 		}
 	}
 }

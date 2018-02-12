@@ -17,6 +17,9 @@
       height: 161px;
       background-color: #e6e6e6;
       display: flex;
+      display: -webkit-flex; /* NEW */
+
+
     /* overflow-x: scroll; */
     app-card-info{
       margin-left: 10%;
@@ -34,6 +37,24 @@
     }
   }
 }
+
+@media screen and (min-width: 768px) {
+  :host {
+    .contentCarr {
+      /* width: 100% !important; */
+      height: 161px;
+      background-color: #e6e6e6;
+      display: -webkit-box;
+      app-card-info{
+        width: 269px;
+        float: left;
+        margin-top: 3% !important;
+      }
+    }
+  }
+}
+
+
 
 /*
 .contentCarr {

@@ -152,6 +152,8 @@ export class ViewDatosClienteComponent implements OnInit {
         this.stepMan.sendMessage(1,"Ingrese los datos de su nómina");
       }
     )
+
+    this.loadInfo()
   }
 
   reloadData(){
@@ -160,6 +162,7 @@ export class ViewDatosClienteComponent implements OnInit {
     if(this.tokenUrl !== ""){
       console.log("OBTIENE TOKEN");
       localStorage.setItem('tokenUrl', this.tokenUrl);
+      
     }
   }
 

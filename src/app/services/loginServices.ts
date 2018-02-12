@@ -114,8 +114,8 @@ export class LoginService{
 
   getSaldos(){
     this.configHeader(false);
-    return this.getRequest(this.serviceUrlSaldos,this.options);
-    //return this.http.get('api/cuentaCheques.json')
+    // return this.getRequest(this.serviceUrlSaldos,this.options);
+    return this.getRequest('api/saldosCuentasCheques.json','');
   }
 
   getSaldosSP(){
