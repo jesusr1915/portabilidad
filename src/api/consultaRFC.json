@@ -1,0 +1,15 @@
+{
+  "securityContext": null,
+  "error": {
+    "severity": "",
+    "tipo": "",
+    "clave": "OK",
+    "codigo": 0,
+    "message": ""
+  },
+  "dto":{
+      "nombreCliente": "JOSE DE JESUS GALVAN ROSAS",
+      "rfcCliente": "GARJ8609027U9",
+      "fechaNacimiento": "1986-09-02"
+  }
+}
