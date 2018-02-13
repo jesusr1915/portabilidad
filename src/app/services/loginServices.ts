@@ -113,6 +113,22 @@ export class LoginService{
     return this.postRequest(this.serviceValidator,body,this.options)
   }
 
+  // SERVICIOS MOCK UP
+  getSaldosMock(){
+    this.configHeader(false);
+    return this.getRequest('api/saldosCuentasCheques.json','');
+  }
+
+  getConsultaRFCMock(){
+    this.configHeader(false);
+    return this.getRequest('api/consultaRFC.json','');
+  }
+
+  getBancosMock(){
+    this.configHeader(false);
+    return this.getRequest('api/consultaBancos.json','');
+  }
+
   // SERVICIOS DE PORTABILIDAD
 
   getConsultaRFC(){
@@ -123,7 +139,6 @@ export class LoginService{
   getSaldos(){
     this.configHeader(false);
     return this.getRequest(this.serviceUrlSaldos,this.options);
-    // return this.getRequest('api/saldosCuentasCheques.json','');
   }
 
   postBancosClabe(cuenta : string){
@@ -137,7 +152,8 @@ export class LoginService{
 
   postBancos(){
     this.configHeader(true);
-    return this.postRequest(this.serviceUrlBancos,"",this.options);
+    // return this.postRequest(this.serviceUrlBancos,"",this.options);
+    return this.postRequest('api/consultaBancos.json',"",this.options);
   }
 
   postAlta(datosEntrada : any){

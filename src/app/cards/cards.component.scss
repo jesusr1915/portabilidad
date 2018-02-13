@@ -45,6 +45,12 @@
       height: 161px;
       background-color: #e6e6e6;
       display: -webkit-box;
+
+      &.verifica{
+        display: flex;
+        display: -webkit-flex; /* NEW */
+      }
+
       app-card-info{
         width: 269px;
         float: left;

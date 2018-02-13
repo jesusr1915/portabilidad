@@ -1,9 +1,9 @@
 <div id="frame" class="frame">
-	<div class="contentCarr" >
+	<div [ngClass]="newClass" >
 	    <app-card-info
-	      *ngFor="let card of cards"
-	      [className]="classLabel"
-	      [value_alias]="card.alias"
+	      *ngFor = "let card of cards"
+	      [className] = "classLabel"
+	      [value_alias] = "card.alias"
 	      [value_disponible] = "card.disponible"
 	      [value_divisa] = "card.divisa"
 	      [value_numCuenta] = "card.numeroCuenta"

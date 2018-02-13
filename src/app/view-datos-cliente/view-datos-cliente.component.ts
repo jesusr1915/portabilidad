@@ -131,11 +131,11 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
-        this.startServices();
+        // this.startServices();
       },
       err => {
         localStorage.setItem('env', 'pre');
-        this.startServices();
+        // this.startServices();
       }
     )
 
@@ -154,14 +154,13 @@ export class ViewDatosClienteComponent implements OnInit {
     )
 
     // SE COLOCA PARA HACER LA PRUEBA DEL RELLENO DEL CARRUSEL DE CUENTAS
-    // this.loadInfo()
+    this.loadMock()
   }
 
   reloadData(){
     localStorage.clear();
     // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
     if(this.tokenUrl !== ""){
-      console.log("OBTIENE TOKEN");
       localStorage.setItem('tokenUrl', this.tokenUrl);
 
     }
@@ -224,6 +223,49 @@ export class ViewDatosClienteComponent implements OnInit {
         this.errorService();
       }
     )
+  }
+
+  private loadMock(){
+    this.loginServices.getSaldosMock()
+    .subscribe(
+      res => {
+        // SE LLENA LA INFO DEL CLIENTE
+        this.messageMan.sendMessage(res);
+
+        this.loginServices.getConsultaRFCMock()
+        .subscribe(
+          res => {
+            // SE LLENA LA INFO DEL CLIENTE
+            this.infoCardMng.sendMessage(res.dto);
+
+            this.loginServices.getBancosMock()
+            .subscribe(
+              res => {
+                this.spinnerMng.showSpinner(false);
+                if(res.error.clave == "OK"){
+                  for(let arrayVal of res.dto){
+                    let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
+                    this.lBanks.push(temp);
+                  }
+                }
+              },
+              err => {
+                this.spinnerMng.showSpinner(false); // CIERRA LOADER
+                this.errorService();
+              }
+            );
+          },
+          err => {
+            this.spinnerMng.showSpinner(false); // CIERRA LOADER
+            this.errorService();
+          }
+        );
+      },
+      err => {
+        this.spinnerMng.showSpinner(false); // CIERRA LOADER
+        this.errorService();
+      }
+    );
   }
 
   private loadInfo(){

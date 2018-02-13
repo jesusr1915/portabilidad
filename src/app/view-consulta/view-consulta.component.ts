@@ -74,7 +74,7 @@ export class ViewConsultaComponent implements OnInit {
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
 
     // this.spinnerMng.showSpinner(false);
-    // this.filterMoves(1);
+    this.filterMoves(1);
 
   }
 

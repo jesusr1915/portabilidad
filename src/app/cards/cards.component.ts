@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
@@ -13,18 +13,17 @@ declare var Sly:any;
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit, OnDestroy {
+
   cards = [];
   viewTipoProducto = "";
-  // keys = ["saldoDolares",
-  //             "saldoPesos",
-  //             "saldoCuentaPlazos",
-  //             "saldoFondos"];
   keys = ["saldoPesos"];
   subscription: Subscription;
   classMulti = "multi";
   classOne = "one";
   classLabel = this.classMulti;
   valores = "";
+  className = ""
+  newClass = "";
 
   constructor(private messageMan: MessageMan, private alertMan: AlertMan) {
     this.subscription = this.messageMan.getMessage()
@@ -32,8 +31,10 @@ export class CardsComponent implements OnInit, OnDestroy {
       message => {
         if(message.response["dto"]){
           this.setValues(this.keys,message);
+          this.newClass="contentCarr"
         }else if(message.response["alias"]){
           this.setOneValue(message.response);
+          this.newClass="contentCarr verifica"
         }
       })
   }
@@ -63,11 +64,13 @@ export class CardsComponent implements OnInit, OnDestroy {
     this.setSly();
     localStorage.setItem("valores", this.valores.slice(0, -1));
   }
+
   setOneValue(value:any){
     this.classLabel = this.classOne;
     this.cards = [];
     this.cards.push(value);
   }
+
   setCurrentLocalCard(cards:any){
     if(cards.indicadorBloqueo == "S"){
       localStorage.setItem('validAccount','false');
@@ -75,13 +78,13 @@ export class CardsComponent implements OnInit, OnDestroy {
       this.alertMan.sendMessage(message);
     } else {
       localStorage.setItem('validAccount','true');
-      localStorage.setItem("cardAlias",cards.alias);
-      localStorage.setItem("cardDisponible",cards.disponible);
-      localStorage.setItem("cardDivisa",cards.divisa);
-      localStorage.setItem("cardNumeroCuenta",cards.numeroCuenta);
-      localStorage.setItem("cardCuentaMovil",cards.cuentaMovil);
-      localStorage.setItem("numeroCuenta",cards.unmaskCuenta);
-      localStorage.setItem("numeroSubProducto",cards.numeroSubProducto);
+      localStorage.setItem("cardAlias", cards.alias);
+      localStorage.setItem("cardDisponible", cards.disponible);
+      localStorage.setItem("cardDivisa", cards.divisa);
+      localStorage.setItem("cardNumeroCuenta", cards.numeroCuenta);
+      localStorage.setItem("cardCuentaMovil", cards.cuentaMovil);
+      localStorage.setItem("numeroCuenta", cards.unmaskCuenta);
+      localStorage.setItem("numeroSubProducto", cards.numeroSubProducto);
       if(cards.numeroSubProducto == "0025"){
         setTimeout(()=> {
           var message = new messageAlert("Límite depósitos en cuenta","Este tipo de cuenta sólo puede recibir depósitos de hasta $17, 000 mensuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info");
