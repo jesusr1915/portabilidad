@@ -24,10 +24,13 @@ export class LoginComponent implements OnInit {
     this.loginServices.postLogin(datos)
     .subscribe(
       res => {
-        if(res.tokenSSO !== "error")
-          this.router.navigate(["/"], { queryParams: { token: res.tokenSSO } });
-        else
+        if(res.tokenSSO !== "error"){
+          let mToken = decodeURIComponent(res.tokenSSO)
+          this.router.navigate(["/"], { queryParams: { token: mToken } });
+
+        } else {
           alert("ERROR");
+        }
       },
       err => {
         console.log(err);

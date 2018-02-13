@@ -204,7 +204,10 @@ export class ViewConsultaComponent implements OnInit {
         'cuentaCliente': moves.cuentaCliente,
         'estatus': moves.estatus,
         'tipoSolicitud': moves.tipoSolicitud,
-        'banco': moves.banco
+        'banco': moves.banco,
+        'folio': moves.folio,
+        'horaEnvio': moves.horaEnvio,
+        'referenciaOperacion': moves.referenciaOperacion
       };
 
       if(newMove.tipoSolicitud == tipoSolicitud){

@@ -54,7 +54,7 @@ export const routes: Routes = [
     path: 'inscripcion',
     component: ViewInscripcionComponent,
     pathMatch: 'full'
-  },
+  }, // EMPIEZAN LAS PAGINAS DE INSCRIPCION
   {
     path: 'cuenta',
     component: ViewSantanderPlusComponent,

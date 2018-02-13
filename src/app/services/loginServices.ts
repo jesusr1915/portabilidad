@@ -199,7 +199,7 @@ export class LoginService{
         );
       });
   }
-  
+
   postRequest(url:string, body:string, xtras:string){
     // this.spinnerMng.showSpinner(true);
     return this.http.post(url,body,xtras)

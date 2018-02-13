@@ -195,6 +195,7 @@ export class ViewSantanderPlusComponent implements OnInit {
         res => {
           console.log("getSaldos", res);
           // SE LLENAN LOS CARDS
+          this.spinnerMng.showSpinner(false); // CIERRA LOADER
           this.messageMan.sendMessage(res);
         },
         err => {
