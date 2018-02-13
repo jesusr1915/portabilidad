@@ -59,3 +59,22 @@ ul.contentFilter {
     }
   }
 }
+
+@media screen and (min-width: 1024px) {
+  ul.contentFilter {
+    li{
+      width: 33.26%;
+    }
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  ul.contentFilter {
+    li{
+      width: 421.66px;
+    }
+    li:last-child{
+      width: 421.7px;
+    }
+  }
+}

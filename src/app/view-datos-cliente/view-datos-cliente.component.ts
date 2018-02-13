@@ -131,11 +131,11 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
-        // this.startServices();
+        this.startServices();
       },
       err => {
         localStorage.setItem('env', 'pre');
-        // this.startServices();
+        this.startServices();
       }
     )
 
@@ -154,7 +154,7 @@ export class ViewDatosClienteComponent implements OnInit {
     )
 
     // SE COLOCA PARA HACER LA PRUEBA DEL RELLENO DEL CARRUSEL DE CUENTAS
-    this.loadMock()
+    // this.loadMock()
   }
 
   reloadData(){

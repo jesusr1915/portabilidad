@@ -36,7 +36,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -59,6 +59,7 @@ export class ViewConsultaComponent implements OnInit {
 
   ngOnInit() {
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.spinnerMng.showSpinner(true);
     this.loginServices.getConfig()
     .subscribe(
       res => {
@@ -128,7 +129,6 @@ export class ViewConsultaComponent implements OnInit {
 
   private loadInfo(){
     // SE OBTIENEN LAS CUENTAS
-    this.spinnerMng.showSpinner(true);
     this.loginServices.getSaldos()
     .subscribe(
       res => {
@@ -179,7 +179,7 @@ export class ViewConsultaComponent implements OnInit {
     let tipoSolicitud = ""
     switch (idBtn){
       case 1:{
-        this.totalMov = this.allMov;
+        // this.totalMov = this.allMov;
         tipoSolicitud = "A"
       }
       break;
@@ -198,10 +198,12 @@ export class ViewConsultaComponent implements OnInit {
     }
     for(let moves of this.allMov){
       let newMoves = [];
+      let accountLenght = moves.cuentaCliente.length;
+      let maskCuenta = moves.cuentaCliente.substr(0,2) + "**" + moves.cuentaCliente.substr(accountLenght-4,accountLenght);
       let newMove = {
         'fechaEnvio': moves.fechaEnvio,
         'cuentaBanco': moves.cuentaBanco,
-        'cuentaCliente': moves.cuentaCliente,
+        'cuentaCliente': maskCuenta,
         'estatus': moves.estatus,
         'tipoSolicitud': moves.tipoSolicitud,
         'banco': moves.banco,
@@ -211,6 +213,8 @@ export class ViewConsultaComponent implements OnInit {
       };
 
       if(newMove.tipoSolicitud == tipoSolicitud){
+        newMoves.push(newMove);
+      } else if(tipoSolicitud == "A"){
         newMoves.push(newMove);
       }
       if(newMoves.length >0){

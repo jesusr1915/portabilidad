@@ -152,8 +152,7 @@ export class LoginService{
 
   postBancos(){
     this.configHeader(true);
-    // return this.postRequest(this.serviceUrlBancos,"",this.options);
-    return this.postRequest('api/consultaBancos.json',"",this.options);
+    return this.postRequest(this.serviceUrlBancos,"",this.options);
   }
 
   postAlta(datosEntrada : any){
