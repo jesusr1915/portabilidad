@@ -20,8 +20,13 @@ export class ViewConsultaComponent implements OnInit {
   portabilidades = [];
   tokenUrl = "";
   tokenType = "";
+  respuestaSaldos = {dto:{saldoPesos:[]}};
+  saldosCuentas = [];
+  consultaPN = [];
 
   subscription: Subscription;
+  subscriptionL: Subscription;
+
   constructor(
     private _stepMan : StepMan,
     private loginServices: LoginService,
@@ -36,7 +41,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      localStorage.setItem('backButton', "true");
+      // localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -53,6 +58,12 @@ export class ViewConsultaComponent implements OnInit {
       message => {
         // console.log(message.response);
         this.filterMoves(message.response);
+      }
+    )
+    this.subscriptionL = this.messageMan.getMessage()
+    .subscribe(
+      message => {
+        this.filterMoves(1);
       }
     )
   }
@@ -75,6 +86,7 @@ export class ViewConsultaComponent implements OnInit {
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
 
     // this.spinnerMng.showSpinner(false);
+    // this.loadMock();
     this.filterMoves(1);
 
   }
@@ -83,7 +95,6 @@ export class ViewConsultaComponent implements OnInit {
     localStorage.clear();
     // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
     if(this.tokenUrl !== ""){
-      console.log("OBTIENE TOKEN");
       localStorage.setItem('tokenUrl', this.tokenUrl);
     }
   }
@@ -117,7 +128,6 @@ export class ViewConsultaComponent implements OnInit {
             );
           } else {
             // SE EJECUTAN LOS SERVICIOS DE CARGA
-            console.log("TOKEN EXISTENTE");
             this.loadInfo();
           }
       },
@@ -127,12 +137,76 @@ export class ViewConsultaComponent implements OnInit {
     )
   }
 
+  private loadMock(){
+    // SE OBTIENEN LAS CUENTAS
+    this.loginServices.getSaldosMock()
+    .subscribe(
+      res => {
+        this.respuestaSaldos = res;
+        this.saldosCuentas = res.dto.saldoPesos;
+
+        this.loginServices.getDetalleConsultaMock()
+        .subscribe(
+          res=> {
+            this.consultaPN = res.dto
+            let myAccounts = this.matchAccounts(this.saldosCuentas, this.consultaPN);
+            this.respuestaSaldos.dto.saldoPesos = myAccounts
+            this.messageMan.sendMessage(this.respuestaSaldos);
+
+            this.spinnerMng.showSpinner(false);
+            this.allMov = res.dto;
+            this.filterMoves(1);
+
+            let portabilidades = res.dto
+            if(portabilidades.length == 0){
+              var message = new messageAlert("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.");
+              this.alertMan.sendMessage(message);
+            }
+
+          },
+          err => {
+            this.spinnerMng.showSpinner(false);
+            if(err.res){
+              var message = new messageAlert("Error", err.res.message);
+              this.alertMan.sendMessage(message);
+            } else {
+              var message = new messageAlert("Error", "Por el momento el servicio no esta disponible");
+              this.alertMan.sendMessage(message);
+            }
+          }
+        );
+      },
+      err => {
+        this.spinnerMng.showSpinner(false);
+        this.errorService();
+      }
+    );
+  }
+
+  private matchAccounts(accounts: any, portabilidades: any){
+    var exists = [];
+    for(let account of accounts){
+      var match = 0;
+      for(let portabilidad of portabilidades){
+        if(account.numeroCuenta == portabilidad.cuentaCliente){
+          match++;
+        }
+      }
+      if(match > 0){
+        exists.push(account);
+      }
+    }
+    return exists;
+  }
+
   private loadInfo(){
     // SE OBTIENEN LAS CUENTAS
     this.loginServices.getSaldos()
     .subscribe(
       res => {
-        this.messageMan.sendMessage(res);
+        this.respuestaSaldos = res;
+        this.saldosCuentas = res.dto.saldoPesos;
+        // this.messageMan.sendMessage(res);
         /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
         // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
         let datos = {"valores": localStorage.getItem('valores')}
@@ -140,7 +214,10 @@ export class ViewConsultaComponent implements OnInit {
         this.loginServices.postDetalleConsulta(datos)
         .subscribe(
           res=> {
-
+            this.consultaPN = res.dto
+            let myAccounts = this.matchAccounts(this.saldosCuentas, this.consultaPN);
+            this.respuestaSaldos.dto.saldoPesos = myAccounts
+            this.messageMan.sendMessage(this.respuestaSaldos);
 
             this.spinnerMng.showSpinner(false);
             this.allMov = res.dto;
@@ -204,6 +281,7 @@ export class ViewConsultaComponent implements OnInit {
         'fechaEnvio': moves.fechaEnvio,
         'cuentaBanco': moves.cuentaBanco,
         'cuentaCliente': maskCuenta,
+        'numeroCuenta': moves.cuentaCliente,
         'estatus': moves.estatus,
         'tipoSolicitud': moves.tipoSolicitud,
         'banco': moves.banco,
@@ -213,9 +291,13 @@ export class ViewConsultaComponent implements OnInit {
       };
 
       if(newMove.tipoSolicitud == tipoSolicitud){
-        newMoves.push(newMove);
+        if(localStorage.getItem('numeroCuenta') == newMove.numeroCuenta){
+          newMoves.push(newMove);
+        }
       } else if(tipoSolicitud == "A"){
-        newMoves.push(newMove);
+        if(localStorage.getItem('numeroCuenta') == newMove.numeroCuenta){
+          newMoves.push(newMove);
+        }
       }
       if(newMoves.length >0){
         this.totalMov.push(newMove);

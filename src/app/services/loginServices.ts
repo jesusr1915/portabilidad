@@ -129,6 +129,11 @@ export class LoginService{
     return this.getRequest('api/consultaBancos.json','');
   }
 
+  getDetalleConsultaMock(){
+    this.configHeader(true);
+    return this.getRequest('api/consultaPN.json','');
+  }
+
   // SERVICIOS DE PORTABILIDAD
 
   getConsultaRFC(){

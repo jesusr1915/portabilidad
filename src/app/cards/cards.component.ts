@@ -93,6 +93,7 @@ export class CardsComponent implements OnInit, OnDestroy {
       }
     }
     cards.isSelected = true;
+    this.messageMan.sendMessage(cards.isSelected);
   }
 
 
