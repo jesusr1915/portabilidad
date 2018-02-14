@@ -41,7 +41,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -207,9 +207,17 @@ export class ViewConsultaComponent implements OnInit {
         this.respuestaSaldos = res;
         this.saldosCuentas = res.dto.saldoPesos;
         // this.messageMan.sendMessage(res);
+
+        var valores = "";
+        for(let cta of this.saldosCuentas){
+          // console.log(cta.numeroCuenta);
+          valores += cta.numeroCuenta + '-';
+        }
+        valores = valores.slice(0, -1);
+
         /* INICIO BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
         // SE OBTIENE EL VALOR QUE SE VA A ENVIAR AL SERVICIO consultaPN
-        let datos = {"valores": localStorage.getItem('valores')}
+        let datos = {"valores": valores}
         // SE OBTIENEN LAS CUENTAS CON PORTABILIDAD
         this.loginServices.postDetalleConsulta(datos)
         .subscribe(

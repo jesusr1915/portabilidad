@@ -1,0 +1,76 @@
+{
+	"securityContext": null,
+	"error": {
+		"severity": "",
+		"tipo": "",
+		"clave": "OK",
+		"codigo": 0,
+		"message": ""
+	},
+	"dto": [{
+		"horaEnvio": "11:19",
+		"referenciaOperacion": "7443035",
+		"fechaRechazo": "",
+		"fechaNacimiento": "",
+		"banco": {
+			"descripcion": "",
+			"numBanxico": "",
+			"id": "",
+			"nombreCorto": "BBVA BANCOMER"
+		},
+		"origen": "RI",
+		"cuentaCliente": "15000041958",
+		"fechaEnvio": "2018-02-13",
+		"motivoRechazo": "",
+		"nombreCliente": "",
+		"estatus": "SOLICITADA",
+		"tipoSolicitud": "R",
+		"folio": "2018021311195140014RIA11195124",
+		"cuentaBanco": "4152313225070446",
+		"rfcCliente": ""
+	},
+  {
+		"horaEnvio": "11:19",
+		"referenciaOperacion": "7443035",
+		"fechaRechazo": "",
+		"fechaNacimiento": "",
+		"banco": {
+			"descripcion": "",
+			"numBanxico": "",
+			"id": "",
+			"nombreCorto": "BBVA BANCOMER"
+		},
+		"origen": "RI",
+		"cuentaCliente": "20011615100",
+		"fechaEnvio": "2018-02-13",
+		"motivoRechazo": "",
+		"nombreCliente": "",
+		"estatus": "SOLICITADA",
+		"tipoSolicitud": "R",
+		"folio": "2018021311195140014RIA11195124",
+		"cuentaBanco": "4152313225070446",
+		"rfcCliente": ""
+	},
+  {
+		"horaEnvio": "11:19",
+		"referenciaOperacion": "7443035",
+		"fechaRechazo": "",
+		"fechaNacimiento": "",
+		"banco": {
+			"descripcion": "",
+			"numBanxico": "",
+			"id": "",
+			"nombreCorto": "BBVA BANCOMER"
+		},
+		"origen": "RI",
+		"cuentaCliente": "21000431449",
+		"fechaEnvio": "2018-02-13",
+		"motivoRechazo": "",
+		"nombreCliente": "",
+		"estatus": "SOLICITADA",
+		"tipoSolicitud": "R",
+		"folio": "2018021311195140014RIA11195124",
+		"cuentaBanco": "4152313225070446",
+		"rfcCliente": ""
+	}]
+}
