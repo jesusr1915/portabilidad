@@ -41,7 +41,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      localStorage.setItem('backButton', "true");
+      // localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
