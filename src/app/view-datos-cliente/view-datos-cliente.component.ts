@@ -136,6 +136,8 @@ export class ViewDatosClienteComponent implements OnInit {
       err => {
         localStorage.setItem('env', 'pre');
         this.startServices();
+        // SE COLOCA PARA HACER LA PRUEBA DEL RELLENO DEL CARRUSEL DE CUENTAS
+        // this.loadMock()
       }
     )
 
@@ -152,9 +154,6 @@ export class ViewDatosClienteComponent implements OnInit {
         this.stepMan.sendMessage(1,"Ingrese los datos de su nómina");
       }
     )
-
-    // SE COLOCA PARA HACER LA PRUEBA DEL RELLENO DEL CARRUSEL DE CUENTAS
-    // this.loadMock()
   }
 
   reloadData(){
@@ -378,6 +377,11 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   private onSelectionChange(entry){ // radio buttons controll
+    this.validBank = false;
+    this.validAccount = false;
+    this.validClabe = false;
+    this.validTerms = false;
+    this.selectBank = "0"
     this.tarjetValue = "";
     this.selectedBank = "";
     this.classLabel = 'showLabel';

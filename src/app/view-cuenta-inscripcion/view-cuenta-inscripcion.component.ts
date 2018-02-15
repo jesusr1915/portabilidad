@@ -120,8 +120,8 @@ export class ViewCuentaInscripcionComponent implements OnInit {
         },
         err => {
           localStorage.setItem('env', 'pre');
-          // this.startServices();
-          this.loadMock()
+          this.startServices();
+          // this.loadMock()
         }
       )
 
@@ -190,7 +190,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
 
     private loadInfo(){
       // SERVICIO DE SALDOS
-      this.loginServices.getSaldosSP()
+      this.loginServices.postSaldosSP()
       .subscribe(
         res => {
           // SE LLENAN LOS CARDS

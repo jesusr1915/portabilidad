@@ -75,18 +75,18 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
-        this.startServices();
+        // this.startServices();
       },
       err => {
         localStorage.setItem('env', 'pre');
-        this.startServices();
+        // this.startServices();
       }
     )
 
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
 
     // this.spinnerMng.showSpinner(false);
-    // this.loadMock();
+    this.loadMock();
     this.filterMoves(1);
 
   }
