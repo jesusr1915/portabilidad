@@ -41,6 +41,7 @@ export class ViewDatosClienteComponent implements OnInit {
   selectBank = "";
 
   subscription: Subscription;
+  subscriptionL: Subscription;
 
   //valid forms
   validClabe = false;
@@ -120,6 +121,16 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(
       message => {
         this.onSaveTermChanged(true);
+      }
+    )
+    this.subscription = this.messageMan.getMessage()
+    .subscribe(
+      message => {
+        console.log(message.response);
+        if(message.response == true)
+          this.validAccount = true;
+        else
+          this.validAccount = false;
       }
     )
   }
@@ -414,15 +425,13 @@ export class ViewDatosClienteComponent implements OnInit {
       if(this.tarjetValue.length != 0){
         this.classLabel = 'hideLabel';
         if(this.tarjetValue.length == 18){
-        this.validacionClabe(this.tarjetValue);
+          // this.validacionClabe(this.tarjetValue);
           if(this.sendService){
             this.spinnerMng.showSpinner(true);
             this.loginServices.postBancosClabe(this.tarjetValue)
             .subscribe(
               res=> {
                 if(res.error.clave == "OK"){
-                  //console.log(res.dto.bancoCuenta);
-
                   var recoveredBank = "";
                   var idBank = "";
                   for(let i=0; i < this.lBanks.length; i++){
@@ -455,16 +464,9 @@ export class ViewDatosClienteComponent implements OnInit {
                 } else {
                   this.errorService();
                 }
-
-
                 this.validClabe = false;
                 this.validBank = false;
                 this.sendService = false;
-                /*let temp = { id: 1, Name: "Santander" };
-                this.lUsers.push(temp);
-                this.setNewUser(1);*/
-                //this.errorService();
-                //console.log('Something went wrong!' + err.message);
               }
             )}
           } else {
@@ -486,17 +488,17 @@ export class ViewDatosClienteComponent implements OnInit {
       this.isInvalid();
     }
 
-    private validacionClabe(clabe: string){
-      let ponderacion = "37137137137137137";
-      let clabeA = clabe.substr(0,17);
-
-      let arrPond = ponderacion.split('');
-      let arrClab = clabeA.split('')
-
-      for(let i=0; i<arrClab.length; i++){
-
-      }
-    }
+    // private validacionClabe(clabe: string){
+    //   let ponderacion = "37137137137137137";
+    //   let clabeA = clabe.substr(0,17);
+    //
+    //   let arrPond = ponderacion.split('');
+    //   let arrClab = clabeA.split('')
+    //
+    //   for(let i=0; i<arrClab.length; i++){
+    //
+    //   }
+    // }
 
 
     isInvalid(){

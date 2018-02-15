@@ -13,6 +13,7 @@ declare var Sly:any;
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit, OnDestroy {
+  @Input() listType;
 
   cards = [];
   viewTipoProducto = "";
@@ -76,6 +77,7 @@ export class CardsComponent implements OnInit, OnDestroy {
       localStorage.setItem('validAccount','false');
       var message = new messageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info");
       this.alertMan.sendMessage(message);
+      cards.isSelected = false;
     } else {
       localStorage.setItem('validAccount','true');
       localStorage.setItem("cardAlias", cards.alias);
@@ -91,8 +93,8 @@ export class CardsComponent implements OnInit, OnDestroy {
           this.alertMan.sendMessage(message);
         }, 700);
       }
+      cards.isSelected = true;
     }
-    cards.isSelected = true;
     this.messageMan.sendMessage(cards.isSelected);
   }
 

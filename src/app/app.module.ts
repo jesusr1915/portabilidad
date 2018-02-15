@@ -43,6 +43,9 @@ import { LoginComponent } from './login/login.component';
 import { ViewCuentaInscripcionComponent } from './view-cuenta-inscripcion/view-cuenta-inscripcion.component';
 import { ViewCuentaSeleccionadaComponent } from './view-cuenta-seleccionada/view-cuenta-seleccionada.component';
 import { ViewCuentaResumenComponent } from './view-cuenta-resumen/view-cuenta-resumen.component';
+import { ViewActualizaCuentaComponent } from './view-actualiza-cuenta/view-actualiza-cuenta.component';
+import { ViewActualizaResumenComponent } from './view-actualiza-resumen/view-actualiza-resumen.component';
+import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-actualiza-confirma.component';
 
 
 @NgModule({
@@ -68,7 +71,10 @@ import { ViewCuentaResumenComponent } from './view-cuenta-resumen/view-cuenta-re
     LoginComponent,
     ViewCuentaInscripcionComponent,
     ViewCuentaSeleccionadaComponent,
-    ViewCuentaResumenComponent
+    ViewCuentaResumenComponent,
+    ViewActualizaCuentaComponent,
+    ViewActualizaResumenComponent,
+    ViewActualizaConfirmaComponent
   ],
   imports: [
     BrowserModule,

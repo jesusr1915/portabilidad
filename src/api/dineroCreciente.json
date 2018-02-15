@@ -1,0 +1,13 @@
+{
+	"error": {
+		"tipo": "",
+		"message": "",
+		"clave": "OK",
+		"codigo": 0,
+		"severity": ""
+	},
+	"securityContext": null,
+	"dto": {
+		"saldoCreciente": " 31559.60"
+	}
+}
