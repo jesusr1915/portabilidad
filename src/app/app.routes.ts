@@ -6,12 +6,14 @@ import { ViewVerifiqueComponent } from './view-verifique/view-verifique.componen
 import { ViewStatusComponent } from './view-status/view-status.component';
 import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component'
-import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component'
+
 import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component'
 import { LoginComponent } from './login/login.component'
 import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component'
-import { ViewResumenInscripcionComponent } from './view-resumen-inscripcion/view-resumen-inscripcion.component';
+import { ViewCuentaInscripcionComponent } from './view-cuenta-inscripcion/view-cuenta-inscripcion.component'
 import { ViewCuentaSeleccionadaComponent } from './view-cuenta-seleccionada/view-cuenta-seleccionada.component';
+import { ViewCuentaResumenComponent } from './view-cuenta-resumen/view-cuenta-resumen.component';
+
 
 // Route Configuration
 export const routes: Routes = [
@@ -57,7 +59,7 @@ export const routes: Routes = [
   }, // EMPIEZAN LAS PAGINAS DE INSCRIPCION
   {
     path: 'cuenta',
-    component: ViewSantanderPlusComponent,
+    component: ViewCuentaInscripcionComponent,
     pathMatch: 'full'
   },
   {
@@ -67,7 +69,7 @@ export const routes: Routes = [
   },
   {
     path: 'resumen',
-    component: ViewResumenInscripcionComponent,
+    component: ViewCuentaResumenComponent,
     pathMatch: 'full'
   },
   {

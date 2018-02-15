@@ -63,12 +63,12 @@
 			"nombreCorto": "BBVA BANCOMER"
 		},
 		"origen": "RI",
-		"cuentaCliente": "21000431449",
+		"cuentaCliente": "20011615100",
 		"fechaEnvio": "2018-02-13",
 		"motivoRechazo": "",
 		"nombreCliente": "",
 		"estatus": "SOLICITADA",
-		"tipoSolicitud": "R",
+		"tipoSolicitud": "E",
 		"folio": "2018021311195140014RIA11195124",
 		"cuentaBanco": "4152313225070446",
 		"rfcCliente": ""

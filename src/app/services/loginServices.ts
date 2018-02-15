@@ -134,6 +134,16 @@ export class LoginService{
     return this.getRequest('api/consultaPN.json','');
   }
 
+  getSaldosSPMock(){
+    this.configHeader(false);
+    return this.getRequest('api/saldosCuentasChequesSP.json','');
+  }
+
+  getAltaSP(){
+    this.configHeader(false);
+    return this.getRequest('api/altaSP.json','');
+  }
+
   // SERVICIOS DE PORTABILIDAD
 
   getConsultaRFC(){

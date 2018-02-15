@@ -23,9 +23,14 @@ export class MovesComponent implements OnInit {
   @Input() referenceOperation;
   @Input() dateAcceptance;
   @Input() rejectionMotive;
+  @Input() tipoSolicitud;
 
   @Input() imagePath;
   classDelivery;
+  origen: string = "";
+  destino: string = "";
+  bancoOrigen: string = "";
+  bancoDestino: string = "";
 
   constructor(private router: Router) { }
 
@@ -37,14 +42,27 @@ export class MovesComponent implements OnInit {
       this.classDelivery = "accept";
       this.imagePath="assets/imgs/arrow-orange.svg";
     }
+
+    console.log(this.tipoSolicitud);
+    if(this.tipoSolicitud == "R"){
+      this.origen = this.accountWhereReceive
+      this.destino = this.accountWhereWishReceive
+      this.bancoOrigen = this.bankWhereReceive
+      this.bancoDestino = "SANTANDER"
+    } else {
+      this.origen = this.accountWhereWishReceive
+      this.destino = this.accountWhereReceive
+      this.bancoOrigen = "SANTANDER"
+      this.bancoDestino = this.bankWhereReceive
+    }
   }
 
   verDetalle(){
     console.log("VIENDO DETALLE...");
-    localStorage.setItem('accountWhereWishReceive',this.accountWhereWishReceive);
-    localStorage.setItem('bankWhereWishReceive',this.bankWhereWishReceive);
-    localStorage.setItem('accountWhereReceive',this.accountWhereReceive);
-    localStorage.setItem('bankWhereReceive',this.bankWhereReceive);
+    localStorage.setItem('accountWhereWishReceive',this.destino);
+    localStorage.setItem('bankWhereWishReceive',this.bancoDestino);
+    localStorage.setItem('accountWhereReceive',this.origen);
+    localStorage.setItem('bankWhereReceive',this.bancoOrigen);
     localStorage.setItem('referenceSheet',this.referenceSheet);
     localStorage.setItem('dateOperation',this.dateOperation);
     localStorage.setItem('hoursOperation',this.hoursOperation);

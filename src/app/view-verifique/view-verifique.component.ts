@@ -125,8 +125,6 @@ export class ViewVerifiqueComponent implements OnInit {
     this.alertMan.sendMessage(message);
   }
 
-
-
   sendAltaService(){
 
       let body = {

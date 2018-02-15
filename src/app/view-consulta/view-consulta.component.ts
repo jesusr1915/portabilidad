@@ -56,7 +56,6 @@ export class ViewConsultaComponent implements OnInit {
     this.subscription = this._menuMan.getMessage()
     .subscribe(
       message => {
-        // console.log(message.response);
         this.filterMoves(message.response);
       }
     )
@@ -64,6 +63,7 @@ export class ViewConsultaComponent implements OnInit {
     .subscribe(
       message => {
         this.filterMoves(1);
+        this._menuMan.sendMessage(1);
       }
     )
   }

@@ -31,7 +31,7 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     this._stepMan.sendMessage(0,"Detalle solicitud portabilidad");
 
     this.accountWhereWishReceive = localStorage.getItem('accountWhereWishReceive');
-    this.bankWhereWishReceive = "SANTANDER"; //localStorage.getItem('bankWhereWishReceive');
+    this.bankWhereWishReceive = localStorage.getItem('bankWhereWishReceive');
     this.accountWhereReceive = localStorage.getItem('accountWhereReceive');
     this.bankWhereReceive = localStorage.getItem('bankWhereReceive');
     this.referenceSheet = localStorage.getItem('referenceSheet');

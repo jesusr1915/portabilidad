@@ -15,12 +15,12 @@ import {TermMan} from '../terms/termMng';
 
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 @Component({
-  selector: 'app-view-santander-plus',
-  templateUrl: './view-santander-plus.component.html',
-  styleUrls: ['./view-santander-plus.component.scss',
+  selector: 'app-view-cuenta-inscripcion',
+  templateUrl: './view-cuenta-inscripcion.component.html',
+  styleUrls: ['./view-cuenta-inscripcion.component.scss',
               '../app.component.scss']
 })
-export class ViewSantanderPlusComponent implements OnInit {
+export class ViewCuentaInscripcionComponent implements OnInit {
 
     title = 'app';
     entry = "";
@@ -120,7 +120,8 @@ export class ViewSantanderPlusComponent implements OnInit {
         },
         err => {
           localStorage.setItem('env', 'pre');
-          this.startServices();
+          // this.startServices();
+          this.loadMock()
         }
       )
 
@@ -189,11 +190,26 @@ export class ViewSantanderPlusComponent implements OnInit {
 
     private loadInfo(){
       // SERVICIO DE SALDOS
-      console.log("...CARGANDO SERVICIOS");
       this.loginServices.getSaldosSP()
       .subscribe(
         res => {
-          console.log("getSaldos", res);
+          // SE LLENAN LOS CARDS
+          this.spinnerMng.showSpinner(false); // CIERRA LOADER
+          this.messageMan.sendMessage(res);
+        },
+        err => {
+          var message = new messageAlert("Error",err.error.message, "Aceptar");
+          this.alertMan.sendMessage(message);
+          //this.errorService();
+        }
+      )
+    }
+
+    private loadMock(){
+      // SERVICIO DE SALDOS
+      this.loginServices.getSaldosSPMock()
+      .subscribe(
+        res => {
           // SE LLENAN LOS CARDS
           this.spinnerMng.showSpinner(false); // CIERRA LOADER
           this.messageMan.sendMessage(res);

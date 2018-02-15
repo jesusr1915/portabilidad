@@ -38,11 +38,11 @@ import { MenuComponent } from './menu/menu.component';
 import { MovesComponent } from './moves/moves.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component';
 import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component';
-import { ViewSantanderPlusComponent } from './view-santander-plus/view-santander-plus.component';
 import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component';
 import { LoginComponent } from './login/login.component';
-import { ViewResumenInscripcionComponent } from './view-resumen-inscripcion/view-resumen-inscripcion.component';
+import { ViewCuentaInscripcionComponent } from './view-cuenta-inscripcion/view-cuenta-inscripcion.component';
 import { ViewCuentaSeleccionadaComponent } from './view-cuenta-seleccionada/view-cuenta-seleccionada.component';
+import { ViewCuentaResumenComponent } from './view-cuenta-resumen/view-cuenta-resumen.component';
 
 
 @NgModule({
@@ -64,11 +64,11 @@ import { ViewCuentaSeleccionadaComponent } from './view-cuenta-seleccionada/view
     MovesComponent,
     ViewDetalleSolicitudComponent,
     ViewTempIndexComponent,
-    ViewSantanderPlusComponent,
     ViewInscripcionComponent,
     LoginComponent,
-    ViewResumenInscripcionComponent,
-    ViewCuentaSeleccionadaComponent
+    ViewCuentaInscripcionComponent,
+    ViewCuentaSeleccionadaComponent,
+    ViewCuentaResumenComponent
   ],
   imports: [
     BrowserModule,

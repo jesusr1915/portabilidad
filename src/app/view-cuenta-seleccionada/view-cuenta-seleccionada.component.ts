@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../services/loginServices';
 import { StepMan } from '../stepper/stepMan';
 import { verifique_class } from 'interfaces/copiesInterface';
@@ -15,6 +15,20 @@ import { Router } from '@angular/router';
 })
 export class ViewCuentaSeleccionadaComponent implements OnInit {
 
+  @Input() valueInfo = localStorage.getItem('tarjet');
+  @Input() valueBank = localStorage.getItem('banco');
+  @Input() valueBirthdate = localStorage.getItem('birthday');
+
+  date: string;
+  demo : Demo = new Demo(
+    localStorage.getItem("cardAlias"),
+    "SantanderSelect",
+    localStorage.getItem("cardNumeroCuenta"),
+    localStorage.getItem("cardDisponible"),
+    localStorage.getItem("cardDivisa"),
+    localStorage.getItem("cardCuentaMovil")
+  );
+
   constructor(
     private stepMan: StepMan,
     private messageMan: MessageMan,
@@ -25,13 +39,47 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
 
   ngOnInit() {
     this.stepMan.sendMessage(2,"Confirme sus datos");
+
+    this.loadMock();
+
   }
 
-  subscribe(){
-    // CONECTAR CON SERVICIO DE ALTA SP
-    this.router.navigate(['/resumen']);
+  private loadMock(){
+    // SERVICIO DE SALDOS
+    this.messageMan.sendMessage(this.demo);
   }
 
+  sendAltaService(){
+
+      let body = {
+        "cuenta": localStorage.getItem("numeroCuenta"),
+        "cuentaInv": "",
+        "tipo": "A"
+      }
+
+      // this.loginServices.postAlta(body)
+      this.loginServices.getAltaSP()
+      .subscribe(
+        res => {
+
+          if(res.error.clave == "OK"){
+            localStorage.setItem('fechaOperacion',res.dto.fechaOperacion);
+            localStorage.setItem('horaEnvio',res.dto.horaOperacion);
+            localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+            this.router.navigate(['/resumen']);
+          } else {
+            var message = new messageAlert("Error",res.error.message, "Aceptar");
+            this.alertMan.sendMessage(message);
+          }
+        },
+        err => {
+          var message = new messageAlert("Error",err.error.message, "Aceptar");
+          this.alertMan.sendMessage(message);
+          // this.errorService();
+        }
+      )
+
+  }
 
   private errorService(){
     var message = new messageAlert("Error","Por el momento el servicio no esta disponible", "Aceptar");
@@ -47,15 +95,6 @@ export class Demo {
   disponible: string;
   divisa: string;
   cuentaMovil: string;
-
-  demo : Demo = new Demo(
-    localStorage.getItem("cardAlias"),
-    "SantanderSelect",
-    localStorage.getItem("cardNumeroCuenta"),
-    localStorage.getItem("cardDisponible"),
-    localStorage.getItem("cardDivisa"),
-    localStorage.getItem("cardCuentaMovil")
-  );
 
   constructor(
     alias:string,
