@@ -79,8 +79,8 @@ export class ViewConsultaComponent implements OnInit {
       },
       err => {
         localStorage.setItem('env', 'pre');
-        // this.startServices();
-        this.loadMock();
+        this.startServices();
+        // this.loadMock();
       }
     )
 
