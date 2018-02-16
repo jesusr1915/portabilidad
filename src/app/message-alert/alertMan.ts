@@ -23,17 +23,27 @@ export class messageAlert {
   body: string;
   button: string;
   icon: string;
+  code: number;
+
   constructor(
     title: string,
     body: string,
-    button?: string,
-    icon?: string
+    button: string,
+    icon: string,
+    code: number,
   ){
-    this.title = title;
-    this.body = body;
-    if(body)
-      this.button = button;
-    if(icon)
-      this.icon = icon;
+    if(title != "")
+      this.title = title;
+    else
+      this.title = "Error";
+
+    if(body != "")
+      this.body = body;
+    else
+      this.body = "Por el momento el servicio no esta disponible"
+
+      this.button = "Aceptar"
+      this.icon = "assets/imgs/ico-info.svg"
+      this.code = code;
   }
 }

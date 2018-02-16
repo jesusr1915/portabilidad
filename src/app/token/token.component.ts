@@ -101,14 +101,12 @@ export class TokenComponent implements OnInit {
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
             this.router.navigate(['/status']);
           } else {
-            var message = new messageAlert("Error",res.error.message, "Aceptar");
-            this.alertMan.sendMessage(message);
+            this.errorService("Error",res.error.message, "Aceptar", "info", 0);
           }
         },
         err => {
           //if(err.error.clave == "ERROR"){
-            var message = new messageAlert("Error",err.error.message, "Aceptar");
-            this.alertMan.sendMessage(message);
+            this.errorService("Error",err.error.message, "Aceptar", "info", 0);
           // } else {
           //   this.errorService();
           // }
@@ -117,10 +115,7 @@ export class TokenComponent implements OnInit {
 
     }
   }
-  private errorService(){
-    var message = new messageAlert("Error","Por el momento el servicio no esta disponible", "Aceptar");
-    this.alertMan.sendMessage(message);
-  }
+
   onKey(event: any) { // inputs de tarjeta
     if(this.tokenMask.length != 0){
       this.classLabel = 'hideLabel';
@@ -134,6 +129,10 @@ export class TokenComponent implements OnInit {
     }
   }
 
-
+  // PARA EL MENSAJE DE ERROR
+  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    this.alertMan.sendMessage(message);
+  }
 
 }

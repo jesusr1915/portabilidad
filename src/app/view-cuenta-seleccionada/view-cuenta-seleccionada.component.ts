@@ -51,14 +51,13 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
 
   sendAltaService(){
 
-      let body = {
-        "cuenta": localStorage.getItem("numeroCuenta"),
-        "cuentaInv": "",
-        "tipo": "A"
-      }
+    let body = {
+      "cuenta": localStorage.getItem("numeroCuenta"),
+      "cuentaInv": "",
+      "tipo": "A"
+    }
 
-      // this.loginServices.postAlta(body)
-      this.loginServices.getAltaSP()
+    this.loginServices.postAlta(body)
       .subscribe(
         res => {
 
@@ -68,21 +67,19 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
             this.router.navigate(['/resumen']);
           } else {
-            var message = new messageAlert("Error",res.error.message, "Aceptar");
-            this.alertMan.sendMessage(message);
+            this.errorService("Error",res.error.message, "Aceptar", "info", 0);
           }
         },
         err => {
-          var message = new messageAlert("Error",err.error.message, "Aceptar");
-          this.alertMan.sendMessage(message);
-          // this.errorService();
+          this.errorService("Error",err.error.message, "Aceptar", "info", 0);
         }
       )
 
   }
 
-  private errorService(){
-    var message = new messageAlert("Error","Por el momento el servicio no esta disponible", "Aceptar");
+  // PARA EL MENSAJE DE ERROR
+  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

@@ -28,13 +28,13 @@ export class ViewConsultaComponent implements OnInit {
   subscriptionL: Subscription;
 
   constructor(
-    private _stepMan : StepMan,
+    private _stepMan: StepMan,
     private loginServices: LoginService,
-    private _menuMan : MenuMsg,
+    private _menuMan: MenuMsg,
     private alertMan: AlertMan,
     private messageMan: MessageMan,
     private route: ActivatedRoute,
-    public spinnerMng : SpinnerMan
+    public spinnerMng: SpinnerMan
   ) {
     // RECIBE PARAMETROS POR URL CON QUERY
     this.route.queryParams
@@ -79,16 +79,20 @@ export class ViewConsultaComponent implements OnInit {
       },
       err => {
         localStorage.setItem('env', 'pre');
-        this.startServices();
+        // this.startServices();
+        this.loadMock();
       }
     )
 
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
-
-    // this.spinnerMng.showSpinner(false);
-    // this.loadMock();
     this.filterMoves(1);
 
+  }
+
+  // PARA EL MENSAJE DE ERROR
+  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    this.alertMan.sendMessage(message);
   }
 
   reloadData(){
@@ -117,13 +121,12 @@ export class ViewConsultaComponent implements OnInit {
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
                 } else {
-                  var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
-                  this.alertMan.sendMessage(message);
+                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",1);
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
-                this.errorService();
+                this.errorService("Error","","","",1);
               }
             );
           } else {
@@ -132,7 +135,7 @@ export class ViewConsultaComponent implements OnInit {
           }
       },
       err => {
-        this.errorService();
+        this.errorService("Error","","","",1);
       }
     )
   }
@@ -159,26 +162,23 @@ export class ViewConsultaComponent implements OnInit {
 
             let portabilidades = res.dto
             if(portabilidades.length == 0){
-              var message = new messageAlert("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.");
-              this.alertMan.sendMessage(message);
+              this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","","",0);
             }
 
           },
           err => {
             this.spinnerMng.showSpinner(false);
             if(err.res){
-              var message = new messageAlert("Error", err.res.message);
-              this.alertMan.sendMessage(message);
+              this.errorService("Error", err.res.message,"","",0);
             } else {
-              var message = new messageAlert("Error", "Por el momento el servicio no esta disponible");
-              this.alertMan.sendMessage(message);
+              this.errorService("Error","","","",1);
             }
           }
         );
       },
       err => {
         this.spinnerMng.showSpinner(false);
-        this.errorService();
+        this.errorService("Error","","","",1);
       }
     );
   }
@@ -233,19 +233,16 @@ export class ViewConsultaComponent implements OnInit {
 
             let portabilidades = res.dto
             if(portabilidades.length == 0){
-              var message = new messageAlert("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.");
-              this.alertMan.sendMessage(message);
+              this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.", "", "", 0);
             }
 
           },
           err => {
             this.spinnerMng.showSpinner(false);
             if(err.res){
-              var message = new messageAlert("Error", err.res.message);
-              this.alertMan.sendMessage(message);
+              this.errorService("Error", err.res.message,"","",0);
             } else {
-              var message = new messageAlert("Error", "Por el momento el servicio no esta disponible");
-              this.alertMan.sendMessage(message);
+              this.errorService("Error","","","",1);
             }
           }
         );
@@ -253,7 +250,7 @@ export class ViewConsultaComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false);
-        this.errorService();
+        this.errorService("Error","","","",1);
       }
     );
   }
@@ -312,17 +309,4 @@ export class ViewConsultaComponent implements OnInit {
       }
     }
   }
-
-  // PARA EL MENSAJE DE ERROR
-  private errorService(mensaje?: string){
-    var strMensaje = "";
-
-    if(mensaje)
-      strMensaje = mensaje;
-    else
-      strMensaje = "Por el momento el servicio no esta disponible";
-    var message = new messageAlert("Error",strMensaje);
-    this.alertMan.sendMessage(message);
-  }
-
 }

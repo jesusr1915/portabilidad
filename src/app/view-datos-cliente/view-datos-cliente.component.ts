@@ -42,6 +42,7 @@ export class ViewDatosClienteComponent implements OnInit {
 
   subscription: Subscription;
   subscriptionL: Subscription;
+  subscriptionM: Subscription;
 
   //valid forms
   validClabe = false;
@@ -107,16 +108,6 @@ export class ViewDatosClienteComponent implements OnInit {
 
     });
 
-    // RECIBE PARAMETROS POR URL
-    // this.route.params.subscribe(params => {
-    //   this.tokenUrl = params['token'];
-    //
-    //   // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-    //   if(this.tokenUrl != ""){
-    //     localStorage.setItem('tokenUrl', this.tokenUrl);
-    //   }
-    // });
-
     this.subscription = this.termsMng.getMessage()
     .subscribe(
       message => {
@@ -126,7 +117,6 @@ export class ViewDatosClienteComponent implements OnInit {
     this.subscription = this.messageMan.getMessage()
     .subscribe(
       message => {
-        console.log(message.response);
         if(message.response == true)
           this.validAccount = true;
         else
@@ -142,18 +132,26 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
-        this.startServices();
+        // this.startServices();
       },
       err => {
         localStorage.setItem('env', 'pre');
-        this.startServices();
-        // SE COLOCA PARA HACER LA PRUEBA DEL RELLENO DEL CARRUSEL DE CUENTAS
+        // this.startServices();
         // this.loadMock()
       }
     )
 
-    var message = new messageAlert("Portabilidad de nómina", "Usted está iniciando el proceso de portabilidad de nómina a Santander. <br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.");
-    this.alertMan.sendMessage(message);
+    this.errorService("Portabilidad de nómina", "Usted está iniciando el proceso de portabilidad de nómina a Santander. <br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.", "", "", 3)
+    this.subscriptionM = this.alertMan.getMessage()
+    .subscribe(
+      message => {
+        if(message.title == "done"){
+          this.startServices();
+          // this.loadMock()
+        }
+      }
+    )
+
 
     //localStorage.clear();
     this.copiesServ.postCopies()
@@ -212,14 +210,13 @@ export class ViewDatosClienteComponent implements OnInit {
                     this.loadInfo();
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                  var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
-                  this.alertMan.sendMessage(message);
+                  this.errorService("",res.stokenValidatorResponse.mensaje,"","",1);
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                this.errorService();
+                this.errorService("", "", "", "", 1);
               }
             );
           } else {
@@ -230,7 +227,7 @@ export class ViewDatosClienteComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
-        this.errorService();
+        this.errorService("", "", "", "", 1);
       }
     )
   }
@@ -261,19 +258,19 @@ export class ViewDatosClienteComponent implements OnInit {
               },
               err => {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                this.errorService();
+                this.errorService("", "", "", "", 1);
               }
             );
           },
           err => {
             this.spinnerMng.showSpinner(false); // CIERRA LOADER
-            this.errorService();
+            this.errorService("", "", "", "", 1);
           }
         );
       },
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
-        this.errorService();
+        this.errorService("", "", "", "", 1);
       }
     );
   }
@@ -318,19 +315,18 @@ export class ViewDatosClienteComponent implements OnInit {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                  var message = new messageAlert("Error",res.error.message, "Aceptar");
-                  this.alertMan.sendMessage(message);
+                  this.errorService(res.error.message);
                 }
               },
               err => {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                this.errorService();
+                this.errorService("", "", "", "", 1);
               }
             );
           },
           err => {
             this.spinnerMng.showSpinner(false); // CIERRA LOADER
-            this.errorService();
+            this.errorService("", "", "", "", 1);
           }
         )
 
@@ -338,15 +334,12 @@ export class ViewDatosClienteComponent implements OnInit {
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
         if(err.error.clave == "CSCH-SCC-1"){
-          var message = new messageAlert("Error","Los depósitos por concepto de nómina o prestaciones laborales son realizados a su cuenta de cheques. \n\n Por favor acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses) para realizar la portabilidad de nómina.", "Aceptar");
-          this.alertMan.sendMessage(message);
+          this.errorService("", "Los depósitos por concepto de nómina o prestaciones laborales son realizados a su cuenta de cheques. \n\n Por favor acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses) para realizar la portabilidad de nómina.", "", "", 0);
         } else {
           if(err.error.message){
-            var message = new messageAlert("Error",err.error.message, "Aceptar");
-            this.alertMan.sendMessage(message);
+            this.errorService("", err.error.message, "", "", 0);
           } else {
-            var message = new messageAlert("Error","Por el momento el servicio no está disponible.", "Aceptar");
-            this.alertMan.sendMessage(message);
+            this.errorService("","","","",1);
           }
         }
       }
@@ -376,14 +369,8 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   // PARA EL MENSAJE DE ERROR
-  private errorService(mensaje?: string){
-    var strMensaje = "";
-
-    if(mensaje)
-      strMensaje = mensaje;
-    else
-      strMensaje = "Por el momento el servicio no esta disponible";
-    var message = new messageAlert("Error",strMensaje);
+  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 
@@ -453,16 +440,14 @@ export class ViewDatosClienteComponent implements OnInit {
                   this.validBank = false;
                   this.sendService = false;
 
-                  var message = new messageAlert("Error",res.error.message, "Aceptar");
-                  this.alertMan.sendMessage(message);
+                  this.errorService("Error", res.error.message, "Aceptar", "", 0);
                 }
               },
               err => {
                 if(err.error.clave == "ERROR"){
-                  var message = new messageAlert("Error",err.error.message, "Aceptar");
-                  this.alertMan.sendMessage(message);
+                  this.errorService("Error", err.error.message, "Aceptar" , "", 1);
                 } else {
-                  this.errorService();
+                  this.errorService("", "", "", "", 1);
                 }
                 this.validClabe = false;
                 this.validBank = false;

@@ -69,6 +69,7 @@ export class MovesComponent implements OnInit {
     localStorage.setItem('referenceOperation',this.referenceOperation);
     localStorage.setItem('dateAcceptance',this.dateAcceptance);
     localStorage.setItem('rejectionMotive',this.rejectionMotive);
+    localStorage.setItem('tipoSolicitud',this.tipoSolicitud);
     this.router.navigate(['/detalleConsulta']);
   }
 

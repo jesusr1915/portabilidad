@@ -75,15 +75,13 @@ export class ViewActualizaCuentaComponent implements OnInit {
                   this.loadInfo();
               } else {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                var message = new messageAlert("Error", res.stokenValidatorResponse.mensaje);
-                this.alertMan.sendMessage(message);
+                this.errorService("Error", res.stokenValidatorResponse.mensaje, "", "", 0);
               }
               // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
             },
             err => {
               this.spinnerMng.showSpinner(false); // CIERRA LOADER
-              var message = new messageAlert("Error", err.stokenValidatorResponse.mensaje);
-              this.alertMan.sendMessage(message);
+              this.errorService("Error", err.stokenValidatorResponse.mensaje, "", "", 0);
             }
           );
         } else {
@@ -94,8 +92,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
-        var message = new messageAlert("Error", err.stokenValidatorResponse.mensaje);
-        this.alertMan.sendMessage(message);
+        this.errorService("Error", err.stokenValidatorResponse.mensaje, "", "", 0);
       }
     )
   }
@@ -110,9 +107,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
         this.messageMan.sendMessage(res);
       },
       err => {
-        var message = new messageAlert("Error",err.error.message, "Aceptar");
-        this.alertMan.sendMessage(message);
-        //this.errorService();
+        this.errorService("Error",err.error.message, "Aceptar", "", 0);
       }
     )
   }
@@ -127,11 +122,15 @@ export class ViewActualizaCuentaComponent implements OnInit {
         this.messageMan.sendMessage(res);
       },
       err => {
-        var message = new messageAlert("Error",err.error.message, "Aceptar");
-        this.alertMan.sendMessage(message);
-        //this.errorService();
+        this.errorService("Error",err.error.message, "Aceptar", "", 0);
       }
     )
+  }
+
+  // PARA EL MENSAJE DE ERROR
+  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    this.alertMan.sendMessage(message);
   }
 
 }

@@ -8,7 +8,11 @@
           </div>
           <h1>{{title}}</h1>
         <p class = "textFix" [innerHTML]="message"></p>
-        <div class = "footer" (click)="hide()">
+        <div class = "footer" (click)="hide()" [hidden]="hasAction" >
+          <div class ="divider"></div>
+          <p>Aceptar</p>
+        </div>
+        <div class = "footer" onClick="quitPorta()" [hidden]="!hasAction" >
           <div class ="divider"></div>
           <p>Aceptar</p>
         </div>

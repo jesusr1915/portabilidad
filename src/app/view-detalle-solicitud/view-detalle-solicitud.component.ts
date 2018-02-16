@@ -10,7 +10,7 @@ import { StepMan } from '../stepper/stepMan';
 })
 export class ViewDetalleSolicitudComponent implements OnInit {
 
-  @Input () valueStatus = "Aceptada";
+  @Input() valueStatus = "Aceptada";
   accountWhereWishReceive = "";
   bankWhereWishReceive = "";
   accountWhereReceive = "";
@@ -21,6 +21,8 @@ export class ViewDetalleSolicitudComponent implements OnInit {
   referenceOperation = "";
   dateAcceptance = "";
   rejectionMotive = "";
+  tipoSolicitud = "";
+  envres = ""
 
   constructor(
     private _stepMan : StepMan,
@@ -29,6 +31,7 @@ export class ViewDetalleSolicitudComponent implements OnInit {
 
   ngOnInit() {
     this._stepMan.sendMessage(0,"Detalle solicitud portabilidad");
+
 
     this.accountWhereWishReceive = localStorage.getItem('accountWhereWishReceive');
     this.bankWhereWishReceive = localStorage.getItem('bankWhereWishReceive');
@@ -44,6 +47,12 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     } else {
       this.rejectionMotive = "";
     }
+
+    this.tipoSolicitud = localStorage.getItem('tipoSolicitud');
+    if(this.tipoSolicitud == "R")
+      this.envres = "RECEPCIÓN"
+    else
+      this.envres = "ENVÍO"
 
   }
 

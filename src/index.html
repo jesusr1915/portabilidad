@@ -10,15 +10,21 @@
   <script type="text/javascript">
 
       function userDidTapBackButton(){
-        if(window.location.pathname == "/" || window.location.pathname == "/consulta"){
+        var mPath = window.location.pathname;
+        if(mPath == "/" || mPath == "/consulta" || mPath == "/cuenta" || mPath == "/actualiza"){
           Connect.goToRoot();
         } else {
-          Connect.goBack();
           localStorage.setItem('backButton', "true");
+          Connect.validaSesion();
+          Connect.goBack();
         }
       }
 
-      function succesPortabilidad(){
+      function validaSesion(){
+        Connect.validaSesion();
+      }
+
+      function quitPorta(){
         Connect.goToRoot();
       }
 

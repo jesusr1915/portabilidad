@@ -94,7 +94,6 @@ export class ViewVerifiqueComponent implements OnInit {
   }
 
   requestToken() {
-    console.log("SOLICITANDO TOKEN");
     (window as any).requestToken();
   }
 
@@ -104,25 +103,16 @@ export class ViewVerifiqueComponent implements OnInit {
       if(token !== '')
         this.responseToken(token, tipoOTP, date);
       else
-        this.errorToken(message);
+        this.errorService("", message, "", "", 0);
     });
   }
 
   // FUNCION QUE REALIZA LA ASIGNACION DE VALORES DEL TOKEN
   responseToken(mToken: string, mTipoOTP: string, mDate: string) {
-    console.log("RESPUESTA TOKEN ANGULAR");
-    console.log(mToken + ' ' + mTipoOTP + ' ' + mDate);
     this.tokenSM = mToken;
     this.tipoOTP = mTipoOTP;
     this.date = mDate;
-    console.log("MANDA SERVICIO");
     this.sendAltaService();
-  }
-
-  // FUNCION QUE MANDA MENSAJE DE ERROR
-  errorToken(mensaje: string){
-    var message = new messageAlert("Error",mensaje, "Aceptar");
-    this.alertMan.sendMessage(message);
   }
 
   sendAltaService(){
@@ -150,34 +140,31 @@ export class ViewVerifiqueComponent implements OnInit {
       this.loginServices.postAlta(body)
       .subscribe(
         res => {
-
           if(res.error.clave == "OK"){
-            console.log("RESPUESTA ALTA " +res.dto);
             localStorage.setItem('folio',res.dto.folio);
             localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
             localStorage.setItem('horaEnvio',res.dto.horaEnvio);
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
             this.router.navigate(['/status']);
           } else {
-            var message = new messageAlert("Error",res.error.message, "Aceptar");
-            this.alertMan.sendMessage(message);
+            this.errorService("Error",res.error.message, "Aceptar", "info", 0);
           }
         },
         err => {
-          var message = new messageAlert("Error",err.error.message, "Aceptar");
-          this.alertMan.sendMessage(message);
-          // this.errorService();
+          this.errorService("Error",err.error.message, "Aceptar", "info", 0);
         }
       )
 
   }
 
-  private errorService(){
-    var message = new messageAlert("Error","Por el momento el servicio no esta disponible", "Aceptar");
+  // PARA EL MENSAJE DE ERROR
+  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 
 }
+
 export class Demo {
   alias : string;
   tipoProducto : string;

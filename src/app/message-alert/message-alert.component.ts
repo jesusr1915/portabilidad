@@ -15,12 +15,15 @@ export class MessageAlertComponent implements OnInit {
   private button="Aceptar";
   private subscription: Subscription;
   private icon = "";
+  private code = 0;
+  private hasAction = false;
 
   constructor(private messageMan: AlertMan) {
     this.subscription = this.messageMan.getMessage()
     .subscribe(
       message => {
-        this.shower(message.title);
+        if(message.title != "done")
+          this.showMessage(message.title);
       }
     )
   }
@@ -28,21 +31,23 @@ export class MessageAlertComponent implements OnInit {
   ngOnInit() {
     //this.hide();
   }
-  public shower(title: any): void {
+
+  public showMessage(title: any): void {
     this.title = title.title;
     this.message = title.body;
     this.button = title.button;
-    this.icon = "assets/imgs/ico-info.svg";
+    this.code = title.code;
+    this.icon = title.icon;
 
-    // if(title.icon){
-    //   if(title.icon == "info")
-    //     this.icon = "assets/imgs/ico-info.svg";
-    //   else if(title.icon == "error")
-    //     this.icon = "assets/imgs/ico-warnning.svg";
-    //   else
-    //     this.icon = "assets/imgs/ico-warnning.svg";
-    // } else
-    //   this.icon = "assets/imgs/ico-warnning.svg";
+    if(this.code == 1){
+      this.hasAction = true;
+    } else {
+      this.hasAction = false;
+    }
+
+
+    if(this.message == "")
+      this.message = "Por el momento el servicio no está disponible, por favor intente de nuevo más tarde."
 
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
@@ -50,6 +55,10 @@ export class MessageAlertComponent implements OnInit {
 
   public hide(): void {
     this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
+    // setTimeout(() => this.visible = false, 300);
+    this.visible = false;
+    if(this.code == 3){
+      this.messageMan.sendMessage("done");
+    }
   }
 }
