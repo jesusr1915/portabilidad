@@ -57,7 +57,7 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
       "tipo": "A"
     }
 
-    this.loginServices.postAlta(body)
+    this.loginServices.postAltaSP(body)
       .subscribe(
         res => {
 

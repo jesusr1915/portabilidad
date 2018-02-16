@@ -140,7 +140,6 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       localStorage.clear();
       // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
       if(this.tokenUrl !== ""){
-        console.log("OBTIENE TOKEN");
         localStorage.setItem('tokenUrl', this.tokenUrl);
       }
     }
@@ -149,6 +148,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       this.loginServices.postOAuthToken()
       .subscribe(
         res=> {
+          console.log("OBTIENE TOKEN OAUTH " + res);
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
             // SERVICIO DE VALIDADOR DE TOKEN
@@ -190,7 +190,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
 
     private loadInfo(){
       // SERVICIO DE SALDOS
-      this.loginServices.postSaldosSP()
+      this.loginServices.getSaldosSP()
       .subscribe(
         res => {
           // SE LLENAN LOS CARDS

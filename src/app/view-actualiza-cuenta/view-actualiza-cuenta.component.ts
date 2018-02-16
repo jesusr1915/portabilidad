@@ -23,6 +23,8 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 })
 export class ViewActualizaCuentaComponent implements OnInit {
 
+  tokenUrl = "";
+
   constructor(
     private loginServices: LoginService,
     private messageMan: MessageMan,
@@ -34,9 +36,35 @@ export class ViewActualizaCuentaComponent implements OnInit {
     private termsMng: TermMan,
     private route: ActivatedRoute,
     public spinnerMng : SpinnerMan
-  ) { }
+  ) {
+    // RECIBE PARAMETROS POR URL CON QUERY
+    this.route.queryParams
+    .subscribe(params => {
+      this.tokenUrl = params.token
 
-  tokenUrl = "";
+      // localStorage.setItem('backButton', "true");
+      if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+        if(localStorage.getItem('backButton') !== "true"){
+          this.reloadData();
+        } else {
+          // PARA RECUPERAR LOS DATOS DE LA PANTALLA
+          localStorage.setItem('fillData','true');
+          localStorage.removeItem('backButton');
+        }
+      } else {
+        this.reloadData();
+      }
+    });
+  }
+
+  reloadData(){
+    localStorage.clear();
+    // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
+    if(this.tokenUrl !== ""){
+      localStorage.setItem('tokenUrl', this.tokenUrl);
+    }
+  }
+
 
   ngOnInit() {
     this.stepMan.sendMessage(1,"Seleccione la cuenta a inscribir");
@@ -47,12 +75,12 @@ export class ViewActualizaCuentaComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
-        // this.startServices();
+        this.startServices();
       },
       err => {
         localStorage.setItem('env', 'pre');
-        // this.startServices();
-        this.loadMock()
+        this.startServices();
+        // this.loadMock()
       }
     )
   }
@@ -61,12 +89,14 @@ export class ViewActualizaCuentaComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
+        console.log("VALIDANDO TOKEN OAUTH");
         // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
         if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
           // SERVICIO DE VALIDADOR DE TOKEN
           this.loginServices.postValidator(this.tokenUrl)
           .subscribe(
             res => {
+              console.log("VALIDANDO TOKEN SSO");
               // VALIDADOR DE RESPUESTA DE TOKEN
               if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
                   let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
@@ -99,7 +129,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
 
   private loadInfo(){
     // SERVICIO DE SALDOS
-    this.loginServices.postSaldosSP()
+    this.loginServices.getSaldosSP()
     .subscribe(
       res => {
         // SE LLENAN LOS CARDS
