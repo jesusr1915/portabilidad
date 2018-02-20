@@ -1,3 +1,38 @@
-<p>
-  view-actualiza-confirma works!
-</p>
+<p class="question textCenter">CUENTA INSCRITA</p>
+<div class="frame2">
+	<div [ngClass]="contentCarr2" >
+    <div class="Card2" >
+      <img class = "contentIcon" src="assets/imgs/logo-santander-plus.svg" alt="iconCard" >
+      <div class ="contentInfo">
+        <h1 class= "title">
+          {{value_alias}}
+        </h1>
+        <p [ngClass]="cuentaEnCeros ? 'info-zero' : 'info'">
+          {{value_disponible}}
+          <span class = "coins">
+            {{value_divisa}}
+          </span>
+        </p>
+        <div class ="footNote">
+          <p>
+            {{value_numCuenta}}
+          </p>
+          <span>
+          </span>
+          <p>
+            {{value_cuentaMovil}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="question textCenter">NUEVA CUENTA A INSCRIBIR</p>
+<app-cards></app-cards>
+<p class="labelInst min textCenter topSpace"> En esta opción podrá realizar el cambio
+de cuenta inscrita a Santander Plus para
+recibir los beneficios.</p>
+<div class="btnCont">
+  <button  type="button" (click)="sendAltaService()" >Continuar</button>
+</div>
+<app-message-alert></app-message-alert>

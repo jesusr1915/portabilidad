@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StepMan } from '../stepper/stepMan';
 import { FormatValue } from '../tools/formatValues';
-import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
+import { Router, RouterModule, Routes, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-view-status',
@@ -28,12 +28,20 @@ export class ViewStatusComponent implements OnInit {
     //this.dateOperation = this._utils.formatDate(localStorage.getItem('fechaOperacion'),"-","aammdd");
     this.dateOperation = localStorage.getItem('fechaOperacion');
     this.bankWhereWishReceive = "SANTANDER";
-
-    // hideBackButton();
   }
 
   ngOnInit() {
-    this._stepMan.sendMessage(0,"Portabilidad de Nómina");
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+    });
+  }
+
+  ngAfterViewInit(){
+    let element: HTMLElement = document.getElementById("something") as HTMLElement;
+    element.click();
   }
 
   onBtnActionClickedV(){

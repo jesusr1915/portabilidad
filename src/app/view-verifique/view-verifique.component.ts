@@ -6,7 +6,7 @@ import { verifique_class } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -74,6 +74,12 @@ export class ViewVerifiqueComponent implements OnInit {
         }
       }
     )
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+    });
 
     if(localStorage.getItem('pruebasDante') === "true"){
       this.isDanteTest = true;

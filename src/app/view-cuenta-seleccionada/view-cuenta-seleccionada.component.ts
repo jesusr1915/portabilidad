@@ -5,7 +5,7 @@ import { verifique_class } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -39,9 +39,19 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
 
   ngOnInit() {
     this.stepMan.sendMessage(2,"Confirme sus datos");
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+    });
+    this.loadInfo();
 
-    this.loadMock();
+  }
 
+  private loadInfo(){
+    // SERVICIO DE SALDOS
+    this.messageMan.sendMessage(this.demo);
   }
 
   private loadMock(){

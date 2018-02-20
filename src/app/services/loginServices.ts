@@ -142,14 +142,24 @@ export class LoginService{
     return this.getRequest('api/saldosCuentasChequesSP.json','');
   }
 
-  getAltaSP(){
+  getAltaSPMock(){
     this.configHeader(false);
     return this.getRequest('api/altaSP.json','');
   }
 
-  getDineroCrecienteSP(){
+  getDineroCrecienteSPMock(){
     this.configHeader(false);
     return this.getRequest('api/dineroCreciente.json','');
+  }
+
+  getModificaSPMock(){
+    this.configHeader(false);
+    return this.getRequest('api/isModificarSantanderPlus.json','');
+  }
+
+  getActualizaSPMock(){
+    this.configHeader(false);
+    return this.getRequest('api/insertaActualizaCuentasSantanderPlus.json','');
   }
 
   // SERVICIOS DE PORTABILIDAD
@@ -213,7 +223,8 @@ export class LoginService{
 
   postModificaSP(){
     this.configHeader(true);
-    return this.postRequest(this.serviceUrlModificaSP,"",this.options);
+    let body = JSON.stringify('');
+    return this.postRequest(this.serviceUrlModificaSP,body,this.options);
   }
 
   postActualizaSP(datosEntrada: any){
@@ -221,6 +232,8 @@ export class LoginService{
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlActualizaSP,body,this.options)
   }
+
+  // FUNCIONES GET Y POST GENERICAS
 
   getRequest(url:string, xtras:string){
     // this.spinnerMng.showSpinner(true);

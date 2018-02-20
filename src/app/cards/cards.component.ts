@@ -13,7 +13,7 @@ declare var Sly:any;
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit, OnDestroy {
-  @Input() listType;
+  @Input() data;
 
   cards = [];
   viewTipoProducto = "";
@@ -60,8 +60,18 @@ export class CardsComponent implements OnInit, OnDestroy {
           value.isSelected = false;
           this.cards.push(value);
           this.valores += value.unmaskCuenta + '-';
+          if(localStorage.getItem('isSantanderPlus') == "true"){
+            if(value.unmaskCuenta == localStorage.getItem("ctaSantanderPlus")){
+              localStorage.setItem("cardAliasSP", value.alias);
+              localStorage.setItem("cardDisponibleSP", value.disponible);
+              localStorage.setItem("cardDivisaSP", value.divisa);
+              localStorage.setItem("cardNumeroCuentaSP", value.numeroCuenta);
+              localStorage.setItem("cardCuentaMovilSP", value.cuentaMovil);
+            }
+          }
       }
     }
+
     this.setSly();
     localStorage.setItem("valores", this.valores.slice(0, -1));
   }

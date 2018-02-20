@@ -24,6 +24,13 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 export class ViewActualizaCuentaComponent implements OnInit {
 
   tokenUrl = "";
+  cuentaEnCeros = false;
+  value_alias = "";
+  value_disponible = "";
+  value_divisa = "";
+  value_numCuenta = "";
+  value_cuentaMovil = "";
+  ctaSantanderPlus = "";
 
   constructor(
     private loginServices: LoginService,
@@ -128,6 +135,21 @@ export class ViewActualizaCuentaComponent implements OnInit {
   }
 
   private loadInfo(){
+
+    this.loginServices.postModificaSP()
+    .subscribe(
+      res => {
+        if(res.dto.isSantanderPlus){
+          // this.ctaSantanderPlus = res.dto.cuenta;
+          localStorage.setItem('isSantanderPlus', 'true');
+          localStorage.setItem('ctaSantanderPlus', res.dto.cuenta)
+        }
+      },
+      err => {
+        this.errorService("Error", err.error.message, "Aceptar", "", 0);
+      }
+    )
+
     // SERVICIO DE SALDOS
     this.loginServices.getSaldosSP()
     .subscribe(
@@ -135,14 +157,37 @@ export class ViewActualizaCuentaComponent implements OnInit {
         // SE LLENAN LOS CARDS
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
         this.messageMan.sendMessage(res);
+
+        this.value_alias = localStorage.getItem("cardAliasSP");
+        this.value_disponible = localStorage.getItem("cardDisponibleSP");
+        this.value_divisa = localStorage.getItem("cardDivisaSP");
+        this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
+        this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
+        this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
       },
       err => {
-        this.errorService("Error",err.error.message, "Aceptar", "", 0);
+        this.errorService("Error", err.error.message, "Aceptar", "", 0);
       }
     )
   }
 
   private loadMock(){
+
+    this.loginServices.getModificaSPMock()
+    .subscribe(
+      res => {
+        if(res.dto.isSantanderPlus){
+          // this.ctaSantanderPlus = res.dto.cuenta;
+          localStorage.setItem('isSantanderPlus', 'true');
+          localStorage.setItem('ctaSantanderPlus', res.dto.cuenta)
+        }
+      },
+      err => {
+        this.errorService("Error", err.error.message, "Aceptar", "", 0);
+      }
+    )
+
+
     // SERVICIO DE SALDOS
     this.loginServices.getSaldosSPMock()
     .subscribe(
@@ -150,11 +195,22 @@ export class ViewActualizaCuentaComponent implements OnInit {
         // SE LLENAN LOS CARDS
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
         this.messageMan.sendMessage(res);
+
+        this.value_alias = localStorage.getItem("cardAliasSP");
+        this.value_disponible = localStorage.getItem("cardDisponibleSP");
+        this.value_divisa = localStorage.getItem("cardDivisaSP");
+        this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
+        this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
+        this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
       },
       err => {
         this.errorService("Error",err.error.message, "Aceptar", "", 0);
       }
     )
+  }
+
+  continuar() {
+    this.router.navigate(['/confirma']);
   }
 
   // PARA EL MENSAJE DE ERROR
