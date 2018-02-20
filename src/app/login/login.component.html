@@ -6,6 +6,14 @@
       <input type="password" name="pwd" placeholder="Contraseña de acceso" [(ngModel)]="nipValue">
 </div>
 
+  <select class="contentSelect minTop select-styled" [(ngModel)]="optValue" >
+        <option [value]="portabilidad">Portabilidad</option>
+        <option [value]="consulta">Consulta</option>
+        <option [value]="inscripcion">Inscripcion</option>
+        <option [value]="modificacion">Modificacion</option>
+  </select>
+
+
 <div class="btnCont">
   <button type="button" (click)="clicLogin()">Continuar</button>
 </div>

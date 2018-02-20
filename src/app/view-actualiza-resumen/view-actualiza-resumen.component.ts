@@ -37,6 +37,11 @@ export class ViewActualizaResumenComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(){
+    let element: HTMLElement = document.getElementById("something") as HTMLElement;
+    element.click();
+  }
+
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
     var message = new messageAlert(tipo, mensaje, boton, icon, code);
