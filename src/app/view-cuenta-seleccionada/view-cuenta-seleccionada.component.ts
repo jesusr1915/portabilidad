@@ -6,7 +6,7 @@ import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
-
+import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Component({
   selector: 'app-view-cuenta-seleccionada',
@@ -34,7 +34,8 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
     private messageMan: MessageMan,
     private loginServices: LoginService,
     private alertMan: AlertMan,
-    private router: Router
+    private router: Router,
+    public spinnerMng : SpinnerMan
   ) { }
 
   ngOnInit() {
@@ -60,6 +61,7 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
   }
 
   sendAltaService(){
+    this.spinnerMng.showSpinner(true); // CIERRA LOADER
 
     let body = {
       "cuenta": localStorage.getItem("numeroCuenta"),
@@ -76,15 +78,17 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
             localStorage.setItem('horaEnvio',res.dto.horaOperacion);
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
             this.router.navigate(['/resumen']);
+            this.spinnerMng.showSpinner(false); // CIERRA LOADER
           } else {
             this.errorService("Error",res.error.message, "Aceptar", "info", 0);
+            this.spinnerMng.showSpinner(false); // CIERRA LOADER
           }
         },
         err => {
-          this.errorService("Error",err.error.message, "Aceptar", "info", 0);
+          this.errorService("Error",err.error.message, "Aceptar", "info", 1);
+          this.spinnerMng.showSpinner(false); // CIERRA LOADER
         }
       )
-
   }
 
   // PARA EL MENSAJE DE ERROR

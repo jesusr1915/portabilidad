@@ -148,7 +148,6 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       this.loginServices.postOAuthToken()
       .subscribe(
         res=> {
-          console.log("OBTIENE TOKEN OAUTH " + res);
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
             // SERVICIO DE VALIDADOR DE TOKEN
@@ -176,7 +175,6 @@ export class ViewCuentaInscripcionComponent implements OnInit {
             );
           } else {
             // YA TIENE SESION ID, SE EJECUTAN LOS SERVICIOS DE CARGA
-            this.spinnerMng.showSpinner(false); // CIERRA LOADER
             this.loadInfo();
           }
         },
@@ -194,8 +192,8 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       .subscribe(
         res => {
           // SE LLENAN LOS CARDS
-          this.spinnerMng.showSpinner(false); // CIERRA LOADER
           this.messageMan.sendMessage(res);
+          this.spinnerMng.showSpinner(false); // CIERRA LOADER
         },
         err => {
           this.errorService("Error",err.error.message, "Aceptar", "", 1);

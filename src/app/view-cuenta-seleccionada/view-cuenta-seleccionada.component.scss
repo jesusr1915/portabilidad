@@ -4,3 +4,10 @@
 .topSpace{
   margin-top: 15px;
 }
+ul.lista-plus{
+  margin: 15px;
+  margin-left: 35px;
+  li{
+    list-style-image: url('../../assets/imgs/bullet.svg');
+  }
+}
