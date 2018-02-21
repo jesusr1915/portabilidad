@@ -49,7 +49,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
     .subscribe(params => {
       this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
+      localStorage.setItem('backButton', "true");
       if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
@@ -123,7 +123,6 @@ export class ViewActualizaCuentaComponent implements OnInit {
           );
         } else {
           // YA TIENE SESION ID, SE EJECUTAN LOS SERVICIOS DE CARGA
-          this.spinnerMng.showSpinner(false); // CIERRA LOADER
           this.loadInfo();
         }
       },
@@ -143,30 +142,61 @@ export class ViewActualizaCuentaComponent implements OnInit {
           // this.ctaSantanderPlus = res.dto.cuenta;
           localStorage.setItem('isSantanderPlus', 'true');
           localStorage.setItem('ctaSantanderPlus', res.dto.cuenta)
+
+          // BUSCA CUENTA EN EL SERVICIO DE SALDOS CUENTA
+          this.loginServices.getSaldos()
+          .subscribe(
+            res => {
+              for(let cta of res.dto.saldoPesos){
+                console.log(cta);
+                if(cta.numeroCuenta == localStorage.getItem('ctaSantanderPlus')){
+
+                  if(cta.alias == ""){
+                    this.value_alias = cta.tipoProducto;
+                  } else {
+                    this.value_alias = cta.alias;
+                  }
+                  this.value_disponible = cta.disponible;
+                  this.value_divisa = cta.divisa;
+                  this.value_numCuenta = cta.numeroCuenta;
+                  this.value_cuentaMovil = cta.cuentaMovil;
+
+                  localStorage.setItem("cardAliasSP", this.value_alias);
+                  localStorage.setItem("cardDisponibleSP", this.value_disponible);
+                  localStorage.setItem("cardDivisaSP", this.value_divisa);
+                  localStorage.setItem("cardNumeroCuentaSP", this.value_numCuenta);
+                  localStorage.setItem("cardCuentaMovilSP", this.value_cuentaMovil);
+
+                  this.cuentaEnCeros = parseFloat(this.value_disponible.replace(",","")) <= 0 ? true : false;
+                }
+              }
+            },
+            err => {
+              this.errorService("Error", err.error.message, "Aceptar", "", 0);
+            }
+          )
         }
       },
       err => {
-        this.errorService("Error", err.error.message, "Aceptar", "", 0);
+        if(err.error.clave == "SAN123-NOINSCRITO"){
+          this.errorService("Error", err.error.message, "Aceptar", "", 0); //1
+        } else {
+          this.errorService("Error", err.error.message, "Aceptar", "", 0);
+        }
       }
     )
 
-    // SERVICIO DE SALDOS
+    // SERVICIO DE SALDOS SP
     this.loginServices.getSaldosSP()
     .subscribe(
       res => {
         // SE LLENAN LOS CARDS
-        this.spinnerMng.showSpinner(false); // CIERRA LOADER
         this.messageMan.sendMessage(res);
-
-        this.value_alias = localStorage.getItem("cardAliasSP");
-        this.value_disponible = localStorage.getItem("cardDisponibleSP");
-        this.value_divisa = localStorage.getItem("cardDivisaSP");
-        this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
-        this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
-        this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
+        this.spinnerMng.showSpinner(false); // CIERRA LOADER
       },
       err => {
         this.errorService("Error", err.error.message, "Aceptar", "", 0);
+        this.spinnerMng.showSpinner(false); // CIERRA LOADER
       }
     )
   }

@@ -51,12 +51,19 @@ export class ViewActualizaConfirmaComponent implements OnInit {
   }
 
   private loadInfo(){
-    // SERVICIO DE SALDOS
+    // CUENTA ANTERIOR
+    this.value_alias = localStorage.getItem("cardAliasSP");
+    this.value_disponible = localStorage.getItem("cardDisponibleSP");
+    this.value_divisa = localStorage.getItem("cardDivisaSP");
+    this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
+    this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
+    this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
+
+    // CUENTA NUEVA
     this.messageMan.sendMessage(this.demo);
   }
 
   private loadMock(){
-    // SERVICIO DE SALDOS
     this.value_alias = localStorage.getItem("cardAliasSP");
     this.value_disponible = localStorage.getItem("cardDisponibleSP");
     this.value_divisa = localStorage.getItem("cardDivisaSP");
@@ -73,8 +80,8 @@ export class ViewActualizaConfirmaComponent implements OnInit {
       "tipo":"M"
     }
 
-    // this.loginServices.postActualizaSP(body)
-    this.loginServices.getActualizaSPMock()
+    this.loginServices.postActualizaSP(body)
+    // this.loginServices.getActualizaSPMock()
     .subscribe(
       res => {
         if(res.error.clave == "OK"){

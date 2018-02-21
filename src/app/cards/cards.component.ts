@@ -60,15 +60,6 @@ export class CardsComponent implements OnInit, OnDestroy {
           value.isSelected = false;
           this.cards.push(value);
           this.valores += value.unmaskCuenta + '-';
-          if(localStorage.getItem('isSantanderPlus') == "true"){
-            if(value.unmaskCuenta == localStorage.getItem("ctaSantanderPlus")){
-              localStorage.setItem("cardAliasSP", value.alias);
-              localStorage.setItem("cardDisponibleSP", value.disponible);
-              localStorage.setItem("cardDivisaSP", value.divisa);
-              localStorage.setItem("cardNumeroCuentaSP", value.numeroCuenta);
-              localStorage.setItem("cardCuentaMovilSP", value.cuentaMovil);
-            }
-          }
       }
     }
 
