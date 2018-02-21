@@ -8,7 +8,6 @@ import { TokenMng } from '../token/tokenMng';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 
-
 @Component({
   selector: 'app-view-verifique',
   templateUrl: './view-verifique.component.html',
@@ -16,6 +15,7 @@ import { Router, NavigationEnd } from '@angular/router';
       './view-verifique.component.scss'
               ]
 })
+
 export class ViewVerifiqueComponent implements OnInit {
 
   copiesVer : verifique_class = new verifique_class();

@@ -14,12 +14,18 @@ import { Subscription } from 'rxjs/Subscription';
 import {TermMan} from '../terms/termMng';
 
 import { SpinnerMan } from '../spinner-component/spinnerMng';
+
+import { JavaScriptInterface } from 'interfaces/JavaScriptInterface';
+
+declare var Connect: JavaScriptInterface;
+
 @Component({
   selector: 'app-view-datos-cliente',
   templateUrl: './view-datos-cliente.component.html',
   styleUrls: ['./view-datos-cliente.component.scss',
               '../app.component.scss']
 })
+
 export class ViewDatosClienteComponent implements OnInit {
 
   title = 'app';
@@ -494,6 +500,8 @@ export class ViewDatosClienteComponent implements OnInit {
       return true;
     }
     onBtnActionClickedV() {
+      Connect.validaSesion();
+
       localStorage.setItem('tarjet',this.tarjetValue);
       localStorage.setItem('idBanco',this.curUser[0].id);
       localStorage.setItem('banco',this.curUser[0].Name);
