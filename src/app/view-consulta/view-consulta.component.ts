@@ -121,12 +121,12 @@ export class ViewConsultaComponent implements OnInit {
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
                 } else {
-                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",1);
+                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0); // 1
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
-                this.errorService("Error","","","",1);
+                this.errorService("Error","","","",0);
               }
             );
           } else {
@@ -135,52 +135,9 @@ export class ViewConsultaComponent implements OnInit {
           }
       },
       err => {
-        this.errorService("Error","","","",1);
+        this.errorService("Error","","","",0);
       }
     )
-  }
-
-  private loadMock(){
-    // SE OBTIENEN LAS CUENTAS
-    this.loginServices.getSaldosMock()
-    .subscribe(
-      res => {
-        this.respuestaSaldos = res;
-        this.saldosCuentas = res.dto.saldoPesos;
-
-        this.loginServices.getDetalleConsultaMock()
-        .subscribe(
-          res=> {
-            this.consultaPN = res.dto
-            let myAccounts = this.matchAccounts(this.saldosCuentas, this.consultaPN);
-            this.respuestaSaldos.dto.saldoPesos = myAccounts
-            this.messageMan.sendMessage(this.respuestaSaldos);
-
-            this.spinnerMng.showSpinner(false);
-            this.allMov = res.dto;
-            this.filterMoves(1);
-
-            let portabilidades = res.dto
-            if(portabilidades.length == 0){
-              this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","","",0);
-            }
-
-          },
-          err => {
-            this.spinnerMng.showSpinner(false);
-            if(err.res){
-              this.errorService("Error", err.res.message,"","",0);
-            } else {
-              this.errorService("Error","","","",1);
-            }
-          }
-        );
-      },
-      err => {
-        this.spinnerMng.showSpinner(false);
-        this.errorService("Error","","","",1);
-      }
-    );
   }
 
   private matchAccounts(accounts: any, portabilidades: any){
@@ -242,11 +199,54 @@ export class ViewConsultaComponent implements OnInit {
             if(err.res){
               this.errorService("Error", err.res.message,"","",0);
             } else {
-              this.errorService("Error","","","",1);
+              this.errorService("Error","","","",0); // 1
             }
           }
         );
         /* FIN BLOQUE PARA CONSULTAR DETALLE DE PORTABILIDADES */
+      },
+      err => {
+        this.spinnerMng.showSpinner(false);
+        this.errorService("Error","","","",0); // 1
+      }
+    );
+  }
+
+  private loadMock(){
+    // SE OBTIENEN LAS CUENTAS
+    this.loginServices.getSaldosMock()
+    .subscribe(
+      res => {
+        this.respuestaSaldos = res;
+        this.saldosCuentas = res.dto.saldoPesos;
+
+        this.loginServices.getDetalleConsultaMock()
+        .subscribe(
+          res=> {
+            this.consultaPN = res.dto
+            let myAccounts = this.matchAccounts(this.saldosCuentas, this.consultaPN);
+            this.respuestaSaldos.dto.saldoPesos = myAccounts
+            this.messageMan.sendMessage(this.respuestaSaldos);
+
+            this.spinnerMng.showSpinner(false);
+            this.allMov = res.dto;
+            this.filterMoves(1);
+
+            let portabilidades = res.dto
+            if(portabilidades.length == 0){
+              this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","","",0);
+            }
+
+          },
+          err => {
+            this.spinnerMng.showSpinner(false);
+            if(err.res){
+              this.errorService("Error", err.res.message,"","",0);
+            } else {
+              this.errorService("Error","","","",1);
+            }
+          }
+        );
       },
       err => {
         this.spinnerMng.showSpinner(false);

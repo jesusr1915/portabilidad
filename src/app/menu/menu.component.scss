@@ -63,7 +63,10 @@ ul.contentFilter {
 @media screen and (min-width: 1024px) {
   ul.contentFilter {
     li{
-      width: 33.26%;
+      width: 314.3px;
+    }
+    li:last-child{
+      width: 314.7px;
     }
   }
 }
