@@ -121,12 +121,12 @@ export class ViewConsultaComponent implements OnInit {
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
                 } else {
-                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0); // 1
+                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",1); // 1
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
-                this.errorService("Error","","","",0);
+                this.errorService("Error",err.error.message,"","",1);
               }
             );
           } else {
@@ -135,7 +135,7 @@ export class ViewConsultaComponent implements OnInit {
           }
       },
       err => {
-        this.errorService("Error","","","",0);
+        this.errorService("Error",err.error.message,"","",1);
       }
     )
   }
@@ -199,7 +199,7 @@ export class ViewConsultaComponent implements OnInit {
             if(err.res){
               this.errorService("Error", err.res.message,"","",0);
             } else {
-              this.errorService("Error","","","",0); // 1
+              this.errorService("Error","","","",1); // 1
             }
           }
         );
@@ -207,7 +207,7 @@ export class ViewConsultaComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false);
-        this.errorService("Error","","","",0); // 1
+        this.errorService("Error","","","",1); // 1
       }
     );
   }
