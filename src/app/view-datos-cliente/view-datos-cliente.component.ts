@@ -132,18 +132,16 @@ export class ViewDatosClienteComponent implements OnInit {
   }
 
   ngOnInit(){
+    // Connect.hideBackButton();
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
     this.spinnerMng.showSpinner(true);
     this.loginServices.getConfig()
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
-        // this.startServices();
       },
       err => {
         localStorage.setItem('env', 'pre');
-        // this.startServices();
-        // this.loadMock()
       }
     )
 
@@ -500,8 +498,6 @@ export class ViewDatosClienteComponent implements OnInit {
       return true;
     }
     onBtnActionClickedV() {
-      Connect.validaSesion();
-
       localStorage.setItem('tarjet',this.tarjetValue);
       localStorage.setItem('idBanco',this.curUser[0].id);
       localStorage.setItem('banco',this.curUser[0].Name);

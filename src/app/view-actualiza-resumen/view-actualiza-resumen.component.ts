@@ -17,6 +17,7 @@ export class ViewActualizaResumenComponent implements OnInit {
   @Input() dateOperation;
   @Input() referenceOperation = localStorage.getItem('referenciaOperacion');
   @Input() hoursOperation = localStorage.getItem('horaEnvio');
+  @Input() accountWhereReceive = localStorage.getItem("cardNumeroCuentaSP");
 
   constructor(
     private stepMan : StepMan,
@@ -29,7 +30,7 @@ export class ViewActualizaResumenComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stepMan.clearMessage();
+    // this.stepMan.clearMessage();
     this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
