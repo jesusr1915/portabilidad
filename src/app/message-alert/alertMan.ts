@@ -35,7 +35,7 @@ export class messageAlert {
     if(title != "")
       this.title = title;
     else
-      this.title = "Error";
+      this.title = "";
 
     if(body != "")
       this.body = body;

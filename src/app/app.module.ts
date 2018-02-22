@@ -46,6 +46,7 @@ import { ViewCuentaResumenComponent } from './view-cuenta-resumen/view-cuenta-re
 import { ViewActualizaCuentaComponent } from './view-actualiza-cuenta/view-actualiza-cuenta.component';
 import { ViewActualizaResumenComponent } from './view-actualiza-resumen/view-actualiza-resumen.component';
 import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-actualiza-confirma.component';
+import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cuenta-bienvenida.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-a
     ViewCuentaResumenComponent,
     ViewActualizaCuentaComponent,
     ViewActualizaResumenComponent,
-    ViewActualizaConfirmaComponent
+    ViewActualizaConfirmaComponent,
+    ViewCuentaBienvenidaComponent
   ],
   imports: [
     BrowserModule,

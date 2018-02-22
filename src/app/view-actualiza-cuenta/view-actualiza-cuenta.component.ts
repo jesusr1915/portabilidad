@@ -158,7 +158,9 @@ export class ViewActualizaCuentaComponent implements OnInit {
                   }
                   this.value_disponible = cta.disponible;
                   this.value_divisa = cta.divisa;
-                  this.value_numCuenta = cta.numeroCuenta;
+                  let accountLenght = cta.numeroCuenta.length;
+                  this.value_numCuenta = cta.numeroCuenta.substr(0,2) + "**" + cta.numeroCuenta.substr(accountLenght-4,accountLenght);
+
                   this.value_cuentaMovil = cta.cuentaMovil;
 
                   localStorage.setItem("cardAliasSP", this.value_alias);

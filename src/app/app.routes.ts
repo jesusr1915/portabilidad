@@ -16,6 +16,7 @@ import { ViewCuentaResumenComponent } from './view-cuenta-resumen/view-cuenta-re
 import { ViewActualizaCuentaComponent } from './view-actualiza-cuenta/view-actualiza-cuenta.component';
 import { ViewActualizaResumenComponent } from './view-actualiza-resumen/view-actualiza-resumen.component';
 import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-actualiza-confirma.component';
+import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cuenta-bienvenida.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -90,6 +91,12 @@ export const routes: Routes = [
     // path: ':token',
     path: 'fin',
     component: ViewActualizaResumenComponent,
+    pathMatch: 'full'
+  },
+  {
+    // path: ':token',
+    path: 'bienvenida',
+    component: ViewCuentaBienvenidaComponent,
     pathMatch: 'full'
   },
   {

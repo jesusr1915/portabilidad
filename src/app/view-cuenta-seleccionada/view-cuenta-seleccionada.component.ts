@@ -77,6 +77,7 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
             localStorage.setItem('fechaOperacion',res.dto.fechaOperacion);
             localStorage.setItem('horaEnvio',res.dto.horaOperacion);
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+            localStorage.setItem('necesitaPortabilidad', res.dto.necesitaPortabilidad.toString());
             this.router.navigate(['/resumen']);
             this.spinnerMng.showSpinner(false); // CIERRA LOADER
           } else {
