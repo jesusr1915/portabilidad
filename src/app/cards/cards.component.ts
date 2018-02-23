@@ -51,7 +51,6 @@ export class CardsComponent implements OnInit, OnDestroy {
     let message = messages.response.dto;
     for(let key of this.keys){
       for(const value of (message[key])){
-          console.log("VALUE", value);
           if(value.alias == ""){
             value.alias = value.tipoProducto;
           }

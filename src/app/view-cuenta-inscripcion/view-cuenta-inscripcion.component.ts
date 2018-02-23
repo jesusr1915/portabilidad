@@ -119,7 +119,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
           this.startServices();
         },
         err => {
-          localStorage.setItem('env', 'dev');
+          localStorage.setItem('env', 'pre');
           this.startServices();
           // this.loadMock()
         }
@@ -156,7 +156,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                    let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional))); // EN DEV ES PAdicional, EN PRE ES pAdicional
                     localStorage.setItem('sessionID',mToken.sessionId.substring(11));
                     // SE EJECUTAN LOS SERVICIOS DE CARGA
                     this.loadInfo();
@@ -228,7 +228,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
 
     isInvalid(){
       this.validAccount = JSON.parse(localStorage.getItem('validAccount'));
-      if (this.validClabe && this.validBank && this.validTerms && this.validAccount){
+      if (this.validAccount){
         return false;
       }
       return true;

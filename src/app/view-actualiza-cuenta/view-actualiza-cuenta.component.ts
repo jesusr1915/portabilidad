@@ -29,6 +29,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
   value_disponible = "";
   value_divisa = "";
   value_numCuenta = "";
+  value_numCuentaRaw = "";
   value_cuentaMovil = "";
   ctaSantanderPlus = "";
 
@@ -85,7 +86,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
         this.startServices();
       },
       err => {
-        localStorage.setItem('env', 'dev');
+        localStorage.setItem('env', 'pre');
         this.startServices();
         // this.loadMock()
       }
@@ -106,7 +107,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
               console.log("VALIDANDO TOKEN SSO");
               // VALIDADOR DE RESPUESTA DE TOKEN
               if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                  let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                   localStorage.setItem('sessionID',mToken.sessionId.substring(11));
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
@@ -148,7 +149,6 @@ export class ViewActualizaCuentaComponent implements OnInit {
           .subscribe(
             res => {
               for(let cta of res.dto.saldoPesos){
-                console.log(cta);
                 if(cta.numeroCuenta == localStorage.getItem('ctaSantanderPlus')){
 
                   if(cta.alias == ""){
@@ -192,8 +192,15 @@ export class ViewActualizaCuentaComponent implements OnInit {
     this.loginServices.getSaldosSP()
     .subscribe(
       res => {
+        // SE QUITA LA CUENTA ACTUAL DEL CARRUSEL
+        let temp = {"dto": { "saldoPesos": []}};
+        for(let cta of res.dto.saldoPesos){
+          if(cta.numeroCuenta !== localStorage.getItem('ctaSantanderPlus')){
+            temp.dto.saldoPesos.push(cta);
+          }
+        }
         // SE LLENAN LOS CARDS
-        this.messageMan.sendMessage(res);
+        this.messageMan.sendMessage(temp);
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
       },
       err => {
