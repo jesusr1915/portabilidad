@@ -31,6 +31,7 @@ export class ViewStatusComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._stepMan.sendMessage(0,"");
     this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;

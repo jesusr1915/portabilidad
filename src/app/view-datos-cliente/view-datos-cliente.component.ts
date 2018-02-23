@@ -130,8 +130,8 @@ export class ViewDatosClienteComponent implements OnInit {
     .subscribe(
       message => {
         if(message.title == "done"){
-          // this.startServices();
-          this.loadMock()
+          this.startServices();
+          // this.loadMock()
         }
       }
     )

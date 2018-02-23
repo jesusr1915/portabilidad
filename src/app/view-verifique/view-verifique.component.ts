@@ -7,6 +7,7 @@ import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
+import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Component({
   selector: 'app-view-verifique',
@@ -46,7 +47,8 @@ export class ViewVerifiqueComponent implements OnInit {
     private zone: NgZone,
     private loginServices: LoginService,
     private alertMan: AlertMan,
-    private router: Router
+    private router: Router,
+    public spinnerMng : SpinnerMan
   ) {
     (window as any).angularComponentRef = {
       zone: this.zone,
@@ -59,7 +61,7 @@ export class ViewVerifiqueComponent implements OnInit {
     this.copiesServ.postCopies()
     .subscribe(
       res => {
-        this.stepMan.sendMessage(0,"");
+        this.stepMan.sendMessage(2,"Verifique los datos de su cuenta o tarjeta");
         this.copiesVer = res.datos.verifique;
         this.tipoToken = localStorage.getItem("ttkn");
         this.messageMan.sendMessage(this.demo);
@@ -109,44 +111,45 @@ export class ViewVerifiqueComponent implements OnInit {
   }
 
   sendAltaService(){
-
-      let body = {
-        "datosEntrada" : {
-          "banco" : {
-            "descripcion" : "",
-            "id" : localStorage.getItem('idBanco'),
-            "nombreCorto" : localStorage.getItem('banco')
-          },
-          "cuentaBanco" : localStorage.getItem('tarjet'),
-          "cuentaCliente" : localStorage.getItem("numeroCuenta"),
-          "fechaNacimiento" : localStorage.getItem('rawBirthday'),
-          "nombreCliente" : localStorage.getItem('name'),
-          "rfcCliente" : localStorage.getItem('rfc'),
-          "tipoSolicitud" : "R"
+    this.spinnerMng.showSpinner(true);
+    let body = {
+      "datosEntrada" : {
+        "banco" : {
+          "descripcion" : "",
+          "id" : localStorage.getItem('idBanco'),
+          "nombreCorto" : localStorage.getItem('banco')
         },
-        "fechaHora" : this.date,
-        "operacion" : "PNAR",
-        "tipoOTP" : this.tipoOTP,
-        "token" : this.tokenSM
-      }
+        "cuentaBanco" : localStorage.getItem('tarjet'),
+        "cuentaCliente" : localStorage.getItem("numeroCuenta"),
+        "fechaNacimiento" : localStorage.getItem('rawBirthday'),
+        "nombreCliente" : localStorage.getItem('name'),
+        "rfcCliente" : localStorage.getItem('rfc'),
+        "tipoSolicitud" : "R"
+      },
+      "fechaHora" : this.date,
+      "operacion" : "PNAR",
+      "tipoOTP" : this.tipoOTP,
+      "token" : this.tokenSM
+    }
 
-      this.loginServices.postAlta(body)
-      .subscribe(
-        res => {
-          if(res.error.clave == "OK"){
-            localStorage.setItem('folio',res.dto.folio);
-            localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
-            localStorage.setItem('horaEnvio',res.dto.horaEnvio);
-            localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
-            this.router.navigate(['/status']);
-          } else {
-            this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
-          }
-        },
-        err => {
-          this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+    this.loginServices.postAlta(body)
+    .subscribe(
+      res => {
+        if(res.error.clave == "OK"){
+          localStorage.setItem('folio',res.dto.folio);
+          localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
+          localStorage.setItem('horaEnvio',res.dto.horaEnvio);
+          localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+          this.spinnerMng.showSpinner(false);
+          this.router.navigate(['/status']);
+        } else {
+          this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
         }
-      )
+      },
+      err => {
+        this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+      }
+    )
 
   }
 

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 ) { }
 
   ngOnInit() {
-
+    this.loadConfig();
   }
 
   setOption(selected){
@@ -40,6 +40,20 @@ export class LoginComponent implements OnInit {
         this.mPath = "/actualiza";
         break;
     }
+  }
+
+  loadConfig(){
+    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.spinnerMng.showSpinner(true);
+    this.loginServices.getConfig()
+    .subscribe(
+      res => {
+        localStorage.setItem('env', res.ENV_VAR);
+      },
+      err => {
+        localStorage.setItem('env', 'pre');
+      }
+    )
   }
 
   clicLogin(){
