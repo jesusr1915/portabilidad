@@ -49,9 +49,11 @@ export class LoginComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
+        this.spinnerMng.showSpinner(false);
       },
       err => {
         localStorage.setItem('env', 'pre');
+        this.spinnerMng.showSpinner(false);
       }
     )
   }
