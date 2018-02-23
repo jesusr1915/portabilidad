@@ -156,7 +156,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                    let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional))); // EN DEV ES PAdicional, EN PRE ES pAdicional
+                    let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional))); // EN DEV ES PAdicional, EN PRE ES pAdicional
                     localStorage.setItem('sessionID',mToken.sessionId.substring(11));
                     // SE EJECUTAN LOS SERVICIOS DE CARGA
                     this.loadInfo();

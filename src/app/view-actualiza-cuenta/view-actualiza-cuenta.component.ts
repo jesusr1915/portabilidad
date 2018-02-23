@@ -107,7 +107,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
               console.log("VALIDANDO TOKEN SSO");
               // VALIDADOR DE RESPUESTA DE TOKEN
               if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                  let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   localStorage.setItem('sessionID',mToken.sessionId.substring(11));
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
