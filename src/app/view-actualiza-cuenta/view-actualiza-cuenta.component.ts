@@ -85,7 +85,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
         this.startServices();
       },
       err => {
-        localStorage.setItem('env', 'pre');
+        localStorage.setItem('env', 'dev');
         this.startServices();
         // this.loadMock()
       }

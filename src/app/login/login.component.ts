@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         this.spinnerMng.showSpinner(false);
       },
       err => {
-        localStorage.setItem('env', 'pre');
+        localStorage.setItem('env', 'dev');
         this.spinnerMng.showSpinner(false);
       }
     )
@@ -70,10 +70,12 @@ export class LoginComponent implements OnInit {
           this.spinnerMng.showSpinner(false);
         } else {
           alert("ERROR");
+          this.spinnerMng.showSpinner(false);
         }
       },
       err => {
         console.log(err);
+        this.spinnerMng.showSpinner(false);
       }
     );
   }
