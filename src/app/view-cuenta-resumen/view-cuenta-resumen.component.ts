@@ -29,7 +29,7 @@ export class ViewCuentaResumenComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.stepMan.clearMessage();
+    this.stepMan.sendMessage(0,"");
     this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;

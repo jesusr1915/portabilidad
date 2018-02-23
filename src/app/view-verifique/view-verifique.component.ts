@@ -28,8 +28,6 @@ export class ViewVerifiqueComponent implements OnInit {
   tokenSM: string;
   tipoOTP: string;
   date: string;
-  isDanteTest = false;
-  isRealTest = false;
 
   demo : Demo = new Demo(
     localStorage.getItem("cardAlias"),
@@ -61,11 +59,9 @@ export class ViewVerifiqueComponent implements OnInit {
     this.copiesServ.postCopies()
     .subscribe(
       res => {
+        this.stepMan.sendMessage(0,"");
         this.copiesVer = res.datos.verifique;
         this.tipoToken = localStorage.getItem("ttkn");
-
-        this.stepMan.sendMessage(2,"Verifique los datos de su cuenta o tarjeta");
-
         this.messageMan.sendMessage(this.demo);
         if(this.valueInfo.length == 18){
           this.copiesVer.infoCount = "CLABE Interbancaria";
@@ -80,15 +76,6 @@ export class ViewVerifiqueComponent implements OnInit {
         }
         window.scrollTo(0, 0)
     });
-
-    if(localStorage.getItem('pruebasDante') === "true"){
-      this.isDanteTest = true;
-      this.isRealTest = false;
-    } else {
-      this.isDanteTest = false;
-      this.isRealTest = true;
-    }
-
   }
 
   onActivate(e, outlet){
@@ -109,7 +96,7 @@ export class ViewVerifiqueComponent implements OnInit {
       if(token !== '')
         this.responseToken(token, tipoOTP, date);
       else
-        this.errorService("", message, "", "", 0);
+        this.openAlert("", message, "", "", 0);
     });
   }
 
@@ -153,18 +140,18 @@ export class ViewVerifiqueComponent implements OnInit {
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
             this.router.navigate(['/status']);
           } else {
-            this.errorService("Error",res.error.message, "Aceptar", "info", 0);
+            this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
           }
         },
         err => {
-          this.errorService("Error",err.error.message, "Aceptar", "info", 0);
+          this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
         }
       )
 
   }
 
   // PARA EL MENSAJE DE ERROR
-  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+  private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
     var message = new messageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }

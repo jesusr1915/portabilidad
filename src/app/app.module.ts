@@ -38,7 +38,6 @@ import { MenuComponent } from './menu/menu.component';
 import { MovesComponent } from './moves/moves.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component';
 import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component';
-import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component';
 import { LoginComponent } from './login/login.component';
 import { ViewCuentaInscripcionComponent } from './view-cuenta-inscripcion/view-cuenta-inscripcion.component';
 import { ViewCuentaSeleccionadaComponent } from './view-cuenta-seleccionada/view-cuenta-seleccionada.component';
@@ -68,7 +67,6 @@ import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cue
     MovesComponent,
     ViewDetalleSolicitudComponent,
     ViewTempIndexComponent,
-    ViewInscripcionComponent,
     LoginComponent,
     ViewCuentaInscripcionComponent,
     ViewCuentaSeleccionadaComponent,

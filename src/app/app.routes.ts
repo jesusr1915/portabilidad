@@ -7,7 +7,6 @@ import { ViewStatusComponent } from './view-status/view-status.component';
 import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component'
 
-import { ViewInscripcionComponent } from './view-inscripcion/view-inscripcion.component'
 import { LoginComponent } from './login/login.component'
 import { ViewTempIndexComponent } from './view-temp-index/view-temp-index.component'
 import { ViewCuentaInscripcionComponent } from './view-cuenta-inscripcion/view-cuenta-inscripcion.component'
@@ -53,11 +52,6 @@ export const routes: Routes = [
   {
     path: 'cliente',
     component: ViewDatosClienteComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'inscripcion',
-    component: ViewInscripcionComponent,
     pathMatch: 'full'
   }, // EMPIEZAN LAS PAGINAS DE INSCRIPCION
   {

@@ -51,6 +51,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     let message = messages.response.dto;
     for(let key of this.keys){
       for(const value of (message[key])){
+          console.log("VALUE", value);
           if(value.alias == ""){
             value.alias = value.tipoProducto;
           }
@@ -122,11 +123,14 @@ export class CardsComponent implements OnInit, OnDestroy {
         clickBar: 1
       };
       frame = new Sly(document.getElementById("frame"), options).init();
+
       local.setCurrentLocalCard(local.cards[0]);
       frame.on('active', function (eventName, itemIndex ) {
-        //console.log('Current', local.cards[itemIndex]);
+        // console.log('Current', local.cards[itemIndex]);
         local.setCurrentLocalCard(local.cards[itemIndex]);
       });
+
+      frame.slideTo(1,false);
 
       setTimeout(()=> {
         $(window).resize();
