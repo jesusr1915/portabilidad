@@ -6,21 +6,26 @@
     <h1 class= "title">
       {{value_alias}}
     </h1>
-    <p [ngClass]="cuentaEnCeros ? 'info-zero' : 'info'">
-      {{value_disponible}}
-      <span class = "coins">
-        {{value_divisa}}
-      </span>
-    </p>
-    <div class ="footNote">
-      <p>
-        {{value_numCuenta}}
+    <div [hidden]="!cuentaTodos">
+      <p class="todas">Todas las cuentas</p>
+    </div>
+    <div [hidden]="cuentaTodos">
+      <p [ngClass]="cuentaEnCeros ? 'info-zero' : 'info'" [hidden]="cuentaTodos">
+        {{value_disponible}}
+        <span class = "coins">
+          {{value_divisa}}
+        </span>
       </p>
-      <span>
-      </span>
-      <p>
-        {{value_cuentaMovil}}
-      </p>
+      <div class ="footNote">
+        <p>
+          {{value_numCuenta}}
+        </p>
+        <span>
+        </span>
+        <p>
+          {{value_cuentaMovil}}
+        </p>
+      </div>
     </div>
 
   </div>

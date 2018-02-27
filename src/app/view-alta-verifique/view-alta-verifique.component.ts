@@ -10,14 +10,14 @@ import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 @Component({
-  selector: 'app-view-verifique',
-  templateUrl: './view-verifique.component.html',
+  selector: 'app-view-alta-verifique',
+  templateUrl: './view-alta-verifique.component.html',
   styleUrls: ['../app.component.scss',
-      './view-verifique.component.scss'
+      './view-alta-verifique.component.scss'
               ]
 })
 
-export class ViewVerifiqueComponent implements OnInit {
+export class ViewAltaVerifiqueComponent implements OnInit {
 
   copiesVer : verifique_class = new verifique_class();
   @Input() valueInfo = localStorage.getItem('tarjet');
@@ -78,6 +78,11 @@ export class ViewVerifiqueComponent implements OnInit {
         }
         window.scrollTo(0, 0)
     });
+  }
+
+  ngAfterViewInit(){
+    let element: HTMLElement = document.getElementById("validaSesion") as HTMLElement;
+    element.click();
   }
 
   onActivate(e, outlet){

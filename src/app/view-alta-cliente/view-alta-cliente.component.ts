@@ -20,13 +20,13 @@ import { JavaScriptInterface } from 'interfaces/JavaScriptInterface';
 declare var Connect: JavaScriptInterface;
 
 @Component({
-  selector: 'app-view-datos-cliente',
-  templateUrl: './view-datos-cliente.component.html',
-  styleUrls: ['./view-datos-cliente.component.scss',
+  selector: 'app-view-alta-cliente',
+  templateUrl: './view-alta-cliente.component.html',
+  styleUrls: ['./view-alta-cliente.component.scss',
               '../app.component.scss']
 })
 
-export class ViewDatosClienteComponent implements OnInit {
+export class ViewAltaClienteComponent implements OnInit {
 
   title = 'app';
   entry = "";
@@ -135,7 +135,11 @@ export class ViewDatosClienteComponent implements OnInit {
         }
       }
     )
+  }
 
+  ngAfterViewInit(){
+    let element: HTMLElement = document.getElementById("validaSesion") as HTMLElement;
+    element.click();
   }
 
   loadConfig(){
@@ -218,7 +222,10 @@ export class ViewDatosClienteComponent implements OnInit {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
                     let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
-                    localStorage.setItem('sessionID',mToken.sessionId.substring(11));
+                    let totalSteps = mToken.telefono !== null ? 4 : 3;
+                    localStorage.setItem('sessionID', mToken.sessionId.substring(11));
+                    // localStorage.setItem('totalSteps', totalSteps.toString());
+                    // localStorage.setItem('totalSteps', "4");
                     // SE EJECUTAN LOS SERVICIOS DE CARGA
                     this.loadInfo();
                 } else {

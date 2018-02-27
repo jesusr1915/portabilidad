@@ -23,9 +23,11 @@ export class ViewConsultaComponent implements OnInit {
   respuestaSaldos = {dto:{saldoPesos:[]}};
   saldosCuentas = [];
   consultaPN = [];
+  numAction = 0;
 
   subscription: Subscription;
   subscriptionL: Subscription;
+  subscriptionM: Subscription;
 
   constructor(
     private _stepMan: StepMan,
@@ -52,20 +54,6 @@ export class ViewConsultaComponent implements OnInit {
         this.reloadData();
       }
     });
-
-    this.subscription = this._menuMan.getMessage()
-    .subscribe(
-      message => {
-        this.filterMoves(message.response);
-      }
-    )
-    this.subscriptionL = this.messageMan.getMessage()
-    .subscribe(
-      message => {
-        this.filterMoves(1);
-        this._menuMan.sendMessage(1);
-      }
-    )
   }
 
   ngOnInit() {
@@ -84,8 +72,23 @@ export class ViewConsultaComponent implements OnInit {
       }
     )
 
+    // SUBSCRIPCION A LOS MENSAJES PARA DETECTAR CAMBIO EN OPCIONES DEL BOTON Y EN EL CAMBIO DE CARDS
+    this.subscription = this._menuMan.getMessage()
+    .subscribe(
+      message => {
+        console.log("GETING MESSAGE MENU...")
+        this.filterMoves(message.response);
+      }
+    )
+    this.subscriptionL = this.messageMan.getMessage()
+    .subscribe(
+      message => {
+        this._menuMan.sendMessage(1);
+      }
+    )
+
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
-    this.filterMoves(1);
+    // this.filterMoves(1);
 
   }
 
@@ -141,7 +144,14 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   private matchAccounts(accounts: any, portabilidades: any){
+    // MUESTRA SOLO CUENTAS QUE TIENEN PORTABILIDAD EN EL CARRUSEL
     var exists = [];
+    let card0 = {
+      "numeroCuenta": "0",
+      "disponible": "Todas las cuentas",
+      "alias": "CONSULTAR"
+    }
+    exists.push(card0);
     for(let account of accounts){
       var match = 0;
       for(let portabilidad of portabilidades){
@@ -186,7 +196,8 @@ export class ViewConsultaComponent implements OnInit {
 
             this.spinnerMng.showSpinner(false);
             this.allMov = res.dto;
-            this.filterMoves(1);
+            this._menuMan.sendMessage(1);
+            // this.filterMoves(1);
 
             let portabilidades = res.dto
             if(portabilidades.length == 0){
@@ -230,7 +241,8 @@ export class ViewConsultaComponent implements OnInit {
 
             this.spinnerMng.showSpinner(false);
             this.allMov = res.dto;
-            this.filterMoves(1);
+            this._menuMan.sendMessage(1);
+            // this.filterMoves(1);
 
             let portabilidades = res.dto
             if(portabilidades.length == 0){
@@ -261,7 +273,6 @@ export class ViewConsultaComponent implements OnInit {
     let tipoSolicitud = ""
     switch (idBtn){
       case 1:{
-        // this.totalMov = this.allMov;
         tipoSolicitud = "A"
       }
       break;
@@ -278,6 +289,7 @@ export class ViewConsultaComponent implements OnInit {
       }
 
     }
+
     for(let moves of this.allMov){
       let newMoves = [];
       let accountLenght = moves.cuentaCliente.length;
@@ -298,9 +310,13 @@ export class ViewConsultaComponent implements OnInit {
       if(newMove.tipoSolicitud == tipoSolicitud){
         if(localStorage.getItem('numeroCuenta') == newMove.numeroCuenta){
           newMoves.push(newMove);
+        } else if(localStorage.getItem('cardDisponible') == "Todas las cuentas"){
+          newMoves.push(newMove);
         }
       } else if(tipoSolicitud == "A"){
         if(localStorage.getItem('numeroCuenta') == newMove.numeroCuenta){
+          newMoves.push(newMove);
+        } else if(localStorage.getItem('cardDisponible') == "Todas las cuentas"){
           newMoves.push(newMove);
         }
       }

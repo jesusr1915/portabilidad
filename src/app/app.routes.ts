@@ -1,9 +1,10 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ViewDatosClienteComponent } from './view-datos-cliente/view-datos-cliente.component';
-import { ViewVerifiqueComponent } from './view-verifique/view-verifique.component';
-import { ViewStatusComponent } from './view-status/view-status.component';
+import { ViewAltaClienteComponent } from './view-alta-cliente/view-alta-cliente.component';
+import { ViewAltaVerifiqueComponent } from './view-alta-verifique/view-alta-verifique.component';
+import { ViewAltaOtpComponent } from './view-alta-otp/view-alta-otp.component';
+import { ViewAltaStatusComponent } from './view-alta-status/view-alta-status.component';
 import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 import { ViewDetalleSolicitudComponent } from './view-detalle-solicitud/view-detalle-solicitud.component'
 
@@ -26,12 +27,17 @@ export const routes: Routes = [
   },
   {
     path: 'verifica',
-    component: ViewVerifiqueComponent,
+    component: ViewAltaVerifiqueComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'otp',
+    component: ViewAltaOtpComponent,
     pathMatch: 'full'
   },
   {
     path: 'status',
-    component: ViewStatusComponent,
+    component: ViewAltaStatusComponent,
     pathMatch: 'full'
   },
   {
@@ -51,7 +57,7 @@ export const routes: Routes = [
   },
   {
     path: 'cliente',
-    component: ViewDatosClienteComponent,
+    component: ViewAltaClienteComponent,
     pathMatch: 'full'
   }, // EMPIEZAN LAS PAGINAS DE INSCRIPCION
   {
@@ -96,7 +102,7 @@ export const routes: Routes = [
   {
     // path: ':token',
     path: '',
-    component: ViewDatosClienteComponent,
+    component: ViewAltaClienteComponent,
     pathMatch: 'full'
   }
 ];

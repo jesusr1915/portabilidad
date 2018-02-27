@@ -9,7 +9,7 @@ import { CardsComponent } from './cards/cards.component';
 import { PersonalCardComponent } from './personal-card/personal-card.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TermsComponent } from './terms/terms.component';
-import { ViewDatosClienteComponent } from './view-datos-cliente/view-datos-cliente.component';
+import { ViewAltaClienteComponent } from './view-alta-cliente/view-alta-cliente.component';
 import { MessageAlertComponent } from './message-alert/message-alert.component';
 
 //services
@@ -29,10 +29,10 @@ import { MenuMsg } from './menu/menuMsg';
 
 //Routing
 import { routing } from './app.routes';
-import { ViewVerifiqueComponent } from './view-verifique/view-verifique.component';
+import { ViewAltaVerifiqueComponent } from './view-alta-verifique/view-alta-verifique.component';
 import { SpinnerComponentComponent } from './spinner-component/spinner-component.component';
 import { TokenComponent } from './token/token.component';
-import { ViewStatusComponent } from './view-status/view-status.component';
+import { ViewAltaStatusComponent } from './view-alta-status/view-alta-status.component';
 import { ViewConsultaComponent } from './view-consulta/view-consulta.component';
 import { MenuComponent } from './menu/menu.component';
 import { MovesComponent } from './moves/moves.component';
@@ -46,6 +46,7 @@ import { ViewActualizaCuentaComponent } from './view-actualiza-cuenta/view-actua
 import { ViewActualizaResumenComponent } from './view-actualiza-resumen/view-actualiza-resumen.component';
 import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-actualiza-confirma.component';
 import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cuenta-bienvenida.component';
+import { ViewAltaOtpComponent } from './view-alta-otp/view-alta-otp.component';
 
 
 @NgModule({
@@ -56,12 +57,12 @@ import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cue
     PersonalCardComponent,
     StepperComponent,
     TermsComponent,
-    ViewDatosClienteComponent,
-    ViewVerifiqueComponent,
+    ViewAltaClienteComponent,
+    ViewAltaVerifiqueComponent,
     MessageAlertComponent,
     SpinnerComponentComponent,
     TokenComponent,
-    ViewStatusComponent,
+    ViewAltaStatusComponent,
     ViewConsultaComponent,
     MenuComponent,
     MovesComponent,
@@ -74,7 +75,8 @@ import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cue
     ViewActualizaCuentaComponent,
     ViewActualizaResumenComponent,
     ViewActualizaConfirmaComponent,
-    ViewCuentaBienvenidaComponent
+    ViewCuentaBienvenidaComponent,
+    ViewAltaOtpComponent
   ],
   imports: [
     BrowserModule,

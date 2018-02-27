@@ -7,7 +7,8 @@ export class MenuMsg{
   private subject = new Subject<any>();
 
   sendMessage(message: number){
-    this.subject.next({response:message});
+    console.log("SENDING MESSAGE...");
+    this.subject.next({response: message});
   }
   clearMessage() {
     this.subject.next();

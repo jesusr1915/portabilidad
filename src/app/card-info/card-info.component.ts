@@ -19,12 +19,18 @@ export class CardInfoComponent implements OnInit {
   cuentaBloqueada: boolean = false;
   cuentaEnCeros: boolean = false;
   cardStyle: string = "Card";
+  cuentaTodos: boolean = false;
   constructor(){
   }
 
   ngOnInit() {
     this.cuentaBloqueada = this.value_bloqueo == "S" ? true : false;
     this.cuentaEnCeros = this.value_disponible <= 0 ? true : false;
+    if(this.value_divisa === "MXP"){
+      this.cuentaTodos = false
+    } else {
+      this.cuentaTodos = true
+    }
   }
 
 }

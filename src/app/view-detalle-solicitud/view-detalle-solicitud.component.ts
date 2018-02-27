@@ -6,7 +6,7 @@ import { StepMan } from '../stepper/stepMan';
 @Component({
   selector: 'app-view-detalle-solicitud',
   templateUrl: './view-detalle-solicitud.component.html',
-  styleUrls: ['../app.component.scss','../view-status/view-status.component.scss','./view-detalle-solicitud.component.scss']
+  styleUrls: ['../app.component.scss','../view-alta-status/view-alta-status.component.scss','./view-detalle-solicitud.component.scss']
 })
 export class ViewDetalleSolicitudComponent implements OnInit {
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewStatusComponent } from './view-status.component';
+import { ViewAltaStatusComponent } from './view-alta-status.component';
 
-describe('ViewStatusComponent', () => {
-  let component: ViewStatusComponent;
-  let fixture: ComponentFixture<ViewStatusComponent>;
+describe('ViewAltaStatusComponent', () => {
+  let component: ViewAltaStatusComponent;
+  let fixture: ComponentFixture<ViewAltaStatusComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewStatusComponent ]
+      declarations: [ ViewAltaStatusComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewStatusComponent);
+    fixture = TestBed.createComponent(ViewAltaStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

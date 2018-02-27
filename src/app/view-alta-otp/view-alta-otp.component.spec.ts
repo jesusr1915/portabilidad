@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewVerifiqueComponent } from './view-verifique.component';
+import { ViewAltaOtpComponent } from './view-alta-otp.component';
 
-describe('ViewVerifiqueComponent', () => {
-  let component: ViewVerifiqueComponent;
-  let fixture: ComponentFixture<ViewVerifiqueComponent>;
+describe('ViewAltaOtpComponent', () => {
+  let component: ViewAltaOtpComponent;
+  let fixture: ComponentFixture<ViewAltaOtpComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewVerifiqueComponent ]
+      declarations: [ ViewAltaOtpComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewVerifiqueComponent);
+    fixture = TestBed.createComponent(ViewAltaOtpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

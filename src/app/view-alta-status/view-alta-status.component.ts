@@ -4,12 +4,12 @@ import { FormatValue } from '../tools/formatValues';
 import { Router, RouterModule, Routes, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
-  selector: 'app-view-status',
-  templateUrl: './view-status.component.html',
-  styleUrls: ['../app.component.scss','./view-status.component.scss'],
+  selector: 'app-view-alta-status',
+  templateUrl: './view-alta-status.component.html',
+  styleUrls: ['../app.component.scss','./view-alta-status.component.scss'],
   providers: [FormatValue]
 })
-export class ViewStatusComponent implements OnInit {
+export class ViewAltaStatusComponent implements OnInit {
 
   @Input() bankWhereWishReceive; // = localStorage.getItem('banco');
   @Input() accountWhereWishReceive = localStorage.getItem("cardNumeroCuenta");

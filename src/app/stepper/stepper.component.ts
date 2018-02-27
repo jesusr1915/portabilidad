@@ -40,6 +40,7 @@ export class StepperComponent implements OnInit {
   }
 
   setStep(step: number){
+    this.max_step = localStorage.getItem('totalSteps') !== null ? parseInt(localStorage.getItem('totalSteps')) : 3;
     if(step!=0)
     {
       this.visible = true;

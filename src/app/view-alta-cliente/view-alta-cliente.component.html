@@ -5,7 +5,7 @@
   <p class = "labelInst">{{copies.textInst1}}</p>
   <div class = "contentRadioBtns">
   <label class = "labelRadioBtn">
-    <input type="radio"  name="inputSelected" [(ngModel)]="tipoCuenta" (change)="onSelectionChange(1)" [value]="true" checked=true >
+    <input type="radio"  name="inputSelected" [(ngModel)]="tipoCuenta" (change)="onSelectionChange(1)" [value]="true" checked=true onload="validaSesion()" >
     <p>{{copies.radioText1}}</p>
   </label>
   <label class = "labelRadioBtn right">
@@ -52,6 +52,7 @@
    </div>
 </div>
  <div class="btnCont">
+   <a id="validaSesion" onclick="validaSesion()"></a>
    <button [disabled]="isInvalid()" type="button" (click)="onBtnActionClickedV()">Continuar</button>
  </div>
  <app-terms  #modal1></app-terms>

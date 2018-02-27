@@ -25,6 +25,7 @@ export class CardsComponent implements OnInit, OnDestroy {
   valores = "";
   className = ""
   newClass = "";
+  selectedAccountIndex = 0;
 
   constructor(private messageMan: MessageMan, private alertMan: AlertMan) {
     this.subscription = this.messageMan.getMessage()
@@ -49,6 +50,7 @@ export class CardsComponent implements OnInit, OnDestroy {
   setValues(keys:any,messages:any){
     this.cards = [];
     let message = messages.response.dto;
+    let index = 0;
     for(let key of this.keys){
       for(const value of (message[key])){
           if(value.alias == ""){
@@ -60,6 +62,11 @@ export class CardsComponent implements OnInit, OnDestroy {
           value.isSelected = false;
           this.cards.push(value);
           this.valores += value.unmaskCuenta + '-';
+
+          if(localStorage.getItem('numeroCuenta') === value.unmaskCuenta){
+            localStorage.setItem('selectedAccountIndex', index.toString());
+          }
+          index++;
       }
     }
 
@@ -125,11 +132,12 @@ export class CardsComponent implements OnInit, OnDestroy {
 
       local.setCurrentLocalCard(local.cards[0]);
       frame.on('active', function (eventName, itemIndex ) {
-        // console.log('Current', local.cards[itemIndex]);
         local.setCurrentLocalCard(local.cards[itemIndex]);
       });
 
-      frame.slideTo(1,false);
+      if(localStorage.getItem('numeroCuenta') !== ""){
+          frame.activatePage(parseInt(localStorage.getItem('selectedAccountIndex')), false);
+      }
 
       setTimeout(()=> {
         $(window).resize();

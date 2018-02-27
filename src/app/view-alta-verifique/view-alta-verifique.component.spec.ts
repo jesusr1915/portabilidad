@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewDatosClienteComponent } from './view-datos-cliente.component';
+import { ViewAltaVerifiqueComponent } from './view-alta-verifique.component';
 
-describe('ViewDatosClienteComponent', () => {
-  let component: ViewDatosClienteComponent;
-  let fixture: ComponentFixture<ViewDatosClienteComponent>;
+describe('ViewAltaVerifiqueComponent', () => {
+  let component: ViewAltaVerifiqueComponent;
+  let fixture: ComponentFixture<ViewAltaVerifiqueComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewDatosClienteComponent ]
+      declarations: [ ViewAltaVerifiqueComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewDatosClienteComponent);
+    fixture = TestBed.createComponent(ViewAltaVerifiqueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
