@@ -48,6 +48,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
   setValues(keys:any,messages:any){
+    // console.log("LLENANDO CARDS")
     this.cards = [];
     let message = messages.response.dto;
     let index = 0;
@@ -87,6 +88,7 @@ export class CardsComponent implements OnInit, OnDestroy {
       this.alertMan.sendMessage(message);
       cards.isSelected = false;
     } else {
+      // console.log("GUARDA CARD...")
       localStorage.setItem('validAccount','true');
       localStorage.setItem("cardAlias", cards.alias);
       localStorage.setItem("cardDisponible", cards.disponible);
@@ -128,25 +130,28 @@ export class CardsComponent implements OnInit, OnDestroy {
         dynamicHandle: 1,
         clickBar: 1
       };
+
       frame = new Sly(document.getElementById("frame"), options).init();
 
       local.setCurrentLocalCard(local.cards[0]);
       frame.on('active', function (eventName, itemIndex ) {
+        // console.log("CAMBIA CARD");
         local.setCurrentLocalCard(local.cards[itemIndex]);
       });
 
-      if(localStorage.getItem('numeroCuenta') !== ""){
-          frame.activatePage(parseInt(localStorage.getItem('selectedAccountIndex')), false);
-      }
+
 
       setTimeout(()=> {
         $(window).resize();
-        $(window).resize();
+        // $(window).resize();
       }, 500);
     }, 500);
 
     $(window).resize(function(e) {
       frame.reload();
+      if(localStorage.getItem('numeroCuenta') !== ""){
+          frame.activatePage(parseInt(localStorage.getItem('selectedAccountIndex')), false);
+      }
     });
   }
 

@@ -89,20 +89,22 @@ export class ViewAltaClienteComponent implements OnInit {
     this.route.queryParams
     .subscribe(params => {
       this.tokenUrl = params.token
-
-      // localStorage.setItem('backButton', "true");
-      if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
-        if(localStorage.getItem('backButton') !== "true"){
-          this.reloadData();
-        } else {
-          // PARA RECUPERAR LOS DATOS DE LA PANTALLA
-          localStorage.setItem('fillData','true');
-          localStorage.removeItem('backButton');
-        }
-      } else {
-        this.reloadData();
-      }
     });
+
+    localStorage.setItem('backButton', "true");
+    if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+      if(localStorage.getItem('backButton') !== "true"){
+        // console.log("PRIMERA VEZ");
+        this.reloadData();
+      } else {
+        // PARA RECUPERAR LOS DATOS DE LA PANTALLA
+        // console.log("BOTON DE BACK");
+        localStorage.setItem('fillData','true');
+        localStorage.removeItem('backButton');
+      }
+    } else {
+      this.reloadData();
+    }
 
     this.subscription = this.termsMng.getMessage()
     .subscribe(
@@ -110,22 +112,16 @@ export class ViewAltaClienteComponent implements OnInit {
         this.onSaveTermChanged(true);
       }
     )
-    this.subscription = this.messageMan.getMessage()
+    this.subscriptionL = this.messageMan.getMessage()
     .subscribe(
       message => {
+        // console.log("CARRUSEL", message);
         if(message.response == true)
           this.validAccount = true;
         else
           this.validAccount = false;
       }
     )
-  }
-
-  ngOnInit(){
-    this.loadConfig();
-    this.loadCopies();
-
-    this.openAlert("Portabilidad de nómina", "Usted está iniciando el proceso de portabilidad de nómina a Santander. <br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.", "", "", 3)
     this.subscriptionM = this.alertMan.getMessage()
     .subscribe(
       message => {
@@ -137,9 +133,21 @@ export class ViewAltaClienteComponent implements OnInit {
     )
   }
 
+  ngOnInit(){
+    this.loadConfig();
+    this.loadCopies();
+    this.openAlert("Portabilidad de nómina", "Usted está iniciando el proceso de portabilidad de nómina a Santander. <br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.", "", "", 3)
+  }
+
   ngAfterViewInit(){
     let element: HTMLElement = document.getElementById("validaSesion") as HTMLElement;
     element.click();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscriptionL.unsubscribe();
+    this.subscriptionM.unsubscribe();
   }
 
   loadConfig(){
@@ -169,11 +177,29 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   reloadData(){
+    // console.log("LIMPIA LOCALSTORAGE")
     localStorage.clear();
     // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
     if(this.tokenUrl !== ""){
       localStorage.setItem('tokenUrl', this.tokenUrl);
+    }
+  }
 
+  recoverSavedData(from){
+    // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
+    // console.log("RECUPERA DATOS", from);
+    if(localStorage.getItem('fillData')){
+      if(localStorage.getItem('tarjet') !== null){
+        if(localStorage.getItem('tarjet').length == 18){
+          this.tipoCuenta = true;
+          this.onSelectionChange(1)
+        } else {
+          this.tipoCuenta = false;
+          this.onSelectionChange(2)
+        }
+        this.tarjetValue = localStorage.getItem('tarjet')
+        this.validaCampoCta()
+      }
     }
   }
 
@@ -197,21 +223,8 @@ export class ViewAltaClienteComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
-
-          // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
-          if(localStorage.getItem('fillData')){
-            if(localStorage.getItem('tarjet') !== null){
-              if(localStorage.getItem('tarjet').length == 18){
-                this.tipoCuenta = true;
-                this.onSelectionChange(1)
-              } else {
-                this.tipoCuenta = false;
-                this.onSelectionChange(2)
-              }
-              this.tarjetValue = localStorage.getItem('tarjet')
-              this.validaCampoCta()
-            }
-          }
+          // RECUPERANDO INFORMACION
+          this.recoverSavedData("startServices")
 
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
@@ -252,6 +265,10 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   private loadMock(){
+    // RECUPERANDO INFORMACION
+    this.recoverSavedData("startServices")
+    
+    // SERVICIO DE SALDOS
     this.loginServices.getSaldosMock()
     .subscribe(
       res => {

@@ -22,7 +22,7 @@ export class MessageAlertComponent implements OnInit {
     this.subscription = this.messageMan.getMessage()
     .subscribe(
       message => {
-        if(message.title != "done")
+        if(message.title !== "done")
           this.showMessage(message.title);
       }
     )
@@ -57,7 +57,7 @@ export class MessageAlertComponent implements OnInit {
     this.visibleAnimate = false;
     // setTimeout(() => this.visible = false, 300);
     this.visible = false;
-    if(this.code == 3){
+    if(this.code === 3){
       this.messageMan.sendMessage("done");
     }
   }

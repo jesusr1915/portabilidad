@@ -6,5 +6,11 @@
   <p class="labelInst">Fecha de nacimiento:</p>
   <input type="date" name="name" [(ngModel)]="birthdate" class="fecha" placeholder="día / mes / año">
 </div>
-<p class="labelInst">¿No ha recibido el SMS?</p>
+<p class="labelInst">¿No ha recibido el SMS? <img src="../../assets/imgs/ico-tooltip.svg" class="ico-tooltip">
+  <!-- <span class="icon">
+    <img src="images/icons/icono-alerta.svg" class="icon">
+    <md-tooltip md-direction="top">{{cardinfo.mensajeTooltipNumero}}</md-tooltip>
+    <md-icon icon="images/icons/icono-alerta.svg"></md-icon>
+  </span> -->
+</p>
 <p class="labelInst textCenter reenviar"><a>Para reenviar el código, <span>TOQUE AQUÍ</span></a></p>
