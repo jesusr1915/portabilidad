@@ -91,7 +91,7 @@ export class ViewAltaClienteComponent implements OnInit {
       this.tokenUrl = params.token
     });
 
-    localStorage.setItem('backButton', "true");
+    // localStorage.setItem('backButton', "true");
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
       if(localStorage.getItem('backButton') !== "true"){
         // console.log("PRIMERA VEZ");
@@ -267,7 +267,7 @@ export class ViewAltaClienteComponent implements OnInit {
   private loadMock(){
     // RECUPERANDO INFORMACION
     this.recoverSavedData("startServices")
-    
+
     // SERVICIO DE SALDOS
     this.loginServices.getSaldosMock()
     .subscribe(
