@@ -28,6 +28,8 @@ export class LoginService{
   private serviceUrlModificaSP: string;
   private serviceUrlActualizaSP: string;
 
+  private serviceUrlOtp: string;
+
   private body = '';
   private headers = new Headers();
   private options;
@@ -51,6 +53,8 @@ export class LoginService{
     // CAMBIO DE CUENTA
     this.serviceUrlModificaSP = this.getUrlBase() + '/santanderplus/isModificarSantanderPlus';
     this.serviceUrlActualizaSP = this.getUrlBase() + '/santanderplus/insertaActualizaCuentasSantanderPlus';
+    // OTP MAGICA
+    this.serviceUrlOtp = this.getUrlBase() + '/otp';
   }
 
   getUrlBase(){
@@ -78,6 +82,8 @@ export class LoginService{
     // CAMBIO DE CUENTA
     this.serviceUrlModificaSP = this.getUrlBase() + '/santanderplus/isModificarSantanderPlus';
     this.serviceUrlActualizaSP = this.getUrlBase() + '/santanderplus/insertaActualizaCuentasSantanderPlus';
+    // OTP MAGICA
+    this.serviceUrlOtp = this.getUrlBase() + '/otp';
   }
 
   getConfig(){
@@ -116,7 +122,7 @@ export class LoginService{
     return this.postRequest(this.serviceValidator,body,this.options)
   }
 
-  // SERVICIOS MOCK UP
+  // =================== SERVICIOS MOCK UP
   getSaldosMock(){
     this.configHeader(false);
     return this.getRequest('api/saldosCuentasCheques.json','');
@@ -162,8 +168,7 @@ export class LoginService{
     return this.getRequest('api/insertaActualizaCuentasSantanderPlus.json','');
   }
 
-  // SERVICIOS DE PORTABILIDAD
-
+  // =================== SERVICIOS DE PORTABILIDAD
   getConsultaRFC(){
     this.configHeader(false);
     return this.getRequest(this.serviceUrlRFC,this.options);
@@ -201,8 +206,13 @@ export class LoginService{
     return this.postRequest(this.serviceUrlDetalleConsulta,body,this.options);
   }
 
-  // SERVICIOS DE INSCRIPCION DE CUENTA
+  postOtp(datosEntrada: any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.serviceUrlOtp,body,this.options);
+  }
 
+  // =================== SERVICIOS DE INSCRIPCION DE CUENTA
   getSaldosSP(){
     this.configHeader(false);
     return this.getRequest(this.serviceUrlSaldosSP,this.options);
@@ -219,8 +229,7 @@ export class LoginService{
     return this.postRequest(this.serviceUrlDineroCrecienteSP,'',this.options)
   }
 
-  // SERVICIOS DE MODIFICACION DE CUENTA
-
+  // =================== SERVICIOS DE MODIFICACION DE CUENTA
   postModificaSP(){
     this.configHeader(true);
     let body = JSON.stringify('');
@@ -233,8 +242,7 @@ export class LoginService{
     return this.postRequest(this.serviceUrlActualizaSP,body,this.options)
   }
 
-  // FUNCIONES GET Y POST GENERICAS
-
+  // =================== FUNCIONES GET Y POST GENERICAS
   getRequest(url:string, xtras:string){
     // this.spinnerMng.showSpinner(true);
     return this.http.get(url,xtras)

@@ -1,6 +1,6 @@
 <div class="controls minTop">
   <p class="labelInst">Ingrese los números que recibió por mensaje SMS.</p>
-  <input type="number" name="name" [(ngModel)]="sms" placeholder="8 dígitos">
+  <input type="number" name="name" [(ngModel)]="sms" placeholder="8 dígitos" onkeydown="if(this.value.length > 7 && event.keyCode != 8) return false">
 </div>
 <div class="controls minTop">
   <p class="labelInst">Fecha de nacimiento:</p>
@@ -13,4 +13,8 @@
     <md-icon icon="images/icons/icono-alerta.svg"></md-icon>
   </span> -->
 </p>
-<p class="labelInst textCenter reenviar"><a>Para reenviar el código, <span>TOQUE AQUÍ</span></a></p>
+<p class="labelInst textCenter reenviar" (click)="reenviar()"><a>Para reenviar el código, <span>TOQUE AQUÍ</span></a></p>
+<div class="btnCont">
+  <a id="validaSesion" onclick="validaSesion()"></a>
+  <button [disabled]="isInvalid()" type="button" (click)="continuar()">Continuar</button>
+</div>

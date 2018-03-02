@@ -91,7 +91,7 @@ export class ViewAltaClienteComponent implements OnInit {
       this.tokenUrl = params.token
     });
 
-    // localStorage.setItem('backButton', "true");
+    localStorage.setItem('backButton', "true");
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
       if(localStorage.getItem('backButton') !== "true"){
         // console.log("PRIMERA VEZ");
@@ -473,7 +473,7 @@ export class ViewAltaClienteComponent implements OnInit {
               if(err.error.clave == "ERROR"){
                 this.openAlert("Error", err.error.message, "Aceptar" , "", 0);
               } else {
-                this.openAlert("", "", "", "", 1);
+                this.openAlert("", "", "", "", 0);
               }
               this.validClabe = false;
               this.validBank = false;
