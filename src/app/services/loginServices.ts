@@ -104,9 +104,12 @@ export class LoginService{
     if(localStorage.getItem('env') == "dev"){
       urlSearchParams.append ('client_id','b63dae8e-3dc5-4652-a1c1-cb3f3c2b4a29');
       urlSearchParams.append ('clientSecret','6pW&z3A4lVbzF?$,?GFtEI)Q/j=J/d');
-    } else {
+    } else if (localStorage.getItem('env') == "pre") {
       urlSearchParams.append ('client_id','cff38f0b-967c-4cc1-ba80-5cfee626d3ea');
       urlSearchParams.append ('clientSecret','2z2Bo9p!4{$ryY1lDw?>KW&a.j#OZw');
+    } else {
+      urlSearchParams.append ('client_id','d1548f29-dfb9-472a-813d-d6e10a5d3e9b');
+      urlSearchParams.append ('clientSecret','XO9[>QoAt-&Kz=#k!ez&QLX!ls9!IV');
     }
     // AQUI VA EL CLIENT ID PARA EL AMBIENTE ADECUADO
     let body = urlSearchParams.toString();
