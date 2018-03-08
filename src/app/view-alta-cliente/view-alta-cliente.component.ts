@@ -234,7 +234,16 @@ export class ViewAltaClienteComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                    let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    let mToken: any;
+
+                    if(localStorage.getItem('env') == "dev"){
+                      JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    } else if (localStorage.getItem('env') == "pre") {
+                      JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    } else {
+                      JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    }
+
                     let totalSteps = mToken.telefono !== null ? 4 : 3;
                     localStorage.setItem('sessionID', mToken.sessionId.substring(11));
                     // localStorage.setItem('totalSteps', totalSteps.toString());
