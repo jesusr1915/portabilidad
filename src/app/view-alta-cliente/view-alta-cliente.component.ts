@@ -45,6 +45,7 @@ export class ViewAltaClienteComponent implements OnInit {
   sendService = true;
   tipoCuenta = true;
   selectBank = "";
+  diablito = false;
 
   subscription: Subscription;
   subscriptionL: Subscription;
@@ -103,7 +104,9 @@ export class ViewAltaClienteComponent implements OnInit {
         localStorage.removeItem('backButton');
       }
     } else {
-      this.reloadData();
+      if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+        this.reloadData();
+      }
     }
 
     this.subscription = this.termsMng.getMessage()
@@ -159,7 +162,7 @@ export class ViewAltaClienteComponent implements OnInit {
         localStorage.setItem('env', res.ENV_VAR);
       },
       err => {
-        localStorage.setItem('env', 'pro');
+        localStorage.setItem('env', 'pre');
       }
     )
   }
@@ -177,17 +180,11 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   reloadData(){
-    // console.log("LIMPIA LOCALSTORAGE")
     localStorage.clear();
-    // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-    if(this.tokenUrl !== ""){
-      localStorage.setItem('tokenUrl', this.tokenUrl);
-    }
   }
 
   recoverSavedData(from){
     // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
-    // console.log("RECUPERA DATOS", from);
     if(localStorage.getItem('fillData')){
       if(localStorage.getItem('tarjet') !== null){
         if(localStorage.getItem('tarjet').length == 18){
@@ -228,6 +225,7 @@ export class ViewAltaClienteComponent implements OnInit {
 
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+          console.log("TOKEN VALIDATOR")
             // SERVICIO DE VALIDADOR DE TOKEN
             this.loginServices.postValidator(this.tokenUrl)
             .subscribe(
@@ -237,17 +235,15 @@ export class ViewAltaClienteComponent implements OnInit {
                     let mToken: any;
 
                     if(localStorage.getItem('env') == "dev"){
-                      JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                     } else if (localStorage.getItem('env') == "pre") {
-                      JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                      mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                     } else {
-                      JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                     }
 
                     let totalSteps = mToken.telefono !== null ? 4 : 3;
                     localStorage.setItem('sessionID', mToken.sessionId.substring(11));
-                    // localStorage.setItem('totalSteps', totalSteps.toString());
-                    // localStorage.setItem('totalSteps', "4");
                     // SE EJECUTAN LOS SERVICIOS DE CARGA
                     this.loadInfo();
                 } else {
@@ -262,6 +258,7 @@ export class ViewAltaClienteComponent implements OnInit {
               }
             );
           } else {
+            console.log("TOKEN DIABLITO")
             // SE EJECUTAN LOS SERVICIOS DE CARGA
             this.loadInfo();
           }

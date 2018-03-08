@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/loginServices'
 import { Router } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
+import { AlertMan , messageAlert } from '../message-alert/alertMan';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private alertMan: AlertMan,
     private loginServices: LoginService,
     public spinnerMng : SpinnerMan
 ) { }
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit {
         this.spinnerMng.showSpinner(false);
       },
       err => {
-        localStorage.setItem('env', 'pro');
+        localStorage.setItem('env', 'pre');
         this.spinnerMng.showSpinner(false);
       }
     )
@@ -66,10 +68,11 @@ export class LoginComponent implements OnInit {
       res => {
         if(res.tokenSSO !== "error"){
           let mToken = decodeURIComponent(res.tokenSSO)
+          localStorage.setItem('sessionID', res.Cookie.substring(11));
           this.router.navigate([this.mPath], { queryParams: { token: mToken } });
           this.spinnerMng.showSpinner(false);
         } else {
-          alert("ERROR");
+          this.openAlert("Error", "", "Aceptar", "", 0);
           this.spinnerMng.showSpinner(false);
         }
       },
@@ -78,6 +81,12 @@ export class LoginComponent implements OnInit {
         this.spinnerMng.showSpinner(false);
       }
     );
+  }
+
+  // PARA EL MENSAJE DE ERROR
+  private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    this.alertMan.sendMessage(message);
   }
 
 }

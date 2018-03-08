@@ -3,7 +3,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { TokenMng } from '../token/tokenMng';
 import { LoginService } from '../services/loginServices';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 
 @Component({
@@ -32,9 +33,10 @@ export class TokenComponent implements OnInit {
 
   constructor(
     private tokenMng: TokenMng,
-    private serviceManager : LoginService,
+    private loginServices: LoginService,
     private alertMan: AlertMan,
-    private router: Router
+    private router: Router,
+    public spinnerMng : SpinnerMan
   ) {
 
     this.tokenType = localStorage.getItem("ttkn");
@@ -70,7 +72,7 @@ export class TokenComponent implements OnInit {
   }
   public isValid(){
     if(this.tokenMask.length == this.tokenLength){
-
+      this.spinnerMng.showSpinner(true);
       let body = {
         "datosEntrada" : {
           "banco" : {
@@ -91,7 +93,7 @@ export class TokenComponent implements OnInit {
         "token" : this.tokenMask
       }
 
-      this.serviceManager.postAlta(body)
+      this.loginServices.postAlta(body)
       .subscribe(
         res => {
           if(res.error.clave == "OK"){
@@ -99,17 +101,14 @@ export class TokenComponent implements OnInit {
             localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
             localStorage.setItem('horaEnvio',res.dto.horaEnvio);
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+            this.spinnerMng.showSpinner(false);
             this.router.navigate(['/status']);
           } else {
-            this.errorService("Error",res.error.message, "Aceptar", "info", 0);
+            this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
           }
         },
         err => {
-          //if(err.error.clave == "ERROR"){
-            this.errorService("Error",err.error.message, "Aceptar", "info", 0);
-          // } else {
-          //   this.errorService();
-          // }
+          this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
         }
       )
 
@@ -130,7 +129,7 @@ export class TokenComponent implements OnInit {
   }
 
   // PARA EL MENSAJE DE ERROR
-  private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+  private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
     var message = new messageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
