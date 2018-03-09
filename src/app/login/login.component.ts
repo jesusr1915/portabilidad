@@ -68,7 +68,9 @@ export class LoginComponent implements OnInit {
       res => {
         if(res.tokenSSO !== "error"){
           let mToken = decodeURIComponent(res.tokenSSO)
-          localStorage.setItem('sessionID', res.Cookie.substring(11));
+          if(res.tokenSSO === ""){
+            localStorage.setItem('sessionID', res.Cookie.substring(11));
+          }
           this.router.navigate([this.mPath], { queryParams: { token: mToken } });
           this.spinnerMng.showSpinner(false);
         } else {
