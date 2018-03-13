@@ -225,7 +225,7 @@ export class ViewAltaClienteComponent implements OnInit {
 
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
-          console.log("TOKEN VALIDATOR")
+          // console.log("TOKEN VALIDATOR")
             // SERVICIO DE VALIDADOR DE TOKEN
             this.loginServices.postValidator(this.tokenUrl)
             .subscribe(
@@ -258,7 +258,7 @@ export class ViewAltaClienteComponent implements OnInit {
               }
             );
           } else {
-            console.log("TOKEN DIABLITO")
+            // console.log("TOKEN DIABLITO")
             // SE EJECUTAN LOS SERVICIOS DE CARGA
             this.loadInfo();
           }

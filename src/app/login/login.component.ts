@@ -23,11 +23,12 @@ export class LoginComponent implements OnInit {
 ) { }
 
   ngOnInit() {
+    localStorage.clear();
     this.loadConfig();
   }
 
   setOption(selected){
-    console.log(selected);
+    // console.log(selected);
     switch(selected){
       case "1":
         this.mPath = "/";
@@ -82,7 +83,7 @@ export class LoginComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.spinnerMng.showSpinner(false);
       }
     );
