@@ -97,23 +97,31 @@ export class ViewActualizaCuentaComponent implements OnInit {
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
-        console.log("VALIDANDO TOKEN OAUTH");
         // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
         if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
           // SERVICIO DE VALIDADOR DE TOKEN
           this.loginServices.postValidator(this.tokenUrl)
           .subscribe(
             res => {
-              console.log("VALIDANDO TOKEN SSO");
               // VALIDADOR DE RESPUESTA DE TOKEN
               if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  let mToken = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
-                  localStorage.setItem('sessionID',mToken.sessionId.substring(11));
+                  let mToken: any;
+
+                  if(localStorage.getItem('env') == "dev"){
+                    mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                  } else if (localStorage.getItem('env') == "pre") {
+                    mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                  } else {
+                    mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                  }
+
+                  let totalSteps = mToken.telefono !== null ? 4 : 3;
+                  localStorage.setItem('sessionID', mToken.substring(11)); //.sessionId.substring(11));
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
               } else {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                this.errorService("Error", res.stokenValidatorResponse.mensaje, "", "", 0);
+                this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0);
               }
               // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
             },
