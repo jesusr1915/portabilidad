@@ -1,17 +1,17 @@
 <div class="controls minTop">
-      <input type="text" name="buc" placeholder="Cuenta" [(ngModel)]="bucValue">
+      <input autocomplete="off" type="text" name="buc" placeholder="Cuenta" [(ngModel)]="bucValue">
 </div>
 
 <div class="controls minTop">
-      <input type="password" name="pwd" placeholder="Contraseña de acceso" [(ngModel)]="nipValue">
+      <input autocomplete="off" type="password" name="pwd" placeholder="Contraseña de acceso" [(ngModel)]="nipValue">
 </div>
 
   <select #selectElem class="contentSelect minTop select-styled" (change)="setOption(selectElem.value)" >
         <option [value]="0"></option>
         <option [value]="1">Portabilidad</option>
         <option [value]="2">Consulta</option>
-        <!-- <option [value]="3">Inscripcion</option>
-        <option [value]="4">Modificacion</option> -->
+        <option [value]="3">Inscripcion</option>
+        <option [value]="4">Modificacion</option>
   </select>
 
 

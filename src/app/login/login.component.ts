@@ -41,6 +41,9 @@ export class LoginComponent implements OnInit {
       case "4":
         this.mPath = "/actualiza";
         break;
+      default:
+        this.mPath = "/";
+        break;
     }
   }
 
