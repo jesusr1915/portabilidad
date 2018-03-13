@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   bucValue = "";
   nipValue = "";
   mPath = "";
+  mVersion = "v1.0.0";
 
   constructor(
     private router: Router,
@@ -55,10 +56,13 @@ export class LoginComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
+        localStorage.setItem('version', res.VERSION);
+        this.mVersion = "v" + res.VERSION;
         this.spinnerMng.showSpinner(false);
       },
       err => {
         localStorage.setItem('env', 'pre');
+        localStorage.setItem('version', "v1.0.0");
         this.spinnerMng.showSpinner(false);
       }
     )
