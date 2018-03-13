@@ -317,6 +317,25 @@ export class ViewAltaClienteComponent implements OnInit {
     );
   }
 
+  loadBancosJson(){
+    this.loginServices.getBancosMock()
+    .subscribe(
+      res => {
+        this.spinnerMng.showSpinner(false);
+        if(res.error.clave == "OK"){
+          for(let arrayVal of res.dto){
+            let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
+            this.lBanks.push(temp);
+          }
+        }
+      },
+      err => {
+        this.spinnerMng.showSpinner(false); // CIERRA LOADER
+        this.openAlert("", "", "", "", 0);
+      }
+    );
+  }
+
   private loadInfo(){
     // SERVICIO DE SALDOS
     this.loginServices.getSaldos()
@@ -331,8 +350,7 @@ export class ViewAltaClienteComponent implements OnInit {
             // SE LLENA LA INFO DEL CLIENTE
             this.infoCardMng.sendMessage(res.dto);
             // SERVICIO DE CONSULTA DE BANCOS
-            // this.loginServices.postBancos()
-            this.loginServices.getBancosMock()
+            this.loginServices.postBancos()
             .subscribe(
               res => {
                 // SE LLENA EL LISTADO DE BANCOS
@@ -346,13 +364,15 @@ export class ViewAltaClienteComponent implements OnInit {
 
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 } else {
-                  this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                  this.openAlert(res.error.message);
+                  // this.spinnerMng.showSpinner(false); // CIERRA LOADER
+                  // this.openAlert(res.error.message);
+                  this.loadBancosJson();
                 }
               },
               err => {
-                this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                this.openAlert("", "", "", "", 0);
+                // this.spinnerMng.showSpinner(false); // CIERRA LOADER
+                // this.openAlert("", "", "", "", 0);
+                this.loadBancosJson();
               }
             );
           },
