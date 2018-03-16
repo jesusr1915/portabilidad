@@ -12,16 +12,14 @@
   <div class="row"><span>{{copiesVer.infoBank}}</span><span class="fright">{{valueBank}}</span></div>
   <div class="row last"><span>{{copiesVer.infoBirthdate}}</span><span class="fright">{{valueBirthdate}}</span></div>
 </div>
-<p class="question center">
-  {{copiesVer.inst2LblInit}} <strong class="black">{{copiesVer.inst2LblStrong}}</strong>
-  <br/>{{copiesVer.inst3LblInit}} <strong>{{copiesVer.inst3LblStrong}}</strong>
+<p class="question center" [innerHTML]="copieValidacion">
 </p>
 <div class="btnCont">
   <!-- <button [routerLink]="['']" class = "first" type="button" >{{copiesVer.btnBack}}</button> -->
   <!-- <button  type="button" (click)="showToken()" >{{copiesVer.btnCont}}</button> -->
   <a id="validaSesion" onclick="validaSesion()"></a>
-  <button type="button" onclick="requestToken()">{{copiesVer.btnCont}}</button>
-  <!-- <button type="button" (click)="showToken()">{{copiesVer.btnCont}}</button> -->
+  <button [hidden]="buttonToShow" type="button" onclick="requestToken()">{{copiesVer.btnCont}}</button>
+  <button [hidden]="!buttonToShow" type="button" (click)="continue()">{{copiesVer.btnCont}}</button>
 </div>
 <app-token></app-token>
 <app-message-alert></app-message-alert>

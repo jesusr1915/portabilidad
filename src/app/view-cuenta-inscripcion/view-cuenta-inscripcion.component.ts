@@ -145,6 +145,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
     }
 
     private startServices(){
+      // this.spinnerMng.showSpinner(true);
       this.loginServices.postOAuthToken()
       .subscribe(
         res=> {
@@ -156,18 +157,22 @@ export class ViewCuentaInscripcionComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                    let mToken: any;
+                    var mToken = {"sessionId": "", "telefono":""}
+                    let pAdicional: any
 
                     if(localStorage.getItem('env') == "dev"){
-                      mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                     } else if (localStorage.getItem('env') == "pre") {
-                      mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                      pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                     } else {
-                      mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                      pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                     }
 
+                    mToken.sessionId = pAdicional;
+                    mToken.telefono = "5582173246"
                     let totalSteps = mToken.telefono !== null ? 4 : 3;
-                    localStorage.setItem('sessionID', mToken.substring(11)); //.sessionId.substring(11));
+                    localStorage.setItem('sessionID', mToken.sessionId.substring(11));
+                    localStorage.setItem('totalSteps', totalSteps.toString());
                     // SE EJECUTAN LOS SERVICIOS DE CARGA
                     this.loadInfo();
                 } else {
@@ -205,7 +210,8 @@ export class ViewCuentaInscripcionComponent implements OnInit {
           this.spinnerMng.showSpinner(false); // CIERRA LOADER
         },
         err => {
-          this.errorService("Error",err.error.message, "Aceptar", "", 1);
+          this.errorService("Error",err.error.message, "Aceptar", "", 0);
+          this.spinnerMng.showSpinner(false); // CIERRA LOADER
         }
       )
     }
@@ -220,7 +226,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
           this.messageMan.sendMessage(res);
         },
         err => {
-          this.errorService("Error",err.error.message, "Aceptar", "", 1);
+          this.errorService("Error",err.error.message, "Aceptar", "", 0);
         }
       )
     }

@@ -24,6 +24,8 @@ export class ViewAltaVerifiqueComponent implements OnInit {
   @Input() valueBank = localStorage.getItem('banco');
   @Input() valueBirthdate = localStorage.getItem('birthday');
 
+  copieValidacion = "";
+  buttonToShow = false
   myExtObject: any;
   tipoToken: string;
   tokenSM: string;
@@ -48,7 +50,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     private loginServices: LoginService,
     private alertMan: AlertMan,
     private router: Router,
-    public spinnerMng : SpinnerMan
+    public spinnerMng: SpinnerMan,
   ) {
     (window as any).angularComponentRef = {
       zone: this.zone,
@@ -78,6 +80,14 @@ export class ViewAltaVerifiqueComponent implements OnInit {
         }
         window.scrollTo(0, 0)
     });
+
+    if(localStorage.getItem('totalSteps') === "4"){
+      this.buttonToShow = true;
+      this.copieValidacion = "Para continuar debe tener a la mano el teléfono celular que registró con nosotros, terminación **4242. Si usted no cuenta con este número por favor acuda a una sucursal.";
+    } else {
+      this.buttonToShow = false;
+      this.copieValidacion = this.copiesVer.inst2LblInit + "<strong class='black'>" + this.copiesVer.inst2LblStrong + "</strong>" +  "<br/>" + this.copiesVer.inst3LblInit + "<strong>" + this.copiesVer.inst3LblStrong + "</strong>"
+    }
   }
 
   ngAfterViewInit(){
@@ -156,6 +166,10 @@ export class ViewAltaVerifiqueComponent implements OnInit {
       }
     )
 
+  }
+
+  continue(){
+    this.router.navigate(['/otp']);
   }
 
   // PARA EL MENSAJE DE ERROR

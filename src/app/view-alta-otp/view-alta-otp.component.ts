@@ -15,6 +15,8 @@ export class ViewAltaOtpComponent implements OnInit {
 
   validCode = false;
   validDate = false;
+  public sms = "";
+  public birthdate = "";
   body = {
     "idModulo": "SMOV",
     "idParam": "0041"
@@ -46,7 +48,23 @@ export class ViewAltaOtpComponent implements OnInit {
         console.log("ERROR");
       }
     )
+  }
 
+  validateField(type: string){
+    if(type === "code"){
+      this.sms = this.sms.toString().replace(/[^0-9]/g, '');
+      if(this.sms.length == 8){
+        this.validCode = true;
+      } else {
+        this.validCode = false;
+      }
+    } else {
+      if(this.birthdate.length === 10){
+        this.validDate = true;
+      } else {
+        this.validDate = false;
+      }
+    }
   }
 
   isInvalid(){

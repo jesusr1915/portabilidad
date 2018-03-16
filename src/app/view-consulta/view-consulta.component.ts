@@ -118,20 +118,24 @@ export class ViewConsultaComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                    let mToken: any;
+                  var mToken = {"sessionId": "", "telefono":""}
+                  let pAdicional: any
 
-                    if(localStorage.getItem('env') == "dev"){
-                      mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                    } else if (localStorage.getItem('env') == "pre") {
-                      mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
-                    } else {
-                      mToken = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                    }
+                  if(localStorage.getItem('env') == "dev"){
+                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                  } else if (localStorage.getItem('env') == "pre") {
+                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                  } else {
+                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                  }
 
-                    let totalSteps = mToken.telefono !== null ? 4 : 3;
-                    localStorage.setItem('sessionID', mToken.substring(11)); //.sessionId.substring(11));
-                    // SE EJECUTAN LOS SERVICIOS DE CARGA
-                    this.loadInfo();
+                  mToken.sessionId = pAdicional;
+                  mToken.telefono = "5582173246"
+                  let totalSteps = mToken.telefono !== null ? 4 : 3;
+                  localStorage.setItem('sessionID', mToken.sessionId.substring(11));
+                  localStorage.setItem('totalSteps', totalSteps.toString());
+                  // SE EJECUTAN LOS SERVICIOS DE CARGA
+                  this.loadInfo();
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
                   this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0);
