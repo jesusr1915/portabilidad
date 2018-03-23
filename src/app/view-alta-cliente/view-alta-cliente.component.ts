@@ -236,18 +236,25 @@ export class ViewAltaClienteComponent implements OnInit {
                   let pAdicional: any
 
                   if(localStorage.getItem('env') == "dev"){
-                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                   } else if (localStorage.getItem('env') == "pre") {
-                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   } else {
-                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                   }
 
-                  mToken.sessionId = pAdicional;
-                  mToken.telefono = "5582173246"
-                  let totalSteps = mToken.telefono !== null ? 4 : 3;
+                  console.log("TOKENSSO", pAdicional);
+                  mToken = pAdicional;
+                  // mToken.sessionId = pAdicional;
+                  // mToken.telefono = "5582173246"
+                  let totalSteps = 3; //mToken.telefono !== null ? 4 : 3;
                   localStorage.setItem('sessionID', mToken.sessionId.substring(11));
+                  localStorage.setItem('phoneOTP', mToken.telefono);
                   localStorage.setItem('totalSteps', totalSteps.toString());
+                  this.stepMan.sendMessage(1,"Ingrese los datos de su nómina");
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
                 } else {

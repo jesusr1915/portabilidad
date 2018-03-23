@@ -37,6 +37,11 @@
       "inst3LblStrong":"Confirmar.",
       "btnBack":"Regresar",
       "btnCont":"Confirmar"
+    },
+    "inscripcion": {
+      "terminos": {
+        "texto": ""
+      }
     }
   }
 }

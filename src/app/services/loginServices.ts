@@ -83,7 +83,7 @@ export class LoginService{
     this.serviceUrlModificaSP = this.getUrlBase() + '/santanderplus/isModificarSantanderPlus';
     this.serviceUrlActualizaSP = this.getUrlBase() + '/santanderplus/insertaActualizaCuentasSantanderPlus';
     // OTP MAGICA
-    this.serviceUrlOtp = this.getUrlBase() + '/otp';
+    this.serviceUrlOtp = this.getUrlBase() + '/tokenmanager/generarOTP';
   }
 
   getConfig(){
@@ -182,6 +182,11 @@ export class LoginService{
     return this.getRequest(this.serviceUrlSaldos,this.options);
   }
 
+  getOtp(){
+    this.configHeader(false);
+    return this.getRequest(this.serviceUrlOtp,this.options);
+  }
+
   postBancosClabe(cuenta : string){
     this.configHeader(true);
     let urlSearchParams = {
@@ -207,12 +212,6 @@ export class LoginService{
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlDetalleConsulta,body,this.options);
-  }
-
-  postOtp(datosEntrada: any){
-    this.configHeader(true);
-    let body = JSON.stringify(datosEntrada);
-    return this.postRequest(this.serviceUrlOtp,body,this.options);
   }
 
   // =================== SERVICIOS DE INSCRIPCION DE CUENTA

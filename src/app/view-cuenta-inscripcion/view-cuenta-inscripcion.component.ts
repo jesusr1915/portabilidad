@@ -82,7 +82,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
         // SE LEE EL TOKEN DE LA URL
         this.tokenUrl = params.token
 
-        localStorage.setItem('backButton', "true");
+        // localStorage.setItem('backButton', "true");
         if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
           if(localStorage.getItem('backButton') !== "true"){
             this.reloadData();
@@ -110,6 +110,15 @@ export class ViewCuentaInscripcionComponent implements OnInit {
     }
 
     ngOnInit(){
+      //localStorage.clear();
+      this.copiesServ.postCopies()
+      .subscribe(
+        res => {
+          this.copies = res.datos.seleccion_cuenta;
+          this.terminosText = res.datos.terminos;
+          this.stepMan.sendMessage(1,"Seleccione una cuenta");
+        }
+      )
       // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
       this.spinnerMng.showSpinner(true);
       this.loginServices.getConfig()
@@ -125,15 +134,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
         }
       )
 
-      //localStorage.clear();
-      this.copiesServ.postCopies()
-      .subscribe(
-        res => {
-          this.copies = res.datos.seleccion_cuenta;
-          this.terminosText = res.datos.terminos;
-          this.stepMan.sendMessage(1,"Seleccione una cuenta");
-        }
-      )
+
     }
 
     reloadData(){
@@ -202,6 +203,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
 
     private loadInfo(){
       // SERVICIO DE SALDOS
+      this.spinnerMng.showSpinner(true);
       this.loginServices.getSaldosSP()
       .subscribe(
         res => {

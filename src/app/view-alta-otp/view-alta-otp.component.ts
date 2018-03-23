@@ -35,14 +35,16 @@ export class ViewAltaOtpComponent implements OnInit {
   }
 
   reenviar(){
-    this.loginServices.postOtp(this.body)
+    this.loginServices.getOtp()
   }
 
   continuar(){
-    this.loginServices.postOtp(this.body)
+    this.loginServices.getOtp()
     .subscribe(
       res => {
-        this.router.navigate(['/status']);
+        if(res.statusEnvio){
+          this.router.navigate(['/status']);
+        }
       },
       err => {
         console.log("ERROR");

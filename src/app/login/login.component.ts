@@ -79,8 +79,9 @@ export class LoginComponent implements OnInit {
           if(res.tokenSSO === ""){
             localStorage.setItem('sessionID', res.Cookie.substring(11));
           }
-          this.router.navigate([this.mPath], { queryParams: { token: mToken } });
           this.spinnerMng.showSpinner(false);
+          // console.log(res.tokenSSO);
+          this.router.navigate([this.mPath], { queryParams: { token: mToken } });
         } else {
           this.openAlert("Error", "", "Aceptar", "", 0);
           this.spinnerMng.showSpinner(false);
