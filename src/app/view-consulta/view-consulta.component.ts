@@ -141,13 +141,13 @@ export class ViewConsultaComponent implements OnInit {
                   this.loadInfo();
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                  this.openAlert("Error",res.stokenValidatorResponse.mensaje,"","",0);
+                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0);
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                this.openAlert("Error", "", "", "", 0);
+                this.errorService("Error", "", "", "", 0);
               }
             );
           } else {
@@ -157,7 +157,7 @@ export class ViewConsultaComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
-        this.openAlert("Error", "", "", "", 0);
+        this.errorService("Error", "", "", "", 0);
       }
     )
   }
