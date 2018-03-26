@@ -107,11 +107,14 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   private startServices(){
+    this.spinnerMng.showSpinner(true);
+    // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS
     this.loginServices.postOAuthToken()
     .subscribe(
       res=> {
           // SE EJECUTA LA PRIMERA VEZ PARA OBTENER EL SESSION ID DEL TOKEN SSO
           if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+          // console.log("TOKEN VALIDATOR")
             // SERVICIO DE VALIDADOR DE TOKEN
             this.loginServices.postValidator(this.tokenUrl)
             .subscribe(
@@ -122,28 +125,29 @@ export class ViewConsultaComponent implements OnInit {
                   let pAdicional: any
 
                   if(localStorage.getItem('env') == "dev"){
-                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                   } else if (localStorage.getItem('env') == "pre") {
-                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   } else {
-                    pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
                   }
 
-                  mToken.sessionId = pAdicional;
-                  mToken.telefono = "5582173246"
-                  let totalSteps = mToken.telefono !== null ? 4 : 3;
+                  mToken = pAdicional;
                   localStorage.setItem('sessionID', mToken.sessionId.substring(11));
-                  localStorage.setItem('totalSteps', totalSteps.toString());
                   // SE EJECUTAN LOS SERVICIOS DE CARGA
                   this.loadInfo();
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0);
+                  this.openAlert("Error",res.stokenValidatorResponse.mensaje,"","",0);
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
-                this.errorService("Error",err.error.message,"","",1);
+                this.spinnerMng.showSpinner(false); // CIERRA LOADER
+                this.openAlert("Error", "", "", "", 0);
               }
             );
           } else {
@@ -152,7 +156,8 @@ export class ViewConsultaComponent implements OnInit {
           }
       },
       err => {
-        this.errorService("Error",err.error.message,"","",1);
+        this.spinnerMng.showSpinner(false); // CIERRA LOADER
+        this.openAlert("Error", "", "", "", 0);
       }
     )
   }
