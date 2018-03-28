@@ -65,6 +65,30 @@ export class ViewActualizaCuentaComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    this.stepMan.sendMessage(1,"Seleccione la cuenta a inscribir");
+    this.loadConfig();
+  }
+
+  loadConfig(){
+    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.spinnerMng.showSpinner(true);
+    console.log("LOAD CONFIG");
+    this.loginServices.getConfig()
+    .subscribe(
+      res => {
+        localStorage.setItem('env', res.ENV_VAR);
+        localStorage.setItem('dom', res.ENV_DOM);
+        this.startServices();
+      },
+      err => {
+        localStorage.setItem('env', 'pro');
+        localStorage.setItem('dom', 'com');
+        this.startServices();
+      }
+    )
+  }
+
   reloadData(){
     localStorage.clear();
     // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
@@ -73,25 +97,6 @@ export class ViewActualizaCuentaComponent implements OnInit {
     }
   }
 
-
-  ngOnInit() {
-    this.stepMan.sendMessage(1,"Seleccione la cuenta a inscribir");
-
-    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
-    this.spinnerMng.showSpinner(true);
-    this.loginServices.getConfig()
-    .subscribe(
-      res => {
-        localStorage.setItem('env', res.ENV_VAR);
-        this.startServices();
-      },
-      err => {
-        localStorage.setItem('env', 'pre');
-        this.startServices();
-        // this.loadMock()
-      }
-    )
-  }
 
   private startServices(){
     this.spinnerMng.showSpinner(true);

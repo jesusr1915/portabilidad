@@ -121,20 +121,26 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       )
       // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
       this.spinnerMng.showSpinner(true);
+      this.loadConfig()
+    }
+
+    loadConfig(){
+      // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+      this.spinnerMng.showSpinner(true);
+      console.log("LOAD CONFIG");
       this.loginServices.getConfig()
       .subscribe(
         res => {
           localStorage.setItem('env', res.ENV_VAR);
+          localStorage.setItem('dom', res.ENV_DOM);
           this.startServices();
         },
         err => {
-          localStorage.setItem('env', 'pre');
+          localStorage.setItem('env', 'pro');
+          localStorage.setItem('dom', 'com');
           this.startServices();
-          // this.loadMock()
         }
       )
-
-
     }
 
     reloadData(){

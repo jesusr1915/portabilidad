@@ -57,26 +57,12 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   ngOnInit() {
-    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
-    this.spinnerMng.showSpinner(true);
-    this.loginServices.getConfig()
-    .subscribe(
-      res => {
-        localStorage.setItem('env', res.ENV_VAR);
-        this.startServices();
-      },
-      err => {
-        localStorage.setItem('env', 'pre');
-        this.startServices();
-        // this.loadMock();
-      }
-    )
+    this.loadConfig();
 
     // SUBSCRIPCION A LOS MENSAJES PARA DETECTAR CAMBIO EN OPCIONES DEL BOTON Y EN EL CAMBIO DE CARDS
     this.subscription = this._menuMan.getMessage()
     .subscribe(
       message => {
-        console.log("GETING MESSAGE MENU...")
         this.filterMoves(message.response);
       }
     )
@@ -89,7 +75,25 @@ export class ViewConsultaComponent implements OnInit {
 
     this._stepMan.sendMessage(0,"Consulta solicitud portabilidad");
     // this.filterMoves(1);
+  }
 
+  loadConfig(){
+    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+    this.spinnerMng.showSpinner(true);
+    console.log("LOAD CONFIG");
+    this.loginServices.getConfig()
+    .subscribe(
+      res => {
+        localStorage.setItem('env', res.ENV_VAR);
+        localStorage.setItem('dom', res.ENV_DOM);
+        this.startServices();
+      },
+      err => {
+        localStorage.setItem('env', 'pro');
+        localStorage.setItem('dom', 'com');
+        this.startServices();
+      }
+    )
   }
 
   // PARA EL MENSAJE DE ERROR
