@@ -43,13 +43,11 @@ export class StepperComponent implements OnInit {
     this.max_step = localStorage.getItem('totalSteps') !== null ? parseInt(localStorage.getItem('totalSteps')) : 3;
     if(step!=0)
     {
-      console.log("SHOW NAVBAR")
       this.visible = true;
       this.value_step = step;
       //this.value_label_step = this.instructions[step-1];
       this.widthbar = 100*(step/this.max_step);
     }else{
-      console.log("HIDE NAVBAR")
       this.visible = false;
     }
 
