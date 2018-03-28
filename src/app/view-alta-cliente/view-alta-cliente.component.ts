@@ -93,7 +93,7 @@ export class ViewAltaClienteComponent implements OnInit {
     });
 
     // localStorage.setItem('backButton', "true");
-    console.log("BACK", localStorage.setItem('backButton'));
+    console.log("BACK", localStorage.getItem('backButton'));
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
       if(localStorage.getItem('backButton') !== "true"){
         console.log("PRIMERA VEZ");
@@ -244,7 +244,7 @@ export class ViewAltaClienteComponent implements OnInit {
                     pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   }
 
-                  console.log("DEBUG", mToken.sessionID);
+                  console.log("DEBUG", mToken);
                   mToken = pAdicional;
                   // mToken.sessionId = pAdicional;
                   // mToken.telefono = "5582173246"
