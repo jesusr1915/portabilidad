@@ -235,14 +235,9 @@ export class ViewAltaClienteComponent implements OnInit {
                   var mToken = {"sessionId": "", "telefono":""}
                   let pAdicional: any
 
-                  if(localStorage.getItem('env') == "dev"){
-                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                  if(res.stokenValidatorResponse.PAdicional){
                     pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                  } else if (localStorage.getItem('env') == "pre") {
-                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
-                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
-                  } else {
-                    // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                  } else if(res.stokenValidatorResponse.pAdicional){
                     pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   }
 
