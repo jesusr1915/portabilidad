@@ -105,9 +105,10 @@ export class ViewAltaClienteComponent implements OnInit {
         localStorage.removeItem('backButton');
       }
     } else {
-      if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+      // if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+        console.log("PRIMERA VEZ");
         this.reloadData();
-      }
+      // }
     }
 
     this.subscription = this.termsMng.getMessage()
