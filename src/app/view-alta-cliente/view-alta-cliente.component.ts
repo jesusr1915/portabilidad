@@ -157,8 +157,8 @@ export class ViewAltaClienteComponent implements OnInit {
   loadConfig(){
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
     this.spinnerMng.showSpinner(true);
-    this.loginServices.getConfig()
     console.log("LOAD CONFIG");
+    this.loginServices.getConfig()
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
