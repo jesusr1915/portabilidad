@@ -96,11 +96,11 @@ export class ViewAltaClienteComponent implements OnInit {
     console.log("BACK", localStorage.setItem('backButton'));
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
       if(localStorage.getItem('backButton') !== "true"){
-        // console.log("PRIMERA VEZ");
+        console.log("PRIMERA VEZ");
         this.reloadData();
       } else {
         // PARA RECUPERAR LOS DATOS DE LA PANTALLA
-        // console.log("BOTON DE BACK");
+        console.log("BOTON DE BACK");
         localStorage.setItem('fillData','true');
         localStorage.removeItem('backButton');
       }
@@ -158,6 +158,7 @@ export class ViewAltaClienteComponent implements OnInit {
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
     this.spinnerMng.showSpinner(true);
     this.loginServices.getConfig()
+    console.log("LOAD CONFIG");
     .subscribe(
       res => {
         localStorage.setItem('env', res.ENV_VAR);
@@ -181,6 +182,7 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   reloadData(){
+    console.log("CLEAR LOCALSTORAGE")
     localStorage.clear();
   }
 
