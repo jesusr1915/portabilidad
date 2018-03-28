@@ -162,7 +162,7 @@ export class ViewAltaClienteComponent implements OnInit {
         localStorage.setItem('env', res.ENV_VAR);
       },
       err => {
-        localStorage.setItem('env', 'pre');
+        localStorage.setItem('env', 'pro');
       }
     )
   }
@@ -243,7 +243,7 @@ export class ViewAltaClienteComponent implements OnInit {
                     pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   } else {
                     // pAdicional = decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)); // JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   }
 
                   console.log("TOKENSSO", pAdicional);

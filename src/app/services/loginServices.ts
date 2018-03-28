@@ -8,8 +8,10 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 @Injectable()
 export class LoginService{
   private env: string;
-  private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud.com';
-  private urlLogin = 'https://sp-login-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud.com';
+  private urlDomain = ".com";
+
+  private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud' + this.urlDomain;
+  private urlLogin = 'https://sp-login-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud' + this.urlDomain;
 
   private serviceConfig = '/config.json';
   private serviceOAuth: string;
@@ -58,11 +60,11 @@ export class LoginService{
   }
 
   getUrlBase(){
-    return this.urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud.corp';
+    return this.urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud' + this.urlDomain;
   }
 
   getUrlLogin(){
-    return this.urlLogin = 'https://sp-login-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud.com/login';
+    return this.urlLogin = 'https://sp-login-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud' + this.urlDomain + '/login';
   }
 
   getUrls(){
