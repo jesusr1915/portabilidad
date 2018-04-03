@@ -82,7 +82,7 @@ export class CardsComponent implements OnInit, OnDestroy {
   }
 
   setCurrentLocalCard(cards:any){
-    if(cards.indicadorBloqueo == "S"){
+    if(cards.indicadorBloqueo === "S"){
       localStorage.setItem('validAccount','false');
       var message = new messageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info",0);
       this.alertMan.sendMessage(message);

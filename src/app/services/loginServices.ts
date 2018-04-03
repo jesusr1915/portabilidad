@@ -275,7 +275,7 @@ export class LoginService{
         this.token = response.json().access_token;
         localStorage.setItem('bearer', this.token);
       }
-
+      
       return response.json()
       })
       .catch((e: any) => {

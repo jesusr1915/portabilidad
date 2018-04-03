@@ -22,7 +22,8 @@ export class ViewDetalleSolicitudComponent implements OnInit {
   dateAcceptance = "";
   rejectionMotive = "";
   tipoSolicitud = "";
-  envres = ""
+  envres = "";
+  originOperation = "";
 
   constructor(
     private _stepMan : StepMan,
@@ -42,8 +43,10 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     this.hoursOperation = localStorage.getItem('hoursOperation');
     this.referenceOperation = localStorage.getItem('referenceOperation');
     this.dateAcceptance = localStorage.getItem('dateAcceptance');
+    this.originOperation = localStorage.getItem('originOperation');
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
-      this.rejectionMotive = localStorage.getItem('rejectionMotive')
+      this.rejectionMotive = localStorage.getItem('rejectionMotive') === "RI" ? "INTERNET" : "SUCURSAL"
+
     } else {
       this.rejectionMotive = "";
     }

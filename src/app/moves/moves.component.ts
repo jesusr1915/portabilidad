@@ -24,6 +24,7 @@ export class MovesComponent implements OnInit {
   @Input() dateAcceptance;
   @Input() rejectionMotive;
   @Input() tipoSolicitud;
+  @Input() originOperation;
 
   @Input() imagePath;
   classDelivery;
@@ -69,6 +70,7 @@ export class MovesComponent implements OnInit {
     localStorage.setItem('dateAcceptance',this.dateAcceptance);
     localStorage.setItem('rejectionMotive',this.rejectionMotive);
     localStorage.setItem('tipoSolicitud',this.tipoSolicitud);
+    localStorage.setItem('originOperation', this.originOperation);
     this.router.navigate(['/detalleConsulta']);
   }
 
