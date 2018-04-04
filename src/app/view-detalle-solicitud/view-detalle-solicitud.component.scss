@@ -12,6 +12,9 @@
     width: auto;
     height: auto;
     margin: 0;
+    &.rechazada{
+      color: #e80004;
+    }
   }
 }
 

@@ -71,6 +71,7 @@ export class MovesComponent implements OnInit {
     localStorage.setItem('rejectionMotive',this.rejectionMotive);
     localStorage.setItem('tipoSolicitud',this.tipoSolicitud);
     localStorage.setItem('originOperation', this.originOperation);
+    localStorage.setItem('valueEstatus', this.valueEstatus);
     this.router.navigate(['/detalleConsulta']);
   }
 

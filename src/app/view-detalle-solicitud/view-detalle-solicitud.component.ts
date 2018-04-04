@@ -24,6 +24,8 @@ export class ViewDetalleSolicitudComponent implements OnInit {
   tipoSolicitud = "";
   envres = "";
   originOperation = "";
+  imgStatus = "assets/imgs/ico-cta-exitosa.svg";
+  classStatus = "aceptada"
 
   constructor(
     private _stepMan : StepMan,
@@ -43,19 +45,29 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     this.hoursOperation = localStorage.getItem('hoursOperation');
     this.referenceOperation = localStorage.getItem('referenceOperation');
     this.dateAcceptance = localStorage.getItem('dateAcceptance');
-    this.originOperation = localStorage.getItem('originOperation');
+    this.originOperation = localStorage.getItem('originOperation') === "RI" ? "INTERNET" : "SUCURSAL"
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
-      this.rejectionMotive = localStorage.getItem('rejectionMotive') === "RI" ? "INTERNET" : "SUCURSAL"
+      this.rejectionMotive = localStorage.getItem('rejectionMotive')
+
 
     } else {
       this.rejectionMotive = "";
     }
 
     this.tipoSolicitud = localStorage.getItem('tipoSolicitud');
-    if(this.tipoSolicitud == "R")
+    if(this.tipoSolicitud == "R"){
       this.envres = "RECEPCIÓN"
-    else
+    } else {
       this.envres = "ENVÍO"
+    }
+    this.valueStatus = localStorage.getItem('valueEstatus');
+    if(this.valueStatus === "RECHAZADA"){
+      this.imgStatus = "assets/imgs/ico-rechazada.svg";
+      this.classStatus = "rechazada";
+    } else  {
+      this.imgStatus = "assets/imgs/ico-cta-exitosa.svg";
+      this.classStatus = "aceptada";
+    }
 
   }
 
