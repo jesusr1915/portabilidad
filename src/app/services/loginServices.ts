@@ -38,6 +38,9 @@ export class LoginService{
   data: any = {};
   token = "";
 
+  oldConsoleLog = null;
+  pub = {};
+
   constructor(public http:Http, public spinnerMng : SpinnerMan) {
     // PORTABILIDAD
     this.serviceOAuth = this.getUrlBase() + '/token';
@@ -275,7 +278,7 @@ export class LoginService{
         this.token = response.json().access_token;
         localStorage.setItem('bearer', this.token);
       }
-      
+
       return response.json()
       })
       .catch((e: any) => {
@@ -307,4 +310,5 @@ export class LoginService{
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
 
   }
+
 }

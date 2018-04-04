@@ -32,9 +32,11 @@ export class CardsComponent implements OnInit, OnDestroy {
     .subscribe(
       message => {
         if(message.response["dto"]){
+          console.log("MULTIPLE VALUE");
           this.setValues(this.keys,message);
           this.newClass="contentCarr"
         }else if(message.response["alias"]){
+          console.log("ONE VALUE");
           this.setOneValue(message.response);
           this.newClass="contentCarr verifica"
         }
@@ -110,6 +112,7 @@ export class CardsComponent implements OnInit, OnDestroy {
 
 
   private setSly():void {
+    console.log("SLY");
     let frame:any;
     let local = this;
     setTimeout(()=> {
@@ -150,6 +153,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     $(window).resize(function(e) {
       frame.reload();
       if(localStorage.getItem('numeroCuenta') !== ""){
+          console.log("ONE VALUE");
           frame.activatePage(parseInt(localStorage.getItem('selectedAccountIndex')), false);
       }
     });
