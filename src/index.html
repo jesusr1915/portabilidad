@@ -47,7 +47,9 @@
             responseToken('', '', '', mensaje);
           }
         );
-        // promise.run();
+        if (typeof promise.run !== "undefined") {
+          promise.run();
+        }
       }
 
       function responseToken(tokenString,tipoOTP,date,message){
