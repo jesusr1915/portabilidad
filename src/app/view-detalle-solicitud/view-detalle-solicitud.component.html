@@ -54,8 +54,8 @@
 o rechazo </p>
   <p class = "rigth" >{{dateAcceptance}}</p>
 </div>
-<div class ="divider"></div>
-<div class = "contentDatos">
+<div class ="divider" [hidden]="hiderejectionMotive"></div>
+<div class = "contentDatos" [hidden]="hiderejectionMotive">
   <p class = "left" > Motivo de rechazo </p>
   <p class = "rigth" >{{rejectionMotive}}</p>
 </div>
@@ -64,6 +64,7 @@ o rechazo </p>
   <p class = "left" > Origen de operación </p>
   <p class = "rigth" >{{originOperation}}</p>
 </div>
+<p class="footnote-trade">Banco Santander (México), S.A.</p>
 <!-- <div class="btnCont">
   <button type="button" (click)="goBack()">Regresar</button>
 </div> -->
