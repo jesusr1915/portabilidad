@@ -48,7 +48,6 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     this.originOperation = localStorage.getItem('originOperation') === "RI" ? "INTERNET" : "SUCURSAL"
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
       this.rejectionMotive = localStorage.getItem('rejectionMotive')
-      console.log("REJECTION");
 
     } else {
       this.rejectionMotive = "";
