@@ -56,6 +56,9 @@ export class CardsComponent implements OnInit, OnDestroy {
     let index = 0;
     for(let key of this.keys){
       for(const value of (message[key])){
+
+        if(value.indicadorBloqueo === "N"){
+
           if(value.alias == ""){
             value.alias = value.tipoProducto;
           }
@@ -70,6 +73,9 @@ export class CardsComponent implements OnInit, OnDestroy {
             localStorage.setItem('selectedAccountIndex', index.toString());
           }
           index++;
+
+        }
+        
       }
     }
 

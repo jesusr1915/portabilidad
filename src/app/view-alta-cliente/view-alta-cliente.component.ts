@@ -93,20 +93,16 @@ export class ViewAltaClienteComponent implements OnInit {
     });
 
     // localStorage.setItem('backButton', "true");
-    console.log("BACK", localStorage.getItem('backButton'));
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
       if(localStorage.getItem('backButton') !== "true"){
-        console.log("PRIMERA VEZ");
         this.reloadData();
       } else {
         // PARA RECUPERAR LOS DATOS DE LA PANTALLA
-        console.log("BOTON DE BACK");
         localStorage.setItem('fillData','true');
         localStorage.removeItem('backButton');
       }
     } else {
       // if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
-        console.log("PRIMERA VEZ");
         this.reloadData();
       // }
     }
@@ -158,7 +154,6 @@ export class ViewAltaClienteComponent implements OnInit {
   loadConfig(){
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
     this.spinnerMng.showSpinner(true);
-    console.log("LOAD CONFIG");
     this.loginServices.getConfig()
     .subscribe(
       res => {
