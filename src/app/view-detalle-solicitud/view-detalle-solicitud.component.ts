@@ -67,6 +67,7 @@ export class ViewDetalleSolicitudComponent implements OnInit {
       this.imgStatus = "assets/imgs/ico-cta-exitosa.svg";
       this.classStatus = "aceptada";
     }
+    console.log("DETALLE SOLICITUD")
 
   }
 

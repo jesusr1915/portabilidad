@@ -165,7 +165,7 @@ export class ViewAltaClienteComponent implements OnInit {
         localStorage.setItem('env', res.ENV_VAR);
         localStorage.setItem('dom', res.ENV_DOM);
         if(res.ENV_LOG === "false"){
-          window['console']['log'] = function() {};
+          console.log = function() {};
         }
       },
       err => {
