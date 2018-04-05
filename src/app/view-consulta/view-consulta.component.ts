@@ -347,5 +347,10 @@ export class ViewConsultaComponent implements OnInit {
         this.totalMov.push(newMove);
       }
     }
+    this.totalMov = this.totalMov.sort((a, b) => {
+      if (a.fechaEnvio < b.fechaEnvio) return 1;
+      else if (a.fechaEnvio > b.fechaEnvio) return -1;
+      else return 0;
+    });
   }
 }
