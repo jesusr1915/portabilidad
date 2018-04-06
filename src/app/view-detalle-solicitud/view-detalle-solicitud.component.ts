@@ -27,6 +27,7 @@ export class ViewDetalleSolicitudComponent implements OnInit {
   originOperation = "";
   imgStatus = "assets/imgs/ico-cta-exitosa.svg";
   classStatus = "aceptada"
+  ocultar = "";
 
   constructor(
     private _stepMan : StepMan,
@@ -47,12 +48,17 @@ export class ViewDetalleSolicitudComponent implements OnInit {
     this.referenceOperation = localStorage.getItem('referenceOperation');
     this.dateAcceptance = localStorage.getItem('dateAcceptance');
     this.originOperation = localStorage.getItem('originOperation') === "RI" ? "INTERNET" : "SUCURSAL"
-    if(localStorage.getItem('rejectionMotive') !== "undefined" && localStorage.getItem('rejectionMotive') !== undefined && localStorage.getItem('rejectionMotive') !== null){
+    this.rejectionMotive = localStorage.getItem('rejectionMotive')
+
+    if(this.rejectionMotive !== "undefined" && this.rejectionMotive !== undefined && this.rejectionMotive !== null && this.rejectionMotive !== ""){
       this.rejectionMotive = localStorage.getItem('rejectionMotive')
       this.hiderejectionMotive = false;
+      this.ocultar = "no-hidden"
     } else {
       this.hiderejectionMotive = true;
+      this.ocultar = "hidden"
     }
+
 
     this.tipoSolicitud = localStorage.getItem('tipoSolicitud');
     if(this.tipoSolicitud == "R"){
@@ -61,14 +67,18 @@ export class ViewDetalleSolicitudComponent implements OnInit {
       this.envres = "ENVÍO"
     }
     this.valueStatus = localStorage.getItem('valueEstatus');
-    if(this.valueStatus === "RECHAZADA"){
+    this.valueStatus = this.valueStatus.toLowerCase();
+    if(this.valueStatus === "rechazada"){
       this.imgStatus = "assets/imgs/ico-rechazada.svg";
       this.classStatus = "rechazada";
+    } else if(this.valueStatus === "solicitada") {
+      this.imgStatus = "assets/imgs/ico-cta-exitosa.svg";
+      this.classStatus = "aceptada";
+      this.valueStatus = "de portabilidad \n realizada exitosamente";
     } else  {
       this.imgStatus = "assets/imgs/ico-cta-exitosa.svg";
       this.classStatus = "aceptada";
     }
-    console.log("DETALLE SOLICITUD")
 
   }
 

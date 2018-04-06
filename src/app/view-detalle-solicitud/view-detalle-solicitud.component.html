@@ -1,6 +1,6 @@
 <div class = "contentTop" >
   <img src="{{imgStatus}}" alt="iconCard" >
-  <p class="{{classStatus}}"> SOLICITUD {{valueStatus}}</p>
+  <p class="{{classStatus}}"> Solicitud {{valueStatus}}</p>
 </div>
 <span>{{envres}} de Nómina</span>
 <div class ="divider"></div>
@@ -54,8 +54,8 @@
 o rechazo </p>
   <p class = "rigth" >{{dateAcceptance}}</p>
 </div>
-<div class ="divider" [hidden]="hiderejectionMotive"></div>
-<div class = "contentDatos" [hidden]="hiderejectionMotive">
+<div class ="divider {{ocultar}}"></div>
+<div class = "contentDatos {{ocultar}}">
   <p class = "left" > Motivo de rechazo </p>
   <p class = "rigth" >{{rejectionMotive}}</p>
 </div>
