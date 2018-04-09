@@ -18,6 +18,7 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 import { JavaScriptInterface } from 'interfaces/JavaScriptInterface';
 
 declare var Connect: JavaScriptInterface;
+declare var ga: any;
 
 @Component({
   selector: 'app-view-alta-cliente',
@@ -429,6 +430,11 @@ export class ViewAltaClienteComponent implements OnInit {
 
   private onSaveTermChanged(value:boolean){
     this.validTerms = value;
+    ga('send', 'event', {
+      eventCategory: 'terminos',
+      eventAction: 'aceptarTerminos',
+      eventValue: 1
+    });
   }
 
   // PARA EL MENSAJE DE ERROR
@@ -464,6 +470,7 @@ export class ViewAltaClienteComponent implements OnInit {
       this.bankDisable = false;
       this.lUsers = this.lBanks;
     }
+
   }
 
   onKey(event: any) { // inputs de tarjeta
@@ -558,6 +565,21 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   onBtnActionClickedV() {
+
+    ga('send', 'event', {
+      eventCategory: 'tipoOrigen',
+      eventLabel: this.tipoCuenta,
+      eventAction: 'seleccion',
+      eventValue: 1
+    });
+    ga('send', 'event', {
+      eventCategory: 'bancoOrigen',
+      eventLabel: this.curUser[0].Name,
+      eventAction: 'seleccion',
+      eventValue: 1
+    });
+
+
     localStorage.setItem('tarjet',this.tarjetValue);
     localStorage.setItem('idBanco',this.curUser[0].id);
     localStorage.setItem('banco',this.curUser[0].Name);

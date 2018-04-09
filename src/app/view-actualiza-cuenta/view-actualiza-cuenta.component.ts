@@ -79,11 +79,14 @@ export class ViewActualizaCuentaComponent implements OnInit {
       res => {
         localStorage.setItem('env', res.ENV_VAR);
         localStorage.setItem('dom', res.ENV_DOM);
+        if(res.ENV_LOG === "false"){
+          console.log = function() {};
+        }
         this.startServices();
       },
       err => {
-        localStorage.setItem('env', 'pro');
-        localStorage.setItem('dom', 'com');
+        localStorage.setItem('env', 'pre');
+        localStorage.setItem('dom', 'corp');
         this.startServices();
       }
     )

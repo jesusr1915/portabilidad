@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+
+declare var ga: any;
 
 @Component({
   selector: 'app-root',
@@ -6,4 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent{
+  constructor(public router: Router){
+    this.router.events.subscribe(event => {
+          if (event instanceof NavigationEnd) {
+            ga('set', 'page', event.urlAfterRedirects);
+            ga('send', 'pageview');
+          }
+        });
+    }
 }

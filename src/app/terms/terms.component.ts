@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { terminos_class} from 'interfaces/copiesInterface';
 import { TermMan } from '../terms/termMng';
 
+declare var ga: any;
+
 @Component({
   selector: 'app-terms',
   templateUrl: './terms.component.html',
@@ -23,6 +25,13 @@ export class TermsComponent implements OnInit {
     this.terminosText = message;
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
+
+    ga('send', 'event', {
+      eventCategory: 'terminosModal',
+      eventAction: 'visualizar',
+      eventValue: 1
+    });
+
   }
 
   public returnSubmit(){

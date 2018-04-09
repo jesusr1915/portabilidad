@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
-
 import { SpinnerMan } from '../spinner-component/spinnerMng';
+
+declare var ga: any;
 
 @Injectable()
 export class LoginService{
@@ -282,7 +283,11 @@ export class LoginService{
       return response.json()
       })
       .catch((e: any) => {
-        // this.spinnerMng.showSpinner(false);
+        ga('send', 'event', {
+          eventCategory: 'error',
+          eventAction: 'error',
+          eventValue: 1
+        });
         this.spinnerMng.showSpinner(false);
         return Observable.throw(
           e.json()

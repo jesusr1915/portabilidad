@@ -9,6 +9,8 @@ import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
+declare var ga: any;
+
 @Component({
   selector: 'app-view-alta-verifique',
   templateUrl: './view-alta-verifique.component.html',
@@ -25,7 +27,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
   @Input() valueBirthdate = localStorage.getItem('birthday');
 
   copieValidacion = "";
-  buttonToShow = false
+  hideToken = false
   myExtObject: any;
   tipoToken: string;
   tokenSM: string;
@@ -82,10 +84,10 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     });
 
     if(localStorage.getItem('totalSteps') === "4"){
-      this.buttonToShow = true;
+      this.hideToken = true;
       this.copieValidacion = "Para continuar debe tener a la mano el teléfono celular que registró con nosotros, terminación **4242. Si usted no cuenta con este número por favor acuda a una sucursal.";
     } else {
-      this.buttonToShow = false;
+      this.hideToken = false;
       this.copieValidacion = this.copiesVer.inst2LblInit + "<strong class='black'>" + this.copiesVer.inst2LblStrong + "</strong>" +  "<br/>" + this.copiesVer.inst3LblInit + "<strong>" + this.copiesVer.inst3LblStrong + "</strong>"
     }
   }
@@ -110,10 +112,12 @@ export class ViewAltaVerifiqueComponent implements OnInit {
   // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
   receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
     this.zone.run(() => {
-      if(token !== '')
+      if(token !== ''){
         this.responseToken(token, tipoOTP, date);
-      else
-        this.openAlert("", message, "", "", 0);
+      } else {
+        console.log(message);
+        //this.openAlert("", message, "", "", 0);
+      }
     });
   }
 
@@ -122,6 +126,16 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     this.tokenSM = mToken;
     this.tipoOTP = mTipoOTP;
     this.date = mDate;
+
+    let tokenTipo = mTipoOTP != "" ? "Token" : "SuperToken"
+
+    ga('send', 'event', {
+      eventCategory: 'token',
+      eventLabel: tokenTipo,
+      eventAction: 'tipoToken',
+      eventValue: 1
+    });
+
     this.sendAltaService();
   }
 
