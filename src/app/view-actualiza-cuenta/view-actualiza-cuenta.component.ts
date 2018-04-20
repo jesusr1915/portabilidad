@@ -197,7 +197,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
       },
       err => {
         if(err.error.clave == "SAN123-NOINSCRITO"){
-          this.errorService("Error", err.error.message, "Aceptar", "", 0); //1
+          this.errorService("", err.error.message, "Aceptar", "", 0); //1
         } else {
           this.errorService("Error", err.error.message, "Aceptar", "", 0);
         }

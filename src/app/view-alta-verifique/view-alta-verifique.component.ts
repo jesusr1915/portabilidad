@@ -127,7 +127,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     this.tipoOTP = mTipoOTP;
     this.date = mDate;
 
-    let tokenTipo = mTipoOTP != "" ? "Token" : "SuperToken"
+    let tokenTipo = mTipoOTP != "" ? "SuperToken" : "Token"
 
     ga('send', 'event', {
       eventCategory: 'token',
