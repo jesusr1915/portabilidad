@@ -68,7 +68,7 @@ export class LoginService{
   }
 
   getUrlLogin(){
-    return this.urlLogin = 'https://sp-login-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud.' + localStorage.getItem('dom') + '/login';
+    return this.urlLogin = 'https://sp-login-mxsantanderplus1-' + localStorage.getItem('env') + '.appls.cto1.paas.gsnetcloud.corp/login';
   }
 
   getUrls(){
