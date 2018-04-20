@@ -32,6 +32,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
   value_numCuentaRaw = "";
   value_cuentaMovil = "";
   ctaSantanderPlus = "";
+  subscriptionM: Subscription;
 
   constructor(
     private loginServices: LoginService,
@@ -63,11 +64,23 @@ export class ViewActualizaCuentaComponent implements OnInit {
         this.reloadData();
       }
     });
+
+    this.subscriptionM = this.alertMan.getMessage()
+    .subscribe(
+      message => {
+        if(message.title == "done"){
+          this.startServices();
+          // this.loadMock()
+        }
+      }
+    )
+
   }
 
   ngOnInit() {
     this.stepMan.sendMessage(1,"Seleccione la cuenta a inscribir");
     this.loadConfig();
+    this.errorService("", "Usted está iniciando el proceso de cambio de cuenta inscrita a Santander Plus. Esta opción le permitirá recibir los beneficios de Santander Plus en una cuenta diferente a la seleccionada en el proceso de inscripción. <br/><br/> Por favor cualquier duda o aclaración comuníquese a la línea de Santander Plus al 01800 0101123.", "Aceptar", "", 3);
   }
 
   loadConfig(){
@@ -82,12 +95,12 @@ export class ViewActualizaCuentaComponent implements OnInit {
         if(res.ENV_LOG === "false"){
           console.log = function() {};
         }
-        this.startServices();
+        // this.startServices();
       },
       err => {
         localStorage.setItem('env', 'pre');
         localStorage.setItem('dom', 'corp');
-        this.startServices();
+        // this.startServices();
       }
     )
   }
@@ -197,7 +210,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
       },
       err => {
         if(err.error.clave == "SAN123-NOINSCRITO"){
-          this.errorService("", err.error.message, "Aceptar", "", 0); //1
+          this.errorService("", err.error.message, "Aceptar", "", 1); //1
         } else {
           this.errorService("Error", err.error.message, "Aceptar", "", 0);
         }

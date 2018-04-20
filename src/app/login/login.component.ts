@@ -57,12 +57,14 @@ export class LoginComponent implements OnInit {
       res => {
         localStorage.setItem('env', res.ENV_VAR);
         localStorage.setItem('version', res.VERSION);
+        localStorage.setItem('dom', res.ENV_DOM);
         this.mVersion = "v" + res.VERSION;
         this.spinnerMng.showSpinner(false);
       },
       err => {
         localStorage.setItem('env', 'pre');
         localStorage.setItem('version', "v1.0.0");
+        localStorage.setItem('dom', 'corp');
         this.spinnerMng.showSpinner(false);
       }
     )
