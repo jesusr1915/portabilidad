@@ -14,6 +14,8 @@ export class LoginService{
   private urlBase = 'https://sp-lightweight-gateway-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud.' + this.urlDomain;
   private urlLogin = 'https://sp-login-mxsantanderplus1-'+ this.env +'.appls.cto1.paas.gsnetcloud.' + this.urlDomain;
 
+  private serviceUrlLogin: string;
+
   private serviceConfig = '/config.json';
   private serviceOAuth: string;
   private serviceValidator: string;
@@ -43,6 +45,8 @@ export class LoginService{
   pub = {};
 
   constructor(public http:Http, public spinnerMng : SpinnerMan) {
+    // LOGIN
+    this.serviceUrlLogin = this.getUrlBase() + '/Login/login';
     // PORTABILIDAD
     this.serviceOAuth = this.getUrlBase() + '/token';
     this.serviceValidator = this.getUrlBase() + '/tokenmanager/tokenValidatorWS'
@@ -72,6 +76,8 @@ export class LoginService{
   }
 
   getUrls(){
+    // LOGIN
+    this.serviceUrlLogin = this.getUrlBase() + '/Login/login';
     // PORTABILIDAD
     this.serviceOAuth = this.getUrlBase() + '/token';
     this.serviceValidator = this.getUrlBase() + '/tokenmanager/tokenValidatorWS'
@@ -98,9 +104,10 @@ export class LoginService{
   }
 
   postLogin(datosEntrada: any){
+    this.getUrls();
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
-    return this.postRequest(this.getUrlLogin(),body,this.options);
+    return this.postRequest(this.serviceUrlLogin,body,this.options);
   }
 
   postOAuthToken(){
