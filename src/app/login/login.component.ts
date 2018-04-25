@@ -72,28 +72,37 @@ export class LoginComponent implements OnInit {
 
   clicLogin(){
     this.spinnerMng.showSpinner(true);
-    let datos = {"buc": this.bucValue, "nip": this.nipValue};
-    this.loginServices.postLogin(datos)
+
+    this.loginServices.postOAuthToken()
     .subscribe(
       res => {
-        if(res.tokenSSO !== "error"){
-          let mToken = decodeURIComponent(res.tokenSSO)
-          if(res.tokenSSO === ""){
-            localStorage.setItem('sessionID', res.Cookie.substring(11));
+        let datos = {"buc": this.bucValue, "nip": this.nipValue};
+        this.loginServices.postLogin(datos)
+        .subscribe(
+          res => {
+            if(res.tokenSSO !== "error"){
+              let mToken = decodeURIComponent(res.tokenSSO)
+              if(res.tokenSSO === ""){
+                localStorage.setItem('sessionID', res.Cookie.substring(11));
+              }
+              this.spinnerMng.showSpinner(false);
+              // console.log(res.tokenSSO);
+              this.router.navigate([this.mPath], { queryParams: { token: mToken } });
+            } else {
+              this.openAlert("Error", "", "Aceptar", "", 0);
+              this.spinnerMng.showSpinner(false);
+            }
+          },
+          err => {
+            // console.log(err);
+            this.spinnerMng.showSpinner(false);
           }
-          this.spinnerMng.showSpinner(false);
-          // console.log(res.tokenSSO);
-          this.router.navigate([this.mPath], { queryParams: { token: mToken } });
-        } else {
-          this.openAlert("Error", "", "Aceptar", "", 0);
-          this.spinnerMng.showSpinner(false);
-        }
+        );
       },
       err => {
-        // console.log(err);
         this.spinnerMng.showSpinner(false);
       }
-    );
+    )
   }
 
   // PARA EL MENSAJE DE ERROR
