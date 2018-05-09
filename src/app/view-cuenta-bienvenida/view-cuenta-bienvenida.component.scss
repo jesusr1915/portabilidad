@@ -1,34 +1,41 @@
 .bienvenido-a {
-	width: 325px;
+	// width: 325px;
+	width: 100%;
 	height: 24px;
 	font-size: 18px;
 	font-weight: 600;
 	text-align: center;
 	color: #424242;
 	padding:0 15px;
+	margin:0px auto;
 }
 .imagen{
 	text-align: center;
 }
 .logo-santander-plus {
-	width: 184px;
+	// width: 184px;
+	width: 100%;
 	height: 34px;
 	object-fit: contain;
 	text-align: center;
 	margin:20px;
 }
 .para-comenzar-a-reci {
-	width: 334px;
+	// width: 334px;
+	width: 100%;
 	height: 397px;
 	font-size: 16px;
 	font-weight: 300;
 	text-align: left;
 	color: #424242;
+	margin:0px auto;
 }
 
 .para-comenzar-a-reci .text-style-1 {
 	font-weight: 600;
 	padding:0 15px;
+	margin:0px auto;
+	text-align: center;
 }
 
 .para-comenzar-a-reci .text-style-2 {
@@ -39,31 +46,40 @@
 .para-comenzar-a-reci .text-style-3 {
 	font-weight: normal;
 	padding:0 15px;
+	text-align: center;
 }
 .para-comenzar-a-reci .text-style-4 {
 	margin-top: 15px;
 	font-weight: normal;
 	padding:0 15px;
+	text-align: center;
 }
 
 .por-favor-cualquier {
-	width: 323px;
+	// width: 323px;
+	width: 100%;
 	height: 88px;
 	font-size: 16px;
 	text-align: center;
 	color: #424242;
+	margin:0px auto;
 }
 .por-favor-cualquier {
-	width: 323px;
+	margin-top:15px;
+	// width: 323px;
+	width: 100%;
 	height: 88px;
 	font-size: 16px;
 	text-align: center;
 	color: #424242;
+	margin:0px auto;
 }
 ul.lista-plus{
   margin: 15px;
   margin-left: 35px;
+	text-align: center;
   li{
     list-style-image: url('../../assets/imgs/bullet.svg');
+    list-style-position: inside;
   }
 }
