@@ -42,6 +42,7 @@
   }
 }
 .step {
+	position: absolute !important;
   border-radius: 50%;
 	width: 26px;
 	height: 26px;
@@ -62,9 +63,10 @@
   }
 }
 .labelStep {
+
   top: 13%;
   // margin-left: 3%;
-	margin-left: 6%;
+	// margin-left: 6%;
   font-family: 'Open Sans';
 	font-size: 14px;
 	color: #4a4a4a;
@@ -74,10 +76,15 @@
     color: #4a4a4a;
     font-weight: 300;
 	  line-height: 1.99;
+
+		position: absolute !important;
+		top: 18px;
+	  right: 1%;
   }
 	&.title{
-	  width: 70%;
+		width: 100%;
 		text-align: center;
+		height: 26px;
 	}
 }
 .progessBar {
@@ -97,42 +104,42 @@
   }
 }
 
-@media screen and (min-width: 360px) {
-	.labelStep {
-		&.title {
-			width: 80%;
-		}
-	}
-}
-
-@media screen and (min-width: 414px) {
-	.labelStep {
-		&.title {
-			width: 80%;
-		}
-	}
-}
-
-@media screen and (min-width: 768px) {
-	.labelStep {
-		&.title {
-			width: 80%;
-		}
-	}
-}
-
-@media screen and (min-width: 1024px) {
-	.labelStep {
-		&.title {
-			width: 80%;
-		}
-	}
-}
-
-@media screen and (min-width: 1366px) {
-	.labelStep {
-		&.title {
-			width: 80%;
-		}
-	}
-}
+// @media screen and (min-width: 360px) {
+// 	.labelStep {
+// 		&.title {
+// 			width: 80%;
+// 		}
+// 	}
+// }
+//
+// @media screen and (min-width: 414px) {
+// 	.labelStep {
+// 		&.title {
+// 			width: 80%;
+// 		}
+// 	}
+// }
+// 
+// @media screen and (min-width: 768px) {
+// 	.labelStep {
+// 		&.title {
+// 			width: 80%;
+// 		}
+// 	}
+// }
+//
+// @media screen and (min-width: 1024px) {
+// 	.labelStep {
+// 		&.title {
+// 			width: 80%;
+// 		}
+// 	}
+// }
+//
+// @media screen and (min-width: 1366px) {
+// 	.labelStep {
+// 		&.title {
+// 			width: 80%;
+// 		}
+// 	}
+// }

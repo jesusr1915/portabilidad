@@ -40,7 +40,7 @@ export class ViewActualizaConfirmaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stepMan.sendMessage(2,"Verifique los datos de su cuenta");
+    this.stepMan.sendMessage(2,"Verifique los datos de su cuenta o tarjeta");
     this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
