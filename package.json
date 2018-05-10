@@ -1,6 +1,6 @@
 {
   "name": "sp-fron-web",
-  "version": "1.0.30-SNAPSHOT",
+  "version": "1.0.30-RELEASE",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
