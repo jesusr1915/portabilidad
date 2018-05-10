@@ -96,3 +96,43 @@
     background-color: #e80004;
   }
 }
+
+@media screen and (min-width: 360px) {
+	.labelStep {
+		&.title {
+			width: 80%;
+		}
+	}
+}
+
+@media screen and (min-width: 414px) {
+	.labelStep {
+		&.title {
+			width: 80%;
+		}
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.labelStep {
+		&.title {
+			width: 80%;
+		}
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.labelStep {
+		&.title {
+			width: 80%;
+		}
+	}
+}
+
+@media screen and (min-width: 1366px) {
+	.labelStep {
+		&.title {
+			width: 80%;
+		}
+	}
+}
