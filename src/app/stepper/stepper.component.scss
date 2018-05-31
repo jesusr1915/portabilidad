@@ -104,6 +104,12 @@
   }
 }
 
+@media screen and (max-width: 320px) {
+	.labelStep {
+		font-size: 12px;
+	}
+}
+
 // @media screen and (min-width: 360px) {
 // 	.labelStep {
 // 		&.title {
@@ -119,7 +125,7 @@
 // 		}
 // 	}
 // }
-// 
+//
 // @media screen and (min-width: 768px) {
 // 	.labelStep {
 // 		&.title {

@@ -69,3 +69,14 @@ $margin-med: 33px;
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 320px) {
+	.modal{
+    .textFix {
+      margin-bottom: 55px;
+		    font-size: 14px;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+	}
+}

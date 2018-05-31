@@ -31,7 +31,7 @@ export class ViewCuentaBienvenidaComponent implements OnInit {
   }
 
   finalizar(){
-    // localStorage.setItem('necesitaPortabilidad', "true");
+    // localStorage.setItem('necesitaPortabilidad', "true"); // SE DESCOMENTA PARA PROBAR EL MENSAJE INICIAR
     if(localStorage.getItem('necesitaPortabilidad') === "true"){
       this.errorService("","Para disfrutar de los beneficios de Santander Plus es indispensable tener su nómina en Santander, en caso de no tenerla debe contar con uno o varios depósitos al mes en su(s) cuenta(s) Santander.<br/><br/>Traiga su nómina a Santander sin costo ingresando desde el menú lateral a <b>SantaderPlus > Traer la nómina.</b><br/><br/>Por favor cualquier duda o aclaración comuníquese a la línea de<br/>Santander Plus al <br/>01800 0101123.", "Aceptar", "info", 3);
       this.subscriptionM = this.alertMan.getMessage()

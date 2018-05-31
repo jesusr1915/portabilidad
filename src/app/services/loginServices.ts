@@ -34,6 +34,7 @@ export class LoginService{
   private serviceUrlActualizaSP: string;
 
   private serviceUrlOtp: string;
+  private serviceGeneraOtp: string;
 
   private body = '';
   private headers = new Headers();
@@ -64,7 +65,7 @@ export class LoginService{
     this.serviceUrlModificaSP = this.getUrlBase() + '/santanderplus/isModificarSantanderPlus';
     this.serviceUrlActualizaSP = this.getUrlBase() + '/santanderplus/insertaActualizaCuentasSantanderPlus';
     // OTP MAGICA
-    this.serviceUrlOtp = this.getUrlBase() + '/otp';
+    this.serviceUrlOtp = this.getUrlBase() + '/generarOTP';
   }
 
   getUrlBase(){

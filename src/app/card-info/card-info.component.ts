@@ -27,6 +27,7 @@ export class CardInfoComponent implements OnInit {
     this.cuentaBloqueada = this.value_bloqueo == "S" ? true : false;
     this.cuentaEnCeros = this.value_disponible <= 0 ? true : false;
     if(this.value_divisa === "MXP"){
+      this.value_divisa = "MXN";
       this.cuentaTodos = false
     } else {
       this.cuentaTodos = true

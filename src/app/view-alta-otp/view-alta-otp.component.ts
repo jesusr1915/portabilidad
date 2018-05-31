@@ -32,24 +32,86 @@ export class ViewAltaOtpComponent implements OnInit {
 
   ngOnInit() {
     this.stepMan.sendMessage(3,"Lo estamos autenticando");
-  }
-
-  reenviar(){
-    this.loginServices.getOtp()
-  }
-
-  continuar(){
+    this.spinnerMng.showSpinner(true);
     this.loginServices.getOtp()
     .subscribe(
       res => {
-        if(res.statusEnvio){
-          this.router.navigate(['/status']);
-        }
+        this.spinnerMng.showSpinner(false);
+        // if(res.statusEnvio){
+        //   this.router.navigate(['/status']);
+        // }
       },
       err => {
+        this.spinnerMng.showSpinner(false);
         console.log("ERROR");
       }
     )
+
+  }
+
+  reenviar(){
+    this.spinnerMng.showSpinner(true);
+    this.loginServices.getOtp()
+    .subscribe(
+      res => {
+        this.spinnerMng.showSpinner(false);
+      },
+      err => {
+        this.spinnerMng.showSpinner(false);
+      }
+    )
+  }
+
+  continuar(){
+    this.sendAltaService();
+  }
+
+  sendAltaService(){
+    this.spinnerMng.showSpinner(true);
+    let body = {
+      "datosEntrada" : {
+        "banco" : {
+          "descripcion" : "",
+          "id" : localStorage.getItem('idBanco'),
+          "nombreCorto" : localStorage.getItem('banco')
+        },
+        "cuentaBanco" : localStorage.getItem('tarjet'),
+        "cuentaCliente" : localStorage.getItem("numeroCuenta"),
+        "fechaNacimiento" : localStorage.getItem('rawBirthday'),
+        "nombreCliente" : localStorage.getItem('name'),
+        "rfcCliente" : localStorage.getItem('rfc'),
+        "tipoSolicitud" : "R"
+      },
+      "fechaHora" : this.birthdate,
+      "operacion" : "OT04",
+      "tipoOTP" : "OTPM",
+      "token" : this.sms,
+      "idParam": "0041"
+    }
+
+    this.loginServices.postAlta(body)
+    .subscribe(
+      res => {
+        if(res.error.clave == "OK"){
+          localStorage.setItem('folio',res.dto.folio);
+          localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
+          localStorage.setItem('horaEnvio',res.dto.horaEnvio);
+          localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+          this.spinnerMng.showSpinner(false);
+          this.router.navigate(['/status']);
+        } else {
+          this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
+        }
+      },
+      err => {
+        this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+      }
+    )
+
+  }
+
+  continue(){
+    this.router.navigate(['/otp']);
   }
 
   validateField(type: string){
@@ -74,6 +136,12 @@ export class ViewAltaOtpComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  // PARA EL MENSAJE DE ERROR
+  private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
+    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    this.alertMan.sendMessage(message);
   }
 
 }
