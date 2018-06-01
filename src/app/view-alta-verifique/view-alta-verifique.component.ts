@@ -158,8 +158,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
       "fechaHora" : this.date,
       "operacion" : "PNAR",
       "tipoOTP" : this.tipoOTP,
-      "token" : this.tokenSM,
-      "idParam" : ""
+      "token" : this.tokenSM
     }
 
     this.loginServices.postAlta(body)
