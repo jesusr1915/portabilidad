@@ -184,7 +184,7 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   reloadData(){
-    console.log("CLEAR LOCALSTORAGE")
+    // console.log("CLEAR LOCALSTORAGE")
     localStorage.clear();
   }
 
@@ -237,7 +237,7 @@ export class ViewAltaClienteComponent implements OnInit {
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
                 if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  var mToken = {"sessionId": "", "telefono":""}
+                  var mToken = {"sessionId": "", "OTPId":""}
                   let pAdicional: any
 
                   if(res.stokenValidatorResponse.PAdicional){
@@ -246,13 +246,13 @@ export class ViewAltaClienteComponent implements OnInit {
                     pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
                   }
 
-                  console.log("DEBUG", mToken);
+                  // console.log("DEBUG", mToken);
                   mToken = pAdicional;
                   // mToken.sessionId = pAdicional;
                   // mToken.telefono = "5582173246"
-                  let totalSteps = 3; //mToken.telefono !== null ? 4 : 3;
+                  let totalSteps = mToken.OTPId !== "" ? 4 : 3;
                   localStorage.setItem('sessionID', mToken.sessionId.substring(11));
-                  localStorage.setItem('phoneOTP', mToken.telefono);
+                  localStorage.setItem('phoneOTP', mToken.OTPId);
                   localStorage.setItem('totalSteps', totalSteps.toString());
                   this.stepMan.sendMessage(1,"Ingrese los datos de su nómina");
                   // SE EJECUTAN LOS SERVICIOS DE CARGA

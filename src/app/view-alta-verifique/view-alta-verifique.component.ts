@@ -85,7 +85,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
 
     if(localStorage.getItem('totalSteps') === "4"){
       this.hideToken = true;
-      this.copieValidacion = "Para continuar debe tener a la mano el teléfono celular que registró con nosotros, terminación **4242. Si usted no cuenta con este número por favor acuda a una sucursal.";
+      this.copieValidacion = "Para continuar debe tener a la mano el teléfono celular que registró con nosotros, terminación **" + localStorage.getItem('phoneOTP') + ". Si usted no cuenta con este número por favor acuda a una sucursal.";
     } else {
       this.hideToken = false;
       this.copieValidacion = this.copiesVer.inst2LblInit + "<strong class='black'>" + this.copiesVer.inst2LblStrong + "</strong>" +  "<br/>" + this.copiesVer.inst3LblInit + "<strong>" + this.copiesVer.inst3LblStrong + "</strong>"
