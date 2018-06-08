@@ -102,7 +102,7 @@ export class ViewAltaOtpComponent implements OnInit {
       "fechaHora" : this.birthdate,
       "operacion" : "OT04",
       "tipoOTP" : "OTPM",
-      "token" : "00000000",
+      "token" : this.sms,
       "idParam": "0041"
     }
 
