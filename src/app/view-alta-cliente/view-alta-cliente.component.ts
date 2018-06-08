@@ -250,7 +250,16 @@ export class ViewAltaClienteComponent implements OnInit {
                   mToken = pAdicional;
                   // mToken.sessionId = pAdicional;
                   // mToken.telefono = "5582173246"
-                  let totalSteps = mToken.OTPId !== "" ? 4 : 3;
+                  var totalSteps = 3;
+                  if(mToken.OTPId){
+                     if(mToken.OTPId !== ""){
+                       totalSteps = 4;
+                     } else {
+                       totalSteps = 3;
+                     }
+                   } else {
+                     totalSteps = 3;
+                   }
                   localStorage.setItem('sessionID', mToken.sessionId.substring(11));
                   localStorage.setItem('phoneOTP', mToken.OTPId);
                   localStorage.setItem('totalSteps', totalSteps.toString());
