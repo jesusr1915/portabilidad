@@ -1,6 +1,6 @@
-<div class="Card" >
+<div class="Card" [ngClass]="value_selected ? 'active' : ''" >
 
-  <img class = "contentIcon" src="assets/imgs/logo-santander-plus.svg" alt="iconCard" >
+  <img *ngIf="value_sp" class = "contentIcon" src="assets/imgs/logo-santander-plus.svg" alt="iconCard" >
 
   <div class ="contentInfo">
     <h1 class= "title">
@@ -27,7 +27,6 @@
         </p>
       </div>
     </div>
-
   </div>
 
 

@@ -121,11 +121,11 @@ Para obtener el beneficio es necesario:
 2.	Aplica por los consumos en City Club realizados con tarjeta de débito Santander; para calcular el reembolso se acumularán las compras realizadas durante todos los domingos del mes; el reembolso de  $200 pesos por cada $1,000 pesos de compra, topado a  $1,000 pesos de reembolso mensual. El reembolso se realizará con depósito a la cuenta de cheques el día 15 del mes siguiente.
 3.	No se consideran como consumo las disposiciones en efectivo ni los pagos de servicios.
 
-<img src='img/show-case.svg' class='show-case'>
+<img src='/assets/imgs//show-case.svg' class='show-case'>
 
 Preventas especiales / Compra de boletos.
 
-<img src='img/despegar-com.svg' class='despegar-com'>
+<img src='/assets/imgs//despegar-com.svg' class='despegar-com'>
 
 Compra de boletos y paquetes.
 
@@ -153,6 +153,31 @@ Para obtener este beneficio, deberás:
 2. 	Ingresar al menos una vez al mes al servicio de banca digital de Santander a través de SuperNet o SuperMóvil.
 3. 	Tener tu nómina o haber solicitado la portabilidad de tu nómina a una cuenta Santander; o recibir uno a más depósitos en tu cuenta Santander que acumulen al menos $20,000.00 (veinte mil pesos  M.N.) al mes.
 4. 	Tener contratados dos seguros de diferentes categorías:
+
+
+<img src="/assets/imgs/seguros-de-vida.svg"
+		 class="seguros-de-vida">
+
+• 	Ingreso Familiar Santander.
+• 	Protección Vida Multianual.
+• 	Vida Select.
+
+<img src="/assets/imgs/seguro-enfermedades.svg"
+		 class="seguro-enfermedades">
+
+• 	Protección Médica.
+• 	Protección Médica Mujer.
+
+<img src="/assets/imgs/seguros-hogar.svg"
+		 class="seguros-hogar">
+
+• 	Casa Segura.
+
+<img src="/assets/imgs/autocompara.svg"
+		 class="autocompara">
+
+• 	Autocompara.
+
 
 Condiciones para la entrega del certificado de Protección Eventos Santander(5):
 

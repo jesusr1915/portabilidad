@@ -165,8 +165,8 @@ export class ViewAltaClienteComponent implements OnInit {
         }
       },
       err => {
-        localStorage.setItem('env', 'pre');
-        localStorage.setItem('dom', 'corp');
+        localStorage.setItem('env', 'pro');
+        localStorage.setItem('dom', 'com');
       }
     )
   }

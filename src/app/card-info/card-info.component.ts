@@ -16,10 +16,12 @@ export class CardInfoComponent implements OnInit {
   @Input() value_cuentaMovil;
   @Input() value_bloqueo;
   @Input() value_selected;
+  @Input() value_sp;
   cuentaBloqueada: boolean = false;
   cuentaEnCeros: boolean = false;
   cardStyle: string = "Card";
   cuentaTodos: boolean = false;
+  cardBorder: string = "";
   constructor(){
   }
 
@@ -31,6 +33,11 @@ export class CardInfoComponent implements OnInit {
       this.cuentaTodos = false
     } else {
       this.cuentaTodos = true
+    }
+    if(this.value_selected){
+      this.cardBorder = "active";
+    } else {
+      this.cardBorder = "";
     }
   }
 

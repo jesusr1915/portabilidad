@@ -57,7 +57,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     for(let key of this.keys){
       for(const value of (message[key])){
 
-        if(value.indicadorBloqueo === "N"){
+        if(value.indicadorBloqueo === "N" && value.participacion === "TI"){
 
           if(value.alias == ""){
             value.alias = value.tipoProducto;
@@ -75,7 +75,7 @@ export class CardsComponent implements OnInit, OnDestroy {
           index++;
 
         }
-        
+
       }
     }
 
@@ -90,30 +90,32 @@ export class CardsComponent implements OnInit, OnDestroy {
   }
 
   setCurrentLocalCard(cards:any){
-    if(cards.indicadorBloqueo === "S"){
-      localStorage.setItem('validAccount','false');
-      var message = new messageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info",0);
-      this.alertMan.sendMessage(message);
-      cards.isSelected = false;
-    } else {
-      // console.log("GUARDA CARD...")
-      localStorage.setItem('validAccount','true');
-      localStorage.setItem("cardAlias", cards.alias);
-      localStorage.setItem("cardDisponible", cards.disponible);
-      localStorage.setItem("cardDivisa", cards.divisa);
-      localStorage.setItem("cardNumeroCuenta", cards.numeroCuenta);
-      localStorage.setItem("cardCuentaMovil", cards.cuentaMovil);
-      localStorage.setItem("numeroCuenta", cards.unmaskCuenta);
-      localStorage.setItem("numeroSubProducto", cards.numeroSubProducto);
-      if(cards.numeroSubProducto == "0025"){
-        setTimeout(()=> {
-          var message = new messageAlert("Límite depósitos en cuenta","Este tipo de cuenta sólo puede recibir depósitos de hasta $17, 000 mensuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info",0);
-          this.alertMan.sendMessage(message);
-        }, 700);
+    if(cards !== undefined){
+      if(cards.indicadorBloqueo === "S"){
+        localStorage.setItem('validAccount','false');
+        var message = new messageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info",0);
+        this.alertMan.sendMessage(message);
+        cards.isSelected = false;
+      } else {
+        // console.log("GUARDA CARD...")
+        localStorage.setItem('validAccount','true');
+        localStorage.setItem("cardAlias", cards.alias);
+        localStorage.setItem("cardDisponible", cards.disponible);
+        localStorage.setItem("cardDivisa", cards.divisa);
+        localStorage.setItem("cardNumeroCuenta", cards.numeroCuenta);
+        localStorage.setItem("cardCuentaMovil", cards.cuentaMovil);
+        localStorage.setItem("numeroCuenta", cards.unmaskCuenta);
+        localStorage.setItem("numeroSubProducto", cards.numeroSubProducto);
+        if(cards.numeroSubProducto == "0025"){
+          setTimeout(()=> {
+            var message = new messageAlert("Límite depósitos en cuenta","Este tipo de cuenta sólo puede recibir depósitos de hasta $17, 000 mensuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info",0);
+            this.alertMan.sendMessage(message);
+          }, 700);
+        }
+        cards.isSelected = true;
       }
-      cards.isSelected = true;
+      this.messageMan.sendMessage(cards.isSelected);
     }
-    this.messageMan.sendMessage(cards.isSelected);
   }
 
 
@@ -144,8 +146,11 @@ export class CardsComponent implements OnInit, OnDestroy {
 
       local.setCurrentLocalCard(local.cards[0]);
       frame.on('active', function (eventName, itemIndex ) {
-        // console.log("CAMBIA CARD");
+        for(let mcard of local.cards){
+          mcard.isSelected = false;
+        }
         local.setCurrentLocalCard(local.cards[itemIndex]);
+
       });
 
 

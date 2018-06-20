@@ -20,6 +20,8 @@ export class ViewActualizaConfirmaComponent implements OnInit {
   value_divisa = "";
   value_numCuenta = "";
   value_cuentaMovil = "";
+  value_selected = true;
+  value_sp = true;
   cuentaEnCeros = false;
 
   demo : Demo = new Demo(
@@ -57,6 +59,7 @@ export class ViewActualizaConfirmaComponent implements OnInit {
     this.value_divisa = localStorage.getItem("cardDivisaSP");
     this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
     this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
+    this.value_sp = true;
     this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
 
     // CUENTA NUEVA

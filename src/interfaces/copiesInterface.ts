@@ -7,10 +7,12 @@ export interface Relation {
 export class datos_class {
   seleccion_cuenta: seleccion_cuenta_class;
   terminos : terminos_class;
+  terminos2 : terminos_class;
   verifique : verifique_class;
   constructor(){
     this.seleccion_cuenta = new seleccion_cuenta_class();
     this.terminos = new terminos_class();
+    this.terminos2 = new terminos_class();
     this.verifique = new verifique_class();
   }
 }

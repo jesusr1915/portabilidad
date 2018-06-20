@@ -107,6 +107,7 @@ export class Demo {
   disponible: string;
   divisa: string;
   cuentaMovil: string;
+  isSelected: boolean;
 
   constructor(
     alias:string,
@@ -122,5 +123,6 @@ export class Demo {
     this.disponible = disponible;
     this.divisa = divisa;
     this.cuentaMovil =  cuentaMovil;
+    this.isSelected = true;
   }
 }
