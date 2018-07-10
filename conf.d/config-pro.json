@@ -2,5 +2,5 @@
     "VERSION":"1.0.7",
     "ENV_VAR":"pro",
     "ENV_DOM":"com",
-    "ENV_LOG":"true"
+    "ENV_LOG":"false"
 }
