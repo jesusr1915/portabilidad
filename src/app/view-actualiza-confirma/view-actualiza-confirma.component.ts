@@ -6,6 +6,7 @@ import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
+import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class ViewActualizaConfirmaComponent implements OnInit {
     private messageMan: MessageMan,
     private loginServices: LoginService,
     private alertMan: AlertMan,
-    private router: Router
+    private router: Router,
+    public spinnerMng: SpinnerMan,
   ) { }
 
   ngOnInit() {
@@ -83,10 +85,12 @@ export class ViewActualizaConfirmaComponent implements OnInit {
       "tipo":"M"
     }
 
+    this.spinnerMng.showSpinner(true);
     this.loginServices.postActualizaSP(body)
     // this.loginServices.getActualizaSPMock()
     .subscribe(
       res => {
+        this.spinnerMng.showSpinner(false);
         if(res.error.clave == "OK"){
           localStorage.setItem('folio',res.dto.folio);
           localStorage.setItem('fechaOperacion',res.dto.fechaOperacion);
@@ -98,6 +102,7 @@ export class ViewActualizaConfirmaComponent implements OnInit {
         }
       },
       err => {
+        this.spinnerMng.showSpinner(false);
         this.errorService("Error",err.error.message, "Aceptar", "info", 0);
       }
     )

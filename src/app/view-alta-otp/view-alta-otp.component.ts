@@ -3,7 +3,7 @@ import { StepMan } from '../stepper/stepMan';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 import { AlertMan , messageAlert } from '../message-alert/alertMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
-import { LoginService } from '../services/loginServices'
+import { LoginService } from '../services/loginServices';
 
 @Component({
   selector: 'app-view-alta-otp',
@@ -74,6 +74,7 @@ export class ViewAltaOtpComponent implements OnInit {
         this.spinnerMng.showSpinner(false);
       },
       err => {
+        this.openAlert("Error", "Por el momento el servicio no está disponible, por favor intenta de nuevo más tarde.", "Aceptar", "info", 0);
         this.spinnerMng.showSpinner(false);
       }
     )
