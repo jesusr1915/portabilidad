@@ -1,5 +1,5 @@
 {
-    "VERSION":"1.0.7",
+    "VERSION":"1.0.42",
     "ENV_VAR":"dev",
     "ENV_DOM":"corp",
     "ENV_LOG":"true"
