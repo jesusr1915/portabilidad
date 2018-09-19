@@ -165,8 +165,8 @@ export class ViewAltaClienteComponent implements OnInit {
         }
       },
       err => {
-        localStorage.setItem('env', 'pro');
-        localStorage.setItem('dom', 'com');
+        localStorage.setItem('env', 'pre');
+        localStorage.setItem('dom', 'corp');
       }
     )
   }
@@ -185,7 +185,9 @@ export class ViewAltaClienteComponent implements OnInit {
 
   reloadData(){
     // console.log("CLEAR LOCALSTORAGE")
-    localStorage.clear();
+    // if(!localStorage.getItem('sessionID')){
+    //   localStorage.clear();
+    // }
   }
 
   recoverSavedData(from){
