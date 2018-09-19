@@ -106,7 +106,16 @@ export class ViewAltaVerifiqueComponent implements OnInit {
   }
 
   requestToken() {
-    (window as any).requestToken();
+    console.log("DEMO", localStorage.getItem('demo') === "1");
+    if(localStorage.getItem('demo')){
+      if(localStorage.getItem('demo') === "1"){
+        this.showToken();
+      } else {
+        (window as any).requestToken();
+      }
+    } else {
+      (window as any).requestToken();
+    }
   }
 
   // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
@@ -140,6 +149,9 @@ export class ViewAltaVerifiqueComponent implements OnInit {
   }
 
   sendAltaService(){
+    if(localStorage.getItem('demo') === "1"){
+      this.tokenSM = localStorage.getItem('token');
+    }
     this.spinnerMng.showSpinner(true);
     let body = {
       "datosEntrada" : {

@@ -91,6 +91,9 @@ export class ViewAltaClienteComponent implements OnInit {
     this.route.queryParams
     .subscribe(params => {
       this.tokenUrl = params.token
+      if(params.demo){
+        localStorage.setItem('demo', params.demo);
+      }
     });
 
     // localStorage.setItem('backButton', "true");

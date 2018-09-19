@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { TokenMng } from '../token/tokenMng';
 import { LoginService } from '../services/loginServices';
@@ -13,6 +13,9 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
   styleUrls: ['../app.component.scss','../terms/terms.component.scss','../message-alert/message-alert.component.scss','./token.component.scss']
 })
 export class TokenComponent implements OnInit {
+
+  @Output() saveToken: EventEmitter<any> = new EventEmitter<any>();
+
   visible = false;
   visibleAnimate = false;
 
@@ -72,45 +75,50 @@ export class TokenComponent implements OnInit {
   }
   public isValid(){
     if(this.tokenMask.length == this.tokenLength){
-      this.spinnerMng.showSpinner(true);
-      let body = {
-        "datosEntrada" : {
-          "banco" : {
-            "descripcion" : "",
-            "id" : localStorage.getItem('idBanco'),
-            "nombreCorto" : localStorage.getItem('banco')
-          },
-          "cuentaBanco" : localStorage.getItem('tarjet'),
-          "cuentaCliente" : localStorage.getItem("numeroCuenta"),
-          "fechaNacimiento" : localStorage.getItem('rawBirthday'),
-          "nombreCliente" : localStorage.getItem('name'),
-          "rfcCliente" : localStorage.getItem('rfc'),
-          "tipoSolicitud" : "R"
-        },
-        "fechaHora" : "",
-        "operacion" : "PNAR",
-        "tipoOTP" : "",
-        "token" : this.tokenMask
-      }
+      // this.spinnerMng.showSpinner(true);
+      localStorage.setItem('token', this.tokenMask);
+      this.hide();
+      this.saveToken.emit();
 
-      this.loginServices.postAlta(body)
-      .subscribe(
-        res => {
-          if(res.error.clave == "OK"){
-            localStorage.setItem('folio',res.dto.folio);
-            localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
-            localStorage.setItem('horaEnvio',res.dto.horaEnvio);
-            localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
-            this.spinnerMng.showSpinner(false);
-            this.router.navigate(['/status']);
-          } else {
-            this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
-          }
-        },
-        err => {
-          this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
-        }
-      )
+      // let body = {
+      //   "datosEntrada" : {
+      //     "banco" : {
+      //       "descripcion" : "",
+      //       "id" : localStorage.getItem('idBanco'),
+      //       "nombreCorto" : localStorage.getItem('banco')
+      //     },
+      //     "cuentaBanco" : localStorage.getItem('tarjet'),
+      //     "cuentaCliente" : localStorage.getItem("numeroCuenta"),
+      //     "fechaNacimiento" : localStorage.getItem('rawBirthday'),
+      //     "nombreCliente" : localStorage.getItem('name'),
+      //     "rfcCliente" : localStorage.getItem('rfc'),
+      //     "tipoSolicitud" : "R"
+      //   },
+      //   "fechaHora" : "",
+      //   "operacion" : "PNAR",
+      //   "tipoOTP" : "",
+      //   "token" : this.tokenMask,
+      //   "idParam": ""
+      // }
+
+      // this.loginServices.postAlta(body)
+      // .subscribe(
+      //   res => {
+      //     if(res.error.clave == "OK"){
+      //       localStorage.setItem('folio',res.dto.folio);
+      //       localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
+      //       localStorage.setItem('horaEnvio',res.dto.horaEnvio);
+      //       localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+      //       this.spinnerMng.showSpinner(false);
+      //       this.router.navigate(['/status']);
+      //     } else {
+      //       this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
+      //     }
+      //   },
+      //   err => {
+      //     this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+      //   }
+      // )
 
     }
   }

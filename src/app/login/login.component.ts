@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
               }
               this.spinnerMng.showSpinner(false);
               // console.log(res.tokenSSO);
-              this.router.navigate([this.mPath], { queryParams: { token: mToken } });
+              this.router.navigate([this.mPath], { queryParams: { token: mToken, demo: 1 } });
             } else {
               this.openAlert("Error", "", "Aceptar", "", 0);
               this.spinnerMng.showSpinner(false);
