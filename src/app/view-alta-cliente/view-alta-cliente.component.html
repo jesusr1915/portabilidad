@@ -10,14 +10,14 @@
     <p>{{copies.radioText1}}</p>
   </label>
   <label class = "labelRadioBtn right">
-    <labe for="inputSelected1"></label>
+    <label for="inputSelected1"></label>
     <input id="inputSelected1" type="radio"  name="inputSelected" [(ngModel)]="tipoCuenta" [value]="false" (change)="onSelectionChange(2)" >
     <p>{{copies.radioText2}}</p>
   </label>
   </div>
   <p class = "labelInst min">{{value_label_CLABE}}</p>
   <div class="controls minTop">
-        <labe for="name"></label>
+        <label for="name"></label>
         <input id="name" type="text" name="name" (keyup)="onKey($event)" [(ngModel)]="tarjetValue" [attr.maxlength]="maxLength" placeholder={{value_placeholder_CLABE}}>
         <!-- <label for="name" [className]="classLabel">{{value_placeholder_CLABE}}</label> -->
   </div>
