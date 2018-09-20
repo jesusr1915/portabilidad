@@ -151,6 +151,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
   sendAltaService(){
     if(localStorage.getItem('demo') === "1"){
       this.tokenSM = localStorage.getItem('token');
+      this.tipoOTP = "";
     }
     this.spinnerMng.showSpinner(true);
     let body = {
