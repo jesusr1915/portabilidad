@@ -58,7 +58,7 @@ export class MovesComponent implements OnInit {
   }
 
   verDetalle(){
-    console.log("VIENDO DETALLE...");
+    // console.log("VIENDO DETALLE...");
     localStorage.setItem('accountWhereWishReceive',this.destino);
     localStorage.setItem('bankWhereWishReceive',this.bancoDestino);
     localStorage.setItem('accountWhereReceive',this.origen);

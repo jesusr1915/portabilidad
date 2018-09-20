@@ -3,7 +3,7 @@ var myExtObject = (function() {
   return {
     hideBackButton: function (){
       // Connect.hideBackButton();
-      console.log("OCULTA BOTON");
+      // console.log("OCULTA BOTON");
     }
   }
 

@@ -106,7 +106,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
   }
 
   requestToken() {
-    console.log("DEMO", localStorage.getItem('demo') === "1");
+    // console.log("DEMO", localStorage.getItem('demo') === "1");
     if(localStorage.getItem('demo')){
       if(localStorage.getItem('demo') === "1"){
         this.showToken();
@@ -124,7 +124,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
       if(token !== ''){
         this.responseToken(token, tipoOTP, date);
       } else {
-        console.log(message);
+        // console.log(message);
         //this.openAlert("", message, "", "", 0);
       }
     });

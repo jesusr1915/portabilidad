@@ -80,7 +80,7 @@ export class ViewConsultaComponent implements OnInit {
   loadConfig(){
     // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
     this.spinnerMng.showSpinner(true);
-    console.log("LOAD CONFIG");
+    // console.log("LOAD CONFIG");
     this.loginServices.getConfig()
     .subscribe(
       res => {

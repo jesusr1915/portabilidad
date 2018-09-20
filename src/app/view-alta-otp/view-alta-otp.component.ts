@@ -127,7 +127,7 @@ export class ViewAltaOtpComponent implements OnInit {
         } else {
           if(err.error === "access_denied" || err.error === "expired_access_token"){
             // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS
-            console.log("RECUPERANDO TOKEN OAUTH");
+            // console.log("RECUPERANDO TOKEN OAUTH");
             this.loginServices.postOAuthToken()
             .subscribe(
               res=> {
@@ -152,7 +152,7 @@ export class ViewAltaOtpComponent implements OnInit {
   validateField(type: string){
     if(type === "code"){
       this.sms = this.sms.toString().replace(/[^0-9]/g, '');
-      console.log(this.sms);
+      // console.log(this.sms);
       if(this.sms.length == 8){
         this.validCode = true;
       } else {
