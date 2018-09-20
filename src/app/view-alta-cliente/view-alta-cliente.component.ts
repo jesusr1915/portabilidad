@@ -187,6 +187,7 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   reloadData(){
+    // SE COMENTA PARA LAS PRUEBAS DE DEV SECOPS
     // console.log("CLEAR LOCALSTORAGE")
     // if(!localStorage.getItem('sessionID')){
     //   localStorage.clear();
