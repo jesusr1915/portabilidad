@@ -107,6 +107,7 @@ export class ViewAltaClienteComponent implements OnInit {
       }
     } else {
       // if(localStorage.getItem('sessionID') === "" || localStorage.getItem('sessionID') === undefined || localStorage.getItem('sessionID') === null){
+      // SE COMENTA PARA LAS PRUEBAS DE DEV SECOPS
         this.reloadData();
       // }
     }
