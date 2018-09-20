@@ -114,7 +114,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       this.copiesServ.postCopies()
       .subscribe(
         res => {
-          console.log(res.datos);
+          // console.log(res.datos);
           this.copies = res.datos.seleccion_cuenta;
           this.terminosText = res.datos.terminos2;
           this.stepMan.sendMessage(1,"Seleccione una cuenta");
@@ -128,14 +128,14 @@ export class ViewCuentaInscripcionComponent implements OnInit {
     loadConfig(){
       // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
       this.spinnerMng.showSpinner(true);
-      console.log("LOAD CONFIG");
+      // console.log("LOAD CONFIG");
       this.loginServices.getConfig()
       .subscribe(
         res => {
           localStorage.setItem('env', res.ENV_VAR);
           localStorage.setItem('dom', res.ENV_DOM);
           if(res.ENV_LOG === "false"){
-            console.log = function() {};
+            // console.log = function() {};
           }
           this.startServices();
         },
