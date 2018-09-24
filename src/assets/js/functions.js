@@ -14,7 +14,7 @@ function userDidTapBackButton(){
 
 function validaSesion(){
   // console.log("VALIDATING SESSION...");
-  // Connect.validaSesion();
+  Connect.validaSesion();
 }
 
 function quitPorta(){
@@ -37,7 +37,7 @@ function requestToken() {
   promise.then(
     function(token){
     // function(token,tipoOTP,date){
-      mToken = JSON.parse(token)
+      var mToken = JSON.parse(token)
       responseToken(mToken.token, mToken.typeOTP, mToken.date,'');
     },
     function(mensaje){
