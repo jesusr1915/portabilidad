@@ -2,25 +2,25 @@
 <div class="frame2">
 	<div [ngClass]="contentCarr2" >
     <div class="Card2 active" >
-      <img  *ngIf="value_sp"  class = "contentIcon" src="assets/imgs/logo-santander-plus.svg" alt="iconCard" >
+      <img  *ngIf="valueSp"  class = "contentIcon" src="assets/imgs/logo-santander-plus.svg" alt="iconCard" >
       <div class ="contentInfo">
         <h1 class= "title">
-          {{value_alias}}
+          {{valueAlias}}
         </h1>
         <p [ngClass]="cuentaEnCeros ? 'info-zero' : 'info'">
-          {{value_disponible}}
+          {{valueDisponible}}
           <span class = "coins">
-            {{value_divisa}}
+            {{valueDivisa}}
           </span>
         </p>
         <div class ="footNote">
           <p>
-            {{value_numCuenta}}
+            {{valueNumCuenta}}
           </p>
           <span>
           </span>
           <p>
-            {{value_cuentaMovil}}
+            {{valueCuentaMovil}}
           </p>
         </div>
       </div>

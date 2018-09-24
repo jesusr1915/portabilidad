@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { TokenMng } from '../token/tokenMng';
 import { LoginService } from '../services/loginServices';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
@@ -30,7 +30,7 @@ export class TokenComponent implements OnInit {
 
   title = "";
   message = "";
-  value_placeholder_CLABE = "";
+  valuePlaceHolderClabe = "";
 
   subscription: Subscription;
 
@@ -44,10 +44,10 @@ export class TokenComponent implements OnInit {
 
     this.tokenType = localStorage.getItem("ttkn");
 
-    //if(this.tokenType == "0"){
+    //if(this.tokenType === "0"){
       this.title = "Esta operación requiere de autorización de Token físico. Ingrese el NIP dinámico generado por su dispositivo Token.";
       this.message = "NIP dinámico Token";
-      this.value_placeholder_CLABE = "Número de 8 dígitos";
+      this.valuePlaceHolderClabe = "Número de 8 dígitos";
       this.tokenLength = 8;
       this.maxLength = 8;
     //}
@@ -74,7 +74,7 @@ export class TokenComponent implements OnInit {
     setTimeout(() => this.visible = false, 300);
   }
   public isValid(){
-    if(this.tokenMask.length == this.tokenLength){
+    if(this.tokenMask.length === this.tokenLength){
       // this.spinnerMng.showSpinner(true);
       localStorage.setItem('token', this.tokenMask);
       this.hide();
@@ -104,7 +104,7 @@ export class TokenComponent implements OnInit {
       // this.loginServices.postAlta(body)
       // .subscribe(
       //   res => {
-      //     if(res.error.clave == "OK"){
+      //     if(res.error.clave === "OK"){
       //       localStorage.setItem('folio',res.dto.folio);
       //       localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
       //       localStorage.setItem('horaEnvio',res.dto.horaEnvio);
@@ -124,9 +124,9 @@ export class TokenComponent implements OnInit {
   }
 
   onKey(event: any) { // inputs de tarjeta
-    if(this.tokenMask.length != 0){
+    if(this.tokenMask.length !== 0){
       this.classLabel = 'hideLabel';
-      if(this.tokenMask.length == this.maxLength){
+      if(this.tokenMask.length === this.maxLength){
         this.btnState = "enableBtn";
       }else{
         this.btnState = "disableBtn";
@@ -138,7 +138,7 @@ export class TokenComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

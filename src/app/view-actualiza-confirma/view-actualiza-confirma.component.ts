@@ -4,7 +4,7 @@ import { StepMan } from '../stepper/stepMan';
 import { verifique_class } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
@@ -16,13 +16,13 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 })
 export class ViewActualizaConfirmaComponent implements OnInit {
 
-  value_alias = "";
-  value_disponible = "";
-  value_divisa = "";
-  value_numCuenta = "";
-  value_cuentaMovil = "";
-  value_selected = true;
-  value_sp = true;
+  valueAlias = "";
+  valueDisponible = "";
+  valueDivisa = "";
+  valueNumCuenta = "";
+  valueCuentaMovil = "";
+  valueSelected = true;
+  valueSp = true;
   cuentaEnCeros = false;
 
   demo : Demo = new Demo(
@@ -56,12 +56,12 @@ export class ViewActualizaConfirmaComponent implements OnInit {
 
   private loadInfo(){
     // CUENTA ANTERIOR
-    this.value_alias = localStorage.getItem("cardAliasSP");
-    this.value_disponible = localStorage.getItem("cardDisponibleSP");
-    this.value_divisa = localStorage.getItem("cardDivisaSP");
-    this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
-    this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
-    this.value_sp = true;
+    this.valueAlias = localStorage.getItem("cardAliasSP");
+    this.valueDisponible = localStorage.getItem("cardDisponibleSP");
+    this.valueDivisa = localStorage.getItem("cardDivisaSP");
+    this.valueNumCuenta = localStorage.getItem("cardNumeroCuentaSP");
+    this.valueCuentaMovil = localStorage.getItem("cardCuentaMovilSP");
+    this.valueSp = true;
     this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
 
     // CUENTA NUEVA
@@ -69,11 +69,11 @@ export class ViewActualizaConfirmaComponent implements OnInit {
   }
 
   private loadMock(){
-    this.value_alias = localStorage.getItem("cardAliasSP");
-    this.value_disponible = localStorage.getItem("cardDisponibleSP");
-    this.value_divisa = localStorage.getItem("cardDivisaSP");
-    this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
-    this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
+    this.valueAlias = localStorage.getItem("cardAliasSP");
+    this.valueDisponible = localStorage.getItem("cardDisponibleSP");
+    this.valueDivisa = localStorage.getItem("cardDivisaSP");
+    this.valueNumCuenta = localStorage.getItem("cardNumeroCuentaSP");
+    this.valueCuentaMovil = localStorage.getItem("cardCuentaMovilSP");
     this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
 
     this.messageMan.sendMessage(this.demo);
@@ -91,7 +91,7 @@ export class ViewActualizaConfirmaComponent implements OnInit {
     .subscribe(
       res => {
         this.spinnerMng.showSpinner(false);
-        if(res.error.clave == "OK"){
+        if(res.error.clave === "OK"){
           localStorage.setItem('folio',res.dto.folio);
           localStorage.setItem('fechaOperacion',res.dto.fechaOperacion);
           localStorage.setItem('horaEnvio',res.dto.horaOperacion);
@@ -111,7 +111,7 @@ export class ViewActualizaConfirmaComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

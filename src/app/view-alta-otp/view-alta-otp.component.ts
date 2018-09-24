@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StepMan } from '../stepper/stepMan';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/loginServices';
 
@@ -110,7 +110,7 @@ export class ViewAltaOtpComponent implements OnInit {
     this.loginServices.postAlta(body)
     .subscribe(
       res => {
-        if(res.error.clave == "OK"){
+        if(res.error.clave === "OK"){
           localStorage.setItem('folio',res.dto.folio);
           localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);
@@ -153,7 +153,7 @@ export class ViewAltaOtpComponent implements OnInit {
     if(type === "code"){
       this.sms = this.sms.toString().replace(/[^0-9]/g, '');
       // console.log(this.sms);
-      if(this.sms.length == 8){
+      if(this.sms.length === 8){
         this.validCode = true;
       } else {
         this.validCode = false;
@@ -176,7 +176,7 @@ export class ViewAltaOtpComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

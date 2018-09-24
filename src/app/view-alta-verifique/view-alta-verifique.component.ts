@@ -5,11 +5,11 @@ import { StepMan } from '../stepper/stepMan';
 import { verifique_class } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
-declare var ga: any;
+declare let ga: any;
 
 @Component({
   selector: 'app-view-alta-verifique',
@@ -69,7 +69,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
         this.copiesVer = res.datos.verifique;
         this.tipoToken = localStorage.getItem("ttkn");
         this.messageMan.sendMessage(this.demo);
-        if(this.valueInfo.length == 18){
+        if(this.valueInfo.length === 18){
           this.copiesVer.infoCount = "CLABE Interbancaria";
         }else{
           this.copiesVer.infoCount = "Tarjeta de débito";
@@ -136,7 +136,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     this.tipoOTP = mTipoOTP;
     this.date = mDate;
 
-    let tokenTipo = mTipoOTP != "" ? "SuperToken" : "Token"
+    let tokenTipo = mTipoOTP !== "" ? "SuperToken" : "Token"
 
     ga('send', 'event', {
       eventCategory: 'token',
@@ -178,7 +178,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     this.loginServices.postAlta(body)
     .subscribe(
       res => {
-        if(res.error.clave == "OK"){
+        if(res.error.clave === "OK"){
           localStorage.setItem('folio',res.dto.folio);
           localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);
@@ -202,7 +202,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

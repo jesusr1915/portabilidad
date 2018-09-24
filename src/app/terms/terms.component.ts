@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { terminos_class} from 'interfaces/copiesInterface';
+import { TerminosClass} from 'interfaces/copiesInterface';
 import { TermMan } from '../terms/termMng';
 
-declare var ga: any;
+declare let ga: any;
 
 @Component({
   selector: 'app-terms',
@@ -12,7 +12,7 @@ declare var ga: any;
 export class TermsComponent implements OnInit {
   public visible = false;
   private visibleAnimate = false;
-  terminosText : terminos_class = new terminos_class();
+  terminosText : TerminosClass = new TerminosClass();
 
   constructor(
     private termsMng: TermMan
@@ -21,7 +21,7 @@ export class TermsComponent implements OnInit {
   ngOnInit() {
     this.hide();
   }
-  public show(message: terminos_class): void {
+  public show(message: TerminosClass): void {
     this.terminosText = message;
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);

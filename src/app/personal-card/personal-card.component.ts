@@ -1,6 +1,6 @@
 import { Component, OnInit, } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { InfoCardMan, messageInfoCard } from '../personal-card/infoCardMng';
+import { InfoCardMan, MessageInfoCard } from '../personal-card/infoCardMng';
 
 @Component({
   selector: 'app-personal-card',
@@ -11,7 +11,7 @@ export class PersonalCardComponent implements OnInit {
 
   private subscription: Subscription;
 
-  infoValues : messageInfoCard = new messageInfoCard();
+  infoValues : MessageInfoCard = new MessageInfoCard();
 
   constructor(private messageMan: InfoCardMan) {
     this.subscription = this.messageMan.getMessage()

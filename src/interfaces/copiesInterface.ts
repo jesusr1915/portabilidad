@@ -1,22 +1,22 @@
 export interface Relation {
   estatus: string;
   descripcion: string;
-  datos: datos_class;
+  datos: DatosClass;
 }
 
-export class datos_class {
-  seleccion_cuenta: seleccion_cuenta_class;
-  terminos : terminos_class;
-  terminos2 : terminos_class;
+export class DatosClass {
+  seleccionCuenta: SeleccionCuentaClass;
+  terminos : TerminosClass;
+  terminos2 : TerminosClass;
   verifique : verifique_class;
   constructor(){
-    this.seleccion_cuenta = new seleccion_cuenta_class();
-    this.terminos = new terminos_class();
-    this.terminos2 = new terminos_class();
+    this.seleccionCuenta = new SeleccionCuentaClass();
+    this.terminos = new TerminosClass();
+    this.terminos2 = new TerminosClass();
     this.verifique = new verifique_class();
   }
 }
-export class seleccion_cuenta_class{
+export class SeleccionCuentaClass{
   title: string;
   textInst1: string;
   textInst2: string;
@@ -45,7 +45,7 @@ export class seleccion_cuenta_class{
     this.textNote = "";
   }
 }
-export class terminos_class{
+export class TerminosClass{
   texto: string;
 
   constructor(){

@@ -11,7 +11,7 @@ import { StepMan } from './stepMan';
 })
 export class StepperComponent implements OnInit {
   visible = false;
-  @Input() value_header = "";
+  @Input() valueHeader = "";
   message: number;
   subscription: Subscription;
 
@@ -22,14 +22,14 @@ export class StepperComponent implements OnInit {
                 ];
 
   widthbar: number = 33;
-  value_step = 1;
+  valueStep = 1;
   max_step = 3;
-  value_label_step = "";
+  valueLabelStep = "";
   constructor(private stepMan: StepMan) {
       this.subscription = this.stepMan.getMessage()
       .subscribe(
         message => {
-          this.value_label_step = message.response.title;
+          this.valueLabelStep = message.response.title;
           this.setStep(message.response.number);
         }
       )
@@ -44,8 +44,8 @@ export class StepperComponent implements OnInit {
     if(step!=0)
     {
       this.visible = true;
-      this.value_step = step;
-      //this.value_label_step = this.instructions[step-1];
+      this.valueStep = step;
+      //this.valueLabelStep = this.instructions[step-1];
       this.widthbar = 100*(step/this.max_step);
     }else{
       this.visible = false;
@@ -54,7 +54,7 @@ export class StepperComponent implements OnInit {
   }
 
   // setTitle(title: string){
-  //   if(title != ""){
+  //   if(title !== ""){
   //     this.
   //   }
   // }

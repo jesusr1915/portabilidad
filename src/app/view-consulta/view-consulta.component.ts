@@ -3,7 +3,7 @@ import { StepMan } from '../stepper/stepMan';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuMsg } from '../menu/menuMsg';
 import { LoginService } from '../services/loginServices'
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
@@ -101,7 +101,7 @@ export class ViewConsultaComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 
@@ -127,8 +127,8 @@ export class ViewConsultaComponent implements OnInit {
             .subscribe(
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
-                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  var mToken = {"sessionId": "", "telefono":""}
+                if(res.stokenValidatorResponse.codigoMensaje === "TVT_000"){
+                  let mToken = {"sessionId": "", "telefono":""}
                   let pAdicional: any
 
                   if(res.stokenValidatorResponse.PAdicional){
@@ -166,7 +166,7 @@ export class ViewConsultaComponent implements OnInit {
 
   private matchAccounts(accounts: any, portabilidades: any){
     // MUESTRA SOLO CUENTAS QUE TIENEN PORTABILIDAD EN EL CARRUSEL
-    var exists = [];
+    let exists = [];
     let card0 = {
       "numeroCuenta": "0",
       "disponible": "Todas las cuentas",
@@ -174,9 +174,9 @@ export class ViewConsultaComponent implements OnInit {
     }
     exists.push(card0);
     for(let account of accounts){
-      var match = 0;
+      let match = 0;
       for(let portabilidad of portabilidades){
-        if(account.numeroCuenta == portabilidad.cuentaCliente){
+        if(account.numeroCuenta === portabilidad.cuentaCliente){
           match++;
         }
       }
@@ -196,7 +196,7 @@ export class ViewConsultaComponent implements OnInit {
         this.saldosCuentas = res.dto.saldoPesos;
         // this.messageMan.sendMessage(res);
 
-        var valores = "";
+        let valores = "";
         for(let cta of this.saldosCuentas){
           // console.log(cta.numeroCuenta);
           valores += cta.numeroCuenta + '-';
@@ -221,7 +221,7 @@ export class ViewConsultaComponent implements OnInit {
             // this.filterMoves(1);
 
             let portabilidades = res.dto
-            if(portabilidades.length == 0){
+            if(portabilidades.length === 0){
               this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.", "", "", 1);
             }
 
@@ -266,7 +266,7 @@ export class ViewConsultaComponent implements OnInit {
             // this.filterMoves(1);
 
             let portabilidades = res.dto
-            if(portabilidades.length == 0){
+            if(portabilidades.length === 0){
               this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","","",0);
             }
 
@@ -330,16 +330,16 @@ export class ViewConsultaComponent implements OnInit {
         'motivoRechazo': moves.motivoRechazo
       };
 
-      if(newMove.tipoSolicitud == tipoSolicitud){
-        if(localStorage.getItem('numeroCuenta') == newMove.numeroCuenta){
+      if(newMove.tipoSolicitud === tipoSolicitud){
+        if(localStorage.getItem('numeroCuenta') === newMove.numeroCuenta){
           newMoves.push(newMove);
-        } else if(localStorage.getItem('cardDisponible') == "Todas las cuentas"){
+        } else if(localStorage.getItem('cardDisponible') === "Todas las cuentas"){
           newMoves.push(newMove);
         }
-      } else if(tipoSolicitud == "A"){
-        if(localStorage.getItem('numeroCuenta') == newMove.numeroCuenta){
+      } else if(tipoSolicitud === "A"){
+        if(localStorage.getItem('numeroCuenta') === newMove.numeroCuenta){
           newMoves.push(newMove);
-        } else if(localStorage.getItem('cardDisponible') == "Todas las cuentas"){
+        } else if(localStorage.getItem('cardDisponible') === "Todas las cuentas"){
           newMoves.push(newMove);
         }
       }

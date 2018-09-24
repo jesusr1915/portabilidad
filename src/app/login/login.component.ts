@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/loginServices'
 import { Router } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 
 @Component({
   selector: 'app-login',
@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

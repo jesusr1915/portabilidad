@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
-declare var ga: any;
+declare let ga: any;
 
 @Component({
   selector: 'app-root',

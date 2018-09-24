@@ -18,7 +18,7 @@ export class InfoCardMan{
 }
 
 
-export class messageInfoCard {
+export class MessageInfoCard {
   nombreCliente : string;
   fechaNacimiento : string;
   rfcCliente: string;

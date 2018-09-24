@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../services/loginServices'
 import { CopiesService } from '../services/copiesService';
-import { seleccion_cuenta_class, terminos_class } from 'interfaces/copiesInterface';
+import { SeleccionCuentaClass, TerminosClass } from 'interfaces/copiesInterface';
 import { NgModel } from '@angular/forms';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 
 import { MessageMan } from '../cards/messageMan';
 import { StepMan } from '../stepper/stepMan';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { InfoCardMan } from '../personal-card/infoCardMng';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -24,8 +24,8 @@ export class ViewCuentaInscripcionComponent implements OnInit {
 
     title = 'app';
     entry = "";
-    copies : seleccion_cuenta_class = new seleccion_cuenta_class();
-    terminosText : terminos_class = new terminos_class();
+    copies : SeleccionCuentaClass = new SeleccionCuentaClass();
+    terminosText : TerminosClass = new TerminosClass();
     classLabel = 'showLabel';
     inputCardInfo = "";
     selectedRadio = "";
@@ -61,8 +61,8 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       tokenUrl = "";
       tokenType = "";
 
-    @Input() value_label_CLABE;
-    @Input() value_placeholder_CLABE;
+    @Input() valueLabelClabe;
+    @Input() valuePlaceHolderClabe;
 
     constructor(
       private loginServices: LoginService,
@@ -96,7 +96,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
         }
 
         // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
-        if(this.tokenUrl != ""){
+        if(this.tokenUrl !== ""){
           localStorage.setItem('tokenUrl', this.tokenUrl);
         }
       });
@@ -115,7 +115,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       .subscribe(
         res => {
           // console.log(res.datos);
-          this.copies = res.datos.seleccion_cuenta;
+          this.copies = res.datos.seleccionCuenta;
           this.terminosText = res.datos.terminos2;
           this.stepMan.sendMessage(1,"Seleccione una cuenta");
         }
@@ -170,8 +170,8 @@ export class ViewCuentaInscripcionComponent implements OnInit {
               .subscribe(
                 res => {
                   // VALIDADOR DE RESPUESTA DE TOKEN
-                  if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                    var mToken = {"sessionId": "", "telefono":""}
+                  if(res.stokenValidatorResponse.codigoMensaje === "TVT_000"){
+                    let mToken = {"sessionId": "", "telefono":""}
                     let pAdicional: any
 
                     if(res.stokenValidatorResponse.PAdicional){
@@ -245,7 +245,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
 
     // PARA EL MENSAJE DE ERROR
     private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-      var message = new messageAlert(tipo, mensaje, boton, icon, code);
+      let message = new MessageAlert(tipo, mensaje, boton, icon, code);
       this.alertMan.sendMessage(message);
     }
 

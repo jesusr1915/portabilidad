@@ -18,7 +18,7 @@ export class AlertMan{
 }
 
 
-export class messageAlert {
+export class MessageAlert {
   title: string;
   body: string;
   button: string;
@@ -32,16 +32,16 @@ export class messageAlert {
     icon: string,
     code: number,
   ){
-    if(title != "")
+    if(title !== "") {
       this.title = title;
-    else
+    } else {
       this.title = "";
-
-    if(body != "")
+    } 
+    if(body !== "") {
       this.body = body;
-    else
+    } else {
       this.body = "Por el momento el servicio no esta disponible"
-
+    } 
       this.button = "Aceptar"
       this.icon = "assets/imgs/ico-info.svg"
       this.code = code;

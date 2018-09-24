@@ -2,7 +2,7 @@
   "estatus": 0,
   "descripcion": "ok",
   "datos": {
-    "seleccion_cuenta": {
+    "seleccionCuenta": {
       "title": "¿Dónde recibe actualmente su nómina? ",
       "textInst1": "Ingrese los datos solicitados.",
       "textInst2": "Ingrese los datos solicitados.",

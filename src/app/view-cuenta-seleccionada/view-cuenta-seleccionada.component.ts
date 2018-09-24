@@ -4,7 +4,7 @@ import { StepMan } from '../stepper/stepMan';
 import { verifique_class } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
@@ -73,7 +73,7 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
       .subscribe(
         res => {
 
-          if(res.error.clave == "OK"){
+          if(res.error.clave === "OK"){
             localStorage.setItem('fechaOperacion',res.dto.fechaOperacion);
             localStorage.setItem('horaEnvio',res.dto.horaOperacion);
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
@@ -94,7 +94,7 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

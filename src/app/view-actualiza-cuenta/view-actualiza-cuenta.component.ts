@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../services/loginServices'
 import { CopiesService } from '../services/copiesService';
-import { seleccion_cuenta_class, terminos_class } from 'interfaces/copiesInterface';
+import { SeleccionCuentaClass, TerminosClass } from 'interfaces/copiesInterface';
 import { NgModel } from '@angular/forms';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 
 import { MessageMan } from '../cards/messageMan';
 import { StepMan } from '../stepper/stepMan';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { InfoCardMan } from '../personal-card/infoCardMng';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -25,14 +25,14 @@ export class ViewActualizaCuentaComponent implements OnInit {
 
   tokenUrl = "";
   cuentaEnCeros = false;
-  value_alias = "";
-  value_disponible = "";
-  value_divisa = "";
-  value_numCuenta = "";
-  value_numCuentaRaw = "";
-  value_cuentaMovil = "";
-  value_selected = true;
-  value_sp = true;
+  valueAlias = "";
+  valueDisponible = "";
+  valueDivisa = "";
+  valueNumCuenta = "";
+  valueNumCuentaRaw = "";
+  valueCuentaMovil = "";
+  valueSelected = true;
+  valueSp = true;
   ctaSantanderPlus = "";
   subscriptionM: Subscription;
 
@@ -70,7 +70,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
     this.subscriptionM = this.alertMan.getMessage()
     .subscribe(
       message => {
-        if(message.title == "done"){
+        if(message.title === "done"){
           this.startServices();
           // this.loadMock()
         }
@@ -130,8 +130,8 @@ export class ViewActualizaCuentaComponent implements OnInit {
             .subscribe(
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
-                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  var mToken = {"sessionId": "", "telefono":""}
+                if(res.stokenValidatorResponse.codigoMensaje === "TVT_000"){
+                  let mToken = {"sessionId": "", "telefono":""}
                   let pAdicional: any
 
                   if(res.stokenValidatorResponse.PAdicional){
@@ -182,25 +182,25 @@ export class ViewActualizaCuentaComponent implements OnInit {
           .subscribe(
             res => {
               for(let cta of res.dto.saldoPesos){
-                if(cta.numeroCuenta == localStorage.getItem('ctaSantanderPlus')){
+                if(cta.numeroCuenta === localStorage.getItem('ctaSantanderPlus')){
 
-                  if(cta.alias == ""){
-                    this.value_alias = cta.tipoProducto;
+                  if(cta.alias === ""){
+                    this.valueAlias = cta.tipoProducto;
                   } else {
-                    this.value_alias = cta.alias;
+                    this.valueAlias = cta.alias;
                   }
-                  this.value_disponible = cta.disponible;
-                  this.value_divisa = cta.divisa;
+                  this.valueDisponible = cta.disponible;
+                  this.valueDivisa = cta.divisa;
                   let accountLenght = cta.numeroCuenta.length;
-                  this.value_numCuenta = cta.numeroCuenta.substr(0,2) + "**" + cta.numeroCuenta.substr(accountLenght-4,accountLenght);
-                  this.value_cuentaMovil = cta.cuentaMovil;
-                  localStorage.setItem("cardAliasSP", this.value_alias);
-                  localStorage.setItem("cardDisponibleSP", this.value_disponible);
-                  localStorage.setItem("cardDivisaSP", this.value_divisa);
-                  localStorage.setItem("cardNumeroCuentaSP", this.value_numCuenta);
-                  localStorage.setItem("cardCuentaMovilSP", this.value_cuentaMovil);
+                  this.valueNumCuenta = cta.numeroCuenta.substr(0,2) + "**" + cta.numeroCuenta.substr(accountLenght-4,accountLenght);
+                  this.valueCuentaMovil = cta.cuentaMovil;
+                  localStorage.setItem("cardAliasSP", this.valueAlias);
+                  localStorage.setItem("cardDisponibleSP", this.valueDisponible);
+                  localStorage.setItem("cardDivisaSP", this.valueDivisa);
+                  localStorage.setItem("cardNumeroCuentaSP", this.valueNumCuenta);
+                  localStorage.setItem("cardCuentaMovilSP", this.valueCuentaMovil);
 
-                  this.cuentaEnCeros = parseFloat(this.value_disponible.replace(",","")) <= 0 ? true : false;
+                  this.cuentaEnCeros = parseFloat(this.valueDisponible.replace(",","")) <= 0 ? true : false;
                 }
               }
             },
@@ -211,7 +211,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
         }
       },
       err => {
-        if(err.error.clave == "SAN123-NOINSCRITO"){
+        if(err.error.clave === "SAN123-NOINSCRITO"){
           this.errorService("", err.error.message, "Aceptar", "", 1); //1
         } else {
           this.errorService("Error", err.error.message, "Aceptar", "", 0);
@@ -256,25 +256,25 @@ export class ViewActualizaCuentaComponent implements OnInit {
           .subscribe(
             res => {
               for(let cta of res.dto.saldoPesos){
-                if(cta.numeroCuenta == localStorage.getItem('ctaSantanderPlus')){
+                if(cta.numeroCuenta === localStorage.getItem('ctaSantanderPlus')){
 
-                  if(cta.alias == ""){
-                    this.value_alias = cta.tipoProducto;
+                  if(cta.alias === ""){
+                    this.valueAlias = cta.tipoProducto;
                   } else {
-                    this.value_alias = cta.alias;
+                    this.valueAlias = cta.alias;
                   }
-                  this.value_disponible = cta.disponible;
-                  this.value_divisa = cta.divisa;
+                  this.valueDisponible = cta.disponible;
+                  this.valueDivisa = cta.divisa;
                   let accountLenght = cta.numeroCuenta.length;
-                  this.value_numCuenta = cta.numeroCuenta.substr(0,2) + "**" + cta.numeroCuenta.substr(accountLenght-4,accountLenght);
-                  this.value_cuentaMovil = cta.cuentaMovil;
-                  localStorage.setItem("cardAliasSP", this.value_alias);
-                  localStorage.setItem("cardDisponibleSP", this.value_disponible);
-                  localStorage.setItem("cardDivisaSP", this.value_divisa);
-                  localStorage.setItem("cardNumeroCuentaSP", this.value_numCuenta);
-                  localStorage.setItem("cardCuentaMovilSP", this.value_cuentaMovil);
+                  this.valueNumCuenta = cta.numeroCuenta.substr(0,2) + "**" + cta.numeroCuenta.substr(accountLenght-4,accountLenght);
+                  this.valueCuentaMovil = cta.cuentaMovil;
+                  localStorage.setItem("cardAliasSP", this.valueAlias);
+                  localStorage.setItem("cardDisponibleSP", this.valueDisponible);
+                  localStorage.setItem("cardDivisaSP", this.valueDivisa);
+                  localStorage.setItem("cardNumeroCuentaSP", this.valueNumCuenta);
+                  localStorage.setItem("cardCuentaMovilSP", this.valueCuentaMovil);
 
-                  this.cuentaEnCeros = parseFloat(this.value_disponible.replace(",","")) <= 0 ? true : false;
+                  this.cuentaEnCeros = parseFloat(this.valueDisponible.replace(",","")) <= 0 ? true : false;
                 }
               }
             },
@@ -307,14 +307,14 @@ export class ViewActualizaCuentaComponent implements OnInit {
         this.messageMan.sendMessage(temp);
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
 
-        this.value_alias = localStorage.getItem("cardAliasSP");
-        this.value_disponible = localStorage.getItem("cardDisponibleSP");
-        this.value_divisa = localStorage.getItem("cardDivisaSP");
-        this.value_numCuenta = localStorage.getItem("cardNumeroCuentaSP");
-        this.value_cuentaMovil = localStorage.getItem("cardCuentaMovilSP");
+        this.valueAlias = localStorage.getItem("cardAliasSP");
+        this.valueDisponible = localStorage.getItem("cardDisponibleSP");
+        this.valueDivisa = localStorage.getItem("cardDivisaSP");
+        this.valueNumCuenta = localStorage.getItem("cardNumeroCuentaSP");
+        this.valueCuentaMovil = localStorage.getItem("cardCuentaMovilSP");
         this.cuentaEnCeros = parseFloat(localStorage.getItem("cardDisponibleSP").replace(",","")) <= 0 ? true : false;
-        this.value_selected = true;
-        this.value_sp = true;
+        this.valueSelected = true;
+        this.valueSp = true;
       },
       err => {
         this.errorService("Error", err.error.message, "Aceptar", "", 0);
@@ -329,7 +329,7 @@ export class ViewActualizaCuentaComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

@@ -44,7 +44,7 @@ export class MovesComponent implements OnInit {
       this.imagePath="assets/imgs/arrow-orange.svg";
     }
 
-    if(this.tipoSolicitud == "R"){
+    if(this.tipoSolicitud === "R"){
       this.origen = this.accountWhereReceive
       this.destino = this.accountWhereWishReceive
       this.bancoOrigen = this.bankWhereReceive

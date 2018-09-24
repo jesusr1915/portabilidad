@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
 
-declare var jQuery:any;
-declare var $:any;
-declare var Sly:any;
+declare let jQuery:any;
+declare let $:any;
+declare let Sly:any;
 
 @Component({
   selector: 'app-cards',
@@ -59,7 +59,7 @@ export class CardsComponent implements OnInit, OnDestroy {
 
         if(value.indicadorBloqueo === "N" && value.participacion === "TI"){
 
-          if(value.alias == ""){
+          if(value.alias === ""){
             value.alias = value.tipoProducto;
           }
           let accountLenght = value.numeroCuenta.length;
@@ -93,7 +93,7 @@ export class CardsComponent implements OnInit, OnDestroy {
     if(cards !== undefined){
       if(cards.indicadorBloqueo === "S"){
         localStorage.setItem('validAccount','false');
-        var message = new messageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info",0);
+        let message = new MessageAlert("Cuenta bloqueada","Esta cuenta no puede ser utilizada dado que tiene un bloqueo. <br/><br/>  Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","Aceptar","info",0);
         this.alertMan.sendMessage(message);
         cards.isSelected = false;
       } else {
@@ -106,9 +106,9 @@ export class CardsComponent implements OnInit, OnDestroy {
         localStorage.setItem("cardCuentaMovil", cards.cuentaMovil);
         localStorage.setItem("numeroCuenta", cards.unmaskCuenta);
         localStorage.setItem("numeroSubProducto", cards.numeroSubProducto);
-        if(cards.numeroSubProducto == "0025"){
+        if(cards.numeroSubProducto === "0025"){
           setTimeout(()=> {
-            var message = new messageAlert("Límite depósitos en cuenta","Este tipo de cuenta sólo puede recibir depósitos de hasta $17, 000 mensuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info",0);
+            let message = new MessageAlert("Límite depósitos en cuenta","Este tipo de cuenta sólo puede recibir depósitos de hasta $17, 000 mensuales. Si considera que rebasará este límite seleccione otra cuenta o acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses).","Aceptar","info",0);
             this.alertMan.sendMessage(message);
           }, 700);
         }

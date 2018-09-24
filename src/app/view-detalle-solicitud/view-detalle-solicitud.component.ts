@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { StepMan } from '../stepper/stepMan';
 
-declare var ga: any;
+declare let ga: any;
 
 @Component({
   selector: 'app-view-detalle-solicitud',
@@ -68,7 +68,7 @@ export class ViewDetalleSolicitudComponent implements OnInit {
 
 
     this.tipoSolicitud = localStorage.getItem('tipoSolicitud');
-    if(this.tipoSolicitud == "R"){
+    if(this.tipoSolicitud === "R"){
       this.envres = "RECEPCIÓN"
     } else {
       this.envres = "ENVÍO"

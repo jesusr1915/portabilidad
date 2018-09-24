@@ -9,14 +9,14 @@ import { Component, OnInit, Input } from '@angular/core';
               '../app.component.scss']
 })
 export class CardInfoComponent implements OnInit {
-  @Input() value_alias;
-  @Input() value_disponible;
-  @Input() value_divisa;
-  @Input() value_numCuenta;
-  @Input() value_cuentaMovil;
-  @Input() value_bloqueo;
-  @Input() value_selected;
-  @Input() value_sp;
+  @Input() valueAlias;
+  @Input() valueDisponible;
+  @Input() valueDivisa;
+  @Input() valueNumCuenta;
+  @Input() valueCuentaMovil;
+  @Input() valueBloqueo;
+  @Input() valueSelected;
+  @Input() valueSp;
   cuentaBloqueada: boolean = false;
   cuentaEnCeros: boolean = false;
   cardStyle: string = "Card";
@@ -26,15 +26,15 @@ export class CardInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cuentaBloqueada = this.value_bloqueo == "S" ? true : false;
-    this.cuentaEnCeros = this.value_disponible <= 0 ? true : false;
-    if(this.value_divisa === "MXP"){
-      this.value_divisa = "MXN";
+    this.cuentaBloqueada = this.valueBloqueo === "S" ? true : false;
+    this.cuentaEnCeros = this.valueDisponible <= 0 ? true : false;
+    if(this.valueDivisa === "MXP"){
+      this.valueDivisa = "MXN";
       this.cuentaTodos = false
     } else {
       this.cuentaTodos = true
     }
-    if(this.value_selected){
+    if(this.valueSelected){
       this.cardBorder = "active";
     } else {
       this.cardBorder = "";

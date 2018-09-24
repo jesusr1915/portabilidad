@@ -3,7 +3,7 @@ import { StepMan } from '../stepper/stepMan';
 import { LoginService } from '../services/loginServices';
 import { FormatValue } from '../tools/formatValues';
 import { Router, RouterModule, Routes, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 
 @Component({
   selector: 'app-view-cuenta-resumen',
@@ -50,7 +50,7 @@ export class ViewCuentaResumenComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

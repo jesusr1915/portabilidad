@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../services/loginServices'
 import { CopiesService } from '../services/copiesService';
-import { seleccion_cuenta_class, terminos_class } from 'interfaces/copiesInterface';
+import { SeleccionCuentaClass, TerminosClass } from 'interfaces/copiesInterface';
 import { NgModel } from '@angular/forms';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 
 import { MessageMan } from '../cards/messageMan';
 import { StepMan } from '../stepper/stepMan';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { InfoCardMan } from '../personal-card/infoCardMng';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -17,8 +17,8 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 import { JavaScriptInterface } from 'interfaces/JavaScriptInterface';
 
-declare var Connect: JavaScriptInterface;
-declare var ga: any;
+declare let Connect: JavaScriptInterface;
+declare let ga: any;
 
 @Component({
   selector: 'app-view-alta-cliente',
@@ -31,8 +31,8 @@ export class ViewAltaClienteComponent implements OnInit {
 
   title = 'app';
   entry = "";
-  copies : seleccion_cuenta_class = new seleccion_cuenta_class();
-  terminosText : terminos_class = new terminos_class();
+  copies : SeleccionCuentaClass = new SeleccionCuentaClass();
+  terminosText : TerminosClass = new TerminosClass();
   classLabel = 'showLabel';
   inputCardInfo = "";
   selectedRadio = "";
@@ -72,8 +72,8 @@ export class ViewAltaClienteComponent implements OnInit {
     tokenType = "";
     pruebasDante = "";
 
-  @Input() value_label_CLABE;
-  @Input() value_placeholder_CLABE;
+  @Input() valueLabelClabe;
+  @Input() valuePlaceHolderClabe;
 
   constructor(
     private loginServices: LoginService,
@@ -122,16 +122,18 @@ export class ViewAltaClienteComponent implements OnInit {
     .subscribe(
       message => {
         // console.log("CARRUSEL", message);
-        if(message.response == true)
+        if(message.response === true) {
           this.validAccount = true;
-        else
+        }
+        else {
           this.validAccount = false;
+        }
       }
     )
     this.subscriptionM = this.alertMan.getMessage()
     .subscribe(
       message => {
-        if(message.title == "done"){
+        if(message.title === "done"){
           this.startServices();
           // this.loadMock()
         }
@@ -179,7 +181,7 @@ export class ViewAltaClienteComponent implements OnInit {
     this.copiesServ.postCopies()
     .subscribe(
       res => {
-        this.copies = res.datos.seleccion_cuenta;
+        this.copies = res.datos.seleccionCuenta;
         this.terminosText = res.datos.terminos;
         this.onSelectionChange(1);
         this.stepMan.sendMessage(1,"Ingrese los datos de su nómina");
@@ -199,7 +201,7 @@ export class ViewAltaClienteComponent implements OnInit {
     // SE RECUPERA LA INFORMACION CUANDO SE DA BOTON DEL BACK
     if(localStorage.getItem('fillData')){
       if(localStorage.getItem('tarjet') !== null){
-        if(localStorage.getItem('tarjet').length == 18){
+        if(localStorage.getItem('tarjet').length === 18){
           this.tipoCuenta = true;
           this.onSelectionChange(1)
         } else {
@@ -243,8 +245,8 @@ export class ViewAltaClienteComponent implements OnInit {
             .subscribe(
               res => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
-                if(res.stokenValidatorResponse.codigoMensaje == "TVT_000"){
-                  var mToken = {"sessionId": "", "OTPId":""}
+                if(res.stokenValidatorResponse.codigoMensaje === "TVT_000"){
+                  let mToken = {"sessionId": "", "OTPId":""}
                   let pAdicional: any
 
                   if(res.stokenValidatorResponse.PAdicional){
@@ -257,7 +259,7 @@ export class ViewAltaClienteComponent implements OnInit {
                   mToken = pAdicional;
                   // mToken.sessionId = pAdicional;
                   // mToken.telefono = "5582173246"
-                  var totalSteps = 3;
+                  let totalSteps = 3;
                   if(mToken.OTPId){
                      if(mToken.OTPId !== ""){
                        totalSteps = 4;
@@ -318,7 +320,7 @@ export class ViewAltaClienteComponent implements OnInit {
             .subscribe(
               res => {
                 this.spinnerMng.showSpinner(false);
-                if(res.error.clave == "OK"){
+                if(res.error.clave === "OK"){
                   for(let arrayVal of res.dto){
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
@@ -349,7 +351,7 @@ export class ViewAltaClienteComponent implements OnInit {
     .subscribe(
       res => {
         this.spinnerMng.showSpinner(false);
-        if(res.error.clave == "OK"){
+        if(res.error.clave === "OK"){
           for(let arrayVal of res.dto){
             let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
             this.lBanks.push(temp);
@@ -381,7 +383,7 @@ export class ViewAltaClienteComponent implements OnInit {
             .subscribe(
               res => {
                 // SE LLENA EL LISTADO DE BANCOS
-                if(res.error.clave == "OK"){
+                if(res.error.clave === "OK"){
                   for(let arrayVal of res.dto){
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
@@ -412,7 +414,7 @@ export class ViewAltaClienteComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
-        if(err.error.clave == "CSCH-SCC-1"){
+        if(err.error.clave === "CSCH-SCC-1"){
           this.openAlert("", "Los depósitos por concepto de nómina o prestaciones laborales son realizados a su cuenta de cheques. \n\n Por favor acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses) para realizar la portabilidad de nómina.", "", "", 0);
         } else {
           if(err.error.message){
@@ -427,8 +429,8 @@ export class ViewAltaClienteComponent implements OnInit {
 
   private setNewUser(id: any): void {
     this.curUser = this.lUsers.filter(value => value.id === id);
-    if(this.selectedRadio == "debito"){
-      if (id != "0"){
+    if(this.selectedRadio === "debito"){
+      if (id !== "0"){
         this.validBank = true;
       }else{
         this.validBank = false;
@@ -439,7 +441,7 @@ export class ViewAltaClienteComponent implements OnInit {
   keyPress(event: any) {
     const pattern = /[0-9]+/;
     let inputChar = event.key;
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
   }
@@ -455,7 +457,7 @@ export class ViewAltaClienteComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private openAlert(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 
@@ -469,17 +471,17 @@ export class ViewAltaClienteComponent implements OnInit {
     this.selectedBank = "";
     this.classLabel = 'showLabel';
     this.validBank = false;
-    if(entry == 1){
-      this.value_label_CLABE = this.copies.textInstClabe;
-      this.value_placeholder_CLABE = this.copies.textPlaceHolderClabe;
+    if(entry === 1){
+      this.valueLabelClabe = this.copies.textInstClabe;
+      this.valuePlaceHolderClabe = this.copies.textPlaceHolderClabe;
       this.maxLength = '18';
       this.selectedRadio = 'clabe';
       this.classSelBank = this.classDisBank;
       this.bankDisable = true;
       this.lUsers = [];
     }else{
-      this.value_label_CLABE = this.copies.textInstDebito;
-      this.value_placeholder_CLABE = this.copies.textPlaceHolderDebito;
+      this.valueLabelClabe = this.copies.textInstDebito;
+      this.valuePlaceHolderClabe = this.copies.textPlaceHolderDebito;
       this.maxLength = '16';
       this.selectedRadio = "debito";
       this.classSelBank = this.classEnaBank;
@@ -495,20 +497,20 @@ export class ViewAltaClienteComponent implements OnInit {
 
   validaCampoCta() { // inputs de tarjeta
     this.tarjetValue = this.tarjetValue.replace(/[^0-9]/g, '');
-    if(this.tarjetValue.length != 0){
+    if(this.tarjetValue.length !== 0){
       this.classLabel = 'hideLabel';
-      if(this.tarjetValue.length == 18){
+      if(this.tarjetValue.length === 18){
         // this.validacionClabe(this.tarjetValue);
         if(this.sendService){
           this.spinnerMng.showSpinner(true);
           this.loginServices.postBancosClabe(this.tarjetValue)
           .subscribe(
             res=> {
-              if(res.error.clave == "OK"){
-                var recoveredBank = "";
-                var idBank = "";
+              if(res.error.clave === "OK"){
+                let recoveredBank = "";
+                let idBank = "";
                 for(let i=0; i < this.lBanks.length; i++){
-                  if(this.lBanks[i].Name == res.dto.bancoCuenta){
+                  if(this.lBanks[i].Name === res.dto.bancoCuenta){
                     idBank = this.lBanks[i].id;
                   }
                 }
@@ -530,7 +532,7 @@ export class ViewAltaClienteComponent implements OnInit {
               }
             },
             err => {
-              if(err.error.clave == "ERROR"){
+              if(err.error.clave === "ERROR"){
                 this.openAlert("Error", err.error.message, "Aceptar" , "", 0);
               } else {
                 this.openAlert("", "", "", "", 0);
@@ -545,8 +547,8 @@ export class ViewAltaClienteComponent implements OnInit {
 
               this.sendService = true;
 
-          if(this.selectedRadio == "debito"){
-              if(this.tarjetValue.length == 16){
+          if(this.selectedRadio === "debito"){
+              if(this.tarjetValue.length === 16){
                 this.validClabe = true;
               }
           }else{

@@ -33,11 +33,11 @@ export class MenuComponent implements OnInit {
     this.estadoActivo1 = false;
     this.estadoActivo2 = false;
     this.estadoActivo3 = false;
-    if(reference == 1){
+    if(reference === 1){
       this.estadoActivo1 = true;
-    }else if(reference == 2){
+    }else if(reference === 2){
       this.estadoActivo2 = true;
-    }else if(reference == 3){
+    }else if(reference === 3){
       this.estadoActivo3 = true;
     }
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, Routes, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { AlertMan , messageAlert } from '../message-alert/alertMan';
+import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Subscription } from 'rxjs/Subscription';
 import { LoginService } from '../services/loginServices';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
@@ -37,7 +37,7 @@ export class ViewCuentaBienvenidaComponent implements OnInit {
       this.subscriptionM = this.alertMan.getMessage()
       .subscribe(
         message => {
-          if(message.title == "done"){
+          if(message.title === "done"){
             this.consultaDineroCresciente();
           }
         }
@@ -52,7 +52,7 @@ export class ViewCuentaBienvenidaComponent implements OnInit {
     this.loginServices.postDineroCrecienteSP()
     .subscribe(
       res => {
-        if(res.error.clave == "OK"){
+        if(res.error.clave === "OK"){
           this.spinnerMng.showSpinner(false);
           if(res.dto.saldoCreciente === ""){
             this.errorService("","Recibir remuneraciones por el saldo en Dinero Creciente es otro de los beneficios de Santander Plus; contrate sin costo a través de <strong>SuperNet > Inversiones > Contratación Dinero Creciente.</strong><br/><br/>Por favor cualquier duda o aclaración comuníquese a la línea de <br/>Santander Plus al <br/>01800 0101123.", "Aceptar", "info", 1);
@@ -74,7 +74,7 @@ export class ViewCuentaBienvenidaComponent implements OnInit {
 
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
-    var message = new messageAlert(tipo, mensaje, boton, icon, code);
+    let message = new MessageAlert(tipo, mensaje, boton, icon, code);
     this.alertMan.sendMessage(message);
   }
 

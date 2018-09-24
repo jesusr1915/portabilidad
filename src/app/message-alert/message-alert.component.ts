@@ -22,8 +22,9 @@ export class MessageAlertComponent implements OnInit {
     this.subscription = this.messageMan.getMessage()
     .subscribe(
       message => {
-        if(message.title !== "done")
+        if(message.title !== "done"){
           this.showMessage(message.title);
+        }
       }
     )
   }
@@ -39,15 +40,16 @@ export class MessageAlertComponent implements OnInit {
     this.code = title.code;
     this.icon = title.icon;
 
-    if(this.code == 1){
+    if(this.code === 1){
       this.hasAction = true;
     } else {
       this.hasAction = false;
     }
 
 
-    if(this.message == "")
+    if(this.message === ""){
       this.message = "Por el momento el servicio no está disponible, por favor intente de nuevo más tarde."
+    }
 
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
