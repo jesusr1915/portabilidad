@@ -2,7 +2,7 @@ import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { CopiesService } from '../services/copiesService';
 import { LoginService } from '../services/loginServices';
 import { StepMan } from '../stepper/stepMan';
-import { verifique_class } from 'interfaces/copiesInterface';
+import { VerifiqueClass } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , MessageAlert } from '../message-alert/alertMan';
@@ -21,7 +21,7 @@ declare let ga: any;
 
 export class ViewAltaVerifiqueComponent implements OnInit {
 
-  copiesVer : verifique_class = new verifique_class();
+  copiesVer: VerifiqueClass = new VerifiqueClass();
   @Input() valueInfo = localStorage.getItem('tarjet');
   @Input() valueBank = localStorage.getItem('banco');
   @Input() valueBirthdate = localStorage.getItem('birthday');

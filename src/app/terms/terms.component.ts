@@ -11,7 +11,7 @@ declare let ga: any;
 })
 export class TermsComponent implements OnInit {
   public visible = false;
-  private visibleAnimate = false;
+  public visibleAnimate = false;
   terminosText : TerminosClass = new TerminosClass();
 
   constructor(

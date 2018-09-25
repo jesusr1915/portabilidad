@@ -8,9 +8,9 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class SpinnerComponentComponent implements OnInit {
 
-  public visible = false;
-  private visibleAnimate = false;
-  private subscription: Subscription;
+  visible = false;
+  visibleAnimate = false;
+  subscription: Subscription;
 
   constructor(private messageMan: SpinnerMan) {
     this.subscription = this.messageMan.getMessage()

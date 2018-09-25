@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../services/loginServices';
 import { StepMan } from '../stepper/stepMan';
-import { verifique_class } from 'interfaces/copiesInterface';
+import { VerifiqueClass } from 'interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , MessageAlert } from '../message-alert/alertMan';

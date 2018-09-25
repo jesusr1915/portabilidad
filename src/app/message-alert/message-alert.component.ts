@@ -8,15 +8,15 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['../app.component.scss','../terms/terms.component.scss','./message-alert.component.scss']
 })
 export class MessageAlertComponent implements OnInit {
-  public visible = false;
-  private visibleAnimate = false;
-  private title="";
-  private message="";
-  private button="Aceptar";
-  private subscription: Subscription;
-  private icon = "";
-  private code = 0;
-  private hasAction = false;
+  visible = false;
+  visibleAnimate = false;
+  title="";
+  message="";
+  button="Aceptar";
+  subscription: Subscription;
+  icon = "";
+  code = 0;
+  hasAction = false;
 
   constructor(private messageMan: AlertMan) {
     this.subscription = this.messageMan.getMessage()

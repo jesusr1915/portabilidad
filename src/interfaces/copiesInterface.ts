@@ -8,12 +8,12 @@ export class DatosClass {
   seleccionCuenta: SeleccionCuentaClass;
   terminos : TerminosClass;
   terminos2 : TerminosClass;
-  verifique : verifique_class;
+  verifique : VerifiqueClass;
   constructor(){
     this.seleccionCuenta = new SeleccionCuentaClass();
     this.terminos = new TerminosClass();
     this.terminos2 = new TerminosClass();
-    this.verifique = new verifique_class();
+    this.verifique = new VerifiqueClass();
   }
 }
 export class SeleccionCuentaClass{
@@ -52,8 +52,8 @@ export class TerminosClass{
     this.texto = "";
   }
 }
-export class verifique_class{
-  titleinit: string;
+export class VerifiqueClass{
+  titleInit: string;
   titleStrong: string;
   titleEnd: string;
   instLbl: string;
@@ -69,7 +69,7 @@ export class verifique_class{
   btnCont: string;
 
   constructor(){
-    this.titleinit = "";
+    this.titleInit = "";
     this.titleStrong = "";
     this.titleEnd = "";
     this.instLbl = "";

@@ -424,7 +424,7 @@ export class ViewAltaClienteComponent implements OnInit {
     )
   }
 
-  private setNewUser(id: any): void {
+  setNewUser(id: any): void {
     this.curUser = this.lUsers.filter(value => value.id === id);
     if(this.selectedRadio === "debito"){
       if (id !== "0"){
@@ -458,7 +458,7 @@ export class ViewAltaClienteComponent implements OnInit {
     this.alertMan.sendMessage(message);
   }
 
-  private onSelectionChange(entry){ // radio buttons controll
+  onSelectionChange(entry){ // radio buttons controll
     this.validBank = false;
     this.validAccount = false;
     this.validClabe = false;
