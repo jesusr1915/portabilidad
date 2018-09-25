@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -15,6 +16,7 @@ import { MessageAlertComponent } from './message-alert/message-alert.component';
 //services
 import { LoginService } from './services/loginServices';
 import { CopiesService } from './services/copiesService';
+import { AppLoadService } from './services/app-load.service';
 import { StepperComponent } from './stepper/stepper.component';
 
 //manager RX
@@ -48,6 +50,9 @@ import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-a
 import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cuenta-bienvenida.component';
 import { ViewAltaOtpComponent } from './view-alta-otp/view-alta-otp.component';
 
+export function get_settings(appLoadService: AppLoadService) {
+    return () => appLoadService.getSettings();
+}
 
 @NgModule({
   declarations: [
@@ -81,6 +86,7 @@ import { ViewAltaOtpComponent } from './view-alta-otp/view-alta-otp.component';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     FormsModule,
     routing
   ],
@@ -94,7 +100,9 @@ import { ViewAltaOtpComponent } from './view-alta-otp/view-alta-otp.component';
     SpinnerMan,
     TermMan,
     TokenMng,
-    MenuMsg
+    AppLoadService,
+    MenuMsg,
+    { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -21,11 +21,12 @@
         <input id="name" type="text" name="name" (keyup)="onKey($event)" [(ngModel)]="tarjetValue" [attr.maxlength]="maxLength" placeholder={{valuePlaceHolderClabe}}>
         <!-- <label for="name" [className]="classLabel">{{valuePlaceHolderClabe}}</label> -->
   </div>
+  <label for="selectElem" ></label>
   <p class = "labelInst">
     {{copies.textInstBanco}}
   </p>
 
-  <select [className] = "classSelBank"  [disabled]="bankDisable" #selectElem (change)="setNewUser(selectElem.value)" [(ngModel)]="selectBank" >
+  <select id="selectElem" [className] = "classSelBank"  [disabled]="bankDisable" #selectElem (change)="setNewUser(selectElem.value)" [(ngModel)]="selectBank" >
           <option  *ngFor="let user of lUsers" [value]="user.id">
               {{user.Name}}
           </option>
@@ -50,6 +51,7 @@
         [checked]="validTerms"
         (change)="validTerms = !validTerms"
         class="cbx "/>
+        <label for="saveTermCheckBox" ></label>
       <!-- <label for="saveTermCheckBox" class="lbl"></label> -->
       Acepto terminos y condiciones de portabilidad de nómina. </p>
    </div>

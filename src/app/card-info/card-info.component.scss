@@ -1,117 +1,137 @@
-.Card{
-
-	width: 269px;
-	height: 120.5px;
-  position: relative;
-	border: solid 0.5px #cccccc;
-	font-family: 'Open Sans', sans-serif;
-  background: #ffffff url("../../assets/imgs/icon-cuenta.svg") no-repeat left center;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-
-	&.active{
-		border-color: #cccccc;
+:host{
+	margin-left: 10%;
+	margin-top: auto;
+	margin-bottom: auto;
+	&.multi{
+	margin-left: 10%;
+	margin-top: auto;
+	margin-bottom: auto;
+	}
+	&.one{
+		margin: auto;
 	}
 
-	.Card-unlocked{
-		display: none;
-	}
 
-	.Card-locked {
-		z-index: 1000;
-		position: absolute;
+	.Card{
+
 		width: 269px;
 		height: 120.5px;
-		background-color: rgba(255, 255, 255, 0.7);
+	  position: relative;
 		border: solid 0.5px #cccccc;
+		font-family: 'Open Sans', sans-serif;
+	  background: #ffffff url("../../assets/imgs/icon-cuenta.svg") no-repeat left center;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
 
-		img{
+		&.active{
+			border-color: #cccccc;
+		}
+
+		.Card-unlocked{
+			display: none;
+		}
+
+		.Card-locked {
+			z-index: 1000;
 			position: absolute;
-			top: 50%;
-			left: 50%;
-			margin-left: -17px;
-			margin-top: -22px;
-		}
-	}
+			width: 269px;
+			height: 120.5px;
+			background-color: rgba(255, 255, 255, 0.7);
+			border: solid 0.5px #cccccc;
 
-  .contentIcon {
-    position: absolute;
-    bottom: 10px;
-    right: 13px;
-    // display: none;
-	}
-	.contentInfo{
-    // margin-top: 7%;
-		margin-top: 9%;
-    position: relative;
-		width: 80%;
-    padding-left: 20%;
-		h1 {
-			width: 100%;
-			// height: 17px;
-			font-size: 12px;
-			color: #505050;
+			img{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -17px;
+				margin-top: -22px;
+			}
 		}
-		.todas{
-			font-family: 'Open Sans', sans-serif;
-			font-size: 12px;
-		}
-		.info {
-			width: 100%;
-			// height: 39px;
-			// font-size: 29px;
-			height: 31px;
-			font-size: 21px;
-			text-align: left;
-			color: #9abc3c;
 
-			.coins {
-				width: 27px;
-				height: 17px;
+	  .contentIcon {
+	    position: absolute;
+	    bottom: 10px;
+	    right: 13px;
+	    // display: none;
+		}
+		.contentInfo{
+	    // margin-top: 7%;
+			margin-top: 9%;
+	    position: relative;
+			width: 80%;
+	    padding-left: 20%;
+			h1 {
+				width: 100%;
+				// height: 17px;
 				font-size: 12px;
-				text-align: center;
+				color: #505050;
+			}
+			.todas{
+				font-family: 'Open Sans', sans-serif;
+				font-size: 12px;
+			}
+			.info {
+				width: 100%;
+				// height: 39px;
+				// font-size: 29px;
+				height: 31px;
+				font-size: 21px;
+				text-align: left;
 				color: #9abc3c;
-			}
-		}
-		.info-zero {
-			width: 100%;
-			height: 39px;
-			font-size: 29px;
-			text-align: left;
-			color: #e29c3b;
 
-			.coins {
-				width: 27px;
+				.coins {
+					width: 27px;
+					height: 17px;
+					font-size: 12px;
+					text-align: center;
+					color: #9abc3c;
+				}
+			}
+			.info-zero {
+				width: 100%;
+				height: 39px;
+				font-size: 29px;
+				text-align: left;
+				color: #e29c3b;
+
+				.coins {
+					width: 27px;
+					height: 17px;
+					font-size: 12px;
+					text-align: center;
+					color: #e29c3b;
+				}
+			}
+			.footNote {
+				width: 100%;
 				height: 17px;
 				font-size: 12px;
-				text-align: center;
-				color: #e29c3b;
-			}
-		}
-		.footNote {
-			width: 100%;
-			height: 17px;
-			font-size: 12px;
-			font-weight: 300;
-			color: #5b5a5b;
+				font-weight: 300;
+				color: #5b5a5b;
 
-			p{
-				display: inline-block;
-			}
-			span{
-				width: 3px;
-				height: 22px;
-				border: solid 1px #979797;
-				margin-left: 3%;
-				margin-right: 6%;
+				p{
+					display: inline-block;
+				}
+				span{
+					width: 3px;
+					height: 22px;
+					border: solid 1px #979797;
+					margin-left: 3%;
+					margin-right: 6%;
+				}
 			}
 		}
 	}
+
 }
 
-// this will only affect wide screens
 @media screen and (min-width: 768px) {
+  :host {
+      width: 269px;
+      float: left;
+      margin-top: 3% !important;
+  }
 	.Card{
 		&.selected{
 			border: solid 1px #d0021b;

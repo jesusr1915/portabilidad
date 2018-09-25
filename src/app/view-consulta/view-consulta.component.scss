@@ -1,25 +1,4 @@
 
-app-moves{
-  height: 61px;
-  width: 100%;
-  position: relative;
-  background: url("../../assets/imgs/backLine.png") 24px repeat-y;
-  padding-top: 20px;
-  display: block;
-  &:last-of-type::before{
-    content: '';
-    background-color: white;
-    height: 16px;
-    width: 10%;
-    display: block;
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-  }
-  &:nth-of-type(1){
-    padding-top: 4px;
-  }
-}
 .bullet {
   display: block;
   width: 100%;

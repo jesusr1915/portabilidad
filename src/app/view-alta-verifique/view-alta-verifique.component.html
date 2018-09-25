@@ -19,8 +19,8 @@
   <!-- <button  type="button" (click)="showToken()" >{{copiesVer.btnCont}}</button> -->
   <a id="validaSesion" onclick="validaSesion()"></a>
   <button type="button" (click)="showToken()">{{copiesVer.btnCont}}</button>
-  <button [hidden]="true" type="button" onclick="requestToken()">{{copiesVer.btnCont}}</button>
-  <button [hidden]="!hideToken" type="button" (click)="continue()">{{copiesVer.btnCont}}</button>
+  <!-- <button [hidden]="hideToken" type="button" onclick="requestToken()">{{copiesVer.btnCont}}</button>
+  <button [hidden]="!hideToken" type="button" (click)="continue()">{{copiesVer.btnCont}}</button> -->
 </div>
 <app-token (saveToken)="sendAltaService()"></app-token>
 <app-message-alert></app-message-alert>

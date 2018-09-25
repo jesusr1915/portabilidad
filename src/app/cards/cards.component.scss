@@ -1,7 +1,25 @@
+$margin-med : 15px;
+$font-stack: 'Open Sans';
+$font-stack: 'Open Sans';
+$margin-top: 25px;
+$width-med: 91%;
+$color-main-font: #2d2d2d;
+$red-color: #e80004;
 
 :host {
     margin: 0;
     padding: 0;
+
+    display: block;
+    margin-top: $margin-top;
+    margin-left: auto;
+    margin-right: auto;
+    width: $width-med;
+    &.center{
+      margin-top: $margin-top * 2;
+      text-align: center;
+      font-size: 14px;
+    }
 
     .frame {
             margin-top: 30px;
@@ -21,20 +39,20 @@
 
 
     /* overflow-x: scroll; */
-    app-card-info{
-      margin-left: 10%;
-  		margin-top: auto;
-  		margin-bottom: auto;
-      &.multi{
-  		margin-left: 10%;
-  		margin-top: auto;
-  		margin-bottom: auto;
-  		}
-      &.one{
-  			margin: auto;
-  		}
-
-    }
+    // app-card-info{
+    //   margin-left: 10%;
+  	// 	margin-top: auto;
+  	// 	margin-bottom: auto;
+    //   &.multi{
+  	// 	margin-left: 10%;
+  	// 	margin-top: auto;
+  	// 	margin-bottom: auto;
+  	// 	}
+    //   &.one{
+  	// 		margin: auto;
+  	// 	}
+    //
+    // }
   }
 }
 
@@ -49,12 +67,6 @@
       &.verifica{
         display: flex;
         display: -webkit-flex; /* NEW */
-      }
-
-      app-card-info{
-        width: 269px;
-        float: left;
-        margin-top: 3% !important;
       }
     }
   }

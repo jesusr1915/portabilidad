@@ -1,4 +1,25 @@
 
+:host{
+  height: 61px;
+  width: 100%;
+  position: relative;
+  background: url("../../assets/imgs/backLine.png") 24px repeat-y;
+  padding-top: 20px;
+  display: block;
+  &:last-of-type::before{
+    content: '';
+    background-color: white;
+    height: 16px;
+    width: 10%;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+  }
+  &:nth-of-type(1){
+    padding-top: 4px;
+  }
+
   .logo-status{
     float: left;
     position: relative;
@@ -18,54 +39,56 @@
     }
   }
 
-.contentMove {
-  width: 84%;
-  height: 61px;
-  float: left;
-  margin-left: 10px;
-  border: solid 0.5px #a0a0a0;
-  position: relative;
-  p{
-    font-size: 12px;
-    font-weight: 300;
-    display: block;
-    color: #000000;
-    margin: 9px;
-    strong{
-      color: #000000;
-    }
-    em{
+  .contentMove {
+    width: 84%;
+    height: 61px;
+    float: left;
+    margin-left: 10px;
+    border: solid 0.5px #a0a0a0;
+    position: relative;
+    p{
       font-size: 12px;
-      font-weight: 600;
-      font-style: normal;
-      float: right;
-      &.accept{
-        color: #abc111;
+      font-weight: 300;
+      display: block;
+      color: #000000;
+      margin: 9px;
+      strong{
+        color: #000000;
       }
-      &.rejected{
-        color: #e80004;
-      }
+      em{
+        font-size: 12px;
+        font-weight: 600;
+        font-style: normal;
+        float: right;
+        &.accept{
+          color: #abc111;
+        }
+        &.rejected{
+          color: #e80004;
+        }
 
 
+      }
+    }
+    &::before{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      border-left: solid 0.5px #a0a0a0;
+      border-bottom: solid 0.5px #a0a0a0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto 0 auto -6px;
+      background-color: white;
     }
   }
-  &::before{
-    content: "";
-    display: block;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    border-left: solid 0.5px #a0a0a0;
-    border-bottom: solid 0.5px #a0a0a0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto 0 auto -6px;
-    background-color: white;
-  }
-  }
+
+}

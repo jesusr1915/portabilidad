@@ -1,11 +1,37 @@
-$margin-med : 15px;
+:host{
 
-* {
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  $margin-med : 15px;
+  $font-stack: 'Open Sans';
+  $font-stack: 'Open Sans';
+  $margin-top: 25px;
+  $width-med: 91%;
+  $color-main-font: #2d2d2d;
+  $red-color: #e80004;
+
+
+  display: block;
+	background-color: #f0f0f0;
+	border: solid 1px #cccccc;
+
+  font-family: $font-stack;
+	font-weight: 300;
+	color: $color-main-font;
+  margin-top: $margin-top;
+  margin-left: auto;
+  margin-right: auto;
+  width: $width-med;
+  &.minTop{
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+
 h1{
   margin-top: $margin-med;
 }
@@ -27,4 +53,6 @@ h1{
 }
 .margin{
   margin-bottom: 10px;
+}
+
 }

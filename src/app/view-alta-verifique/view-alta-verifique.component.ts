@@ -185,12 +185,23 @@ export class ViewAltaVerifiqueComponent implements OnInit {
           localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
           this.spinnerMng.showSpinner(false);
           this.router.navigate(['/status']);
-        } else {
-          this.openAlert("Error",res.error.message, "Aceptar", "info", 0);
         }
       },
       err => {
-        this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+        // this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+        if(err.error === "access_denied" || err.error == "expired_access_token"){
+          // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS
+          this.spinnerMng.showSpinner(false);
+          this.loginServices.postOAuthToken()
+          .subscribe(
+            res => {
+              this.spinnerMng.showSpinner(false);
+              this.sendAltaService();
+            },
+            err => {
+            this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+          })
+        }
       }
     )
 

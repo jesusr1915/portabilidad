@@ -15,9 +15,6 @@ import { TermMan } from '../terms/termMng';
 
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
-import { JavaScriptInterface } from 'interfaces/JavaScriptInterface';
-
-declare let Connect: JavaScriptInterface;
 declare let ga: any;
 
 @Component({
@@ -142,7 +139,7 @@ export class ViewAltaClienteComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.loadConfig();
+    // this.loadConfig();
     this.loadCopies();
     this.openAlert("Portabilidad de nómina", "Usted está iniciando el proceso de portabilidad de nómina a Santander. <br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.", "", "", 3)
   }
@@ -158,24 +155,24 @@ export class ViewAltaClienteComponent implements OnInit {
     this.subscriptionM.unsubscribe();
   }
 
-  loadConfig(){
-    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
-    this.spinnerMng.showSpinner(true);
-    this.loginServices.getConfig()
-    .subscribe(
-      res => {
-        localStorage.setItem('env', res.ENV_VAR);
-        localStorage.setItem('dom', res.ENV_DOM);
-        if(res.ENV_LOG === "false"){
-          // console.log = function() {};
-        }
-      },
-      err => {
-        localStorage.setItem('env', 'pre');
-        localStorage.setItem('dom', 'corp');
-      }
-    )
-  }
+  // loadConfig(){
+  //   // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+  //   this.spinnerMng.showSpinner(true);
+  //   this.loginServices.getConfig()
+  //   .subscribe(
+  //     res => {
+  //       localStorage.setItem('env', res.ENV_VAR);
+  //       localStorage.setItem('dom', res.ENV_DOM);
+  //       if(res.ENV_LOG === "false"){
+  //         // console.log = function() {};
+  //       }
+  //     },
+  //     err => {
+  //       localStorage.setItem('env', 'pre');
+  //       localStorage.setItem('dom', 'corp');
+  //     }
+  //   )
+  // }
 
   loadCopies(){
     this.copiesServ.postCopies()
