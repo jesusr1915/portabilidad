@@ -6,7 +6,7 @@ function userDidTapBackButton(){
     // console.log("IR A HOME");
     Connect.goToRoot();
   } else {
-    localStorage.setItem('backButton', "true");
+    // localStorage.setItem('backButton', "true");
     Connect.validaSesion();
     Connect.goBack();
   }

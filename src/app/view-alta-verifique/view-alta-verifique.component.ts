@@ -198,8 +198,8 @@ export class ViewAltaVerifiqueComponent implements OnInit {
               this.spinnerMng.showSpinner(false);
               this.sendAltaService();
             },
-            err => {
-            this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+            errM => {
+            this.openAlert("Error",errM.error.message, "Aceptar", "info", 0);
           })
         }
       }
