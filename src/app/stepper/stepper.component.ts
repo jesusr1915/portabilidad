@@ -20,6 +20,7 @@ export class StepperComponent implements OnInit {
                   "Verifique los datos de su cuenta o tarjeta",
                   "Felicidades has completado",
                 ];
+                
 
   widthbar: number = 33;
   valueStep = 1;
