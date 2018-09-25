@@ -2,7 +2,7 @@ function userDidTapBackButton(){
   let mPath = window.location.pathname;
   if(mPath == "/" || mPath == "/consulta" || mPath == "/cuenta" || mPath == "/actualiza"){
     // console.log("LIMPIA LOCALSTORAGE");
-    localStorage.clear();
+    // localStorage.clear();
     // console.log("IR A HOME");
     Connect.goToRoot();
   } else {
@@ -26,7 +26,7 @@ function quitPorta(){
   });
 
   // console.log("LIMPIA LOCALSTORAGE");
-  localStorage.clear();
+  // localStorage.clear();
   // console.log("IR A HOME");
   Connect.goToRoot();
 }
