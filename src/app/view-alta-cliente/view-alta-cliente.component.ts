@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../services/loginServices'
 import { CopiesService } from '../services/copiesService';
-import { SeleccionCuentaClass, TerminosClass } from 'interfaces/copiesInterface';
+import { SeleccionCuentaClass, TerminosClass } from '../../interfaces/copiesInterface';
 import { NgModel } from '@angular/forms';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 
@@ -141,7 +141,9 @@ export class ViewAltaClienteComponent implements OnInit {
   ngOnInit(){
     // this.loadConfig();
     this.loadCopies();
-    this.openAlert("Portabilidad de nómina", "Usted está iniciando el proceso de portabilidad de nómina a Santander. <br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.", "", "", 3)
+    let newMessage = "Usted está iniciando el proceso de portabilidad de nómina a Santander. "
+    newMessage += "<br/><br/> La portabilidad de nómina es el derecho que tiene usted a decidir en qué banco desea recibir su sueldo, pensión y otras prestaciones de carácter laboral sin costo.";
+    this.openAlert("Portabilidad de nómina", newMessage, "", "", 3);
   }
 
   ngAfterViewInit(){
@@ -240,31 +242,23 @@ export class ViewAltaClienteComponent implements OnInit {
             // SERVICIO DE VALIDADOR DE TOKEN
             this.loginServices.postValidator(this.tokenUrl)
             .subscribe(
-              res => {
+              response => {
                 // VALIDADOR DE RESPUESTA DE TOKEN
-                if(res.stokenValidatorResponse.codigoMensaje === "TVT_000"){
-                  let mToken = {"sessionId": "", "OTPId":""}
+                if(response.stokenValidatorResponse.codigoMensaje === "TVT_000"){
                   let pAdicional: any
 
-                  if(res.stokenValidatorResponse.PAdicional){
-                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.PAdicional)));
-                  } else if(res.stokenValidatorResponse.pAdicional){
-                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(res.stokenValidatorResponse.pAdicional)));
+                  if(response.stokenValidatorResponse.PAdicional){
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(response.stokenValidatorResponse.PAdicional)));
+                  } else if(response.stokenValidatorResponse.pAdicional){
+                    pAdicional = JSON.parse(decodeURIComponent(decodeURIComponent(response.stokenValidatorResponse.pAdicional)));
                   }
 
-                  // console.log("DEBUG", mToken);
-                  mToken = pAdicional;
-                  // mToken.sessionId = pAdicional;
-                  // mToken.telefono = "5582173246"
+                  let mToken = pAdicional;
                   let totalSteps = 3;
                   if(mToken.OTPId){
                      if(mToken.OTPId !== ""){
                        totalSteps = 4;
-                     } else {
-                       totalSteps = 3;
                      }
-                   } else {
-                     totalSteps = 3;
                    }
                   localStorage.setItem('sessionID', mToken.sessionId.substring(11));
                   localStorage.setItem('phoneOTP', mToken.OTPId);
@@ -274,7 +268,7 @@ export class ViewAltaClienteComponent implements OnInit {
                   this.loadInfo();
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                  this.openAlert("Error",res.stokenValidatorResponse.mensaje,"","",0);
+                  this.openAlert("Error",response.stokenValidatorResponse.mensaje,"","",0);
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
@@ -284,7 +278,6 @@ export class ViewAltaClienteComponent implements OnInit {
               }
             );
           } else {
-            // console.log("TOKEN DIABLITO")
             // SE EJECUTAN LOS SERVICIOS DE CARGA
             this.loadInfo();
           }
@@ -303,40 +296,40 @@ export class ViewAltaClienteComponent implements OnInit {
     // SERVICIO DE SALDOS
     this.loginServices.getSaldosMock()
     .subscribe(
-      res => {
+      res3 => {
         // SE LLENA LA INFO DEL CLIENTE
-        this.messageMan.sendMessage(res);
+        this.messageMan.sendMessage(res3);
 
         this.loginServices.getConsultaRFCMock()
         .subscribe(
-          res => {
+          res2 => {
             // SE LLENA LA INFO DEL CLIENTE
-            this.infoCardMng.sendMessage(res.dto);
+            this.infoCardMng.sendMessage(res2.dto);
 
             this.loginServices.getBancosMock()
             .subscribe(
-              res => {
+              res1 => {
                 this.spinnerMng.showSpinner(false);
-                if(res.error.clave === "OK"){
-                  for(let arrayVal of res.dto){
+                if(res1.error.clave === "OK"){
+                  for(let arrayVal of res1.dto){
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
                   }
                 }
               },
-              err => {
+              err1 => {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 this.openAlert("", "", "", "", 0);
               }
             );
           },
-          err => {
+          err2 => {
             this.spinnerMng.showSpinner(false); // CIERRA LOADER
             this.openAlert("", "", "", "", 0);
           }
         );
       },
-      err => {
+      err3 => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
         this.openAlert("", "", "", "", 0);
       }
@@ -366,22 +359,22 @@ export class ViewAltaClienteComponent implements OnInit {
     // SERVICIO DE SALDOS
     this.loginServices.getSaldos()
     .subscribe(
-      res => {
+      res1 => {
         // SE LLENAN LOS CARDS
-        this.messageMan.sendMessage(res);
+        this.messageMan.sendMessage(res1);
         // SERVICIO DE CONSULTA DE RFC
         this.loginServices.getConsultaRFC()
         .subscribe(
-          res => {
+          res2 => {
             // SE LLENA LA INFO DEL CLIENTE
-            this.infoCardMng.sendMessage(res.dto);
+            this.infoCardMng.sendMessage(res2.dto);
             // SERVICIO DE CONSULTA DE BANCOS
             this.loginServices.postBancos()
             .subscribe(
-              res => {
+              res3 => {
                 // SE LLENA EL LISTADO DE BANCOS
-                if(res.error.clave === "OK"){
-                  for(let arrayVal of res.dto){
+                if(res3.error.clave === "OK"){
+                  for(let arrayVal of res3.dto){
                     let temp = { id: arrayVal.id, Name: arrayVal.nombreCorto };
                     this.lBanks.push(temp);
                   }
@@ -395,27 +388,27 @@ export class ViewAltaClienteComponent implements OnInit {
                   this.loadBancosJson();
                 }
               },
-              err => {
+              err3 => {
                 // this.spinnerMng.showSpinner(false); // CIERRA LOADER
                 // this.openAlert("", "", "", "", 0);
                 this.loadBancosJson();
               }
             );
           },
-          err => {
+          err2 => {
             this.spinnerMng.showSpinner(false); // CIERRA LOADER
             this.openAlert("", "", "", "", 0);
           }
         )
 
       },
-      err => {
+      err1 => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
-        if(err.error.clave === "CSCH-SCC-1"){
+        if(err1.error.clave === "CSCH-SCC-1"){
           this.openAlert("", "Los depósitos por concepto de nómina o prestaciones laborales son realizados a su cuenta de cheques. \n\n Por favor acuda a sucursal con identificación oficial vigente y comprobante de domicilio residencial (no mayor a 3 meses) para realizar la portabilidad de nómina.", "", "", 0);
         } else {
-          if(err.error.message){
-            this.openAlert("", err.error.message, "", "", 0);
+          if(err1.error.message){
+            this.openAlert("", err1.error.message, "", "", 0);
           } else {
             this.openAlert("","","","",1);
           }

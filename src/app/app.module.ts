@@ -14,9 +14,11 @@ import { ViewAltaClienteComponent } from './view-alta-cliente/view-alta-cliente.
 import { MessageAlertComponent } from './message-alert/message-alert.component';
 
 //services
+import { MainService } from './services/main.service';
 import { LoginService } from './services/loginServices';
 import { CopiesService } from './services/copiesService';
 import { AppLoadService } from './services/app-load.service';
+import { MessageService } from './services/message.service';
 import { StepperComponent } from './stepper/stepper.component';
 
 //manager RX
@@ -49,6 +51,10 @@ import { ViewActualizaResumenComponent } from './view-actualiza-resumen/view-act
 import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-actualiza-confirma.component';
 import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cuenta-bienvenida.component';
 import { ViewAltaOtpComponent } from './view-alta-otp/view-alta-otp.component';
+import { AlertCommonComponent } from './alert-common/alert-common.component';
+import { ValidaComponent } from './cancelacion/valida/valida.component';
+import { ResumenComponent } from './cancelacion/resumen/resumen.component';
+import { OtpComponent } from './cancelacion/otp/otp.component';
 
 export function get_settings(appLoadService: AppLoadService) {
     return () => appLoadService.getSettings();
@@ -81,7 +87,11 @@ export function get_settings(appLoadService: AppLoadService) {
     ViewActualizaResumenComponent,
     ViewActualizaConfirmaComponent,
     ViewCuentaBienvenidaComponent,
-    ViewAltaOtpComponent
+    ViewAltaOtpComponent,
+    AlertCommonComponent,
+    ValidaComponent,
+    ResumenComponent,
+    OtpComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +101,7 @@ export function get_settings(appLoadService: AppLoadService) {
     routing
   ],
   providers: [
+    MainService,
     LoginService,
     MessageMan,
     CopiesService,
@@ -102,6 +113,7 @@ export function get_settings(appLoadService: AppLoadService) {
     TokenMng,
     AppLoadService,
     MenuMsg,
+    MessageService,
     { provide: APP_INITIALIZER, useFactory: get_settings, deps: [AppLoadService], multi: true }
   ],
   bootstrap: [AppComponent]

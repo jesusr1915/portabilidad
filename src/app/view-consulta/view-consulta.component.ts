@@ -3,6 +3,7 @@ import { StepMan } from '../stepper/stepMan';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuMsg } from '../menu/menuMsg';
 import { LoginService } from '../services/loginServices'
+import { MainService } from '../services/main.service'
 import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
@@ -32,6 +33,7 @@ export class ViewConsultaComponent implements OnInit {
   constructor(
     private _stepMan: StepMan,
     private loginServices: LoginService,
+    private mainService: MainService,
     private _menuMan: MenuMsg,
     private alertMan: AlertMan,
     private messageMan: MessageMan,
@@ -57,7 +59,9 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadConfig();
+    // this.loadConfig();
+    this.startServices();
+
 
     // SUBSCRIPCION A LOS MENSAJES PARA DETECTAR CAMBIO EN OPCIONES DEL BOTON Y EN EL CAMBIO DE CARDS
     this.subscription = this._menuMan.getMessage()
@@ -106,7 +110,7 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   reloadData(){
-    localStorage.clear();
+    // localStorage.clear();
     // SE OBTIENE EL TOKEN PARA SINGLE SIGN ON
     if(this.tokenUrl !== ""){
       localStorage.setItem('tokenUrl', this.tokenUrl);
@@ -143,13 +147,23 @@ export class ViewConsultaComponent implements OnInit {
                   this.loadInfo();
                 } else {
                   this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                  this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0);
+                  // this.errorService("Error",res.stokenValidatorResponse.mensaje,"","",0);
+                  this.mainService.showAlert({
+                    title: "Error",
+                    body: res.stokenValidatorResponse.mensaje,
+                    buttonAccept: "Aceptar"
+                  });
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
               },
               err => {
                 this.spinnerMng.showSpinner(false); // CIERRA LOADER
-                this.errorService("Error", "", "", "", 0);
+                // this.errorService("Error", "", "", "", 0);
+                this.mainService.showAlert({
+                  title: "Error",
+                  body: res.stokenValidatorResponse.mensaje,
+                  buttonAccept: "Aceptar"
+                });
               }
             );
           } else {
@@ -159,7 +173,8 @@ export class ViewConsultaComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
-        this.errorService("Error", "", "", "", 0);
+        // this.errorService("Error", "", "", "", 0);
+        this.mainService.showAlert({title: "Error", body: err.stokenValidatorResponse.mensaje, buttonAccept: "Aceptar"});
       }
     )
   }
@@ -222,16 +237,31 @@ export class ViewConsultaComponent implements OnInit {
 
             let portabilidades = res.dto
             if(portabilidades.length === 0){
-              this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.", "", "", 1);
+              // this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.", "", "", 1);
+              this.mainService.showAlert({
+                title: "Portabilidad de nómina",
+                body: "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.",
+                buttonAccept: "Aceptar"
+              });
             }
 
           },
           err => {
             this.spinnerMng.showSpinner(false);
             if(err.res){
-              this.errorService("Error", err.res.message,"","",0);
+              // this.errorService("Error", err.res.message, "", "", 0);
+              this.mainService.showAlert({
+                title: "Error",
+                body: err.res.message,
+                buttonAccept: "Aceptar"
+              });
             } else {
-              this.errorService("Error","","","",1); // 1
+              // this.errorService("Error","","","",1); // 1
+              this.mainService.showAlert({
+                title: "Error",
+                body: err.res.message,
+                buttonAccept: "Aceptar"
+              });
             }
           }
         );
@@ -239,7 +269,8 @@ export class ViewConsultaComponent implements OnInit {
       },
       err => {
         this.spinnerMng.showSpinner(false);
-        this.errorService("Error","","","",1); // 1
+        // this.errorService("Error","","","",1); // 1
+        // this.mainService.showAlert();
       }
     );
   }
@@ -353,4 +384,13 @@ export class ViewConsultaComponent implements OnInit {
       else return 0;
     });
   }
+
+  alertAccept(){
+    this.router.navigate(['/cancelacion/valida']);
+  }
+  alertCancel(){
+    // DO SOMETJING
+  }
+
+
 }

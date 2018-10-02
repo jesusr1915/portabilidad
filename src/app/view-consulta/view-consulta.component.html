@@ -24,4 +24,5 @@
   </app-moves>
 
 </div>
-<app-message-alert></app-message-alert>
+<!-- <app-message-alert></app-message-alert> -->
+<app-alert-common (onAcceptClicked)="alertAccept($event)" (onCancelClicked)="alertCancel($event)"></app-alert-common>

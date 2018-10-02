@@ -1,4 +1,4 @@
-
+$red-color: #e80004;
 :host{
   height: 61px;
   width: 100%;
@@ -89,6 +89,18 @@
       margin: auto 0 auto -6px;
       background-color: white;
     }
+  }
+
+  .botonCancelar{
+    background-color: $red-color;
+    display: block;
+    width: 84%;
+    height: 33px;
+    float: right;
+    text-align: center;
+    line-height: 33px;
+    color: #fff;
+    margin-right: 3px;
   }
 
 }

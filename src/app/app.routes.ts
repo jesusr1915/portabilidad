@@ -17,6 +17,8 @@ import { ViewActualizaCuentaComponent } from './view-actualiza-cuenta/view-actua
 import { ViewActualizaResumenComponent } from './view-actualiza-resumen/view-actualiza-resumen.component';
 import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-actualiza-confirma.component';
 import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cuenta-bienvenida.component';
+import { ValidaComponent } from './cancelacion/valida/valida.component';
+import { ResumenComponent } from './cancelacion/resumen/resumen.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -103,6 +105,16 @@ export const routes: Routes = [
     // path: ':token',
     path: '',
     component: ViewAltaClienteComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'cancelacion/valida',
+    component: ValidaComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'cancelacion/resumen',
+    component: ResumenComponent,
     pathMatch: 'full'
   }
 ];

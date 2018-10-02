@@ -21,9 +21,11 @@ export class AppLoadService {
   }
 
   getSettings(): Promise<any> {
+    localStorage.clear();
     return this.httpClient.get('/config.json')
       .toPromise()
       .then(res => {
+        console.log("ERROR");
         localStorage.setItem("env", res['ENV_VAR']);
         localStorage.setItem("dom", res['DOMAIN']);
       })

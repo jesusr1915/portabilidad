@@ -1,0 +1,19 @@
+<div class="modal" [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+  <div class="modal body">
+    <div class="header">
+      <img src="{{icon}}" class="logo-santander-03" alt="Santander">
+    </div>
+    <h1>{{message?.title}}</h1>
+    <p class="textfix" [innerHTML]="message?.body"></p>
+    <div class="footer">
+      <div class="divider"></div>
+      <div class="button" (click)="cancelar()" [ngClass]="twoButtons ? 'double' : ''" [hidden]="!twoButtons">
+        <p>{{message?.buttonCancel}}</p>
+      </div>
+      <div class="button" (click)="aceptar()" [ngClass]="twoButtons ? 'double' : 'single'">
+        <p [ngClass]="twoButtons ? 'left-border':''">{{message?.buttonAccept}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-background"></div>

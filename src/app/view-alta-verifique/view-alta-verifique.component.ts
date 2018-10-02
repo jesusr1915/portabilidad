@@ -2,7 +2,7 @@ import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { CopiesService } from '../services/copiesService';
 import { LoginService } from '../services/loginServices';
 import { StepMan } from '../stepper/stepMan';
-import { VerifiqueClass } from 'interfaces/copiesInterface';
+import { VerifiqueClass } from '../../interfaces/copiesInterface';
 import { MessageMan } from '../cards/messageMan';
 import { TokenMng } from '../token/tokenMng';
 import { AlertMan , MessageAlert } from '../message-alert/alertMan';

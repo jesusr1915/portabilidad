@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
+import { MainService } from '../services/main.service';
 
 @Component({
   selector: 'app-moves',
@@ -33,7 +34,10 @@ export class MovesComponent implements OnInit {
   bancoOrigen: string = "";
   bancoDestino: string = "";
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private mainService: MainService
+  ) { }
 
   ngOnInit() {
     if(this.valueTipoSolicitud=="R"){
@@ -73,6 +77,16 @@ export class MovesComponent implements OnInit {
     localStorage.setItem('originOperation', this.originOperation);
     localStorage.setItem('valueEstatus', this.valueEstatus);
     this.router.navigate(['/detalleConsulta']);
+  }
+
+  cancelaPorta(){
+    this.mainService.showAlert({
+      title: "Portabilidad de Nómina",
+      body: "Cancelar bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+      buttonAccept: "Aceptar",
+      buttonCancel: "Cancelar",
+      item: null
+    })
   }
 
 }
