@@ -47,18 +47,18 @@ export class OtpComponent  implements OnInit {
           // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS
           this.loginServices.postOAuthToken()
           .subscribe(
-            res=> {
+            res2 => {
               this.loginServices.getOtp()
               .subscribe(
-                res => {
+                res3 => {
                   this.spinnerMng.showSpinner(false);
                 },
-                err => {
+                err3 => {
                   this.spinnerMng.showSpinner(false);
                 }
               )
             },
-            err=> {
+            err2 => {
               this.mainService.showAlert({
                 title: "Error",
                 body: "Por el momento el servicio no está disponible, por favor intente más tarde",
@@ -172,10 +172,10 @@ export class OtpComponent  implements OnInit {
             // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS
             this.loginServices.postOAuthToken()
             .subscribe(
-              res=> {
+              res2 => {
                 this.sendAltaService()
               },
-              err=> {
+              err2 => {
                 this.mainService.showAlert({
                   title: "Error",
                   body: "Por el momento el servicio no está disponible, por favor intente más tarde",

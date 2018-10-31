@@ -1,12 +1,12 @@
 <div class="controls minTop">
   <p class="labelInst">Ingrese los números que recibió por mensaje SMS.</p>
-  <label for="name"></label>
-  <input id="name" type="text" name="name" [(ngModel)]="sms" placeholder="8 dígitos" (keyup)="validateField('code')" onkeydown="if(this.value.length > 7 && event.keyCode != 8) return false">
+  <label for="sms"></label>
+  <input id="sms" type="text" name="sms" [(ngModel)]="sms" placeholder="8 dígitos" (keyup)="validateField('code')" onkeydown="if(this.value.length > 7 && event.keyCode != 8) return false">
 </div>
 <div class="controls minTop">
   <p class="labelInst">Fecha de nacimiento:</p>
-  <label for="date"></label>
-  <input id="date" type="date" name="date" [(ngModel)]="birthdate" class="fecha" placeholder="mes / día / año" (keyup)="validateField('date')" (change)="validateField('date')">
+  <label for="birthdate"></label>
+  <input id="birthdate" type="date" name="birthdate" [(ngModel)]="birthdate" class="fecha" placeholder="mes / día / año" (keyup)="validateField('date')" (change)="validateField('date')">
 </div>
 <p class="labelInst">¿No ha recibido el SMS? <img alt='' src="../../assets/imgs/ico-tooltip.svg" class="ico-tooltip">
 </p>

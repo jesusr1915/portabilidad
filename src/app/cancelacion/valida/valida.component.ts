@@ -162,9 +162,10 @@ export class ValidaComponent implements OnInit {
     this.loginServices.getBancosMock()
     .subscribe(
       res => {
-        for(let banco of res.dto)
-        if(banco.nombreCorto === localStorage.getItem('bankWhereReceive')){
-          localStorage.setItem('idBanco', banco.id);
+        for(let banco of res.dto){
+          if(banco.nombreCorto === localStorage.getItem('bankWhereReceive')){
+            localStorage.setItem('idBanco', banco.id);
+          }
         }
       },
       err => {

@@ -251,13 +251,13 @@ export class ViewConsultaComponent implements OnInit {
 
             this.loginServices.getConsultaRFC()
             .subscribe(
-              res => {
-                localStorage.setItem('name',res.dto.nombreCliente);
-                localStorage.setItem('rawBirthday',res.dto.fechaNacimiento);
-                localStorage.setItem('birthday',this.formatDate(res.dto.fechaNacimiento));
-                localStorage.setItem('rfc',res.dto.rfcCliente.trim());
+              res2 => {
+                localStorage.setItem('name',res2.dto.nombreCliente);
+                localStorage.setItem('rawBirthday',res2.dto.fechaNacimiento);
+                localStorage.setItem('birthday',this.formatDate(res2.dto.fechaNacimiento));
+                localStorage.setItem('rfc',res2.dto.rfcCliente.trim());
               },
-              err => {
+              err2 => {
                 this.mainService.showAlert({
                   title: "Portabilidad de nómina",
                   body: "Por el momento el servicio no está disponible, por favor intenta de nuevo más tarde",
