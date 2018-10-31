@@ -25,6 +25,7 @@ export class LoginService{
   private serviceUrlBancos: string;
   private serviceUrlAlta: string;
   private serviceUrlDetalleConsulta: string;
+  private serviceUrlBaja: string;
 
   private serviceUrlSaldosSP: string;
   private serviceUrlAltaSP: string;
@@ -57,6 +58,7 @@ export class LoginService{
     this.serviceUrlBancos = this.getUrlBase() + '/bancos/consultaBancos';
     this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
     this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
+    this.serviceUrlBaja = this.getUrlBase() + '/portabilidad/cancelaRecepcionPN';
     // INSCRIPCION
     this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
     this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
@@ -219,6 +221,13 @@ export class LoginService{
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlAlta,body,this.options)
+    //return this.http.get('api/alta.json')
+  }
+
+  postBaja(datosEntrada : any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.serviceUrlBaja,body,this.options)
     //return this.http.get('api/alta.json')
   }
 

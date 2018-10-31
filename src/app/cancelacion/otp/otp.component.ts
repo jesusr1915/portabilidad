@@ -142,7 +142,11 @@ export class OtpComponent  implements OnInit {
       },
       err => {
         if(err.error.message){
-          this.openAlert("Error",err.error.message, "Aceptar", "info", 0);
+          this.mainService.showAlert({
+            title: "Error",
+            body: err.error.message,
+            buttonAccept: "Aceptar"
+          });
         } else {
           if(err.error === "access_denied" || err.error === "expired_access_token"){
             // SERVICIO QUE OBTIENE EL TOKEN OATUH PARA CONSUMIR SERVICIOS

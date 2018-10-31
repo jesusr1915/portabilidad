@@ -1,3 +1,26 @@
-<p>
-  valida works!
+<p class="question">
+  Cuenta <strong>Santander</strong> donde va a regresar su nómina.
 </p>
+<app-cards></app-cards>
+<div class="divider">
+</div>
+<p class="question">
+  Datos de la cuenta o tarjeta de débito donde cancelará su envío de nómina.
+</p>
+<div class = "bank_Data_contain">
+  <div class="row"><span>{{copiesVer.infoCount}}</span><span class="fright">{{valueInfo}}</span></div>
+  <div class="row"><span>{{copiesVer.infoBank}}</span><span class="fright">{{valueBank}}</span></div>
+  <div class="row last"><span>{{copiesVer.infoBirthdate}}</span><span class="fright">{{valueBirthdate}}</span></div>
+</div>
+<p class="question center" [innerHTML]="copieValidacion">
+</p>
+<div class="btnCont">
+  <!-- <button [routerLink]="['']" class = "first" type="button" >{{copiesVer.btnBack}}</button> -->
+  <!-- <button  type="button" (click)="showToken()" >{{copiesVer.btnCont}}</button> -->
+  <!-- <a id="validaSesion" onclick="validaSesion()"></a> -->
+  <button type="button" (click)="showToken()">{{copiesVer.btnCont}}</button>
+  <!-- <button [hidden]="hideToken" type="button" onclick="requestToken()">{{copiesVer.btnCont}}</button>
+  <button [hidden]="!hideToken" type="button" (click)="continue()">{{copiesVer.btnCont}}</button> -->
+</div>
+<app-token (saveToken)="sendAltaService()"></app-token>
+<app-message-alert></app-message-alert>

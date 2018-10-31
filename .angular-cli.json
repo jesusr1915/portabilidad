@@ -25,7 +25,8 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../bower_components/sly/dist/sly.min.js"
+        "../bower_components/sly/dist/sly.min.js",
+        "./assets/js/connect.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

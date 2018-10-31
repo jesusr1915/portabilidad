@@ -8,6 +8,7 @@ import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { MessageMan } from '../cards/messageMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
+import { InfoCardMan } from '../personal-card/infoCardMng';
 
 @Component({
   selector: 'app-view-consulta',
@@ -38,6 +39,8 @@ export class ViewConsultaComponent implements OnInit {
     private alertMan: AlertMan,
     private messageMan: MessageMan,
     private route: ActivatedRoute,
+    private router: Router,
+    private infoCardMng: InfoCardMan,
     public spinnerMng: SpinnerMan
   ) {
     // RECIBE PARAMETROS POR URL CON QUERY
@@ -174,7 +177,7 @@ export class ViewConsultaComponent implements OnInit {
       err => {
         this.spinnerMng.showSpinner(false); // CIERRA LOADER
         // this.errorService("Error", "", "", "", 0);
-        this.mainService.showAlert({title: "Error", body: err.stokenValidatorResponse.mensaje, buttonAccept: "Aceptar"});
+        // this.mainService.showAlert({title: "Error", body: err.stokenValidatorResponse.mensaje, buttonAccept: "Aceptar"});
       }
     )
   }
@@ -244,6 +247,24 @@ export class ViewConsultaComponent implements OnInit {
                 buttonAccept: "Aceptar"
               });
             }
+
+
+            this.loginServices.getConsultaRFC()
+            .subscribe(
+              res => {
+                localStorage.setItem('name',res.dto.nombreCliente);
+                localStorage.setItem('rawBirthday',res.dto.fechaNacimiento);
+                localStorage.setItem('birthday',this.formatDate(res.dto.fechaNacimiento));
+                localStorage.setItem('rfc',res.dto.rfcCliente.trim());
+              },
+              err => {
+                this.mainService.showAlert({
+                  title: "Portabilidad de nómina",
+                  body: "Por el momento el servicio no está disponible, por favor intenta de nuevo más tarde",
+                  buttonAccept: "Aceptar"
+                });
+              }
+            );
 
           },
           err => {
@@ -385,7 +406,30 @@ export class ViewConsultaComponent implements OnInit {
     });
   }
 
+  formatDate(date:string):string{
+    let values = date.split("-", 3);
+    let index = parseInt(values[1])-1;
+    let month = ["Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"];
+    return (values[2]+" "+month[index]+" "+values[0]);
+  }
+
+  setValues(){
+    // localStorage.setItem('');
+  }
+
   alertAccept(){
+    this.setValues();
     this.router.navigate(['/cancelacion/valida']);
   }
   alertCancel(){

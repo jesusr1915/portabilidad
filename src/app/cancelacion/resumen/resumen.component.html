@@ -1,3 +1,59 @@
-<p>
-  resumen works!
-</p>
+<div class = "contentTop" >
+  <img alt='' src="assets/imgs/ico-cta-exitosa.svg" alt="iconCard" >
+  <p> Cambio exitoso </p>
+</div>
+<div class="contentDatos">
+<p class="textCenter">A partir de este momento recibirá los beneficios de Santander Plus en la cuenta seleccionada.</p>
+</div>
+<div class ="divider"></div>
+<!-- <div class = "contentScreenShot">
+  <img class = "inline" src="assets/imgs/ico-screenshot.svg" alt="iconCard" >
+  <p class = "inline"> Obtener imagen de esta pantalla </p>
+</div> -->
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > BANCO DONDE SE CANCELARÁ SU ENVÍO DE NÓMINA</p>
+  <p class = "rigth bold" >{{bankWhereReceive}}</p>
+</div>
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > NÚMERO DE CUENTA DONDE SE CANCELARÁ SU ENVÍO DE NÓMINA </p>
+  <p class = "rigth bold" >{{accountWhereReceive}}</p>
+</div>
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > BANCO DONDE DESEA REGRESAR SU NÓMINA </p>
+  <p class = "rigth bold" >bankWhereWishReceive</p>
+</div>
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > NÚMERO DE CUENTA DONDE DESEA REGRESAR SU NÓMINA  </p>
+  <p class = "rigth bold" >{{accountWhereWishReceive}}</p>
+</div>
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > TIPO DE OPERACIÓN </p>
+  <p class = "rigth bold" >{{tipoOperacion}}</p>
+</div>
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > FOLIO DE OPERACIÓN </p>
+  <p class = "rigth bold" >{{referenceSheet}}</p>
+</div>
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > HORA DE OPERACIÓN </p>
+  <p class = "rigth bold" >{{horaOperacion}}</p>
+</div>
+<div class ="divider"></div>
+<div class = "contentDatos">
+  <p class = "left label" > REFERENCIA SUPERMÓVIL </p>
+  <p class = "rigth bold" >{{referenciaSupermovil}}</p>
+</div>
+<div class ="divider"></div>
+<div class="btnCont">
+  <a id="something" onclick="hideBackButton()"></a>
+  <button  type="button" onclick="quitPorta()">Finalizar</button>
+</div>
+<p class="footnote-trade">Banco Santander (México), S.A.</p>
+<app-message-alert></app-message-alert>

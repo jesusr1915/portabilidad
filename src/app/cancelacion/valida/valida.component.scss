@@ -1,0 +1,63 @@
+
+$margin-top: 18px;
+$red-color: #e80004;
+$width-med: 91%;
+
+.question, .bank_Data_contain{
+  display: block;
+  margin-top: $margin-top;
+  margin-left: auto;
+  margin-right: auto;
+  width: $width-med;
+  &.center{
+    margin-top: $margin-top * 2;
+    text-align: center;
+    font-size: 14px;
+  }
+
+}
+.bank_Data_contain{
+  width: 100%;
+  height: auto;
+  opacity: 0.53;
+  background-color: #f0f0f0;
+  border: solid 1px #cccccc;
+
+  div{
+    // margin: 10px 3%;
+    font-size: 14px;
+    color: #424242;
+    text-transform: uppercase;
+  }
+  span{
+    width: 44%;
+    float:left;
+    font-size: 15px;
+    color: #424242;
+    margin: 7px 3%;
+    &.fright{
+      text-align: right;
+    }
+  }
+}
+.row{
+  min-height: 60px;
+  &.last {
+    margin-bottom: 15px;
+  }
+}
+strong.black{
+  color: black;
+}
+.btnCont {
+  margin-top: $margin-top * 2;
+  button{
+    width: 155px;
+    &.first{
+      border-color: #f0f0f0;
+      background-color: #f0f0f0;
+      margin-right: 3%;
+      color: #e80004;
+    }
+  }
+}

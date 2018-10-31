@@ -61,8 +61,7 @@ export class MovesComponent implements OnInit {
     }
   }
 
-  verDetalle(val: any){
-    // console.log("VIENDO DETALLE...");
+  setValues(){
     localStorage.setItem('accountWhereWishReceive',this.destino);
     localStorage.setItem('bankWhereWishReceive',this.bancoDestino);
     localStorage.setItem('accountWhereReceive',this.origen);
@@ -76,13 +75,18 @@ export class MovesComponent implements OnInit {
     localStorage.setItem('tipoSolicitud',this.tipoSolicitud);
     localStorage.setItem('originOperation', this.originOperation);
     localStorage.setItem('valueEstatus', this.valueEstatus);
+  }
+
+  verDetalle(){
+
     this.router.navigate(['/detalleConsulta']);
   }
 
-  cancelaPorta(){
+  cancelaPorta(item: any){
+    this.setValues();
     this.mainService.showAlert({
-      title: "Portabilidad de Nómina",
-      body: "Cancelar bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+      title: "Cancelación de envío de nómina",
+      body: "Está a punto de cancelar el envío de nómina que había solicitado.<br/><br/>Banco Santander realizará, sin costo, el regreso de su nómina a la cuenta que usted elija.",
       buttonAccept: "Aceptar",
       buttonCancel: "Cancelar",
       item: null
