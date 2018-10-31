@@ -9,11 +9,6 @@
   <input id="date" type="date" name="date" [(ngModel)]="birthdate" class="fecha" placeholder="mes / día / año" (keyup)="validateField('date')" (change)="validateField('date')">
 </div>
 <p class="labelInst">¿No ha recibido el SMS? <img alt='' src="../../assets/imgs/ico-tooltip.svg" class="ico-tooltip">
-  <!-- <span class="icon">
-    <img alt='' src="images/icons/icono-alerta.svg" class="icon">
-    <md-tooltip md-direction="top">{{cardinfo.mensajeTooltipNumero}}</md-tooltip>
-    <md-icon icon="images/icons/icono-alerta.svg"></md-icon>
-  </span> -->
 </p>
 <p class="labelInst textCenter reenviar" (click)="reenviar()"><a>Para reenviar el código, <span>TOQUE AQUÍ</span></a></p>
 <div class="btnCont">

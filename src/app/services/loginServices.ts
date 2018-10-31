@@ -26,6 +26,7 @@ export class LoginService{
   private serviceUrlAlta: string;
   private serviceUrlDetalleConsulta: string;
   private serviceUrlBaja: string;
+  private serviceUrlAcceso: string;
 
   private serviceUrlSaldosSP: string;
   private serviceUrlAltaSP: string;
@@ -59,6 +60,7 @@ export class LoginService{
     this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
     this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
     this.serviceUrlBaja = this.getUrlBase() + '/portabilidad/cancelaRecepcionPN';
+    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaAccessoOTP';
     // INSCRIPCION
     this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
     this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
@@ -89,7 +91,7 @@ export class LoginService{
     this.serviceUrlClabeBancos = this.getUrlBase() + '/bancos/bancoCuenta';
     this.serviceUrlBancos = this.getUrlBase() + '/bancos/consultaBancos';
     this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
-    this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
+    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaPN';
     // INSCRIPCION
     this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
     this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
@@ -265,6 +267,13 @@ export class LoginService{
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlActualizaSP,body,this.options)
+  }
+
+  postAccesoOtp(datosEntrada : any){
+    this.configHeader(true);
+    let body = JSON.stringify(datosEntrada);
+    return this.postRequest(this.serviceUrlAcceso,body,this.options)
+    //return this.http.get('api/alta.json')
   }
 
   // =================== FUNCIONES GET Y POST GENERICAS

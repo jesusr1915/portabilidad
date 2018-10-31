@@ -120,7 +120,27 @@ export class OtpComponent  implements OnInit {
 
   sendAltaService(){
     this.spinnerMng.showSpinner(true);
-    let body = {}
+    let body = {
+      "datosEntrada" : {
+        "banco" : {
+          "descripcion" : "",
+          "id" : localStorage.getItem('idBanco'),
+          "nombreCorto" : localStorage.getItem('bankWhereReceive')
+        },
+        "cuentaBanco" : localStorage.getItem('accountWhereReceive'),
+        "cuentaCliente" : localStorage.getItem("numeroCuenta"),
+        "fechaNacimiento" : localStorage.getItem('rawBirthday'),
+        "nombreCliente" : localStorage.getItem('name'),
+        "rfcCliente" : localStorage.getItem('rfc'),
+        "tipoSolicitud" : "R",
+        "folio": localStorage.getItem("referenceSheet")
+      },
+      "fechaHora" : "",
+      "operacion" : "PNCA",
+      "tipoOTP" : "CT",
+      "token" : localStorage.getItem('token'),
+      "idParam": ""
+    }
 
     this.loginServices.postAlta(body)
     .subscribe(
