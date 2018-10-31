@@ -428,11 +428,11 @@ export class ViewConsultaComponent implements OnInit {
     // localStorage.setItem('');
   }
 
-  alertAccept(){
+  alertAccept(event: any){
     this.setValues();
     this.router.navigate(['/cancelacion/valida']);
   }
-  alertCancel(){
+  alertCancel(event: any){
     // DO SOMETJING
   }
 

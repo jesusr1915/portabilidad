@@ -77,8 +77,7 @@ export class MovesComponent implements OnInit {
     localStorage.setItem('valueEstatus', this.valueEstatus);
   }
 
-  verDetalle(){
-
+  verDetalle(valueEstatus: any){
     this.router.navigate(['/detalleConsulta']);
   }
 
