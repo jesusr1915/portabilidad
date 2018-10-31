@@ -280,7 +280,7 @@ export class ViewConsultaComponent implements OnInit {
               // this.errorService("Error","","","",1); // 1
               this.mainService.showAlert({
                 title: "Error",
-                body: err.res.message,
+                body: "",
                 buttonAccept: "Aceptar"
               });
             }
