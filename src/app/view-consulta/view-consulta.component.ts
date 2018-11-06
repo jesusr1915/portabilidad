@@ -85,16 +85,16 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   candidatoOtp(){
-    this.loginServices.postAccesoOtp()
-    .subscribe(
-      res => {
-        // consnole.log(res);
-        // localStorage.setItem('telefono')
-      },
-      err => {
-        // console.log(err);
-      }
-    )
+    // this.loginServices.postAccesoOtp()
+    // .subscribe(
+    //   res => {
+    //     // consnole.log(res);
+    //     // localStorage.setItem('telefono')
+    //   },
+    //   err => {
+    //     // console.log(err);
+    //   }
+    // )
   }
 
 
