@@ -27,11 +27,11 @@ export class AppLoadService {
       .then(res => {
         // console.log("ERROR");
         localStorage.setItem("env", res['ENV_VAR']);
-        localStorage.setItem("dom", res['DOMAIN']);
+        localStorage.setItem("dom", res['ENV_DOM']);
       })
       .catch(err =>{
         localStorage.setItem("env", SettingsService.ENV_VAR);
-        localStorage.setItem("dom", SettingsService.DOMAIN);
+        localStorage.setItem("dom", SettingsService.ENV_DOM);
       });
   }
 

@@ -84,27 +84,41 @@ export class ViewConsultaComponent implements OnInit {
     // this.filterMoves(1);
   }
 
-  loadConfig(){
-    // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
-    this.spinnerMng.showSpinner(true);
-    // console.log("LOAD CONFIG");
-    this.loginServices.getConfig()
+  candidatoOtp(){
+    this.loginServices.postAccesoOtp()
     .subscribe(
       res => {
-        localStorage.setItem('env', res.ENV_VAR);
-        localStorage.setItem('dom', res.ENV_DOM);
-        if(res.ENV_LOG === "false"){
-          window['console']['log'] = function() {};
-        }
-        this.startServices();
+        // consnole.log(res);
+        // localStorage.setItem('telefono')
       },
       err => {
-        localStorage.setItem('env', 'pro');
-        localStorage.setItem('dom', 'com');
-        this.startServices();
+        // console.log(err);
       }
     )
   }
+
+
+  // loadConfig(){
+  //   // SE PIDE LA CONFIGURACIÓN DEL SERVIDOR ANTES DE EJECUTAR SERVICIOS
+  //   this.spinnerMng.showSpinner(true);
+  //   // console.log("LOAD CONFIG");
+  //   // this.loginServices.getConfig()
+  //   // .subscribe(
+  //   //   res => {
+  //   //     localStorage.setItem('env', res.ENV_VAR);
+  //   //     localStorage.setItem('dom', res.ENV_DOM);
+  //   //     if(res.ENV_LOG === "false"){
+  //   //       window['console']['log'] = function() {};
+  //   //     }
+  //   //     this.startServices();
+  //   //   },
+  //   //   err => {
+  //   //     localStorage.setItem('env', 'pre');
+  //   //     localStorage.setItem('dom', 'corp');
+  //   //     this.startServices();
+  //   //   }
+  //   // )
+  // }
 
   // PARA EL MENSAJE DE ERROR
   private errorService(tipo?: string, mensaje?: string, boton?: string, icon?: string, code?: number){
@@ -206,6 +220,9 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   private loadInfo(){
+    // SE PREGUNTA SI ES CANDIDATO OTP
+    this.candidatoOtp();
+
     // SE OBTIENEN LAS CUENTAS
     this.loginServices.getSaldos()
     .subscribe(
@@ -296,49 +313,49 @@ export class ViewConsultaComponent implements OnInit {
     );
   }
 
-  private loadMock(){
-    // SE OBTIENEN LAS CUENTAS
-    this.loginServices.getSaldosMock()
-    .subscribe(
-      res => {
-        this.respuestaSaldos = res;
-        this.saldosCuentas = res.dto.saldoPesos;
-
-        this.loginServices.getDetalleConsultaMock()
-        .subscribe(
-          res=> {
-            this.consultaPN = res.dto
-            let myAccounts = this.matchAccounts(this.saldosCuentas, this.consultaPN);
-            this.respuestaSaldos.dto.saldoPesos = myAccounts
-            this.messageMan.sendMessage(this.respuestaSaldos);
-
-            this.spinnerMng.showSpinner(false);
-            this.allMov = res.dto;
-            this._menuMan.sendMessage(1);
-            // this.filterMoves(1);
-
-            let portabilidades = res.dto
-            if(portabilidades.length === 0){
-              this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","","",0);
-            }
-
-          },
-          err => {
-            this.spinnerMng.showSpinner(false);
-            if(err.res){
-              this.errorService("Error", err.res.message,"","",0);
-            } else {
-              this.errorService("Error","","","",1);
-            }
-          }
-        );
-      },
-      err => {
-        this.spinnerMng.showSpinner(false);
-        this.errorService("Error","","","",1);
-      }
-    );
-  }
+  // private loadMock(){
+  //   // SE OBTIENEN LAS CUENTAS
+  //   this.loginServices.getSaldosMock()
+  //   .subscribe(
+  //     res => {
+  //       this.respuestaSaldos = res;
+  //       this.saldosCuentas = res.dto.saldoPesos;
+  //
+  //       this.loginServices.getDetalleConsultaMock()
+  //       .subscribe(
+  //         res=> {
+  //           this.consultaPN = res.dto
+  //           let myAccounts = this.matchAccounts(this.saldosCuentas, this.consultaPN);
+  //           this.respuestaSaldos.dto.saldoPesos = myAccounts
+  //           this.messageMan.sendMessage(this.respuestaSaldos);
+  //
+  //           this.spinnerMng.showSpinner(false);
+  //           this.allMov = res.dto;
+  //           this._menuMan.sendMessage(1);
+  //           // this.filterMoves(1);
+  //
+  //           let portabilidades = res.dto
+  //           if(portabilidades.length === 0){
+  //             this.errorService("Portabilidad de nómina", "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.","","",0);
+  //           }
+  //
+  //         },
+  //         err => {
+  //           this.spinnerMng.showSpinner(false);
+  //           if(err.res){
+  //             this.errorService("Error", err.res.message,"","",0);
+  //           } else {
+  //             this.errorService("Error","","","",1);
+  //           }
+  //         }
+  //       );
+  //     },
+  //     err => {
+  //       this.spinnerMng.showSpinner(false);
+  //       this.errorService("Error","","","",1);
+  //     }
+  //   );
+  // }
 
   // PARA FILTRAR MOVIMIENTOS
   private filterMoves(idBtn:number){
@@ -424,12 +441,7 @@ export class ViewConsultaComponent implements OnInit {
     return (values[2]+" "+month[index]+" "+values[0]);
   }
 
-  setValues(){
-    // localStorage.setItem('');
-  }
-
   alertAccept(event: any){
-    this.setValues();
     this.router.navigate(['/cancelacion/valida']);
   }
   alertCancel(event: any){

@@ -33,6 +33,7 @@ export class MovesComponent implements OnInit {
   destino: string = "";
   bancoOrigen: string = "";
   bancoDestino: string = "";
+  showCancelButton = false;
 
   constructor(
     private router: Router,
@@ -41,11 +42,22 @@ export class MovesComponent implements OnInit {
 
   ngOnInit() {
     if(this.valueTipoSolicitud=="R"){
-      this.classDelivery = "rejected";
-      this.imagePath="assets/imgs/arrow-green.svg";
+      if(this.valueEstatus == "ACEPTADA"){
+        this.classDelivery = "accept";
+        this.imagePath="assets/imgs/arrow-orange.svg";
+      } else {
+        this.classDelivery = "rejected";
+        this.imagePath="assets/imgs/arrow-green.svg";
+      }
     }else{
-      this.classDelivery = "accept";
-      this.imagePath="assets/imgs/arrow-orange.svg";
+      if(this.valueEstatus == "ACTIVO"){
+        this.classDelivery = "accept";
+        this.imagePath="assets/imgs/arrow-orange.svg";
+        this.showCancelButton = true
+      } else {
+        this.classDelivery = "rejected";
+        this.imagePath="assets/imgs/arrow-green.svg";
+      }
     }
 
     if(this.tipoSolicitud === "R"){

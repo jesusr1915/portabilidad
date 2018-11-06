@@ -184,15 +184,15 @@ export class ValidaComponent implements OnInit {
       "datosEntrada" : {
         "banco" : {
           "descripcion" : "",
-          "id" : localStorage.getItem('idBanco'),
-          "nombreCorto" : localStorage.getItem('bankWhereReceive')
+          "id" : "",
+          "nombreCorto" : localStorage.getItem('bankWhereWishReceive')
         },
-        "cuentaBanco" : localStorage.getItem('accountWhereReceive'),
+        "cuentaBanco" : localStorage.getItem('accountWhereWishReceive'),
         "cuentaCliente" : localStorage.getItem("numeroCuenta"),
         "fechaNacimiento" : localStorage.getItem('rawBirthday'),
         "nombreCliente" : localStorage.getItem('name'),
         "rfcCliente" : localStorage.getItem('rfc'),
-        "tipoSolicitud" : "R",
+        "tipoSolicitud" : "E",
         "folio": localStorage.getItem("referenceSheet")
       },
       "fechaHora" : "",

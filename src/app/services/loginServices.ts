@@ -91,7 +91,9 @@ export class LoginService{
     this.serviceUrlClabeBancos = this.getUrlBase() + '/bancos/bancoCuenta';
     this.serviceUrlBancos = this.getUrlBase() + '/bancos/consultaBancos';
     this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
-    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaPN';
+    this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
+    this.serviceUrlBaja = this.getUrlBase() + '/portabilidad/cancelaRecepcionPN';
+    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaAccessoOTP';
     // INSCRIPCION
     this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
     this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
