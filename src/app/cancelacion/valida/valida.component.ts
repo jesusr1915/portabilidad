@@ -59,11 +59,11 @@ export class ValidaComponent implements OnInit {
     private router: Router,
     public spinnerMng: SpinnerMan,
   ) {
-    (window as any).angularComponentRef = {
-      zone: this.zone,
-      componentFn: (succesTkn, tipoOTP, date, errorTkn) => this.receiveTokenFromNative(succesTkn, tipoOTP, date, errorTkn),
-      component: this
-    };
+    // (window as any).angularComponentRef = {
+    //   zone: this.zone,
+    //   componentFn: (succesTkn, tipoOTP, date, errorTkn) => this.receiveTokenFromNative(succesTkn, tipoOTP, date, errorTkn),
+    //   component: this
+    // };
   }
 
   ngOnInit(){
@@ -112,51 +112,75 @@ export class ValidaComponent implements OnInit {
   }
 
   showToken(){
-    this.tokenMng.sendMessage("true");
-  }
+    if(localStorage.getItem('totalSteps') === "3"){
 
-  requestToken() {
-    // console.log("DEMO", localStorage.getItem('demo') === "1");
-    if(localStorage.getItem('demo')){
-      if(localStorage.getItem('demo') === "1"){
-        this.showToken();
-      } else {
-        (window as any).requestToken();
+      // PROCESO DE SOLICITUD DE TOKEN NATIVO
+      try {
+        requestToken()
+        .subscribe(
+          res => {
+            localStorage.setItem('token', res.token);
+            localStorage.setItem('tipoOTP', res.tipoOTP);
+            localStorage.setItem('dateOTP', res.date);
+            this.sendBajaService();
+          },
+          err => {
+            this.tokenMng.sendMessage("true");
+          }
+        )
+      } catch(e){
+        this.tokenMng.sendMessage("true");
       }
+      // FIN DE PROCESO DE SOLICITUD DE TOKEN NATIVO
+
+
     } else {
-      (window as any).requestToken();
+      this.router.navigate(['/cancelacion/otp']);
     }
   }
 
+  // requestToken() {
+  //   // console.log("DEMO", localStorage.getItem('demo') === "1");
+  //   if(localStorage.getItem('demo')){
+  //     if(localStorage.getItem('demo') === "1"){
+  //       this.showToken();
+  //     } else {
+  //       (window as any).requestToken();
+  //     }
+  //   } else {
+  //     (window as any).requestToken();
+  //   }
+  // }
+
   // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
-  receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
-    this.zone.run(() => {
-      if(token !== ''){
-        this.responseToken(token, tipoOTP, date);
-      } else {
-        // console.log(message);
-        //this.openAlert("", message, "", "", 0);
-      }
-    });
-  }
+  // receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
+  //   this.zone.run(() => {
+  //     if(token !== ''){
+  //       this.responseToken(token, tipoOTP, date);
+  //     } else {
+  //       // console.log(message);
+  //       //this.openAlert("", message, "", "", 0);
+  //     }
+  //   });
+  // }
 
   // FUNCION QUE REALIZA LA ASIGNACION DE VALORES DEL TOKEN
-  responseToken(mToken: string, mTipoOTP: string, mDate: string) {
-    this.tokenSM = mToken;
-    this.tipoOTP = mTipoOTP;
-    this.date = mDate;
-
-    let tokenTipo = mTipoOTP !== "" ? "SuperToken" : "Token"
-
-    ga('send', 'event', {
-      eventCategory: 'token',
-      eventLabel: tokenTipo,
-      eventAction: 'tipoToken',
-      eventValue: 1
-    });
-
-    this.sendAltaService();
-  }
+  // responseToken(mToken: string, mTipoOTP: string, mDate: string) {
+  //   this.tokenSM = mToken;
+  //   this.tipoOTP = mTipoOTP;
+  //   this.date = mDate;
+  //
+  //   let tokenTipo = mTipoOTP !== "" ? "SuperToken" : "Token"
+  //
+  //   ga('send', 'event', {
+  //     eventCategory: 'token',
+  //     eventLabel: tokenTipo,
+  //     eventAction: 'tipoToken',
+  //     eventValue: 1
+  //   });
+  //
+  //   this.sendBajaService();
+  // }
 
   getBanco(){
     this.loginServices.getBancosMock()
@@ -174,7 +198,7 @@ export class ValidaComponent implements OnInit {
     )
   }
 
-  sendAltaService(){
+  sendBajaService(){
     if(localStorage.getItem('demo') === "1"){
       this.tokenSM = localStorage.getItem('token');
       this.tipoOTP = "";
@@ -195,17 +219,12 @@ export class ValidaComponent implements OnInit {
         "tipoSolicitud" : "E",
         "folio": localStorage.getItem("referenceSheet")
       },
-      "fechaHora" : "",
+      "fechaHora" : "", // localStorage.getItem('dateOTP');
       "operacion" : "PNCA",
-      "tipoOTP" : "CT",
+      "tipoOTP" : "", //"CT", // localStorage.getItem('tipoOTP');
       "token" : localStorage.getItem('token'),
       "idParam": ""
     }
-
-    // "fechaHora" : this.date,
-    // "operacion" : "PNAR",
-    // "tipoOTP" : this.tipoOTP,
-    // "token" : this.tokenSM,
 
     this.loginServices.postBaja(body)
     .subscribe(
@@ -229,7 +248,7 @@ export class ValidaComponent implements OnInit {
           .subscribe(
             res => {
               this.spinnerMng.showSpinner(false);
-              this.sendAltaService();
+              this.sendBajaService();
             },
             errM => {
             this.openAlert("Error",errM.error.message, "Aceptar", "info", 0);

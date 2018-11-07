@@ -85,16 +85,33 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   candidatoOtp(){
-    // this.loginServices.postAccesoOtp()
-    // .subscribe(
-    //   res => {
-    //     // consnole.log(res);
-    //     // localStorage.setItem('telefono')
-    //   },
-    //   err => {
-    //     // console.log(err);
-    //   }
-    // )
+    let json = {
+      "operacion": "PNAR",
+      "idParametro": "0041",
+      "operacionOTP": "OT04"
+    }
+    this.loginServices.postAccesoOtp(json)
+    .subscribe(
+      res => {
+        console.log(res);
+
+        let totalSteps = 3;
+        if(res.dto.telefonoOTP){
+           if(res.dto.telefonoOTP !== ""){
+             totalSteps = 4;
+           }
+         }
+
+         // totalSteps = 4;
+
+        // localStorage.setItem('phoneOTP', res.dto.telefonoOTP.slice(0, -4));
+        localStorage.setItem('phoneOTP', '8246');
+        localStorage.setItem('totalSteps', totalSteps.toString());
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 
 

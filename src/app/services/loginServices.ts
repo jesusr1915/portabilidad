@@ -60,7 +60,7 @@ export class LoginService{
     this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
     this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
     this.serviceUrlBaja = this.getUrlBase() + '/portabilidad/cancelaRecepcionPN';
-    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaAccessoOTP';
+    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaAccesoOTP';
     // INSCRIPCION
     this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
     this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
@@ -93,7 +93,7 @@ export class LoginService{
     this.serviceUrlAlta = this.getUrlBase() + '/portabilidad/altaRecepcionPN';
     this.serviceUrlDetalleConsulta = this.getUrlBase() + '/portabilidad/consultaPN';
     this.serviceUrlBaja = this.getUrlBase() + '/portabilidad/cancelaRecepcionPN';
-    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaAccessoOTP';
+    this.serviceUrlAcceso = this.getUrlBase() + '/portabilidad/consultaAccesoOTP';
     // INSCRIPCION
     this.serviceUrlSaldosSP = this.getUrlBase() + '/clientes/saldosCuentasChequesSantanderPlus';
     this.serviceUrlAltaSP = this.getUrlBase() + '/santanderplus/registraCuentaSantanderPlus';
@@ -275,7 +275,6 @@ export class LoginService{
     this.configHeader(true);
     let body = JSON.stringify(datosEntrada);
     return this.postRequest(this.serviceUrlAcceso,body,this.options)
-    //return this.http.get('api/alta.json')
   }
 
   // =================== FUNCIONES GET Y POST GENERICAS

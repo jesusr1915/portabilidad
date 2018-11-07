@@ -19,6 +19,7 @@ import { ViewActualizaConfirmaComponent } from './view-actualiza-confirma/view-a
 import { ViewCuentaBienvenidaComponent } from './view-cuenta-bienvenida/view-cuenta-bienvenida.component';
 import { ValidaComponent } from './cancelacion/valida/valida.component';
 import { ResumenComponent } from './cancelacion/resumen/resumen.component';
+import { OtpComponent } from './cancelacion/otp/otp.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -110,6 +111,11 @@ export const routes: Routes = [
   {
     path: 'cancelacion/valida',
     component: ValidaComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'cancelacion/otp',
+    component: OtpComponent,
     pathMatch: 'full'
   },
   {

@@ -10,7 +10,7 @@ import { MainService } from '../../services/main.service';
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.component.html',
-  styleUrls: ['./otp.component.scss','../../view-alta-otp/view-alta-otp.component.scss']
+  styleUrls: ['../../app.component.scss','./otp.component.scss']
 })
 export class OtpComponent  implements OnInit {
 
@@ -115,31 +115,31 @@ export class OtpComponent  implements OnInit {
   }
 
   continuar(){
-    this.sendAltaService();
+    this.sendBajaService();
   }
 
-  sendAltaService(){
+  sendBajaService(){
     this.spinnerMng.showSpinner(true);
     let body = {
       "datosEntrada" : {
         "banco" : {
           "descripcion" : "",
-          "id" : localStorage.getItem('idBanco'),
-          "nombreCorto" : localStorage.getItem('bankWhereReceive')
+          "id" : "",
+          "nombreCorto" : localStorage.getItem('bankWhereWishReceive')
         },
-        "cuentaBanco" : localStorage.getItem('accountWhereReceive'),
+        "cuentaBanco" : localStorage.getItem('accountWhereWishReceive'),
         "cuentaCliente" : localStorage.getItem("numeroCuenta"),
         "fechaNacimiento" : localStorage.getItem('rawBirthday'),
         "nombreCliente" : localStorage.getItem('name'),
         "rfcCliente" : localStorage.getItem('rfc'),
-        "tipoSolicitud" : "R",
+        "tipoSolicitud" : "E",
         "folio": localStorage.getItem("referenceSheet")
       },
-      "fechaHora" : "",
-      "operacion" : "PNCA",
-      "tipoOTP" : "CT",
-      "token" : localStorage.getItem('token'),
-      "idParam": ""
+      "fechaHora" : this.birthdate,
+      "operacion" : "OT04",
+      "tipoOTP" : "OTPM",
+      "token" : this.sms,
+      "idParam": "0041"
     }
 
     this.loginServices.postAlta(body)
@@ -173,7 +173,7 @@ export class OtpComponent  implements OnInit {
             this.loginServices.postOAuthToken()
             .subscribe(
               res2 => {
-                this.sendAltaService()
+                this.sendBajaService()
               },
               err2 => {
                 this.mainService.showAlert({
