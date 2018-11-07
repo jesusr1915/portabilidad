@@ -93,7 +93,7 @@ export class ViewConsultaComponent implements OnInit {
     this.loginServices.postAccesoOtp(json)
     .subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
 
         let totalSteps = 3;
         if(res.dto.telefonoOTP){
@@ -104,12 +104,13 @@ export class ViewConsultaComponent implements OnInit {
 
          // totalSteps = 4;
 
-        // localStorage.setItem('phoneOTP', res.dto.telefonoOTP.slice(0, -4));
-        localStorage.setItem('phoneOTP', '8246');
+        localStorage.setItem('phoneOTP', res.dto.telefonoOTP.slice(0, -4));
         localStorage.setItem('totalSteps', totalSteps.toString());
       },
       err => {
-        console.log(err);
+        // console.log(err);
+        localStorage.setItem('phoneOTP', '8246');
+        localStorage.setItem('totalSteps', '3');
       }
     )
   }
