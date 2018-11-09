@@ -7,7 +7,7 @@ $color-main-font: #2d2d2d;
 $red-color: #e80004;
 
 :host {
-    margin: 0;
+    margin: auto !important;
     padding: 0;
 
     display: block;

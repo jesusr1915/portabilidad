@@ -142,7 +142,7 @@ export class OtpComponent  implements OnInit {
       "idParam": "0041"
     }
 
-    this.loginServices.postAlta(body)
+    this.loginServices.postBaja(body)
     .subscribe(
       res => {
         if(res.error.clave === "OK"){

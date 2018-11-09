@@ -16,7 +16,7 @@ export class ResumenComponent implements OnInit {
   tipoOperacion: string
   referenceSheet: string
   horaOperacion: string
-  referenciaSupermovil: string
+  referenceOperation: string
 
   constructor() { }
 
@@ -27,8 +27,9 @@ export class ResumenComponent implements OnInit {
     this.accountWhereWishReceive = localStorage.getItem('accountWhereWishReceive');
     this.tipoOperacion = localStorage.getItem('tipoOperacion');
     this.referenceSheet = localStorage.getItem('referenceSheet');
-    this.horaOperacion = localStorage.getItem('horaOperacion');
-    this.referenciaSupermovil = localStorage.getItem('referenciaSupermovil');
+    this.horaOperacion = localStorage.getItem('horaEnvio');
+    this.referenceOperation = localStorage.getItem('referenceOperation');
+    this.tipoOperacion = "Cancelación de envío de nómina";
   }
 
 }

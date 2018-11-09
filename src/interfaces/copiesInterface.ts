@@ -8,6 +8,7 @@ export class DatosClass {
   seleccionCuenta: SeleccionCuentaClass;
   terminos : TerminosClass;
   terminos2 : TerminosClass;
+  terminosCancelacion: TerminosClass;
   verifique : VerifiqueClass;
   constructor(){
     this.seleccionCuenta = new SeleccionCuentaClass();

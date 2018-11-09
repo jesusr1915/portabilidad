@@ -6,10 +6,13 @@ import { StepMan } from '../../stepper/stepMan';
 import { VerifiqueClass } from '../../../interfaces/copiesInterface';
 import { MessageMan } from '../../cards/messageMan';
 import { TokenMng } from '../../token/tokenMng';
+import { TermMan } from '../../terms/termMng';
 import { AlertMan , MessageAlert } from '../../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../../spinner-component/spinnerMng';
 import { CardInfo } from '../../card-info/card-info';
+import { SeleccionCuentaClass, TerminosClass } from '../../../interfaces/copiesInterface';
+import { Subscription } from 'rxjs/Subscription';
 
 declare let ga: any;
 declare function userDidTapBackButton(): any;
@@ -38,6 +41,11 @@ export class ValidaComponent implements OnInit {
   tokenSM: string;
   tipoOTP: string;
   date: string;
+  validTerms = false;
+
+  subscription: Subscription;
+
+  terminosText : TerminosClass = new TerminosClass();
 
   cardInfo : CardInfo = new CardInfo(
     localStorage.getItem("cardAlias"),
@@ -53,6 +61,7 @@ export class ValidaComponent implements OnInit {
     private stepMan: StepMan,
     private messageMan: MessageMan,
     private tokenMng: TokenMng,
+    private termsMng: TermMan,
     private zone: NgZone,
     private loginServices: LoginService,
     private alertMan: AlertMan,
@@ -64,20 +73,25 @@ export class ValidaComponent implements OnInit {
     //   componentFn: (succesTkn, tipoOTP, date, errorTkn) => this.receiveTokenFromNative(succesTkn, tipoOTP, date, errorTkn),
     //   component: this
     // };
+    this.subscription = this.termsMng.getMessage()
+    .subscribe(
+      message => {
+        this.onSaveTermChanged(true);
+      }
+    )
   }
 
+
   ngOnInit(){
-
-    this.getBanco()
-
-
+    this.getBanco();
 
     this.copiesServ.postCopies()
     .subscribe(
       res => {
         this.stepMan.sendMessage(2,"Verifique los datos de su cuenta o tarjeta");
         this.copiesVer = res.datos.verifique;
-        this.tipoToken = localStorage.getItem("ttkn");
+        this.terminosText = res.datos.terminosCancelacion;
+
         this.messageMan.sendMessage(this.cardInfo);
         if(this.valueInfo.length === 18){
           this.copiesVer.infoCount = "CLABE Interbancaria";
@@ -98,7 +112,7 @@ export class ValidaComponent implements OnInit {
       this.copieValidacion = "Para continuar debe tener a la mano el teléfono celular que registró con nosotros, terminación **" + localStorage.getItem('phoneOTP') + ". Si usted no cuenta con este número por favor acuda a una sucursal.";
     } else {
       this.hideToken = false;
-      this.copieValidacion = this.copiesVer.inst2LblInit + "<strong class='black'>" + this.copiesVer.inst2LblStrong + "</strong>" +  "<br/>" + this.copiesVer.inst3LblInit + "<strong>" + this.copiesVer.inst3LblStrong + "</strong>"
+      this.copieValidacion = "Esta operación requiere "  + "<strong class='black'>" + "NIP dinámico." + "</strong>" +  "<br/>" + "Para generarlo pulse en "  + "<strong>" + "Confirmar." + "</strong>"
     }
   }
 
@@ -137,6 +151,17 @@ export class ValidaComponent implements OnInit {
     } else {
       this.router.navigate(['/cancelacion/otp']);
     }
+  }
+
+  isInvalid(){
+    if (this.validTerms){
+      return false;
+    }
+    return true;
+  }
+
+  private onSaveTermChanged(value:boolean){
+    this.validTerms = value;
   }
 
   // requestToken() {
