@@ -128,24 +128,37 @@ export class ValidaComponent implements OnInit {
   showToken(){
     if(localStorage.getItem('totalSteps') === "3"){
 
-      // PROCESO DE SOLICITUD DE TOKEN NATIVO
-      try {
-        requestToken()
-        .subscribe(
-          res => {
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('tipoOTP', res.tipoOTP);
-            localStorage.setItem('dateOTP', res.date);
-            this.sendBajaService();
-          },
-          err => {
-            this.tokenMng.sendMessage("true");
-          }
-        )
-      } catch(e){
-        this.tokenMng.sendMessage("true");
-      }
-      // FIN DE PROCESO DE SOLICITUD DE TOKEN NATIVO
+      requestToken()
+      .subscribe(
+        res => {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('tipoOTP', res.tipoOTP);
+          localStorage.setItem('dateOTP', res.date);
+          this.sendBajaService();
+        },
+        err => {
+          this.tokenMng.sendMessage("true");
+        }
+      )
+
+      // // PROCESO DE SOLICITUD DE TOKEN NATIVO
+      // try {
+      //   requestToken()
+      //   .subscribe(
+      //     res => {
+      //       localStorage.setItem('token', res.token);
+      //       localStorage.setItem('tipoOTP', res.tipoOTP);
+      //       localStorage.setItem('dateOTP', res.date);
+      //       this.sendBajaService();
+      //     },
+      //     err => {
+      //       this.tokenMng.sendMessage("true");
+      //     }
+      //   )
+      // } catch(e){
+      //   this.tokenMng.sendMessage("true");
+      // }
+      // // FIN DE PROCESO DE SOLICITUD DE TOKEN NATIVO
 
 
     } else {
