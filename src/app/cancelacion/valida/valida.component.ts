@@ -18,8 +18,8 @@ declare let ga: any;
 declare function userDidTapBackButton(): any;
 declare function validaSesion(): any;
 declare function quitPorta(): any;
-declare function requestToken(): Observable<any>;
-declare function responseToken(): any;
+// declare function requestToken(): Observable<any>;
+// declare function responseToken(): any;
 declare function hideBackButton(): any;
 
 @Component({
