@@ -34,13 +34,13 @@ function requestToken() {
     function(token){
     // function(token,tipoOTP,date){
       mToken = JSON.parse(token)
-      return mToken;
-      // responseToken(mToken.token, mToken.typeOTP, mToken.date,'');
+      // return mToken;
+      responseToken(mToken.token, mToken.typeOTP, mToken.date,'');
     },
     function(mensaje){
       mToken = null;
-      return mToken;
-      // responseToken('', '', '', mensaje);
+      // return mToken;
+      responseToken('', '', '', mensaje);
     }
   );
   if (typeof promise.run !== "undefined") {
