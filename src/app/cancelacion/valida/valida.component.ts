@@ -68,11 +68,11 @@ export class ValidaComponent implements OnInit {
     private router: Router,
     public spinnerMng: SpinnerMan,
   ) {
-    // (window as any).angularComponentRef = {
-    //   zone: this.zone,
-    //   componentFn: (succesTkn, tipoOTP, date, errorTkn) => this.receiveTokenFromNative(succesTkn, tipoOTP, date, errorTkn),
-    //   component: this
-    // };
+    (window as any).angularComponentRef = {
+      zone: this.zone,
+      componentFn: (succesTkn, tipoOTP, date, errorTkn) => this.receiveTokenFromNative(succesTkn, tipoOTP, date, errorTkn),
+      component: this
+    };
     this.subscription = this.termsMng.getMessage()
     .subscribe(
       message => {
@@ -125,46 +125,46 @@ export class ValidaComponent implements OnInit {
     outlet.scrollTop = 0;
   }
 
-  showToken(){
-    if(localStorage.getItem('totalSteps') === "3"){
-
-      requestToken()
-      .subscribe(
-        res => {
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('tipoOTP', res.tipoOTP);
-          localStorage.setItem('dateOTP', res.date);
-          this.sendBajaService();
-        },
-        err => {
-          this.tokenMng.sendMessage("true");
-        }
-      )
-
-      // // PROCESO DE SOLICITUD DE TOKEN NATIVO
-      // try {
-      //   requestToken()
-      //   .subscribe(
-      //     res => {
-      //       localStorage.setItem('token', res.token);
-      //       localStorage.setItem('tipoOTP', res.tipoOTP);
-      //       localStorage.setItem('dateOTP', res.date);
-      //       this.sendBajaService();
-      //     },
-      //     err => {
-      //       this.tokenMng.sendMessage("true");
-      //     }
-      //   )
-      // } catch(e){
-      //   this.tokenMng.sendMessage("true");
-      // }
-      // // FIN DE PROCESO DE SOLICITUD DE TOKEN NATIVO
-
-
-    } else {
-      this.router.navigate(['/cancelacion/otp']);
-    }
-  }
+  // showToken(){
+  //   if(localStorage.getItem('totalSteps') === "3"){
+  //
+  //     requestToken()
+  //     .subscribe(
+  //       res => {
+  //         localStorage.setItem('token', res.token);
+  //         localStorage.setItem('tipoOTP', res.tipoOTP);
+  //         localStorage.setItem('dateOTP', res.date);
+  //         this.sendBajaService();
+  //       },
+  //       err => {
+  //         this.tokenMng.sendMessage("true");
+  //       }
+  //     )
+  //
+  //     // // PROCESO DE SOLICITUD DE TOKEN NATIVO
+  //     // try {
+  //     //   requestToken()
+  //     //   .subscribe(
+  //     //     res => {
+  //     //       localStorage.setItem('token', res.token);
+  //     //       localStorage.setItem('tipoOTP', res.tipoOTP);
+  //     //       localStorage.setItem('dateOTP', res.date);
+  //     //       this.sendBajaService();
+  //     //     },
+  //     //     err => {
+  //     //       this.tokenMng.sendMessage("true");
+  //     //     }
+  //     //   )
+  //     // } catch(e){
+  //     //   this.tokenMng.sendMessage("true");
+  //     // }
+  //     // // FIN DE PROCESO DE SOLICITUD DE TOKEN NATIVO
+  //
+  //
+  //   } else {
+  //     this.router.navigate(['/cancelacion/otp']);
+  //   }
+  // }
 
   isInvalid(){
     if (this.validTerms){
@@ -179,15 +179,16 @@ export class ValidaComponent implements OnInit {
 
   requestToken() {
     // console.log("DEMO", localStorage.getItem('demo') === "1");
-    if(localStorage.getItem('demo')){
-      if(localStorage.getItem('demo') === "1"){
-        this.showToken();
-      } else {
-        (window as any).requestToken();
-      }
-    } else {
-      (window as any).requestToken();
-    }
+    // if(localStorage.getItem('demo')){
+    //   if(localStorage.getItem('demo') === "1"){
+    //     this.showToken();
+    //   } else {
+    //     (window as any).requestToken();
+    //   }
+    // } else {
+    //   (window as any).requestToken();
+    // }
+    (window as any).requestToken();
   }
 
   // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
