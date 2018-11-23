@@ -177,48 +177,53 @@ export class ValidaComponent implements OnInit {
     this.validTerms = value;
   }
 
-  // requestToken() {
-  //   // console.log("DEMO", localStorage.getItem('demo') === "1");
-  //   if(localStorage.getItem('demo')){
-  //     if(localStorage.getItem('demo') === "1"){
-  //       this.showToken();
-  //     } else {
-  //       (window as any).requestToken();
-  //     }
-  //   } else {
-  //     (window as any).requestToken();
-  //   }
-  // }
+  requestToken() {
+    // console.log("DEMO", localStorage.getItem('demo') === "1");
+    if(localStorage.getItem('demo')){
+      if(localStorage.getItem('demo') === "1"){
+        this.showToken();
+      } else {
+        (window as any).requestToken();
+      }
+    } else {
+      (window as any).requestToken();
+    }
+  }
 
   // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
-  // receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
-  //   this.zone.run(() => {
-  //     if(token !== ''){
-  //       this.responseToken(token, tipoOTP, date);
-  //     } else {
-  //       // console.log(message);
-  //       //this.openAlert("", message, "", "", 0);
-  //     }
-  //   });
-  // }
+  receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
+    this.zone.run(() => {
+      if(token !== ''){
+        this.responseToken(token, tipoOTP, date);
+      } else {
+        // console.log(message);
+        //this.openAlert("", message, "", "", 0);
+      }
+    });
+  }
 
   // FUNCION QUE REALIZA LA ASIGNACION DE VALORES DEL TOKEN
-  // responseToken(mToken: string, mTipoOTP: string, mDate: string) {
-  //   this.tokenSM = mToken;
-  //   this.tipoOTP = mTipoOTP;
-  //   this.date = mDate;
-  //
-  //   let tokenTipo = mTipoOTP !== "" ? "SuperToken" : "Token"
-  //
-  //   ga('send', 'event', {
-  //     eventCategory: 'token',
-  //     eventLabel: tokenTipo,
-  //     eventAction: 'tipoToken',
-  //     eventValue: 1
-  //   });
-  //
-  //   this.sendBajaService();
-  // }
+  responseToken(mToken: string, mTipoOTP: string, mDate: string) {
+    this.tokenSM = mToken;
+    this.tipoOTP = mTipoOTP;
+    this.date = mDate;
+
+    localStorage.setItem('token', mToken);
+    localStorage.setItem('tipoOTP', mTipoOTP);
+    localStorage.setItem('dateOTP', mDate);
+
+
+    // let tokenTipo = mTipoOTP !== "" ? "SuperToken" : "Token"
+
+    // ga('send', 'event', {
+    //   eventCategory: 'token',
+    //   eventLabel: tokenTipo,
+    //   eventAction: 'tipoToken',
+    //   eventValue: 1
+    // });
+
+    this.sendBajaService();
+  }
 
   getBanco(){
     this.loginServices.getBancosMock()
