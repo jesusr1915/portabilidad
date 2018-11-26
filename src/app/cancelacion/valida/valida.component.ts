@@ -263,9 +263,9 @@ export class ValidaComponent implements OnInit {
         "tipoSolicitud" : "E",
         "folio": localStorage.getItem("referenceSheet")
       },
-      "fechaHora" : "", // localStorage.getItem('dateOTP');
+      "fechaHora" : localStorage.getItem('dateOTP');
       "operacion" : "PNCA",
-      "tipoOTP" : "", //"CT", // localStorage.getItem('tipoOTP');
+      "tipoOTP" : localStorage.getItem('tipoOTP');
       "token" : localStorage.getItem('token'),
       "idParam": ""
     }
