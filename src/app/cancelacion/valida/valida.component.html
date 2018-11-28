@@ -31,7 +31,7 @@
   <!-- <button  type="button" (click)="showToken()" >{{copiesVer.btnCont}}</button> -->
   <!-- <a id="validaSesion" onclick="validaSesion()"></a> -->
   <!-- <button [disabled]="isInvalid()" type="button" (click)="showToken()">{{copiesVer.btnCont}}</button> -->
-  <button type="button" (click)="requestToken()">{{copiesVer.btnCont}}</button>
+  <button [disabled]="isInvalid()" type="button" (click)="requestToken()">{{copiesVer.btnCont}}</button>
   <!-- <button [hidden]="!hideToken" type="button" (click)="continue()">{{copiesVer.btnCont}}</button> -->
 </div>
 <app-token (saveToken)="sendBajaService()"></app-token>
