@@ -177,19 +177,23 @@ export class ValidaComponent implements OnInit {
     this.validTerms = value;
   }
 
-  requestToken() {
-    // console.log("DEMO", localStorage.getItem('demo') === "1");
-    // if(localStorage.getItem('demo')){
-    //   if(localStorage.getItem('demo') === "1"){
-    //     this.showToken();
-    //   } else {
-    //     (window as any).requestToken();
-    //   }
-    // } else {
-    //   (window as any).requestToken();
-    // }
-    (window as any).requestToken();
+  continue(): void {
+    requestToken()
   }
+
+  // requestToken() {
+  //   // console.log("DEMO", localStorage.getItem('demo') === "1");
+  //   // if(localStorage.getItem('demo')){
+  //   //   if(localStorage.getItem('demo') === "1"){
+  //   //     this.showToken();
+  //   //   } else {
+  //   //     (window as any).requestToken();
+  //   //   }
+  //   // } else {
+  //   //   (window as any).requestToken();
+  //   // }
+  //   (window as any).requestToken();
+  // }
 
   // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
   receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
