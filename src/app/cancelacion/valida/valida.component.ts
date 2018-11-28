@@ -18,7 +18,7 @@ declare let ga: any;
 declare function userDidTapBackButton(): any;
 declare function validaSesion(): any;
 declare function quitPorta(): any;
-// declare function requestToken(): Observable<any>;
+declare function requestToken(): any;
 // declare function responseToken(): any;
 declare function hideBackButton(): any;
 
@@ -263,9 +263,9 @@ export class ValidaComponent implements OnInit {
         "tipoSolicitud" : "E",
         "folio": localStorage.getItem("referenceSheet")
       },
-      "fechaHora" : localStorage.getItem('dateOTP');
+      "fechaHora" : localStorage.getItem('dateOTP'),
       "operacion" : "PNCA",
-      "tipoOTP" : localStorage.getItem('tipoOTP');
+      "tipoOTP" : localStorage.getItem('tipoOTP'),
       "token" : localStorage.getItem('token'),
       "idParam": ""
     }
