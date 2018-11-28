@@ -177,7 +177,7 @@ export class ValidaComponent implements OnInit {
     this.validTerms = value;
   }
 
-  continue(): void {
+  continueToken(): void {
     requestToken()
   }
 
