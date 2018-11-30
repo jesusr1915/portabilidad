@@ -10,6 +10,9 @@ import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 import { InfoCardMan } from '../personal-card/infoCardMng';
 
+declare function validaSesion(): any;
+declare function quitPorta(): any;
+
 @Component({
   selector: 'app-view-consulta',
   templateUrl: './view-consulta.component.html',
@@ -186,7 +189,8 @@ export class ViewConsultaComponent implements OnInit {
                   this.mainService.showAlert({
                     title: "Error",
                     body: res.stokenValidatorResponse.mensaje,
-                    buttonAccept: "Aceptar"
+                    buttonAccept: "Aceptar",
+                    item: {exit: 1}
                   });
                 }
                 // FIN DE IF DE VALIDADOR DE RESPUESTA DE TOKEN
@@ -460,7 +464,11 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   alertAccept(event: any){
-    this.router.navigate(['/cancelacion/valida']);
+    if(event.exit === 1){
+      quitPorta()
+    } else {
+      this.router.navigate(['/cancelacion/valida']);
+    }
   }
   alertCancel(event: any){
     // DO SOMETJING

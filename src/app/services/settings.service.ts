@@ -1,4 +1,4 @@
 export class SettingsService {
-  static ENV_VAR = "pro";
-  static ENV_DOM = "com";
+  static ENV_VAR = "pre";
+  static ENV_DOM = "corp";
 }

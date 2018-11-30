@@ -178,6 +178,7 @@ export class ValidaComponent implements OnInit {
   }
 
   continueToken(): void {
+    console.log("ENTRA A TOKEN");
     requestToken()
   }
 
@@ -197,6 +198,7 @@ export class ValidaComponent implements OnInit {
 
   // FUNCION QUE RECIBE EL TOKEN DESDE LA NATIVA
   receiveTokenFromNative(token: string, tipoOTP: string, date: string, message: string) {
+    console.log("RECEIVE TOKEN");
     this.zone.run(() => {
       if(token !== ''){
         this.responseToken(token, tipoOTP, date);
@@ -209,6 +211,7 @@ export class ValidaComponent implements OnInit {
 
   // FUNCION QUE REALIZA LA ASIGNACION DE VALORES DEL TOKEN
   responseToken(mToken: string, mTipoOTP: string, mDate: string) {
+    console.log("RESPONSE CON TOKEN");
     this.tokenSM = mToken;
     this.tipoOTP = mTipoOTP;
     this.date = mDate;
