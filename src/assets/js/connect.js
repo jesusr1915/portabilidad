@@ -28,28 +28,23 @@ function quitPorta(){
 
 function requestToken() {
   var mToken = null;
-  console.log("PIDE TOKEN");
   var promise = TokenManager.getToken();
   promise.then(
     function(token){
-      console.log("RESPONDE TOKEN " + token);
       mToken = JSON.parse(token)
       responseToken(mToken.token, mToken.typeOTP, mToken.date,'');
     },
     function(mensaje){
-      console.log("RESPONDE ERROR " + mensaje);
       mToken = null;
       responseToken('', '', '', mensaje);
     }
   );
   if (typeof promise.run !== "undefined") {
-    console.log("EJECUTA PROMISE");
     promise.run();
   }
 }
 
 function responseToken(tokenString,tipoOTP,date,message){
-  console.log("RESPONSE TOKEN");
   window.angularComponentRef.componentFn(tokenString, tipoOTP, date, message);
 }
 
