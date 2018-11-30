@@ -283,7 +283,8 @@ export class ViewConsultaComponent implements OnInit {
               this.mainService.showAlert({
                 title: "Portabilidad de nómina",
                 body: "Usted no cuenta con una solicitud de portabilidad de nómina. <br/><br/> La portabilidad de nómina es el derecho que tiene usted de decidir en qué banco desea recibir su sueldo, pensión u otras prestaciones de carácter laboral sin costo. <br/><br/> Para cualquier duda o aclaración comuníquese a SuperLínea, opción 4.",
-                buttonAccept: "Aceptar"
+                buttonAccept: "Aceptar",
+                item: {exit:1}
               });
             }
 
@@ -301,6 +302,7 @@ export class ViewConsultaComponent implements OnInit {
                   title: "Portabilidad de nómina",
                   body: "Por el momento el servicio no está disponible, por favor intenta de nuevo más tarde",
                   buttonAccept: "Aceptar"
+                  item: {exit:1}
                 });
               }
             );
@@ -314,6 +316,7 @@ export class ViewConsultaComponent implements OnInit {
                 title: "Error",
                 body: err.res.message,
                 buttonAccept: "Aceptar"
+                item: {exit:1}
               });
             } else {
               // this.errorService("Error","","","",1); // 1
@@ -321,6 +324,7 @@ export class ViewConsultaComponent implements OnInit {
                 title: "Error",
                 body: "",
                 buttonAccept: "Aceptar"
+                item: {exit:1}
               });
             }
           }
