@@ -464,8 +464,10 @@ export class ViewConsultaComponent implements OnInit {
   }
 
   alertAccept(event: any){
-    if(event.exit === 1){
-      quitPorta()
+    if(event){
+      if(event.exit === 1){
+        quitPorta()
+      }
     } else {
       this.router.navigate(['/cancelacion/valida']);
     }

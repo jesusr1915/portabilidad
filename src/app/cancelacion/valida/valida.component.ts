@@ -125,46 +125,35 @@ export class ValidaComponent implements OnInit {
     outlet.scrollTop = 0;
   }
 
-  // showToken(){
-  //   if(localStorage.getItem('totalSteps') === "3"){
-  //
-  //     requestToken()
-  //     .subscribe(
-  //       res => {
-  //         localStorage.setItem('token', res.token);
-  //         localStorage.setItem('tipoOTP', res.tipoOTP);
-  //         localStorage.setItem('dateOTP', res.date);
-  //         this.sendBajaService();
-  //       },
-  //       err => {
-  //         this.tokenMng.sendMessage("true");
-  //       }
-  //     )
-  //
-  //     // // PROCESO DE SOLICITUD DE TOKEN NATIVO
-  //     // try {
-  //     //   requestToken()
-  //     //   .subscribe(
-  //     //     res => {
-  //     //       localStorage.setItem('token', res.token);
-  //     //       localStorage.setItem('tipoOTP', res.tipoOTP);
-  //     //       localStorage.setItem('dateOTP', res.date);
-  //     //       this.sendBajaService();
-  //     //     },
-  //     //     err => {
-  //     //       this.tokenMng.sendMessage("true");
-  //     //     }
-  //     //   )
-  //     // } catch(e){
-  //     //   this.tokenMng.sendMessage("true");
-  //     // }
-  //     // // FIN DE PROCESO DE SOLICITUD DE TOKEN NATIVO
-  //
-  //
-  //   } else {
-  //     this.router.navigate(['/cancelacion/otp']);
-  //   }
-  // }
+  showToken(){
+    if(localStorage.getItem('totalSteps') === "3"){
+
+      requestToken()
+
+      // // PROCESO DE SOLICITUD DE TOKEN NATIVO
+      // try {
+      //   requestToken()
+      //   .subscribe(
+      //     res => {
+      //       localStorage.setItem('token', res.token);
+      //       localStorage.setItem('tipoOTP', res.tipoOTP);
+      //       localStorage.setItem('dateOTP', res.date);
+      //       this.sendBajaService();
+      //     },
+      //     err => {
+      //       this.tokenMng.sendMessage("true");
+      //     }
+      //   )
+      // } catch(e){
+      //   this.tokenMng.sendMessage("true");
+      // }
+      // // FIN DE PROCESO DE SOLICITUD DE TOKEN NATIVO
+
+
+    } else {
+      this.router.navigate(['/cancelacion/otp']);
+    }
+  }
 
   isInvalid(){
     if (this.validTerms){
