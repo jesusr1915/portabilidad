@@ -201,7 +201,8 @@ export class ViewConsultaComponent implements OnInit {
                 this.mainService.showAlert({
                   title: "Error",
                   body: res.stokenValidatorResponse.mensaje,
-                  buttonAccept: "Aceptar"
+                  buttonAccept: "Aceptar",
+                  item: {exit: 1}
                 });
               }
             );
@@ -301,7 +302,7 @@ export class ViewConsultaComponent implements OnInit {
                 this.mainService.showAlert({
                   title: "Portabilidad de nómina",
                   body: "Por el momento el servicio no está disponible, por favor intenta de nuevo más tarde",
-                  buttonAccept: "Aceptar"
+                  buttonAccept: "Aceptar",
                   item: {exit:1}
                 });
               }
@@ -315,7 +316,7 @@ export class ViewConsultaComponent implements OnInit {
               this.mainService.showAlert({
                 title: "Error",
                 body: err.res.message,
-                buttonAccept: "Aceptar"
+                buttonAccept: "Aceptar",
                 item: {exit:1}
               });
             } else {
@@ -323,7 +324,7 @@ export class ViewConsultaComponent implements OnInit {
               this.mainService.showAlert({
                 title: "Error",
                 body: "",
-                buttonAccept: "Aceptar"
+                buttonAccept: "Aceptar",
                 item: {exit:1}
               });
             }
