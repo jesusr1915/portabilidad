@@ -4,11 +4,13 @@ import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Subscription } from 'rxjs/Subscription';
 import { LoginService } from '../services/loginServices';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
-
+import { PageTrack } from '../decorators/page-track.decorator';
+import { AnalyticsService } from '../services/analytics.service';
+@PageTrack('inscripcion-bienvenida')
 @Component({
   selector: 'app-view-cuenta-bienvenida',
   templateUrl: './view-cuenta-bienvenida.component.html',
-  styleUrls: ['../app.component.scss','./view-cuenta-bienvenida.component.scss']
+  styleUrls: ['../app.component.scss', './view-cuenta-bienvenida.component.scss']
 })
 export class ViewCuentaBienvenidaComponent implements OnInit {
 
@@ -18,7 +20,8 @@ export class ViewCuentaBienvenidaComponent implements OnInit {
     private router: Router,
     private alertMan: AlertMan,
     private loginServices: LoginService,
-    public spinnerMng : SpinnerMan
+    public spinnerMng : SpinnerMan,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -31,6 +34,7 @@ export class ViewCuentaBienvenidaComponent implements OnInit {
   }
 
   finalizar(){
+    this.analyticsService.enviarMetrica('finalizarBienvenida', 1);
     // localStorage.setItem('necesitaPortabilidad', "true"); // SE DESCOMENTA PARA PROBAR EL MENSAJE INICIAR
     if(localStorage.getItem('necesitaPortabilidad') === "true"){
       this.errorService("","Para disfrutar de los beneficios de Santander Plus es indispensable tener su nómina en Santander, en caso de no tenerla debe contar con uno o varios depósitos al mes en su(s) cuenta(s) Santander.<br/><br/>Traiga su nómina a Santander sin costo ingresando desde el menú lateral a <strong>SantaderPlus > Traer la nómina.</strong><br/><br/>Por favor cualquier duda o aclaración comuníquese a la línea de<br/>Santander Plus al <br/>01800 0101123.", "Aceptar", "info", 3);

@@ -310,11 +310,11 @@ export class LoginService{
       return response.json()
       })
       .catch((e: any) => {
-        ga('send', 'event', {
-          eventCategory: 'error',
-          eventAction: 'error',
-          eventValue: 1
-        });
+        // ga('send', 'event', {
+        //   eventCategory: 'error',
+        //   eventAction: 'error',
+        //   eventValue: 1
+        // });
         this.spinnerMng.showSpinner(false);
         return Observable.throw(
           e.json()

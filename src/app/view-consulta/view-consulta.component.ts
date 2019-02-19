@@ -9,10 +9,10 @@ import { MessageMan } from '../cards/messageMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 import { InfoCardMan } from '../personal-card/infoCardMng';
-
+import { PageTrack } from '../decorators/page-track.decorator';
 declare function validaSesion(): any;
 declare function quitPorta(): any;
-
+@PageTrack('portabilidad-consulta')
 @Component({
   selector: 'app-view-consulta',
   templateUrl: './view-consulta.component.html',

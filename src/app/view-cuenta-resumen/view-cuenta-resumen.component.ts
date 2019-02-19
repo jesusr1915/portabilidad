@@ -4,7 +4,8 @@ import { LoginService } from '../services/loginServices';
 import { FormatValue } from '../tools/formatValues';
 import { Router, RouterModule, Routes, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AlertMan , MessageAlert } from '../message-alert/alertMan';
-
+import { PageTrack } from '../decorators/page-track.decorator';
+@PageTrack('inscripcion-resumen')
 @Component({
   selector: 'app-view-cuenta-resumen',
   templateUrl: './view-cuenta-resumen.component.html',

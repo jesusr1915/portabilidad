@@ -1,15 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StepMan } from '../stepper/stepMan';
 import { FormatValue } from '../tools/formatValues';
 import { Router, RouterModule, Routes, ActivatedRoute, NavigationEnd } from '@angular/router';
-
+import { PageTrack } from '../decorators/page-track.decorator';
+import { AnalyticsService } from '../services/analytics.service';
+@PageTrack('portabilidad-resumen')
 @Component({
   selector: 'app-view-alta-status',
   templateUrl: './view-alta-status.component.html',
   styleUrls: ['../app.component.scss','./view-alta-status.component.scss'],
   providers: [FormatValue]
 })
-export class ViewAltaStatusComponent implements OnInit {
+export class ViewAltaStatusComponent implements OnInit, OnDestroy {
 
   @Input() bankWhereWishReceive; // = localStorage.getItem('banco');
   @Input() accountWhereWishReceive = localStorage.getItem("cardNumeroCuenta");
@@ -23,7 +25,8 @@ export class ViewAltaStatusComponent implements OnInit {
   constructor(
     private _stepMan : StepMan,
     private _utils : FormatValue,
-    private router: Router
+    private router: Router,
+    private analyticsService: AnalyticsService
   ) {
     //this.dateOperation = this._utils.formatDate(localStorage.getItem('fechaOperacion'),"-","aammdd");
     this.dateOperation = localStorage.getItem('fechaOperacion');
@@ -38,6 +41,9 @@ export class ViewAltaStatusComponent implements OnInit {
         }
         window.scrollTo(0, 0)
     });
+  }
+  ngOnDestroy(){
+    this.analyticsService.enviarMetrica('portabilidadConfirmada', 1);
   }
 
   ngAfterViewInit(){

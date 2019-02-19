@@ -10,7 +10,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 declare let ga: any;
-
+import { PageTrack } from '../decorators/page-track.decorator';
+import { AnalyticsService } from '../services/analytics.service';
+@PageTrack('portabilidad-confirma')
 @Component({
   selector: 'app-view-alta-verifique',
   templateUrl: './view-alta-verifique.component.html',
@@ -53,6 +55,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     private alertMan: AlertMan,
     private router: Router,
     public spinnerMng: SpinnerMan,
+    private analyticsService: AnalyticsService
   ) {
     (window as any).angularComponentRef = {
       zone: this.zone,
@@ -136,14 +139,8 @@ export class ViewAltaVerifiqueComponent implements OnInit {
     this.tipoOTP = mTipoOTP;
     this.date = mDate;
 
-    let tokenTipo = mTipoOTP !== "" ? "SuperToken" : "Token"
-
-    ga('send', 'event', {
-      eventCategory: 'token',
-      eventLabel: tokenTipo,
-      eventAction: 'tipoToken',
-      eventValue: 1
-    });
+    let tokenTipo = mTipoOTP !== "" ? "SuperToken" : "Token";
+    this.analyticsService.enviarDimension('tipoToken', tokenTipo);
 
     this.sendAltaService();
   }
@@ -184,6 +181,7 @@ export class ViewAltaVerifiqueComponent implements OnInit {
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);
           localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
           this.spinnerMng.showSpinner(false);
+          this.analyticsService.enviarMetrica('portabilidadRealizada', 1);
           this.router.navigate(['/status']);
         }
       },

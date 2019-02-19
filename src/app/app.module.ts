@@ -20,6 +20,7 @@ import { CopiesService } from './services/copiesService';
 import { AppLoadService } from './services/app-load.service';
 import { MessageService } from './services/message.service';
 import { StepperComponent } from './stepper/stepper.component';
+import { AnalyticsService } from './services/analytics.service';
 
 //manager RX
 import { MessageMan } from './cards/messageMan';
@@ -102,6 +103,7 @@ export function get_settings(appLoadService: AppLoadService) {
   ],
   providers: [
     MainService,
+    AnalyticsService,
     LoginService,
     MessageMan,
     CopiesService,

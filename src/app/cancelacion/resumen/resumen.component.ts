@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 
-
+import { PageTrack } from '../../decorators/page-track.decorator';
+@PageTrack('cancelacion-resumen')
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.component.html',
