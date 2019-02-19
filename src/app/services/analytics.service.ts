@@ -9,7 +9,6 @@ export class AnalyticsService {
 
   enter(pageName: string): void {
     if ((typeof dataLayer) !== 'undefined') {
-      console.log(pageName);
       dataLayer.push({
         'event': 'Pageview',
         'nombrePagina': pageName
@@ -26,7 +25,6 @@ export class AnalyticsService {
   enviarMetrica(metrica: any, valor: number): void {
     if ((typeof dataLayer) !== 'undefined') {
       dataLayer.push({ 'event': 'sendMetric', [String(metrica)]: String(valor) });
-      console.log('Metrica Enviada', metrica, valor);
     }
   }
 }
