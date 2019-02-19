@@ -16,11 +16,11 @@ function validaSesion(){
 
 function quitPorta(){
 
-  ga('send', 'event', {
-    eventCategory: 'finalizar',
-    eventAction: 'finalizar',
-    eventValue: 1
-  });
+  // ga('send', 'event', {
+  //   eventCategory: 'finalizar',
+  //   eventAction: 'finalizar',
+  //   eventValue: 1
+  // });
 
   //localStorage.clear();
   Connect.goToRoot();

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { StepMan } from '../stepper/stepMan';
-
+import { PageTrack } from '../decorators/page-track.decorator';
 declare let ga: any;
 
+@PageTrack('portabilidad-consultadetalle')
 @Component({
   selector: 'app-view-detalle-solicitud',
   templateUrl: './view-detalle-solicitud.component.html',
@@ -55,12 +56,12 @@ export class ViewDetalleSolicitudComponent implements OnInit {
       this.rejectionMotive = localStorage.getItem('rejectionMotive')
       this.hiderejectionMotive = false;
       this.ocultar = "no-hidden"
-      ga('send', 'event', {
-        eventCategory: 'motivoRechazo',
-        eventLabel: this.rejectionMotive,
-        eventAction: 'rechazo',
-        eventValue: 1
-      });
+      // ga('send', 'event', {
+      //   eventCategory: 'motivoRechazo',
+      //   eventLabel: this.rejectionMotive,
+      //   eventAction: 'rechazo',
+      //   eventValue: 1
+      // });
     } else {
       this.hiderejectionMotive = true;
       this.ocultar = "hidden"

@@ -4,7 +4,9 @@ import { SpinnerMan } from '../spinner-component/spinnerMng';
 import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/loginServices';
-
+import { PageTrack } from '../decorators/page-track.decorator';
+import { AnalyticsService } from '../services/analytics.service';
+@PageTrack('portabilidad-alta-clienteotp')
 @Component({
   selector: 'app-view-alta-otp',
   templateUrl: './view-alta-otp.component.html',
@@ -27,7 +29,8 @@ export class ViewAltaOtpComponent implements OnInit {
     private stepMan: StepMan,
     private alertMan: AlertMan,
     private router: Router,
-    public spinnerMng : SpinnerMan
+    public spinnerMng : SpinnerMan,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -115,6 +118,8 @@ export class ViewAltaOtpComponent implements OnInit {
           localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);
           localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+          this.analyticsService.enviarDimension('tipoToken', 'OTP');
+          this.analyticsService.enviarMetrica('portabilidadRealizada', 1);
           this.spinnerMng.showSpinner(false);
           this.router.navigate(['/status']);
         } else {

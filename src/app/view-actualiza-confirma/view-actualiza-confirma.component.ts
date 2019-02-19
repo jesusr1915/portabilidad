@@ -8,7 +8,9 @@ import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
-
+import { PageTrack } from '../decorators/page-track.decorator';
+import { AnalyticsService } from '../services/analytics.service';
+@PageTrack('portabilidad-actualiza-confirma')
 @Component({
   selector: 'app-view-actualiza-confirma',
   templateUrl: './view-actualiza-confirma.component.html',
@@ -41,6 +43,7 @@ export class ViewActualizaConfirmaComponent implements OnInit {
     private alertMan: AlertMan,
     private router: Router,
     public spinnerMng: SpinnerMan,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -96,6 +99,7 @@ export class ViewActualizaConfirmaComponent implements OnInit {
           localStorage.setItem('fechaOperacion',res.dto.fechaOperacion);
           localStorage.setItem('horaEnvio',res.dto.horaOperacion);
           localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
+          this.analyticsService.enviarMetrica('modificacionTerminada', 1);
           this.router.navigate(['/fin']);
         } else {
           this.errorService("Error",res.error.message, "Aceptar", "info", 0);

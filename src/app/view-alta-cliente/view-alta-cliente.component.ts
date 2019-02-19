@@ -16,7 +16,9 @@ import { TermMan } from '../terms/termMng';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 declare let ga: any;
-
+import { PageTrack } from '../decorators/page-track.decorator';
+import { AnalyticsService } from '../services/analytics.service';
+@PageTrack('portabilidad-alta-cliente')
 @Component({
   selector: 'app-view-alta-cliente',
   templateUrl: './view-alta-cliente.component.html',
@@ -82,7 +84,8 @@ export class ViewAltaClienteComponent implements OnInit {
     private router: Router,
     private termsMng: TermMan,
     private route: ActivatedRoute,
-    public spinnerMng : SpinnerMan
+    public spinnerMng : SpinnerMan,
+    private analyticsService: AnalyticsService
   ){
     // RECIBE PARAMETROS POR URL CON QUERY
     this.route.queryParams
@@ -419,6 +422,7 @@ export class ViewAltaClienteComponent implements OnInit {
 
   setNewUser(id: any): void {
     this.curUser = this.lUsers.filter(value => value.id === id);
+    this.analyticsService.enviarDimension('bancoOrigen', this.curUser[0].Name);
     if(this.selectedRadio === "debito"){
       if (id !== "0"){
         this.validBank = true;
@@ -438,11 +442,11 @@ export class ViewAltaClienteComponent implements OnInit {
 
   private onSaveTermChanged(value:boolean){
     this.validTerms = value;
-    ga('send', 'event', {
-      eventCategory: 'terminos',
-      eventAction: 'aceptarTerminos',
-      eventValue: 1
-    });
+    // ga('send', 'event', {
+    //   eventCategory: 'terminos',
+    //   eventAction: 'aceptarTerminos',
+    //   eventValue: 1
+    // });
   }
 
   // PARA EL MENSAJE DE ERROR
@@ -478,7 +482,7 @@ export class ViewAltaClienteComponent implements OnInit {
       this.bankDisable = false;
       this.lUsers = this.lBanks;
     }
-
+    this.analyticsService.enviarDimension('altaMetodoTraspaso', this.selectedRadio);
   }
 
   onKey(event: any) { // inputs de tarjeta
@@ -512,7 +516,8 @@ export class ViewAltaClienteComponent implements OnInit {
                 this.validClabe = true;
                 this.validBank = true;
                 this.sendService = false;
-                this.selectBank = idBank
+                this.selectBank = idBank;
+                this.analyticsService.enviarDimension('bancoOrigen', res.dto.bancoCuenta);
               } else {
                 this.validClabe = false;
                 this.validBank = false;
@@ -574,20 +579,18 @@ export class ViewAltaClienteComponent implements OnInit {
 
   onBtnActionClickedV() {
 
-    ga('send', 'event', {
-      eventCategory: 'tipoOrigen',
-      eventLabel: this.tipoCuenta,
-      eventAction: 'seleccion',
-      eventValue: 1
-    });
-    ga('send', 'event', {
-      eventCategory: 'bancoOrigen',
-      eventLabel: this.curUser[0].Name,
-      eventAction: 'seleccion',
-      eventValue: 1
-    });
-
-
+    // ga('send', 'event', {
+    //   eventCategory: 'tipoOrigen',
+    //   eventLabel: this.tipoCuenta,
+    //   eventAction: 'seleccion',
+    //   eventValue: 1
+    // });
+    // ga('send', 'event', {
+    //   eventCategory: 'bancoOrigen',
+    //   eventLabel: this.curUser[0].Name,
+    //   eventAction: 'seleccion',
+    //   eventValue: 1
+    // });
     localStorage.setItem('tarjet',this.tarjetValue);
     localStorage.setItem('idBanco',this.curUser[0].id);
     localStorage.setItem('banco',this.curUser[0].Name);

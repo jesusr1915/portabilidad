@@ -7,7 +7,9 @@ import { TokenMng } from '../token/tokenMng';
 import { AlertMan , MessageAlert } from '../message-alert/alertMan';
 import { Router, NavigationEnd } from '@angular/router';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
-
+import { PageTrack } from '../decorators/page-track.decorator';
+import { AnalyticsService } from '../services/analytics.service';
+@PageTrack('inscripcion-confirma')
 @Component({
   selector: 'app-view-cuenta-seleccionada',
   templateUrl: './view-cuenta-seleccionada.component.html',
@@ -35,7 +37,8 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
     private loginServices: LoginService,
     private alertMan: AlertMan,
     private router: Router,
-    public spinnerMng : SpinnerMan
+    public spinnerMng: SpinnerMan,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -79,8 +82,10 @@ export class ViewCuentaSeleccionadaComponent implements OnInit {
             localStorage.setItem('referenciaOperacion',res.dto.referenciaOperacion);
             localStorage.setItem('necesitaPortabilidad', res.dto.necesitaPortabilidad.toString());
             this.router.navigate(['/resumen']);
+            this.analyticsService.enviarMetrica('inscripcionFinalizada', 1);
             this.spinnerMng.showSpinner(false); // CIERRA LOADER
           } else {
+            this.analyticsService.enviarDimension('errorInscripcion', res.error.clave);
             this.errorService("Error",res.error.message, "Aceptar", "info", 0);
             this.spinnerMng.showSpinner(false); // CIERRA LOADER
           }

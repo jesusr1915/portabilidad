@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TerminosClass} from 'interfaces/copiesInterface';
 import { TermMan } from '../terms/termMng';
+import { AnalyticsService } from '../services/analytics.service';
 
 declare let ga: any;
 
@@ -15,7 +16,8 @@ export class TermsComponent implements OnInit {
   terminosText : TerminosClass = new TerminosClass();
 
   constructor(
-    private termsMng: TermMan
+    private termsMng: TermMan,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -25,12 +27,13 @@ export class TermsComponent implements OnInit {
     this.terminosText = message;
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
+    this.analyticsService.enviarMetrica('viewTerminosInscripcion', 1);
 
-    ga('send', 'event', {
-      eventCategory: 'terminosModal',
-      eventAction: 'visualizar',
-      eventValue: 1
-    });
+    // ga('send', 'event', {
+    //   eventCategory: 'terminosModal',
+    //   eventAction: 'visualizar',
+    //   eventValue: 1
+    // });
 
   }
 

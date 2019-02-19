@@ -14,6 +14,8 @@ import { Subscription } from 'rxjs/Subscription';
 import {TermMan} from '../terms/termMng';
 
 import { SpinnerMan } from '../spinner-component/spinnerMng';
+import { PageTrack } from '../decorators/page-track.decorator';
+@PageTrack('inscripcion')
 @Component({
   selector: 'app-view-cuenta-inscripcion',
   templateUrl: './view-cuenta-inscripcion.component.html',

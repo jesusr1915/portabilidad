@@ -21,7 +21,9 @@ declare function quitPorta(): any;
 declare function requestToken(): any;
 // declare function responseToken(): any;
 declare function hideBackButton(): any;
-
+import { AnalyticsService } from '../../services/analytics.service';
+import { PageTrack } from '../../decorators/page-track.decorator';
+@PageTrack('cancelacion-confirma')
 @Component({
   selector: 'app-valida',
   templateUrl: './valida.component.html',
@@ -67,6 +69,7 @@ export class ValidaComponent implements OnInit {
     private alertMan: AlertMan,
     private router: Router,
     public spinnerMng: SpinnerMan,
+    private analyticsService: AnalyticsService
   ) {
     (window as any).angularComponentRef = {
       zone: this.zone,
@@ -126,6 +129,7 @@ export class ValidaComponent implements OnInit {
   }
 
   showToken(){
+    // this.analyticsService.
     if(localStorage.getItem('totalSteps') === "3"){
 
       requestToken()
@@ -267,6 +271,8 @@ export class ValidaComponent implements OnInit {
     .subscribe(
       res => {
         if(res.error.clave === "OK"){
+          this.analyticsService.enviarDimension('CancelacionFinalizada', 1);
+          this.analyticsService.enviarMetrica('CancelacionFinalizada', 1);
           localStorage.setItem('folio',res.dto.folio);
           localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);

@@ -6,7 +6,9 @@ import { Router, RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/loginServices';
 import { MainService } from '../../services/main.service';
 
-
+import { PageTrack } from '../../decorators/page-track.decorator';
+import { AnalyticsService } from '../../services/analytics.service';
+@PageTrack('cancelacion-otp')
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.component.html',
@@ -29,7 +31,8 @@ export class OtpComponent  implements OnInit {
     private alertMan: AlertMan,
     private router: Router,
     private mainService: MainService,
-    public spinnerMng : SpinnerMan
+    public spinnerMng : SpinnerMan,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -146,6 +149,8 @@ export class OtpComponent  implements OnInit {
     .subscribe(
       res => {
         if(res.error.clave === "OK"){
+          this.analyticsService.enviarDimension('CancelacionFinalizada', 1);
+          this.analyticsService.enviarMetrica('CancelacionFinalizada', 1);
           localStorage.setItem('folio',res.dto.folio);
           localStorage.setItem('fechaOperacion',res.dto.fechaEnvio);
           localStorage.setItem('horaEnvio',res.dto.horaEnvio);

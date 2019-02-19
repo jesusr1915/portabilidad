@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { MainService } from '../services/main.service';
+import { AnalyticsService } from '../services/analytics.service';
 
 @Component({
   selector: 'app-moves',
@@ -37,7 +38,8 @@ export class MovesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private mainService: MainService
+    private mainService: MainService,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -95,6 +97,7 @@ export class MovesComponent implements OnInit {
 
   cancelaPorta(item: any){
     this.setValues();
+    this.analyticsService.enviarMetrica('btnCancelarEnvio', 1);
     this.mainService.showAlert({
       title: "Cancelación de envío de nómina",
       body: "Está a punto de cancelar el envío de nómina que había solicitado.<br/><br/>Banco Santander realizará, sin costo, el regreso de su nómina a la cuenta que usted elija.",

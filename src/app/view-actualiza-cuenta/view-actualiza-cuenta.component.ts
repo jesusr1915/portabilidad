@@ -14,7 +14,8 @@ import { Subscription } from 'rxjs/Subscription';
 import {TermMan} from '../terms/termMng';
 
 import { SpinnerMan } from '../spinner-component/spinnerMng';
-
+import { PageTrack } from '../decorators/page-track.decorator';
+@PageTrack('portabilidad-actualiza-cuenta')
 @Component({
   selector: 'app-view-actualiza-cuenta',
   templateUrl: './view-actualiza-cuenta.component.html',
@@ -100,8 +101,8 @@ export class ViewActualizaCuentaComponent implements OnInit {
         // this.startServices();
       },
       err => {
-        localStorage.setItem('env', 'pro');
-        localStorage.setItem('dom', 'com');
+        localStorage.setItem('env', 'pre');
+        localStorage.setItem('dom', 'corp');
         // this.startServices();
       }
     )
