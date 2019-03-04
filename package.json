@@ -1,6 +1,6 @@
 {
   "name": "front-gopay",
-  "version": "1.0.13-SNAPSHOT",
+  "version": "1.0.13",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
