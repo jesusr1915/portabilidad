@@ -15,6 +15,7 @@ import {TermMan} from '../terms/termMng';
 
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 import { PageTrack } from '../decorators/page-track.decorator';
+declare function getSSO(): any;
 @PageTrack('inscripcion')
 @Component({
   selector: 'app-view-cuenta-inscripcion',
