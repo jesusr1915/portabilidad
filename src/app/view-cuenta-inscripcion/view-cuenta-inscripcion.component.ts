@@ -79,7 +79,27 @@ export class ViewCuentaInscripcionComponent implements OnInit {
       public spinnerMng : SpinnerMan
     ){
       // RECIBE PARAMETROS POR URL CON QUERY
-      this.route.queryParams
+      const token = this.route.snapshot.paramMap.get('token');
+      this.tokenUrl = token ? token : getSSO();
+      if(this.tokenUrl) {
+        localStorage.setItem('backButton', "true");
+        if (localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+          if(localStorage.getItem('backButton') !== "true"){
+            this.reloadData();
+          } else {
+            // PARA RECUPERAR LOS DATOS DE LA PANTALLA
+            localStorage.setItem('fillData','true');
+            localStorage.removeItem('backButton');
+          }
+        } else {
+          this.reloadData();
+        }
+
+        if(this.tokenUrl !== ""){
+          localStorage.setItem('tokenUrl', this.tokenUrl);
+        }
+      }
+      /* this.route.queryParams
       .subscribe(params => {
         // SE LEE EL TOKEN DE LA URL
         this.tokenUrl = params.token
@@ -101,7 +121,7 @@ export class ViewCuentaInscripcionComponent implements OnInit {
         if(this.tokenUrl !== ""){
           localStorage.setItem('tokenUrl', this.tokenUrl);
         }
-      });
+      }); */
 
       this.subscription = this.termsMng.getMessage()
       .subscribe(

@@ -15,6 +15,7 @@ import {TermMan} from '../terms/termMng';
 
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 import { PageTrack } from '../decorators/page-track.decorator';
+declare function getSSO(): any;
 @PageTrack('portabilidad-actualiza-cuenta')
 @Component({
   selector: 'app-view-actualiza-cuenta',
@@ -50,12 +51,12 @@ export class ViewActualizaCuentaComponent implements OnInit {
     public spinnerMng : SpinnerMan
   ) {
     // RECIBE PARAMETROS POR URL CON QUERY
-    this.route.queryParams
-    .subscribe(params => {
-      this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
-      if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+    const token = this.route.snapshot.paramMap.get('token');
+    this.tokenUrl = token ? token : getSSO();
+    if(this.tokenUrl) {
+      localStorage.setItem('backButton', "true");
+      if (localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
         } else {
@@ -66,7 +67,24 @@ export class ViewActualizaCuentaComponent implements OnInit {
       } else {
         this.reloadData();
       }
-    });
+    }
+    // this.route.queryParams
+    // .subscribe(params => {
+    //   this.tokenUrl = params.token
+
+    //   // localStorage.setItem('backButton', "true");
+    //   if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+    //     if(localStorage.getItem('backButton') !== "true"){
+    //       this.reloadData();
+    //     } else {
+    //       // PARA RECUPERAR LOS DATOS DE LA PANTALLA
+    //       localStorage.setItem('fillData','true');
+    //       localStorage.removeItem('backButton');
+    //     }
+    //   } else {
+    //     this.reloadData();
+    //   }
+    // });
 
     this.subscriptionM = this.alertMan.getMessage()
     .subscribe(

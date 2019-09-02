@@ -16,6 +16,7 @@ import { TermMan } from '../terms/termMng';
 import { SpinnerMan } from '../spinner-component/spinnerMng';
 
 declare let ga: any;
+declare function getSSO(): any;
 import { PageTrack } from '../decorators/page-track.decorator';
 import { AnalyticsService } from '../services/analytics.service';
 @PageTrack('portabilidad-alta-cliente')
@@ -88,13 +89,16 @@ export class ViewAltaClienteComponent implements OnInit {
     private analyticsService: AnalyticsService
   ){
     // RECIBE PARAMETROS POR URL CON QUERY
-    this.route.queryParams
-    .subscribe(params => {
-      this.tokenUrl = params.token
-      if(params.demo){
-        localStorage.setItem('demo', params.demo);
-      }
-    });
+    const token = this.route.snapshot.paramMap.get('token');
+    this.tokenUrl = token ? token : getSSO();
+
+    // this.route.queryParams
+    // .subscribe(params => {
+    //   this.tokenUrl = params.token
+    //   if (params.demo){
+    //     localStorage.setItem('demo', params.demo);
+    //   }
+    // });
 
     // localStorage.setItem('backButton', "true");
     if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){

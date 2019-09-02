@@ -14,6 +14,17 @@ function validaSesion(){
   Connect.validaSesion();
 }
 
+function getSSO(){
+  if (Connect) {
+    try {
+      return Connect.getSSOToken();
+    } catch (error) {
+      // console.log(error);
+    }
+  }
+  return null;
+}
+
 function quitPorta(){
 
   // ga('send', 'event', {

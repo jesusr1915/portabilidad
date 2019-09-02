@@ -12,6 +12,7 @@ import { InfoCardMan } from '../personal-card/infoCardMng';
 import { PageTrack } from '../decorators/page-track.decorator';
 declare function validaSesion(): any;
 declare function quitPorta(): any;
+declare function getSSO(): any;
 @PageTrack('portabilidad-consulta')
 @Component({
   selector: 'app-view-consulta',
@@ -47,21 +48,38 @@ export class ViewConsultaComponent implements OnInit {
     public spinnerMng: SpinnerMan
   ) {
     // RECIBE PARAMETROS POR URL CON QUERY
-    this.route.queryParams
-    .subscribe(params => {
-      this.tokenUrl = params.token
 
-      // localStorage.setItem('backButton', "true");
-      if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+    const token = this.route.snapshot.paramMap.get('token');
+    this.tokenUrl = token ? token : getSSO();
+    if(this.tokenUrl) {
+      localStorage.setItem('backButton', "true");
+      if (localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
         if(localStorage.getItem('backButton') !== "true"){
           this.reloadData();
         } else {
+          // PARA RECUPERAR LOS DATOS DE LA PANTALLA
+          localStorage.setItem('fillData','true');
           localStorage.removeItem('backButton');
         }
       } else {
         this.reloadData();
       }
-    });
+    }
+    // this.route.queryParams
+    // .subscribe(params => {
+    //   this.tokenUrl = params.token
+
+    //   // localStorage.setItem('backButton', "true");
+    //   if(localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){
+    //     if(localStorage.getItem('backButton') !== "true"){
+    //       this.reloadData();
+    //     } else {
+    //       localStorage.removeItem('backButton');
+    //     }
+    //   } else {
+    //     this.reloadData();
+    //   }
+    // });
   }
 
   ngOnInit() {
