@@ -14,15 +14,16 @@ function validaSesion(){
   Connect.validaSesion();
 }
 
-function getSSO(){
-  if (Connect) {
+function getSSO() {
+  if (typeof Connect !== "undefined") {
     try {
       return Connect.getSSOToken();
-    } catch (error) {
-      // console.log(error);
+    } catch(err) {
+      return null;
     }
+  } else {
+    return null;
   }
-  return null;
 }
 
 function quitPorta(){

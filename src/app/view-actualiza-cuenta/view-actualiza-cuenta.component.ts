@@ -52,8 +52,9 @@ export class ViewActualizaCuentaComponent implements OnInit {
   ) {
     // RECIBE PARAMETROS POR URL CON QUERY
 
-    const token = this.route.snapshot.paramMap.get('token');
-    this.tokenUrl = token ? token : getSSO();
+    let tokenSSO = null;
+    try { tokenSSO = getSSO(); } catch (err) { }
+    this.tokenUrl = tokenSSO ? decodeURIComponent(tokenSSO) : this.route.snapshot.queryParamMap.get('token');
     if(this.tokenUrl) {
       localStorage.setItem('backButton', "true");
       if (localStorage.getItem('backButton') !== undefined && localStorage.getItem('backButton') !== null){

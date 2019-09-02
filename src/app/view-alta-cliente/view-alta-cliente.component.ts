@@ -89,8 +89,9 @@ export class ViewAltaClienteComponent implements OnInit {
     private analyticsService: AnalyticsService
   ){
     // RECIBE PARAMETROS POR URL CON QUERY
-    const token = this.route.snapshot.paramMap.get('token');
-    this.tokenUrl = token ? token : getSSO();
+    let tokenSSO = null;
+    try { tokenSSO = getSSO(); } catch (err) { }
+    this.tokenUrl = tokenSSO ? decodeURIComponent(tokenSSO) : this.route.snapshot.queryParamMap.get('token');
 
     // this.route.queryParams
     // .subscribe(params => {
